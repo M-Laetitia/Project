@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+    <h1>Welcome to your profile : {{ user }}  </h1>
+
+    <p>Username: {{ user}} </p><a href="">Edit</a>
+
+    <p>Mail: {{ user.email }}</p><a href="">Edit</a>
+
+    <p>Registration date: {{ user.email }}</p>
+
+    <p>Member since</p>
+
+    
+    <div id="avatar">
+        <div id="avatar-profil">
+            {% if user.avatar %}
+                <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
+            {% else %}
+                <img src="{{ asset('images/default_profile.jpg') }}">
+            {% endif %}
+        </div>
+        
+        <div id="form">
+            {{ form_start(form) }}
+            {{ form_row(form.avatar) }} 
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+
+    <div>
+        <a href=" {{ path('app_logout') }}">logout</a> - 
+        <a href="">delete account</a> - 
+        <a href="">change password</a>
+    </div>
+
+
+{% endblock %}

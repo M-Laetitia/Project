@@ -3,14 +3,42 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
         {% block stylesheets %}
+        <link rel="stylesheet" href="{{asset('css/general.css')}}">
         {% endblock %}
 
         {% block javascripts %}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <nav>
+            {% if app.user %}
+                <a href="{{ path('show_user', {'id': app.user.id }) }}">profil</a>
+            {% else %}
+                <a href=" {{ path('app_register') }}">register</a>
+                <a href="{{ path('app_login') }}">login</a>
+            {% endif %}
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="#">dashboard(admin)</a>
+            {% endif %}
+        </nav>
+
+        
+        <div class="content">
+            {% block body %}
+            {% endblock %}
+
+        </div>
+
+        <footer>
+            <a href="#">Terms of Use</a>
+            <a href="#">Privacy Policy</a>
+        </footer>
     </body>
 </html>

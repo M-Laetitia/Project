@@ -6,3 +6,56 @@
 //     margin-top: 3rem;
 // }
 
+a {
+    text-decoration: none;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 4rem;
+    width: 100%;
+    background-color: rgb(32, 32, 32);
+    a {
+        color:white;
+
+        &:hover {
+            color: rgb(37, 149, 177);
+        }
+    }
+}
+
+nav {
+    position: absolute;
+    padding: 1.3rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    background-color: rgb(32, 32, 32);
+    a {
+        color:white;
+
+        &:hover {
+            color: rgb(37, 149, 177);
+        }
+    }
+}
+
+body {
+    // margin-top: 5rem;
+    // background-color: red;
+    display: flex;
+    margin: 0;
+}
+
+.content {
+    margin-top: 6rem;
+}
+
+#avatar-profil {
+    width: 80px;
+    height: 80px;
+
+    img {
+        width: 100%;
+    }
+}

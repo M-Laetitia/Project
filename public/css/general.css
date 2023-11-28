@@ -1,3 +1,50 @@
+a {
+  text-decoration: none;
+}
 
+footer {
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 4rem;
+  width: 100%;
+  background-color: rgb(32, 32, 32);
+}
+footer a {
+  color: white;
+}
+footer a:hover {
+  color: rgb(37, 149, 177);
+}
+
+nav {
+  position: absolute;
+  padding: 1.3rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  background-color: rgb(32, 32, 32);
+}
+nav a {
+  color: white;
+}
+nav a:hover {
+  color: rgb(37, 149, 177);
+}
+
+body {
+  display: flex;
+  margin: 0;
+}
+
+.content {
+  margin-top: 6rem;
+}
+
+#avatar-profil {
+  width: 80px;
+  height: 80px;
+}
+#avatar-profil img {
+  width: 100%;
+}
 
 /*# sourceMappingURL=general.css.map */

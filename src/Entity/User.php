@@ -42,12 +42,47 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE , nullable: true)]
     private ?\DateTimeInterface $registrationDate = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastLoginDate = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastProfilEditDate = null;
+
     
     #[ORM\PrePersist]
-    public function persistRegistrationDate() : void
+    public function addRegistrationDate() : void
     {
         $this->registrationDate = new \DateTimeImmutable();
     }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->lastProfilEditDate = new \DateTime();
+
+    }
+
+     /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->lastProfilEditDate = new \DateTime();
+   
+    }
+
+
+    /**
+     * 
+     */
+    public function updateLastLogin()
+    {
+        $this->lastLoginDate = new \DateTime();
+    }
+
 
 
     public function getId(): ?int
@@ -168,6 +203,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         
         return $this;
     }
+
+   
+
+    public function getLastLoginDate(): ?\DateTimeInterface
+    {
+        return $this->lastLoginDate;
+    }
+
+    public function setLastLoginDate(?\DateTimeInterface $lastLoginDate): static
+    {
+        $this->lastLoginDate = $lastLoginDate;
+
+        return $this;
+    }
+
+    public function getLastProfilEditDate(): ?\DateTimeInterface
+    {
+        return $this->lastProfilEditDate;
+    }
+
+    public function setLastProfilEditDate(?\DateTimeInterface $lastProfilEditDate): static
+    {
+        $this->lastProfilEditDate = $lastProfilEditDate;
+
+        return $this;
+    }
+
+
 
     public function __toString() {
         return $this->username;

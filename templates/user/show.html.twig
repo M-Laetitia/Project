@@ -6,14 +6,16 @@
 
     <h1>Welcome to your profile : {{ user }}  </h1>
 
-    <p>Username: {{ user}} </p><a href="">Edit</a>
+    <p>Username: {{ user}} </p>
 
-    <p>Mail: {{ user.email }}</p><a href="">Edit</a>
+    <p>Mail: {{ user.email }}</p>
 
-    <p>Registration date: {{ user.email }}</p>
+    <p>Registration date: </p>
 
+    
     <p>Member since</p>
-
+    
+    <p><a href="{{ path('edit_user', {'id': app.user.id }) }}">EDIT info</a></p>
     
     <div id="avatar">
         <div id="avatar-profil">
@@ -36,8 +38,10 @@
     <div>
         <a href=" {{ path('app_logout') }}">logout</a> - 
         <a href="">delete account</a> - 
-        <a href="">change password</a>
+        <a href=" {{ path('app_reset_password') }}">change password</a>
     </div>
+
+
 
 
 {% endblock %}

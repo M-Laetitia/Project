@@ -41,11 +41,9 @@ class CleanExpiredPasswordResetRequestsCommand extends Command
         //get the current date
         $currentDate = new \DateTime();
 
+        // $expirationDate = $currentDate->modify('+3 days');
 
-        // add the logic in order to "clean" the expiredRequests
         $expiredRequests = $this->resetPasswordRequestRepository->findExpiredRequests();
-
-        
         foreach ($expiredRequests as $expiredRequest) {
             // Compare  dates
             if ($expiredRequest->getExpiresAt() <= $currentDate) {

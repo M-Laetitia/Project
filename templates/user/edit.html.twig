@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit profile{% endblock %}
+
+{% block body %}
+
+    
+{{ form_start(formEditUser) }}
+
+        
+    <div>
+        <div>{{ form_row(formEditUser.username) }}</div>
+        <div> {{ form_row(formEditUser.email) }}</div>
+    </div>
+
+
+    {# {{ form_row(formEditUser.avatar) }} #}
+
+
+    {{ form_row(formEditUser.Validate) }}
+
+{{ form_end(formEditUser) }}
+
+
+	<h2>Change  password</h2>
+	{{ form_start(ChangePasswordType) }}
+        {{ form_row(ChangePasswordType.oldPassword) }}
+        {{ form_row(ChangePasswordType.newPassword) }}
+        {{ form_row(ChangePasswordType.submit) }}
+	{{ form_end(ChangePasswordType) }} 
+ 
+
+
+{% endblock %}

@@ -6,14 +6,17 @@
 
     <h1>Welcome to your profile : {{ user }}  </h1>
 
+   
+
     <p>Username: {{ user}} </p>
 
     <p>Mail: {{ user.email }}</p>
 
-    <p>Registration date: </p>
+    <p>Registration date: {{ user.registrationDate|date("d.m.Y") }}</p>
 
-    
-    <p>Member since</p>
+    <p>Member since: {{ user.durationSinceRegistration}} </p>
+
+    <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
     
     <p><a href="{{ path('edit_user', {'id': app.user.id }) }}">EDIT info</a></p>
     
@@ -38,7 +41,9 @@
     <div>
         <a href=" {{ path('app_logout') }}">logout</a> - 
         <a href="">delete account</a> - 
-        <a href=" {{ path('app_reset_password') }}">change password</a>
+        <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}">change password</a>
+
+
     </div>
 
 

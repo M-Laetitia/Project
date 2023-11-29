@@ -30,4 +30,21 @@ class ResetPasswordRequestRepository extends ServiceEntityRepository implements 
     {
         return new ResetPasswordRequest($user, $expiresAt, $selector, $hashedToken);
     }
+
+    public function findExpiredRequests(?ResetPasswordRequest $ResetPasswordRequest = null)
+    {
+
+        $em = $this->getEntityManager();
+        $qb= $em->createQueryBuilder();
+
+
+        $now = new \DateTime();
+        $qb ->select('rpr')
+            ->from('App\Entity\ResetPasswordRequest', 'rpr')
+            ->where('rpr.expiresAt <= :val')
+            ->setParameter('val', $now);
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
 }

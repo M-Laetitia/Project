@@ -17,6 +17,10 @@
 
         <nav>
             <a href="{{ path('app_home') }}">HOME</a>
+
+            <a href="{{ path('app_artist') }}">ARTISTS</a>
+
+
             {% if app.user %}
                 <a href="{{ path('show_user', {'id': app.user.id }) }}">profil</a>
             {% else %}

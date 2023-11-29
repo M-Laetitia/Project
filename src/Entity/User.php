@@ -131,6 +131,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getSimpleRoles(): array
+    {
+        // fonction utiliser pour filtrer les éléments du tableau. Elle prend deux arguments : le tableau à filtrer ($this->getRoles() dans ce cas) et une fonction de rappel qui définit la condition de filtrage.
+        $filteredRoles = array_filter($this->getRoles(), function ($roles) {
+            // retourne true pour conserver un rôle et false pour l'exclure. Dans ce cas, on exclut le rôle "ROLE_USER".
+            return $roles !== 'ROLE_USER';
+        });
+
+        // applique une fonction donnée à chaque élément d'un tableau et retourne un nouveau tableau avec les résultats.
+        $simpleRoles = array_map(function ($roles) {
+
+            // utilisée pour formater chaque rôle restant. Elle convertit d'abord le rôle en minuscules (strtolower), puis retire le préfixe "ROLE_" et remplace les underscores par des espaces.
+            
+            return strtolower(str_replace(['ROLE_', '_'], ['', ' '], $roles));
+        }, $filteredRoles);
+
+        return $simpleRoles;
+    }
+
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -145,6 +165,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+
+    // private $oldPassword;
+
+    // // Propriété pour stocker le nouveau mot de passe
+    // private $newPassword;
+
+    // // Méthode pour obtenir l'ancien mot de passe
+    // public function getOldPassword(): ?string
+    // {
+    //     return $this->oldPassword;
+    // }
+
+    // // Méthode pour définir l'ancien mot de passe
+    // public function setOldPassword(string $oldPassword): self
+    // {
+    //     $this->oldPassword = $oldPassword;
+    //     return $this;
+    // }
+
+    // // Méthode pour obtenir le nouveau mot de passe
+    // public function getNewPassword(): ?string
+    // {
+    //     return $this->newPassword;
+    // }
+
+    // // Méthode pour définir le nouveau mot de passe
+    // public function setNewPassword(string $newPassword): self
+    // {
+    //     $this->newPassword = $newPassword;
+    //     return $this;
+    // }
+
+
+
+
+
 
     /**
      * @see UserInterface
@@ -202,6 +260,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->registrationDate = $registrationDate;
         
         return $this;
+    }
+
+
+    public function getDurationSinceRegistration() {
+        $registrationDate2 = $this->registrationDate;
+        $currentDate = new \DateTime();
+        $interval = $currentDate->diff($registrationDate2);
+
+        $years = $interval->y;
+        $months = $interval->m;
+        $days = $interval->d;
+
+        $duration ="";
+
+        if ($years > 0) {
+            $duration .= $years . " year" . ($years > 1 ? "s" : "");
+        }
+    
+        if ($months > 0) {
+            if ($years > 0) {
+                $duration .= ", ";
+            }
+            $duration .= $months . " month" . ($months > 1 ? "s" : "");
+        }
+    
+        if ($days > 0) {
+            if ($years > 0 || $months > 0) {
+                $duration .= ", ";
+            }
+            $duration .= $days . " day" . ($days > 1 ? "s" : "");
+        }
+    
+        return $duration;
     }
 
    

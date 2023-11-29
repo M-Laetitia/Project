@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\DTO\ChangePasswordModel;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -19,6 +20,7 @@ class ChangePasswordType extends AbstractType
     {
         $builder
         ->add('oldPassword', PasswordType::class, [
+            
             'label' => 'Current Password',
             'constraints' => new UserPassword([
                 'message' => 'The current password is incorrect.',
@@ -53,7 +55,7 @@ class ChangePasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => ChangePasswordModel::class,
         ]);
     }
 }

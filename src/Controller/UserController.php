@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\AvatarType;
 use App\Form\UserEditType;
+use App\DTO\ChangePasswordModel;
 use App\Form\ChangePasswordType;
 use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,10 +50,10 @@ class UserController extends AbstractController
                 $oldAvatar = $user->getAvatar();
                 if ($oldAvatar) {
                     $oldAvatarPath = $this->getParameter('avatars_directory').'/'.$oldAvatar;
+                    $newPath = $this->getParameter('oldPictures_directory').'/'.$oldAvatar;
+
                     if (file_exists($oldAvatarPath)) {
-                        $user->setAvatar(null);
-                        $entityManager->persist($user);
-                        $entityManager->flush();
+                        rename($oldAvatarPath, $newPath);
                     }
                 }
 
@@ -72,7 +73,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
         }
 
-
+        // dd($user);
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
@@ -132,37 +133,48 @@ class UserController extends AbstractController
         }
 
 
-        $form2 = $this->createForm(ChangePasswordType::class);
-        $form2->handleRequest($request);
-
-        if ($form2->isSubmitted() && $form2->isValid()) {
-            // Hasher le nouveau mot de passe et l'assigner à l'utilisateur
-            $hashedPassword = $passwordHasher->hashPassword(
-                $user,
-                $form->get('plainPassword')->getData() 
-            );
-            $user->setPassword($hashedPassword);
-
-            // Utiliser l'EntityManagerInterface injecté pour persister les changements
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // Rediriger vers la page de profil et afficher un message de succès
-            $this->addFlash('success', 'Your password has been changed.');
-            return $this->redirectToRoute('app_profile');
-        }
-        
-
-        
-
         return $this->render('user/edit.html.twig', [
             'formEditUser' => $form,
-            'ChangePasswordType' => $form2,
-            // 'passwordForm' => $passwordForm,
             'edit' => $user->getId(),
            
         ]);
 
+    }
+
+    #[Route('/user/{id}/editPassword', name: 'editPassword_user')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
+    {
+        // check that the user is logged in
+        $user = $this->getUser();
+        if (!$user instanceof User) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        // Create and instand of DTO (Data Transfer Object) to handle the password modification
+        $changePasswordModel = new ChangePasswordModel();
+
+       
+        $form = $this->createForm(ChangePasswordType::class, $changePasswordModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $hashedPassword = $passwordHasher->hashPassword(
+                $user,
+                $changePasswordModel->getNewPassword() // use DTO
+            );
+            $user->setPassword($hashedPassword);
+
+            // persist and flush the new data (password) in user
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Your password has been changed.');
+            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
+        }
+        return $this->render('user/editPassword.html.twig', [
+            'changePasswordForm' => $form->createView(),
+        ]);
     }
 
     

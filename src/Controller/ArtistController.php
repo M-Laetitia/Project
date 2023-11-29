@@ -15,4 +15,15 @@ class ArtistController extends AbstractController
             'controller_name' => 'ArtistController',
         ]);
     }
+
+
+    #[Route('/artist/{id}', name: 'show_artist')]
+    public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
+    $user = $security->getUser();
+
+        return $this->render('artist/show.html.twig', [
+            'user' => $user,
+
+        ]);
+    }
 }

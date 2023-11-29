@@ -17,7 +17,14 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+
+       {# Personnalisez le rendu du champ "agreeTerms" #}
+    <div>
+        {{ form_label(registrationForm.agreeTerms) }}
+        <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
+        {{ form_errors(registrationForm.agreeTerms) }}
+        {{ form_widget(registrationForm.agreeTerms) }}
+    </div>
 
 
         

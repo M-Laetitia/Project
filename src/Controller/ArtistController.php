@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ArtistType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -14,20 +15,24 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 class ArtistController extends AbstractController
 {
     #[Route('/artist', name: 'app_artist')]
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
+
+        $artists = $userRepository->findArtistUsers();
         return $this->render('artist/index.html.twig', [
-            'controller_name' => 'ArtistController',
+            'artists' => $artists,
         ]);
     }
 
 
     #[Route('/artist/{id}', name: 'show_artist')]
-    public function show(User $user = null): Response {
+    public function show(UserRepository $userRepository, int $id): Response {
     // $user = $security->getUser();
 
+        $artist = $userRepository->findArtistUsers($id);
+        // dd($artist);
         return $this->render('artist/show.html.twig', [
-            'user' => $user,
+            'artist' => $artist,
 
         ]);
     }

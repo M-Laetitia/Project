@@ -20,6 +20,8 @@
 
             <a href="{{ path('app_artist') }}">ARTISTS</a>
 
+            <a href="{{ path('app_event') }}">EVENTS</a>
+
 
             {% if app.user %}
                 <a href="{{ path('show_user', {'id': app.user.id }) }}">profil</a>
@@ -30,15 +32,30 @@
 
 
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="#">dashboard(admin)</a>
+                <a href="{{ path('app_dashboard')}}">dashboard(admin)</a>
             {% endif %}
+
+
+            
+            {% if is_granted('ROLE_ARTIST') %}
+                {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
+                <a href="{{ path('manage_artist', {'id': app.user.id }) }}">Manage artist page (artist)</a>
+            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+                {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
+                <a href="{{ path('new_artist', {'id': app.user.id }) }}">Join us (for artists)</a>
+            {% else %}
+                {# else, add something eventually or not #}
+            {% endif %}
+
+      
+
+            {# <a href="{{ path('new_artist', {'id': app.user.id }) }}">Join us (for artists)</a> #}
         </nav>
 
         
         <div class="content">
             {% block body %}
             {% endblock %}
-
         </div>
 
         <footer>

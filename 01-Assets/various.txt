@@ -1,0 +1,14 @@
+BACKUP:
+
+DATE=$(php -r "echo date('Ymd_His');")
+$ DATE=$(php -r "echo date('Ymd_His');" 2>/dev/null)
+DATE=$(date +%Y%m%d_%H%M%S)
+
+# Chemin source
+SOURCE="C:/laragon/www/PROJET/Project"
+
+# Chemin destination
+DESTINATION="C:/Users/molin/Desktop/Backup/backups_$DATE"
+
+# Copier le répertoire
+cp -r "$SOURCE" "$DESTINATION"

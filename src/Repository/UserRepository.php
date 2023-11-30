@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use Doctrine\ORM\Query;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -38,6 +39,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
+
+    //^ get users whith the role artist only
+
+    public function findArtistUsers(?int $userId = null) {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+
+        $qb ->select('u.id', 'u.artistName', 'u.artistDiscipline')
+            ->from('App\Entity\User', 'u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_ARTIST"%');
+
+            // Ajouter une condition pour filtrer par ID si un ID est fourni
+        if ($userId !== null) {
+            $qb->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
+        }
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+
+        // Utilisez getArrayResult() pour obtenir un tableau indexé
+        // return $query->getArrayResult();
+    }
+
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

@@ -58,6 +58,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Contact::class)]
     private Collection $contacts;
 
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $artistName = null;
+
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $artistDiscipline = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -367,6 +373,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $contact->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getArtistName(): ?string
+    {
+        return $this->artistName;
+    }
+
+    public function setArtistName(?string $artistName): static
+    {
+        $this->artistName = $artistName;
+
+        return $this;
+    }
+
+    public function getArtistDiscipline(): ?string
+    {
+        return $this->artistDiscipline;
+    }
+
+    public function setArtistDiscipline(?string $artistDiscipline): static
+    {
+        $this->artistDiscipline = $artistDiscipline;
 
         return $this;
     }

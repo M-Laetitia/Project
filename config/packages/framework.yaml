@@ -1,5 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+
+    
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false
@@ -17,6 +19,12 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    # Configuration for the custom error controller.
+    # When an error occurs, Symfony uses the specified controller
+    # to handle and display custom error pages.
+    error_controller: 'App\Controller\ErrorController::show'
+
 
 when@test:
     framework:

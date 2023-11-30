@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+
+    <h1>Dashboard</h1>
+
+    <h2>Event:</h2>
+
+    <p>List:</p>
+
+        {% for event in events %}
+            <p>✦{{event.name}}| {{event.status}} | {{event.nbPlace}} </p> 
+            <p>Actions : edit / delete / open / lock / unlock / Archive / </p>
+            <p>add picture</p>
+            <hr>
+        {% endfor %}
+
+        <p>ongoing event</p>
+        <p>scheduled event</p>
+        <p>previous event</p>
+
+    <p>add an event:</p>
+
+    <h2>Expo</h2>
+
+    <h2>Space/equipment</h2>
+
+    <h2>Workshop</h2>
+
+{% endblock %}

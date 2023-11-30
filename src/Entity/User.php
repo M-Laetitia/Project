@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -11,6 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -48,8 +52,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastProfilEditDate = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Artist $artist = null;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Picture::class)]
+    private Collection $pictures;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Contact::class)]
+    private Collection $contacts;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
+    }
+
+
 
     
     #[ORM\PrePersist]
@@ -292,20 +307,69 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-
     public function __toString() {
         return $this->username;
     }
 
-    public function getArtist(): ?Artist
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
     {
-        return $this->artist;
+        return $this->pictures;
     }
 
-    public function setArtist(?Artist $artist): static
+    public function addPicture(Picture $picture): static
     {
-        $this->artist = $artist;
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setUser($this);
+        }
 
         return $this;
     }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getUser() === $this) {
+                $picture->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getUser() === $this) {
+                $contact->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

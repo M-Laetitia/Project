@@ -7,15 +7,19 @@
 
     <h1>list artists</h1>
 
+    {% for artist in artists %}
+        
     <div class="artist-container">
-        <p>Name/pseudo:</p>
-        <p>Art domain:</p>
+        <p>Name/pseudo: {{ artist.artistName}}</p>
+        <p>Art domain: {{artist.artistDiscipline}}</p>
         <div>
-            <img src="#" alt="picture of the artist">
+            <img src="" alt="picture of the artist">
         </div>
 
-        <p><a href=""></a>see more</p>
+        <p><a href="{{ path('show_artist', {'id': artist.id }) }}">see more</a></p>
     </div>
+
+    {% endfor %}
 
     <h2>Request:</h2>
 {% endblock %}

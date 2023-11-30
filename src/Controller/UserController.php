@@ -28,17 +28,21 @@ class UserController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/user/{id}', name: 'show_user')]
     public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
+
+    if(!$user) {
+        return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+    }
+
     $user = $security->getUser();
 
     // Si l'utilisateur n'est pas connecté, redirection vers la page d'accueil ou une autre page.
-    if (!$user instanceof User) {
-        return $this->redirectToRoute('app_home');
-    }
+    // if (!$user instanceof User) {
+    //     return $this->redirectToRoute('app_home');
+    // }
 
+ 
     $form = $this->createForm(AvatarType::class, $user);
     $form->handleRequest($request);
 

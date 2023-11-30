@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Join the communauty{% endblock %}
+
+{% block body %}
+
+
+    <h1>Artist form</h1>
+    <p>(to get the ROLE ARTIST + have an artist page)</p>
+
+    {{ form_start(formAddArtist) }}
+        <div>{{ form_row(formAddArtist.artistName) }}</div>
+        <div>{{ form_row(formAddArtist.artistDiscipline) }}</div>
+        <div>{{ form_row(formAddArtist.Submit) }}</div>
+    {{ form_end(formAddArtist) }}
+
+{% endblock %}

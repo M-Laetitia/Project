@@ -7,10 +7,13 @@
 
     <h1>Detail artist</h1>
 
-    <p>name:</p>
-    <p>description:</p>
-    <p>quote</p>
-    <p>bio</p>
+    {% for artistData in artist %}
+        <p>ID: {{ artistData.id }}</p>
+        <p>Name: {{ artistData.artistName }}</p>
+        <p>Discipline: {{ artistData.artistDiscipline }}</p>
+    {% endfor %}
+
+
 
     <div class="artist-works">
         <a href=""></a>
@@ -24,5 +27,5 @@
         <a href=""></a>
     </div>
 
-    <h2>Request:</h2>
+   
 {% endblock %}

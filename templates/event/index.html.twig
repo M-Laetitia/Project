@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Events!{% endblock %}
+
+{% block body %}
+
+    <h1>Events:</h1>
+
+    <p>LIST:</p>
+
+    {% for event in events %}
+    <p>✦{{event.name}}| {{event.status}} | {{event.nbPlace}} </p> 
+
+    <p></p>
+
+    <a href="{{ path('show_event', {'id' : event.id }) }}">see more</a>
+    <hr>
+    {% endfor %}
+
+    <p>SEE PREVIOUS EVENTS:</p>
+
+{% endblock %}

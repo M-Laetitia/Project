@@ -1,0 +1,33 @@
+
+<style>
+    .error404 div {
+        width: 500px;
+        height: 500px;
+    }  
+
+    .error404 div img {
+        width: 100%;
+    }  
+
+    
+
+</style>
+
+{% block body %}
+
+<div class="error404">
+    
+    <h1>Page not found</h1>
+
+    <div>
+        <img src="{{ asset('images/error404.jpg') }}" alt="Little yellow robot with error 404">
+    </div>
+
+    <p>
+        There's nothing to see here. <br>
+        It seems you've wandered off into lost lands. <br>
+        Please go back to where you belong: <br>
+        <a href="{{ path('app_home') }}">go back</a>.
+    </p>
+</div>
+{% endblock %}

@@ -17,7 +17,9 @@ class Picture
     private ?string $url = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\Length(max:150, message:'The alt description cannot be longer than {{ limit }} characters.')]
     private ?string $altDescription = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?User $user = null;

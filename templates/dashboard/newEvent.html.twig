@@ -4,7 +4,13 @@
 
 {% block body %}
 
-    <h1>Add Event:</h1>
+   
+
+    {% if edit %}
+        <h1>Edit Event:</h1>
+    {% else %}
+        <h1>Add Event:</h1>
+    {% endif %}
 
     {{ form_start(formAddEvent) }}
 

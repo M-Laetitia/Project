@@ -13,8 +13,10 @@
     {% endif %}
 
     {{ form_start(formAddArtist) }}
+        {{ form_errors(formAddArtist) }}
         <div>{{ form_row(formAddArtist.artistName) }}</div>
         <div>{{ form_row(formAddArtist.artistDiscipline) }}</div>
+        <div>{{ form_row(formAddArtist.pictures) }}</div>
         <div>{{ form_row(formAddArtist.Submit) }}</div>
     {{ form_end(formAddArtist) }}
 

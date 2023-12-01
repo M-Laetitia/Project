@@ -54,7 +54,7 @@ class ArtistController extends AbstractController
 
     #[Route('/artist/{id}/new', name: 'new_artist')]
     #[Route('/artist/{id}/edit', name: 'edit_artist')]
-    public function new(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, ) : Response 
+    public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, ) : Response 
     {
 
         $user = $security->getUser();
@@ -75,6 +75,20 @@ class ArtistController extends AbstractController
                 $userRoles[] = 'ROLE_ARTIST';
             }
 
+            // récupérer les images téléchargées
+            $pictures = $form->get('pictures')->getData();
+            dd($pictures);
+
+            //pour chaque image, créer une nouvelle entité Image
+            foreach($pictures as $picture) {
+                $picture = new Picture();
+                $picture->setUser($user);
+                $picture->setUrl('');
+
+                $entityManager->flush();
+            }
+
+
             // Mise à jour des rôles dans l'entité User
             $user->setRoles($userRoles);
             $user = $form->getData();
@@ -82,7 +96,7 @@ class ArtistController extends AbstractController
             $entityManager->flush();
 
             // Déconnexion et reconnexion manuelles de l'utilisateur
-            $firewallName = 'main'; 
+            // $firewallName = 'main'; 
             // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
             // $this->get('security.token_storage')->setToken($token);
 

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}add Events!{% endblock %}
+
+{% block body %}
+
+    <h1>Add Event:</h1>
+
+    {{ form_start(formAddEvent) }}
+
+        {{ form_row(formAddEvent.name) }}
+        {{ form_row(formAddEvent.description) }}
+        {{ form_row(formAddEvent.status) }}
+        {{ form_row(formAddEvent.type) }}
+        {{ form_row(formAddEvent.nbPlace) }}
+        {{ form_row(formAddEvent.categoryEvent) }}
+
+    {{ form_row(formAddEvent.Create) }}
+
+{{ form_end(formAddEvent) }}
+
+
+{% endblock %}

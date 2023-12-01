@@ -4,9 +4,13 @@
 
 {% block body %}
 
-
     <h1>Artist form</h1>
-    <p>(to get the ROLE ARTIST + have an artist page)</p>
+
+    {% if 'ROLE_ARTIST' in userRoles %}
+        <p>edit your infos</p>
+    {% else %}
+        <p>(to get the ROLE ARTIST + have an artist page)</p>
+    {% endif %}
 
     {{ form_start(formAddArtist) }}
         <div>{{ form_row(formAddArtist.artistName) }}</div>

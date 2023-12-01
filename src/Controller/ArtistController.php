@@ -53,6 +53,7 @@ class ArtistController extends AbstractController
     }
 
     #[Route('/artist/{id}/new', name: 'new_artist')]
+    #[Route('/artist/{id}/edit', name: 'edit_artist')]
     public function new(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, ) : Response 
     {
 
@@ -65,10 +66,9 @@ class ArtistController extends AbstractController
         // dd($user);
         $form = $this->createForm(ArtistType::class, $user);
         $form->handleRequest($request);
+        $userRoles = $user->getRoles(); // Récupérer les rôles actuels
 
         if ($form->isSubmitted() && $form->isValid() ) {
-
-            $userRoles = $user->getRoles(); // Récupérer les rôles actuels
 
             // Ajouter le rôle "ROLE_ARTIST" si ce n'est pas déjà présent
             if (!in_array('ROLE_ARTIST', $userRoles, true)) {
@@ -77,21 +77,22 @@ class ArtistController extends AbstractController
 
             // Mise à jour des rôles dans l'entité User
             $user->setRoles($userRoles);
-            
             $user = $form->getData();
             $entityManager->persist($user);
             $entityManager->flush();
 
             // Déconnexion et reconnexion manuelles de l'utilisateur
             $firewallName = 'main'; 
-            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-            $this->get('security.token_storage')->setToken($token);
+            // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            // $this->get('security.token_storage')->setToken($token);
 
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('artist/new.html.twig', [
-            'formAddArtist'=> $form
+            'formAddArtist'=> $form,
+            'edit' => $user->getId(),
+            'userRoles' => $userRoles
         ]);
 
     }

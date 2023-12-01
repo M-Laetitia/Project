@@ -7,6 +7,7 @@ parameters:
 
     avatars_directory: '%kernel.project_dir%/public/images/avatars'
     oldPictures_directory: '%kernel.project_dir%/public/images/old'
+    artists_directory : '%kernel.project_dir%/public/images/artists/'
     
 services:
     # default configuration for services in *this* file

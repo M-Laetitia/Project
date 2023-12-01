@@ -24,11 +24,15 @@ class Event
     private ?string $status = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThan(value: 0, message: 'The value must be greater than 0')]
     private ?int $nbPlace = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CategoryEvent $categoryEvent = null;
+
+    #[ORM\Column(length: 20)]
+    private ?string $type = null;
 
     public function getId(): ?int
     {
@@ -91,6 +95,24 @@ class Event
     public function setCategoryEvent(?CategoryEvent $categoryEvent): static
     {
         $this->categoryEvent = $categoryEvent;
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

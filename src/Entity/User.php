@@ -70,7 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->contacts = new ArrayCollection();
     }
 
-
+    public function __toString() {
+        return $this->username;
+    }
 
     
     #[ORM\PrePersist]
@@ -313,9 +315,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-    public function __toString() {
-        return $this->username;
-    }
 
     /**
      * @return Collection<int, Picture>

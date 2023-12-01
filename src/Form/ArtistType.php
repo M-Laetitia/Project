@@ -6,8 +6,10 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArtistType extends AbstractType
 {
@@ -16,6 +18,18 @@ class ArtistType extends AbstractType
         $builder
             ->add('artistName', TextType::class)
             ->add('artistDiscipline', TextType::class)
+
+            ->add('altDescription', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'max' => 150,
+                        'maxMessage' => 'The  description cannot be longer than {{ limit }} characters.',
+                    ]),
+                ],
+            ])
+
+            ->add('altDescriprion', TextType::class)
+
             ->add('Submit', SubmitType::class)
         ;
     }
@@ -24,6 +38,7 @@ class ArtistType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'allow_extra_fields' => true, // Permettre les champs supplémentaires qui ne sont pas directement liés à l'entité User
         ]);
     }
 }

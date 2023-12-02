@@ -22,21 +22,19 @@ class ArtistType extends AbstractType
 
             ->add('pictures', FileType::class, [
                 'label' => false,
-                'multiple' => true,
                 'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
                 'required' => false,
             ])
 
-            // ->add('altDescription', TextType::class, [
-            //     'constraints' => [
-            //         new Length([
-            //             'max' => 150,
-            //             'maxMessage' => 'The  description cannot be longer than {{ limit }} characters.',
-            //         ]),
-            //     ],
-            // ])
-
-            // ->add('altDescriprion', TextType::class)
+            ->add('altDescription', TextType::class, [
+                'constraints' => [
+                    new Length([
+                        'max' => 150,
+                        'maxMessage' => 'The  description cannot be longer than {{ limit }} characters.',
+                    ]),
+                ],
+                'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
+            ])
 
             ->add('Submit', SubmitType::class)
         ;

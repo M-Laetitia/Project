@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Form\ArtistType;
+use App\Service\PictureService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +56,8 @@ class ArtistController extends AbstractController
 
     #[Route('/artist/{id}/new', name: 'new_artist')]
     #[Route('/artist/{id}/edit', name: 'edit_artist')]
-    public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, ) : Response 
+    // injecter en injection de dépendances
+    public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ) : Response 
     {
 
         $user = $security->getUser();
@@ -77,18 +80,26 @@ class ArtistController extends AbstractController
 
             // récupérer les images téléchargées
             $pictures = $form->get('pictures')->getData();
-            dd($pictures);
+            // dd($pictures);
 
-            //pour chaque image, créer une nouvelle entité Image
-            foreach($pictures as $picture) {
-                $picture = new Picture();
-                $picture->setUser($user);
-                $picture->setUrl('');
+            foreach ($pictures as $picture) {
+                // on définit le dossier de destination
+                $folder = 'products';
 
+                // on appelle le service d'ajout
+                $file = $pictureService->add($picture, $folder, 300, 300);
+                // die;
+
+                $img = new Picture();
+                $img->setUrl($file);
+                $img->setAltDescription('');
+                // $user->addPicture($picture);
+                $img->setUser($user);
+                $entityManager->persist($img);
                 $entityManager->flush();
             }
 
-
+            
             // Mise à jour des rôles dans l'entité User
             $user->setRoles($userRoles);
             $user = $form->getData();

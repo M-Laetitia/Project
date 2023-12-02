@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,16 +20,23 @@ class ArtistType extends AbstractType
             ->add('artistName', TextType::class)
             ->add('artistDiscipline', TextType::class)
 
-            ->add('altDescription', TextType::class, [
-                'constraints' => [
-                    new Length([
-                        'max' => 150,
-                        'maxMessage' => 'The  description cannot be longer than {{ limit }} characters.',
-                    ]),
-                ],
+            ->add('pictures', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
+                'required' => false,
             ])
 
-            ->add('altDescriprion', TextType::class)
+            // ->add('altDescription', TextType::class, [
+            //     'constraints' => [
+            //         new Length([
+            //             'max' => 150,
+            //             'maxMessage' => 'The  description cannot be longer than {{ limit }} characters.',
+            //         ]),
+            //     ],
+            // ])
+
+            // ->add('altDescriprion', TextType::class)
 
             ->add('Submit', SubmitType::class)
         ;

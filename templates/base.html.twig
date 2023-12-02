@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
 
+        <meta name="description" content="{% block meta %}Description!{% endblock %}">
+
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
 
         {% block stylesheets %}
@@ -35,7 +37,6 @@
                 <a href="{{ path('app_dashboard')}}">dashboard(admin)</a>
             {% endif %}
 
-
             
             {% if is_granted('ROLE_ARTIST') %}
                 {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
@@ -61,6 +62,7 @@
         <footer>
             <a href="#">Terms of Use</a>
             <a href="#">Privacy Policy</a>
+            <a href="#">Contact</a>
         </footer>
     </body>
 </html>

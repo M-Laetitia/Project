@@ -4,7 +4,6 @@
 
 {% block body %}
 
-
     {# si pas encore de page mettre : en créer une
     sinon éditer #}
 
@@ -15,11 +14,14 @@
 
     {# {{ dump(user)}} #}
 
-    <img src="{{asset('images/artists/products/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+    {% if user.pictures|length > 0 %}
+        <img src="{{ asset('images/artists/products/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+    {% endif %}
 
+    {# 
     {% for picture in user.pictures %}
         <img src="{{asset('images/artists/products/mini/300x300-') ~ picture.url }}" alt="">
-    {% endfor %}
+    {% endfor %} #}
 
 
     {% for message in app.flashes('success') %}
@@ -29,8 +31,6 @@
     {% endfor %}
 
     <p><a href=" {{ path('edit_artist', {'id': app.user.id }) }}">Edit info</a></p>
-
-   
 
     
 {% endblock %}

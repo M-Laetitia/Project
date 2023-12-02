@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Picture;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -90,6 +91,8 @@ class PictureService
         return $file;
     }
 
+
+
     public function delete(string $file, ?string $folder ="", ?int $width = 250, ?int $height = 250)
     {
         if($file !== 'default.webp') { // ne pas supprimer le fichier par défault
@@ -102,9 +105,11 @@ class PictureService
                 $success = true;
             }
 
-            $original = $path . '/' .$fichier; // chemin original
-            if(file_exists($orginal)) {
-                unlink($mini);
+            $original = $path . '/' .$file; // chemin original
+            // dd($original);
+           
+            if(file_exists($original)) {
+                unlink($original);
                 $success = true;
             }
 

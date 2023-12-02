@@ -81,26 +81,27 @@ class ArtistController extends AbstractController
             }
 
             // récupérer les images téléchargées
-            $pictures = $form->get('pictures')->getData();
+            $picture = $form->get('pictures')->getData();
             // dd($pictures);
 
-            foreach ($pictures as $picture) {
                 // on définit le dossier de destination
                 $folder = 'products';
 
                 // on appelle le service d'ajout
                 $file = $pictureService->add($picture, $folder, 300, 300);
-                // die;
+                
+                // obtenir l'altDescription associée à cette image
+                $altDescription = $form->get('altDescription')->getData();
 
                 $img = new Picture();
                 $img->setUrl($file);
-                $img->setAltDescription('');
+                $img->setAltDescription($altDescription);
+                // $img->setAltDescription('');
                 // $user->addPicture($picture);
                 $img->setUser($user);
                 $entityManager->persist($img);
                 $entityManager->flush();
-            }
-
+            
             
             // Mise à jour des rôles dans l'entité User
             $user->setRoles($userRoles);

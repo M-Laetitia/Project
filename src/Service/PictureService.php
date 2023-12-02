@@ -18,7 +18,7 @@ class PictureService
     public function add(UploadedFile $picture, ?string $folder ='', ?int $width = 250, ?int $height = 250) 
     {
         // on donne un nouveau nom à l'image
-        $file = md5(uniqid(rand(), true)) . '.webp';
+        $file = md5(uniqid(rand(), true)) . '.jpeg';
 
         // on récupère les infos de l'image
         $picture_infos = getimagesize($picture);
@@ -71,8 +71,8 @@ class PictureService
         }
 
         // on crée une nouvelle image "vierge"
-        $resized_picture = imagecreatetruecolor($width, $heigth);
-        imagecopieresampled($resized_picture, $picture_source, 0, 0, $src_x, $src_y, $width, $height, $squareSize, $squareSize);
+        $resized_picture = imagecreatetruecolor($width, $height);
+        imagecopyresampled($resized_picture, $picture_source, 0, 0, $src_x, $src_y, $width, $height, $squareSize, $squareSize);
 
         $path = $this->params->get('artists_directory') .$folder;
 
@@ -82,12 +82,11 @@ class PictureService
         }
 
         // on stocke l'image recadrée
-        imagewebp($resize_picture, $path . '/mini/' . $width. 'x' . $height . '-' . $file );
+        imagewebp($resized_picture, $path . '/mini/' . $width. 'x' . $height . '-' . $file );
 
         $picture->move($path . '/' . $file);
 
         return $file;
-
         
     }
 

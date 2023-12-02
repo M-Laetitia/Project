@@ -13,6 +13,21 @@
     <p>artist name: {{ user.artistName }}</p>
     <p>Discipline: {{user.artistDiscipline}}</p>
 
+    {# {{ dump(user)}} #}
+
+    <img src="{{asset('images/artists/products/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+
+    {% for picture in user.pictures %}
+        <img src="{{asset('images/artists/products/mini/300x300-') ~ picture.url }}" alt="">
+    {% endfor %}
+
+
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+
     <p><a href=" {{ path('edit_artist', {'id': app.user.id }) }}">Edit info</a></p>
 
    

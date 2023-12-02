@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Picture;
 use App\Form\ArtistType;
 use App\Service\PictureService;
@@ -57,6 +58,7 @@ class ArtistController extends AbstractController
     #[Route('/artist/{id}/new', name: 'new_artist')]
     #[Route('/artist/{id}/edit', name: 'edit_artist')]
     // injecter en injection de dépendances
+    // error avec Picture $picture / Si 'int $pictureId' , en ajustant le typehint de Picture à int dans la signature de la méthode,  Symfony va s'attendre à recevoir l'ID de l'imgen tant que paramètre, plutôt qu'une instance d'entité complète. 
     public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ) : Response 
     {
 
@@ -111,14 +113,40 @@ class ArtistController extends AbstractController
             // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
             // $this->get('security.token_storage')->setToken($token);
 
-            return $this->redirectToRoute('app_home');
+            // Message flash
+            $this->addFlash('success', 'Images ajoutées avec succès!');
+
+            return $this->redirectToRoute('manage_artist', ['id' => $user->getId()]);
         }
 
         return $this->render('artist/new.html.twig', [
             'formAddArtist'=> $form,
             'edit' => $user->getId(),
-            'userRoles' => $userRoles
+            'userRoles' => $userRoles,
+            'user' => $user
         ]);
 
+
+    }
+
+    
+    #[Route('/delete/picture/{id}', name: 'delete_picture')]
+    public function deletePicture(User $user =null, Security $security, Picture $picture, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ): Response
+    {
+        // $this->denyAccessUnlessGranted('artist_edit', $user);
+        $user = $security->getUser();
+        $name = $picture->getUrl();
+
+        if($pictureService->delete($name, 'products', 300, 300)) {
+            //on supprime l'image de la base données
+            $entityManager->remove($picture);
+            $entityManager->flush();
+
+
+            $this->addFlash('success', 'Image deleted successfully.'); // Message flash de succès
+
+            return $this->redirectToRoute('edit_artist', ['id' => $user->getId()]); // Redirection vers une autre page après la suppression
+        }
+        return $this->redirectToRoute('manage_artist', ['id' => $user->getId()]);
     }
 }

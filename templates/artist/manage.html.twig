@@ -15,7 +15,7 @@
     {# {{ dump(user)}} #}
 
     {% if user.pictures|length > 0 %}
-        <img src="{{ asset('images/artists/products/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+        <img src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
     {% endif %}
 
     {# 

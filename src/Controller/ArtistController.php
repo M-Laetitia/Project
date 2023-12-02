@@ -85,7 +85,8 @@ class ArtistController extends AbstractController
             // dd($pictures);
 
                 // on définit le dossier de destination
-                $folder = 'products';
+                $userId = $user->getId();
+                $folder = $userId;
 
                 // on appelle le service d'ajout
                 $file = $pictureService->add($picture, $folder, 300, 300);
@@ -138,7 +139,8 @@ class ArtistController extends AbstractController
         $user = $security->getUser();
         $name = $picture->getUrl();
 
-        if($pictureService->delete($name, 'products', 300, 300)) {
+        $userId = $user->getId();
+        if($pictureService->delete($name, $userId , 300, 300)) {
             //on supprime l'image de la base données
             $entityManager->remove($picture);
             $entityManager->flush();

@@ -24,7 +24,7 @@
 
             {% for picture in user.pictures %}
                 <div>
-                    <img src="{{asset('images/artists/products/mini/300x300-') ~ picture.url }}" alt="images" width="50">
+                    <img src="{{asset('images/artists/' ~ user.id ~'/mini/300x300-') ~ picture.url }}" alt="images" width="50">
 
                     {# <a href="" data-delete data-token="{{csrf_token('delete' ~ picture.id )}}">delete</a> #}
 

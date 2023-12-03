@@ -53,6 +53,11 @@
             {# <a href="{{ path('new_artist', {'id': app.user.id }) }}">Join us (for artists)</a> #}
         </nav>
 
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %} 
         
         <div class="content">
             {% block body %}
@@ -65,4 +70,10 @@
             <a href="#">Contact</a>
         </footer>
     </body>
+
+
+    {# Jquery #}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+
 </html>

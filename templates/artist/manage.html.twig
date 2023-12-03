@@ -30,19 +30,14 @@
 
             <div class="track-container">
                 <ul class="track">
-                    
-                    <li class="slide current-slide" >
-                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
-                    </li>
-                    <li class="slide">
-                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
-                    </li>
-                    <li class="slide">
-                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
-                    </li>
-                    <li class="slide">
-                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
-                    </li>
+
+                    {% for picture in user.pictures %}
+                        
+                        <div class="slide{% if loop.first %} current-slide{% endif %}">
+                            <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ picture.url) }}" alt="{{picture.altDescription}}" width="150">
+                        </div>
+                    {% endfor %}
+
                 </ul>
             </div>
             <button class="button button--right">
@@ -50,18 +45,19 @@
             </button>
 
             <div class="nav">
-                <button class="indicator current-slide"></button>
-                <button class="indicator"></button>
-                <button class="indicator"></button>
-                <button class="indicator"></button>
+                {% for picture in user.pictures %}
+                    <button class="indicator{% if loop.first %} current-slide{% endif %}"></button>
+                {% endfor %}
             </div>
         </div>
     </div>
     
-    {% for picture in user.pictures %}
-        <img src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ picture.url) }}" alt="{{picture.altDescription}}" width="150">
-    {% endfor %}
-
+    
+    <div>
+        {% for picture in user.pictures %}
+            <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ picture.url) }}" alt="{{picture.altDescription}}" width="150">
+        {% endfor %}
+    </div>
 
     <p><a href=" {{ path('edit_artist', {'id': app.user.id }) }}">Edit info</a></p>
 

@@ -1,3 +1,5 @@
+
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Manage my page{% endblock %}
@@ -14,21 +16,52 @@
 
     {# {{ dump(user)}} #}
 
-    {% if user.pictures|length > 0 %}
-        <img src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
-    {% endif %}
+    {# {% if user.pictures|length > 0 %}
+        <img src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="{{user.pictures[0].altDescription}}">
+    {% endif %} #}
 
-    {# 
-    {% for picture in user.pictures %}
-        <img src="{{asset('images/artists/products/mini/300x300-') ~ picture.url }}" alt="">
-    {% endfor %} #}
+    <h2>Realisations:</h2>
+    <div>
+        <div class="carousel">
+            {# double hyphen indicates that's a modifier #}
+            <button class="button button--left is-hidden">
+                <i class="ri-arrow-left-s-line"></i>
+            </button>
 
+            <div class="track-container">
+                <ul class="track">
+                    
+                    <li class="slide current-slide" >
+                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+                    </li>
+                    <li class="slide">
+                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+                    </li>
+                    <li class="slide">
+                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+                    </li>
+                    <li class="slide">
+                        <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ user.pictures[0].url) }}" alt="">
+                    </li>
+                </ul>
+            </div>
+            <button class="button button--right">
+                <i class="ri-arrow-right-s-line"></i>
+            </button>
 
-    {% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
+            <div class="nav">
+                <button class="indicator current-slide"></button>
+                <button class="indicator"></button>
+                <button class="indicator"></button>
+                <button class="indicator"></button>
+            </div>
+        </div>
     </div>
+    
+    {% for picture in user.pictures %}
+        <img src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ picture.url) }}" alt="{{picture.altDescription}}" width="150">
     {% endfor %}
+
 
     <p><a href=" {{ path('edit_artist', {'id': app.user.id }) }}">Edit info</a></p>
 

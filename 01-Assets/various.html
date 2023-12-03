@@ -1,0 +1,42 @@
+<script>
+    // Faire disparaître flash message après 5 secondes (5000 millisecondes)
+    setTimeout(function() {
+        let flashMessage = document.querySelector('.alert');
+        if (flashMessage) {
+            flashMessage.style.display = 'none';
+        }
+    }, 5000);
+</script>
+
+
+<script>
+    // Disparaître après 5 secondes (5000 millisecondes)
+    setTimeout(function() {
+        let flashMessage = document.querySelector('.alert');
+        if (flashMessage) {
+            flashMessage.style.animation = 'fadeOutUp 1s ease-out';
+            setTimeout(function() {
+                flashMessage.style.display = 'none';
+            }, 1000);
+        }
+    }, 5000);
+</script>
+
+<style>
+    @keyframes fadeOutUp {
+        0% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+    }
+
+    .alert {
+        animation: none; /* Réinitialiser l'animation à la première exécution */
+        display: block;
+        margin-bottom: 20px; /* Ajouter de l'espace pour éviter que le contenu ne saute */
+    }
+</style>

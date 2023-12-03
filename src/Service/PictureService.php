@@ -18,9 +18,13 @@ class PictureService
     public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250)
     {
         // On donne un nouveau nom à l'image
+
         $file = md5(uniqid(rand(), true)) . '.' . $picture->guessExtension();
 
         // On récupère les infos de l'image
+        // "The md5 function is a hashing function that produces a 32-character hexadecimal checksum
+        // uniqid(rand(), true) generates a unique string based on the current timestamp with microsecond resolution (the use of true adds more entropy to the string).
+        // Md5 takes this unique string and converts it into a 32-character hexadecimal hash.
         $picture_infos = getimagesize($picture);
 
         if ($picture_infos == false) {
@@ -65,7 +69,7 @@ class PictureService
                 break;
 
             case 1: // paysage
-                $squareSize = $imageWidth;
+                $squareSize = $imageHeight;
                 $src_x = ($imageWidth - $squareSize) / 2;
                 $src_y = 0;
                 break;

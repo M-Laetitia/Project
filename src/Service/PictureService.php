@@ -80,17 +80,39 @@ class PictureService
         $resized_picture = imagecreatetruecolor($width, $height);
         imagecopyresampled($resized_picture, $picture_source, 0, 0, $src_x, $src_y, $width, $height, $squareSize, $squareSize);
 
+        // Calculate the new dimensions while preserving the aspect ratio
+        // $aspectRatio = $imageWidth / $imageHeight;
+        // $newWidth = min($imageWidth, $maxWidth);
+        // $newHeight = $newWidth / $aspectRatio;
+
+        // // Resize the image
+        // $resized_picture2 = imagecreatetruecolor($newWidth, $newHeight);
+        // imagecopyresampled($resized_picture2, $picture_source, 0, 0, $src_x, $src_y, $newWidth, $newHeight, $imageWidth, $imageHeight);
+
+
         $path = $this->params->get('artists_directory') .$folder;
 
         // on crée le dossier de destination s'il n'existe pas
-        if(!file_exists($path. '/mini')) {
-            mkdir($path. '/mini', 0755, true);
+        if(!file_exists($path. '/works/mini')) {
+            mkdir($path. '/works/mini', 0755, true);
         }
 
-        // on stocke l'image recadrée
-        imagewebp($resized_picture, $path . '/mini/' . $width. 'x' . $height . '-' . $file );
+        $destinationPath = $path . '/works/';
 
-        $picture->move($path,  $file);
+        // Create the destination directory if it doesn't exist
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+
+
+        // on stocke l'image recadrée (miniature)
+        imagewebp($resized_picture, $path . '/works/mini/' . $width. 'x' . $height . '-' . $file );
+        // on stocke l'image recadrée 2 (max 800)
+        // imagewebp($resized_picture2, $path . '/works/' . $newWidth . 'x' . $newHeight . '-' . $file);
+
+        // dd($path);
+        // "C:\laragon\www\PROJET\Project/public/images/artists/8"
+        $picture->move($destinationPath,  $file);
 
         return $file;
     }

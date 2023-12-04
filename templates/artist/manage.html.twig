@@ -9,10 +9,36 @@
     {# si pas encore de page mettre : en créer une
     sinon éditer #}
 
+    <div class=" cross cross-full">
+        <div></div>
+    </div>
+
+    <div class="cross cross-line">
+        <div></div>
+    </div>
+
+    <div class="arrow arrow-left">
+    </div>
+
+    <div class="arrow arrow-right">
+    </div>
+
+    {# <div class="cross2 ">
+        <div>
+            <div></div>
+        </div>
+    </div> #}
+
     <h1>My artist page (manage)</h1>
 
-    <p>artist name: {{ user.artistName }}</p>
-    <p>Discipline: {{user.artistDiscipline}}</p>
+    {# <p>artist name: {{ user.artistName }}</p>
+    <p>Discipline: {{user.artistDiscipline}}</p> #}
+
+    <p>EmailPro(json): {{ user.artistInfos.emailPro }}</p>
+    <p>Artist Name(json): {{ user.artistInfos.artistName }}</p>
+    <p>Discipline(json): {{ user.artistInfos.discipline }}</p>
+
+    
 
     {# {{ dump(user)}} #}
 
@@ -25,7 +51,7 @@
         <div class="carousel">
             {# double hyphen indicates that's a modifier #}
             <button class="button button--left is-hidden">
-                <i class="ri-arrow-left-s-line"></i>
+                <div class="arrow arrow-left"></div>
             </button>
 
             <div class="track-container">
@@ -41,16 +67,22 @@
                 </ul>
             </div>
             <button class="button button--right">
-                <i class="ri-arrow-right-s-line"></i>
+                <div class="arrow arrow-right"></div>
             </button>
 
             <div class="nav">
                 {% for picture in user.pictures %}
                     <button class="indicator{% if loop.first %} current-slide{% endif %}"></button>
+
+                    {# <div class="cross cross-line{% if loop.first %}cross cross-full{% endif %}">
+                        <div></div>
+                    </div> #}
+
                 {% endfor %}
             </div>
         </div>
     </div>
+    
     
     
     <div>

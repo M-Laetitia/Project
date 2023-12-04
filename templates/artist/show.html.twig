@@ -9,8 +9,9 @@
 
     {% for artistData in artist %}
         <p>ID: {{ artistData.id }}</p>
-        <p>Name: {{ artistData.artistName }}</p>
-        <p>Discipline: {{ artistData.artistDiscipline }}</p>
+        <p>Artist Name: {{ artistData.artistInfos.artistName }}</p>
+        {# {{ dump(artist)}} #}
+        <p>Discipline: {{ artistData.artistInfos.discipline }}</p>
     {% endfor %}
 
 

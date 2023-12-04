@@ -52,20 +52,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastProfilEditDate = null;
 
+    // (mappedBy: 'user', targetEntity: Picture::class, orphanRemoval: true, cascade:['persist'])
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Picture::class)]
     private Collection $pictures;
+
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Contact::class)]
     private Collection $contacts;
 
-    #[ORM\Column(length: 150, nullable: true)]
-    private ?string $artistName = null;
-
-    #[ORM\Column(length: 150, nullable: true)]
-    private ?string $artistDiscipline = null;
+    #[ORM\Column(type: 'json', nullable: true)]
+    private ?array $artistInfos = null;
 
     public function __construct()
     {
+        // $this->roles = ['ROLE_USER'];
         $this->pictures = new ArrayCollection();
         $this->contacts = new ArrayCollection();
     }
@@ -376,29 +376,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getArtistName(): ?string
+
+
+    public function getArtistInfos(): ?array
     {
-        return $this->artistName;
+        return $this->artistInfos;
     }
 
-    public function setArtistName(?string $artistName): static
+    public function setArtistInfos(?array $artistInfos): static
     {
-        $this->artistName = $artistName;
+        $this->artistInfos = $artistInfos;
 
         return $this;
     }
 
-    public function getArtistDiscipline(): ?string
-    {
-        return $this->artistDiscipline;
-    }
+    // public function getArtistEmailPro(): ?string
+    // {
+    //     return $this->artistInfos['emailPro'] ?? null;
+    // }
 
-    public function setArtistDiscipline(?string $artistDiscipline): static
-    {
-        $this->artistDiscipline = $artistDiscipline;
+    // public function getArtistName(): ?string
+    // {
+    //     return $this->artistInfos['artistName'] ?? null;
+    // }
 
-        return $this;
-    }
-
+    // public function getArtistDiscipline(): ?string
+    // {
+    //     return $this->artistInfos['discipline'] ?? null;
+    // }
 
 }

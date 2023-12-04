@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -36,9 +37,25 @@ class ArtistType extends AbstractType
                 'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
             ])
 
+        // JSON ARTIST-INFO
+            ->add('emailPro', EmailType::class, [
+                'label' => 'Email Professionnel',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('discipline', TextType::class, [
+                'label' => 'Discipline',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+         
+
             ->add('Submit', SubmitType::class)
         ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

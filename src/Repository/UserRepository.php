@@ -47,12 +47,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb = $em->createQueryBuilder();
 
 
-        $qb ->select('u.id', 'u.artistName', 'u.artistDiscipline')
+        $qb ->select('u.id', 'u.artistInfos')
             ->from('App\Entity\User', 'u')
             ->where('u.roles LIKE :role')
             ->setParameter('role', '%"ROLE_ARTIST"%');
 
-            // Ajouter une condition pour filtrer par ID si un ID est fourni
+        // Ajouter une condition pour filtrer par ID si un ID est fourni
         if ($userId !== null) {
             $qb->andWhere('u.id = :userId')
                 ->setParameter('userId', $userId);
@@ -61,8 +61,33 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $query = $qb->getQuery();
         return $query->getResult();
 
-        // Utilisez getArrayResult() pour obtenir un tableau indexé
-        // return $query->getArrayResult();
+    }
+
+    //^ get users filtered by role
+
+    public function findUsersbyRole(?string $role = null, ?int $userId = null) {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+
+        $qb ->select('u')
+            ->from('App\Entity\User', 'u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"'.$role.'"%');
+
+        // Ajouter une condition pour filtrer par ID si un ID est fourni
+        if ($userId !== null) {
+            $qb->andWhere('u.id = :userId')
+                ->setParameter('userId', $userId);
+        }
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+        // return $qb->getQuery()->getResult();
+        // $users = $userRepository->findUsersByRoleAndId('ROLE_ARTIST');
+        // or
+        // $usersById = $userRepository->findUsersByRoleAndId('ROLE_ARTIST', 1);
+
     }
 
 

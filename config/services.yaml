@@ -40,3 +40,7 @@ services:
             $resetPasswordRequestRepository: '@App\Repository\ResetPasswordRequestRepository'
         tags:
             - { name: 'console.command' }
+
+    App\Twig\AppExtension:
+        tags:
+            - { name: 'twig.extension' }

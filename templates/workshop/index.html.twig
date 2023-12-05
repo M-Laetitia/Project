@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workshops page{% endblock %}
+{% block meta %}List of the workshops{% endblock %}
+
+
+{% block body %}
+
+    <h1>workshops:</h1>
+    {# {{dump(workshops)}} #}
+    {% for workshop in workshops %}
+        <p>Name: {{workshop.name}}</p>
+        {# <p>Dates: {{workshop.startDate}} - {{workshop.endDate}}</p> #}
+        <p>Description: {{workshop.description}}</p>
+        <p>Rooms: {{workshop.nbRooms}}</p>
+        <p><a href="{{ path('show_workshop', {'id': workshop.id }) }}">see more</a></p>
+
+        <hr>
+    {% endfor %}
+
+{% endblock %}

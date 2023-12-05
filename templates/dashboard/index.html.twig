@@ -12,7 +12,9 @@
 
         {% for event in events %}
             <p>✦{{event.name}}| {{event.status}} | {{event.nbPlace}} </p> 
-            <p>Actions : edit / delete / open / lock / unlock / Archive / </p>
+            <p>Actions : 
+                <a href="{{ path('edit_event', {'id': event.id}) }}">edit</a>
+            <br>/ delete / open / lock / unlock / Archive / </p>
             <p>add picture</p>
             <hr>
         {% endfor %}
@@ -21,12 +23,25 @@
         <p>scheduled event</p>
         <p>previous event</p>
 
-    <p>add an event:</p>
+    <p><a href="{{ path('new_event') }}">add an event:</a></p>
+    
 
     <h2>Expo</h2>
 
     <h2>Space/equipment</h2>
 
     <h2>Workshop</h2>
+
+    {% for workshop in workshops %}
+        <p>✦{{workshop.name}}|| {{workshop.nbRooms}} </p> 
+        {{workshop.startDate|formatDate}}  -  {{workshop.endDate|formatDate}} 
+        <p>Actions : 
+            {# <a href="{{ path('edit_workshop', {'id': workshop.id}) }}">edit</a> #}
+        <br>/ delete / open / lock / unlock / Archive / </p>
+        <p>add picture</p>
+        <hr>
+    {% endfor %}
+
+
 
 {% endblock %}

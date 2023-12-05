@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}add/edit event{% endblock %}
+{% block meta %}add/edit event{% endblock %}
+
+{% block body %}
+
+   
+
+    {% if edit %}
+        <h1>Edit Event:</h1>
+    {% else %}
+        <h1>Add Event:</h1>
+    {% endif %}
+
+    {{ form_start(formAddWorkshop) }}
+
+        {{ form_row(formAddWorkshop.name) }}
+        {{ form_row(formAddWorkshop.description) }}
+        {{ form_row(formAddWorkshop.status) }}
+        {# {{ form_row(formAddWorkshop.type) }} #}
+        {{ form_row(formAddWorkshop.nbPlace) }}
+        {# {{ form_row(formAddWorkshop.categoryWorkshop) }} #}
+
+        {{ form_row(formAddWorkshop.Create) }}
+
+    {{ form_end(formAddWorkshop) }}
+
+
+{% endblock %}

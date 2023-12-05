@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workshop page{% endblock %}
+{% block meta %}workshop detail{% endblock %}
+
+
+{% block body %}
+
+    <h1>workshop detail:</h1>
+    {# {{dump(workshop)}} #}
+
+    <p>Name: {{workshop.name}}</p>
+        {# <p>Dates: {{startDate}} - {{endDate}}</p> #}
+    <p>Description: {{workshop.description}}</p>
+    <p>Rooms: {{workshop.nbRooms}}</p>
+
+    <p>Participate:</p>
+    {# mettre condition en fonction de statut et statut type
+        ouvrir formulaire pour rentrer nom et prénom, bien demander validation
+    puis mettre à jour base de donnée
+    envoyer pdf et /ou email avec pdf en pièce jointe
+     #}
+
+
+{% endblock %}

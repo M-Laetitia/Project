@@ -20,34 +20,63 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ExpositionController extends AbstractController
 {
     #[Route('/exposition', name: 'app_exposition')]
-    public function index(AreaRepository $areaRepository, ExpositionProposalRepository $expoProposalRepository, Security $security): Response
+    public function index(AreaRepository $areaRepository, ExpositionProposalRepository $expoProposalRepository, MailerService $mailerService, Security $security): Response
     {
+        $user = $security->getUser();    
 
-        $user = $security->getUser();
-
-        // $hasExistingRequest = $expoProposalRepository->findOneBy(['user' => $user->getId(), 'exposition' => $expositionId]);
-
+        // Fetch all expo from the AreaRepository
         $expos = $areaRepository->findBy(['type' => 'EXPO']);
 
-        
+        // Initialize arrays to store existing proposals and proposal counts
         $existingProposals = [];
+        $proposalCounts = [];
 
+        // Iterate through each expo
         foreach ($expos as $expo) {
-            
             // get 'id' in the Area entity
             $expositionId = $expo->getId();
-    
             // Check if the user has an existing proposal for this exposition
             $hasExistingRequest = $expoProposalRepository->findOneBy(['user' => $user->getId(), 'area' => $expositionId]);
-            // dump($hasExistingRequest); die;
-            // Store the result for each exposition
             $existingProposals[$expositionId] = $hasExistingRequest !== null;
+
+            // Store the count of proposals for this exposition
+            $proposalCounts[$expositionId] = $areaRepository->countProposalsPerExpo($expositionId);
+           
+            // Get the proposals associated with this exposition
+            $expositionProposals = $expo->getExpositionProposals();
+
+            // Initialize an array to store associated users
+            $usersToNotify = [];
+
+            // Iterate through proposals and add users to the array
+            foreach ($expositionProposals as $expositionProposal) {
+                $usersToNotify[] = $expositionProposal->getUser()->getEmail();
+            }
+
+            // dump($usersToNotify);die;
+
+            // Check if the proposal count threshold (3 proposals) is reached
+            if ($proposalCounts[$expositionId] >= 3) {
+                // Get the proposals associated with this exposition
+                $expositionProposals = $expo->getExpositionProposals();
+        
+                // Initialize an array to store associated users
+                $usersToNotify = [];
+        
+                // Iterate through proposals and add users to the array
+                foreach ($expositionProposals as $expositionProposal) {
+                    $usersToNotify[] = $expositionProposal->getUser()->getEmail();
+                }
+        
+                // Send email
+                $mailerService->sendExpositionConfirmationEmail($expo, $usersToNotify);
+            }
         }
-
-
+        
         return $this->render('exposition/index.html.twig', [
             'expos' => $expos, 
             'existingProposals' => $existingProposals,
+            'proposalCounts' => $proposalCounts,
         ]);
     }
 

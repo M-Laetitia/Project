@@ -2,8 +2,9 @@
 
 namespace App\Service;
 
-use Symfony\Component\Mailer\MailerInterface;
+use App\Entity\Area;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\MailerInterface;
 
 class MailerService
 {
@@ -38,6 +39,15 @@ class MailerService
         $this->sendEmail($to, $subject, $message);
     }
 
+    public function sendExpositionConfirmationEmail($expo, array $usersToNotify) {
+        $subject = 'Exposition Confirmation: ' . $expo->getName();
+        $message = '<p>Thank you! The exposition ' . $expo->getName() . ' has reached the required number of proposals.</p>';
+        foreach ($usersToNotify as $email) {
+            // Envoyer un e-mail à chaque utilisateur
+            $this->sendEmail($email, $subject, $message);
+        }
+    }
+
     private function sendEmail($to, $subject, $message)
     {
         $email = (new Email())
@@ -52,5 +62,17 @@ class MailerService
     // private function generateExpositionConfirmationMessage($expositionDetails)
     // {
     //     return '<p>Thank you for your proposal for the exposition details:</p>' . $expositionDetails;
+    // }
+
+    // private function generateExpositionConfirmationMessage(Area $expo)
+    // {
+    //     // Construisez le message HTML en utilisant les détails de l'exposition
+    //     $message = '<p>Thank you for your interest in the exposition:</p>';
+    //     $message .= '<p>Name: ' . $expo->getName() . '</p>';
+    //     $message .= '<p>Description: ' . $expo->getDescription() . '</p>';
+    //     $message .= '<p>Dates: ' . $expo->getStartDate()->format('Y-m-d') . ' - ' . $expo->getEndDate()->format('Y-m-d') . '</p>';
+    //     // Ajoutez d'autres détails de l'exposition selon vos besoins
+
+    //     return $message;
     // }
 }

@@ -21,6 +21,22 @@ class AreaRepository extends ServiceEntityRepository
         parent::__construct($registry, Area::class);
     }
 
+
+    public function countProposalsPerExpo(?int $expositionId = null)
+    {
+        $qb = $this->createQueryBuilder('a')
+        ->select('COUNT(ep.id) as counts')
+        ->leftJoin('a.expositionProposals', 'ep')
+        ->andWhere('a.id = :expositionId')
+        ->setParameter('expositionId', $expositionId)
+        ->groupBy('a.id')
+        ->getQuery();
+
+        return $qb->getSingleScalarResult();
+    }
+
+   
+
 //    /**
 //     * @return Area[] Returns an array of Area objects
 //     */

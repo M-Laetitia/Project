@@ -23,13 +23,16 @@ class ExpositionProposalRepository extends ServiceEntityRepository
 
     // ^ check if an user has already made a proposal
 
-    public function checkIfUserHasExistingProposal(?int $userId = null) {
+    public function checkIfUserHasExistingProposal(?int $userId = null,  ?int $areaId = null) {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
         $qb ->select('ep.id')
         ->from('App\Entity\ExpositionProposal', 'ep')
-        ->where('ep.id =  :userId');
+        ->where('ep.id =  :userId')
+        ->andWhere('a.id = :areaId')
+        ->setParameter('userId', $userId)
+        ->setParameter('areaId', $areaId);
 
         $query = $qb->getQuery();
         $query->getResult();

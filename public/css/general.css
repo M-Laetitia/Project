@@ -1,5 +1,7 @@
 * {
   margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
 }
 
 a {
@@ -7,9 +9,9 @@ a {
 }
 
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
-  padding-bottom: 4rem;
+  padding-bottom: 3rem;
   width: 100%;
   background-color: rgb(32, 32, 32);
 }
@@ -37,16 +39,19 @@ nav a:hover {
 body {
   display: flex;
   margin: 0;
+  flex-direction: column;
+  font-family: "Acme", serif;
 }
 
 .content {
   margin-top: 6rem;
   margin-left: 3rem;
+  margin-bottom: 7rem;
 }
 
 #avatar-profil {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
 }
 #avatar-profil img {
   width: 100%;
@@ -64,6 +69,193 @@ body {
   background-color: grey;
   width: 100%;
   height: 100%;
+}
+
+.alert-success {
+  background-color: #8abe8c;
+  margin-top: 5rem;
+  padding: 1rem;
+}
+
+.carousel {
+  position: relative;
+  height: 20rem;
+  width: 20rem;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+}
+.carousel .button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+}
+.carousel .button i {
+  font-size: 50px;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+.carousel .button i:hover {
+  color: rgb(240, 189, 47);
+}
+.carousel .nav {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+.carousel .nav .indicator {
+  border: 0;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  margin: 0 6px;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+.carousel .nav .indicator:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.carousel .nav .current-slide {
+  background: rgb(240, 189, 47);
+}
+.carousel .button--left {
+  left: -50px;
+}
+.carousel .button--right {
+  right: -50px;
+}
+.carousel .track-container {
+  background-color: green;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.carousel .track-container .track {
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transition: transform 250ms ease-in-out;
+}
+.carousel .track-container .track .slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.carousel .track-container .track .slide .image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.is-hidden {
+  display: none;
+}
+
+.cross-full {
+  width: 12px;
+  height: 12px;
+}
+.cross-full div {
+  background-color: rgb(240, 189, 47);
+  width: 14px;
+  height: 3px;
+  transform: rotate(45deg);
+  position: relative;
+  border: 1px solid rgb(240, 189, 47);
+}
+.cross-full div::before {
+  content: "";
+  position: absolute;
+  transform: rotate(90deg);
+  background-color: rgb(240, 189, 47);
+  width: 14px;
+  height: 3px;
+  border: 1px solid rgb(240, 189, 47);
+  translate: -1px -1px;
+}
+
+.cross-line {
+  width: 12px;
+  height: 12px;
+}
+.cross-line div {
+  background-color: white;
+  width: 14px;
+  height: 4px;
+  transform: rotate(45deg);
+  position: relative;
+  border: 1px solid black;
+}
+.cross-line div::before {
+  content: "";
+  position: absolute;
+  transform: rotate(90deg);
+  background-color: white;
+  width: 14px;
+  height: 4px;
+  border: 1px solid black;
+  translate: -1px -1px;
+}
+.cross-line div::after {
+  content: "";
+  position: absolute;
+  transform: rotate(90deg);
+  background-color: white;
+  width: 4px;
+  height: 6.9px;
+  translate: 5.4px -1.5px;
+}
+
+.cross2 {
+  width: 15px;
+  height: 15px;
+  transform-origin: center center;
+  transform: rotate(45deg);
+}
+.cross2 div {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.cross2 div div {
+  background-color: white;
+  width: 37.037037037%;
+  height: 37.037037037%;
+  box-shadow: 10px 10px white, 0px 10px white, 10px 0px white;
+  backdrop-filter: blur(1px);
+}
+
+.arrow {
+  background-color: white;
+  width: 15px;
+  height: 15px;
+  transform: rotate(45deg);
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+}
+
+.arrow-right {
+  border-top: 4px solid rgba(0, 0, 0, 0.8);
+  border-right: 4px solid rgba(0, 0, 0, 0.8);
+}
+.arrow-right:hover {
+  box-shadow: 3px -3px rgb(240, 189, 47);
+}
+
+.arrow-left {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.8);
+  border-left: 4px solid rgba(0, 0, 0, 0.8);
+}
+.arrow-left:hover {
+  box-shadow: -3px 3px rgb(240, 189, 47);
 }
 
 /*# sourceMappingURL=general.css.map */

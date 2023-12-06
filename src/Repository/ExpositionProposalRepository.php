@@ -21,6 +21,22 @@ class ExpositionProposalRepository extends ServiceEntityRepository
         parent::__construct($registry, ExpositionProposal::class);
     }
 
+    // ^ check if an user has already made a proposal
+
+    public function checkIfUserHasExistingProposal(?int $userId = null) {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb ->select('ep.id')
+        ->from('App\Entity\ExpositionProposal', 'ep')
+        ->where('ep.id =  :userId');
+
+        $query = $qb->getQuery();
+        $query->getResult();
+        return $query !== null;
+
+    }
+
 //    /**
 //     * @return ExpositionProposal[] Returns an array of ExpositionProposal objects
 //     */

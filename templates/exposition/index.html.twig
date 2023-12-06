@@ -16,15 +16,12 @@
     <p>Want to showcase your work in this exposition?</p>
     
     {% if is_granted('ROLE_ARTIST') %}
-    
-        {# {% set hasExistingProposal = checkIfUserHasExistingProposal(app.user.id) %} #}
-    
-        {# {% if query %}
-            <p>You have already made a request for this exposition</p>
-        {% endif %} #}
-        {# if artist role, they can access to the form to make a request #}
+        
+        {% if existingProposals[expo.id] %}
+            <p>You have an existing proposal for this exposition.</p>
+        {% else %} 
         <p>Make a request : <a href="{{ path('new_exposition_proposal', {'id': expo.id }) }}">Make a request</a></p>
-    {# {% endif %} #}
+        {% endif %}
     
     {% else %}
         {# else they need to submit a form to get the artist status/role #}

@@ -24,6 +24,11 @@ class ExpositionProposal
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'expositionProposals')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Area $area = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -64,4 +69,18 @@ class ExpositionProposal
 
         return $this;
     }
+
+    public function getArea(): ?Area
+    {
+        return $this->area;
+    }
+
+    public function setArea(?Area $area): static
+    {
+        $this->area = $area;
+
+        return $this;
+    }
+
+
 }

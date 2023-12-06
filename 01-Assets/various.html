@@ -40,3 +40,38 @@
         margin-bottom: 20px; /* Ajouter de l'espace pour éviter que le contenu ne saute */
     }
 </style>
+
+
+{# ^------------------------------FORM #}
+
+ Indiquer que l'image doit être de 300x300 pixels 
+ <label for="image">Image (300x300 pixels):</label>
+<input type="file" id="image" name="image" accept="image/*"> 
+
+{{ form_start(form) }}
+    <div class="my-custom-class-for-errors">
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.task) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.dueDate) }}
+        </div>
+    </div>
+{{ form_end(form) }}
+
+https://symfony.com/doc/current/form/form_customization.html
+
+If you're rendering each field manually, make sure you don't forget the _token field that is automatically added for CSRF protection.
+
+field_name()
+field_value()
+field_label()
+field_help()
+field_errors()
+field_choices() (an iterator for choice fields; e.g. for <select>)
+
+{{ form_widget(form.task, {'attr': {'class': 'task_field'}}) }}

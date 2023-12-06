@@ -4,6 +4,8 @@ DATE=$(php -r "echo date('Ymd_His');")
 $ DATE=$(php -r "echo date('Ymd_His');" 2>/dev/null)
 DATE=$(date +%Y%m%d_%H%M%S)
 
+DATE=$(date +%Y_%m_%d_%H_%M_%S)
+
 # Chemin source
 SOURCE="C:/laragon/www/PROJET/Project"
 

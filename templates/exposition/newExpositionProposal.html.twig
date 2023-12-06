@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Make a exposition request{% endblock %}
+{% block meta %}Make a exposition request{% endblock %}
+
+{% block body %}
+
+<h1>Expostion request</h1>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+
+{{ form_start(formAddExpoProposal) }}
+    {{ form_errors(formAddExpoProposal) }}
+
+    {{ form_row(formAddExpoProposal.Send) }}
+
+{{ form_end(formAddExpoProposal) }}
+
+
+{% endblock %}

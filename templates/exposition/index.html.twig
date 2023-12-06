@@ -9,6 +9,23 @@
 
 
 <p>Want to be the next artist to showcase your work?</p>
-<p>Make a request : <a href="{{ path('new_exposition_proposal') }}">Make a request</a></p>
+
+{% if is_granted('ROLE_ARTIST') %}
+
+    {# {% set hasExistingProposal = checkIfUserHasExistingProposal(app.user.id) %} #}
+
+    {# {% if query %}
+        <p>You have already made a request for this exposition</p>
+    {% endif %} #}
+    {# if artist role, they can access to the form to make a request #}
+    <p>Make a request : <a href="{{ path('new_exposition_proposal') }}">Make a request</a></p>
+{# {% endif %} #}
+
+{% else %}
+    {# else they need to submit a form to get the artist status/role #}
+    <p>You are not an artist, you can't make a request for an expostion.</p>
+    <p>You can get the role by submitting a form: <a href="#">HERE</a></p>
+{% endif %}
+
 
 {% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WorkshopRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,23 +20,57 @@ class Workshop
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(
+        min: 150,
+        max: 250,
+        minMessage: "The text must contain at least {{ limit }} characters.",
+        maxMessage: "The text cannot exceed {{ limit }} characters."
+    )]
     private ?string $description = null;
 
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(
+        min: 400,
+        minMessage: "The text must contain at least {{ limit }} characters.",
+    )]
+    private ?string $detail = null;
+
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message: 'Please select a starting date')]
+    #[Assert\GreaterThanOrEqual(
+        value: "today",
+        message: 'Date must be greater than or equal to current date.'
+    )]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message: 'Please select an ending date')]
+    #[Assert\GreaterThanOrEqual(
+        propertyPath: "startDate",
+        message: 'The end date should be equal or later than the start date.'
+    )]
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThan(value: 0, message: 'The value must be greater than 0')]
     private ?int $nbRooms = null;
 
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $picture = null;
 
+
     #[ORM\ManyToOne(inversedBy: 'workshops')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: Programme::class)]
+    private Collection $programmes;
+
+    public function __construct()
+    {
+        $this->programmes = new ArrayCollection();
+    }
 
 
     public function __toString()
@@ -128,6 +164,48 @@ class Workshop
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDetail(): ?string
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(string $detail): static
+    {
+        $this->detail = $detail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Programme>
+     */
+    public function getProgrammes(): Collection
+    {
+        return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): static
+    {
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
+            $programme->setWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): static
+    {
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getWorkshop() === $this) {
+                $programme->setWorkshop(null);
+            }
+        }
 
         return $this;
     }

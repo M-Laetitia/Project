@@ -5,27 +5,36 @@
 
 {% block body %}
 
-<h1>Expostions list (ongoing ones)</h1>
+<h1>Expositions list (ongoing ones)</h1>
 
-
-<p>Want to be the next artist to showcase your work?</p>
-
-{% if is_granted('ROLE_ARTIST') %}
-
-    {# {% set hasExistingProposal = checkIfUserHasExistingProposal(app.user.id) %} #}
-
-    {# {% if query %}
-        <p>You have already made a request for this exposition</p>
-    {% endif %} #}
-    {# if artist role, they can access to the form to make a request #}
-    <p>Make a request : <a href="{{ path('new_exposition_proposal') }}">Make a request</a></p>
-{# {% endif %} #}
-
-{% else %}
-    {# else they need to submit a form to get the artist status/role #}
-    <p>You are not an artist, you can't make a request for an expostion.</p>
-    <p>You can get the role by submitting a form: <a href="#">HERE</a></p>
-{% endif %}
+{% for expo in expos %}
+    <p>name: {{expo.name}}</p>
+    <p>description: {{expo.description}}</p>
+    <p>dates: {{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
+    <p>Capacity: {{expo.nbRooms}}</p>
+    <hr>
+    <p>Want to showcase your work in this exposition?</p>
+    
+    {% if is_granted('ROLE_ARTIST') %}
+    
+        {# {% set hasExistingProposal = checkIfUserHasExistingProposal(app.user.id) %} #}
+    
+        {# {% if query %}
+            <p>You have already made a request for this exposition</p>
+        {% endif %} #}
+        {# if artist role, they can access to the form to make a request #}
+        <p>Make a request : <a href="{{ path('new_exposition_proposal', {'id': expo.id }) }}">Make a request</a></p>
+    {# {% endif %} #}
+    
+    {% else %}
+        {# else they need to submit a form to get the artist status/role #}
+        <p>You are not an artist, you can't make a request for an expostion.</p>
+        <p>You can get the role by submitting a form: <a href="#">HERE</a></p>
+    {% endif %}
+    
+    <hr>
+    <hr>
+    {% endfor %}
 
 
 {% endblock %}

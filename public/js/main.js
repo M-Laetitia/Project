@@ -21,8 +21,9 @@ const dots = Array.from(dotsNav.children)
 
 // const slideSize = slides[0].getBoundingClientRect();
 // const slideWidth = slideSize.width;
+// Retrieve the width of the first slide by obtaining its bounding rectangle dimensions.
 const slideWidth = slides[0].getBoundingClientRect().width;
-console.log(slideWidth)
+// console.log(slideWidth)
 
 // ~ arrange the slides next to one another
 // slides[0].style.left = slideWidth *0  + 'px';

@@ -60,36 +60,37 @@ class WorkshopType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Starting Date: * ',
                 'required' => true, 
-                'constraints' => [
-                    new Date([
-                        'message' => 'The start date should be a valid date.',
-                    ]),
-                    new GreaterThanOrEqual([
-                        'value' => new \DateTime('today'),
-                        'message' => 'The start date should be today or later.',
-                    ]),
-                ],
+                // 'constraints' => [
+                //     new Date([
+                //         'message' => 'The start date should be a valid date.',
+                //     ]),
+                //     new GreaterThanOrEqual([
+                //         'value' => new \DateTime('today'),
+                //         'message' => 'The start date should be today or later.',
+                //     ]),
+                // ],
                 
             ])
             ->add('endDate', DateType::class, [
                 'widget' => 'single_text', 
                 'label' => 'Ending Date: * ',
                 'required' => true, 
-                'constraints' => [
-                    new Date([
-                        'message' => 'The end date should be a valid date.',
-                    ]),
-                    new GreaterThan([
-                        'propertyPath' => 'startDate',
-                        'message' => 'The end date should be later than the start date.',
-                    ]),
-                ],
+                // 'constraints' => [
+                //     new Date([
+                //         'message' => 'The end date should be a valid date.',
+                //     ]),
+                //     new GreaterThan([
+                //         'propertyPath' => 'startDate',
+                //         'message' => 'The end date should be later than the start date.',
+                //     ]),
+                // ],
 
 
             ])
             ->add('nbRooms', IntegerType::class, [
                 'label' => 'Capacity: * ',
                 'required' => true, 
+                'attr' => ['min' => 0],
                 'constraints' => [
                     new GreaterThan([
                         'value' => 0,
@@ -110,7 +111,6 @@ class WorkshopType extends AbstractType
                 'choice_label' => 'username', 
                 'placeholder' => 'Choose a supervisor',
                 'choices' => $options['users']
-                // 'query_builder' => $this->$userRepository->findUsersbyRole("ROLE_SUPERVISOR");
             ])
 
 
@@ -137,8 +137,6 @@ class WorkshopType extends AbstractType
             'users' => [] // définir un tableau vide pour éviter error
         ]);
 
-        // $resolver->setRequired('users'); // Declare the "users" option as required
-        // $resolver->setAllowedTypes('users', 'array'); // Ensure "users" is of type arra
     }
 }
 

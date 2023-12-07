@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ExpositionController extends AbstractController
 {
+    // ^ Show list expos
     #[Route('/exposition', name: 'app_exposition')]
     public function index(AreaRepository $areaRepository, ExpositionProposalRepository $expoProposalRepository, MailerService $mailerService, Security $security): Response
     {
@@ -80,6 +81,17 @@ class ExpositionController extends AbstractController
         ]);
     }
 
+    // ^ Show detail expo
+    #[Route('/exposition/{id}', name: 'show_exposition')]
+    public function show(Area $area = null): Response 
+    {
+
+        return $this->render('exposition/show.html.twig', [
+            'area' => $area,
+        ]);
+    }
+
+
 
     // ^ Make an exposition proposal (artists)
     #[Route('/exposition/{id}/new/', name:'new_exposition_proposal')]
@@ -133,4 +145,6 @@ class ExpositionController extends AbstractController
     }
 
     // ! Add delete exposition proposal
+
+    
 }

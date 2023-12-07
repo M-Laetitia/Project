@@ -18,8 +18,8 @@ class ArtistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('artistName', TextType::class)
-            ->add('artistDiscipline', TextType::class)
+            // ->add('artistName', TextType::class)
+            // ->add('artistDiscipline', TextType::class)
 
             ->add('pictures', FileType::class, [
                 'label' => false,
@@ -50,7 +50,11 @@ class ArtistType extends AbstractType
                 'required' => false, 
             ])
 
-         
+            ->add('artistName', TextType::class, [
+                'label' => 'artist name',
+                'mapped' => false,
+                'required' => false, 
+            ])
 
             ->add('Submit', SubmitType::class)
         ;

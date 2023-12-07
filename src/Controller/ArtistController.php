@@ -92,6 +92,7 @@ class ArtistController extends AbstractController
             // Récupérer les valeurs pour le champ artistInfos (json)
             $email = $form->get('emailPro')->getData();
             $discipline =$form->get('discipline')->getData();
+            // $artistName =$form->get('artistName')->getData();
 
             // Récupérer ou initialiser artistInfos
             $artistInfos = $user->getArtistInfos() ?? [];
@@ -126,18 +127,13 @@ class ArtistController extends AbstractController
                 $altDescription = $form->get('altDescription')->getData();
 
                 $img = new Picture();
-                $img->setUrl($file);
+                $img->setPath($file);
                 $img->setAltDescription($altDescription);
-                // $img->setAltDescription('');
+                $img->setType('work');
                 // $user->addPicture($picture);
                 $img->setUser($user);
                 $entityManager->persist($img);
                 $entityManager->flush();
-            
-
-            // ^ Json
-
-
             
             // ^ -----------
             // Mise à jour des rôles dans l'entité User
@@ -172,7 +168,7 @@ class ArtistController extends AbstractController
     {
         // $this->denyAccessUnlessGranted('artist_edit', $user);
         $user = $security->getUser();
-        $name = $picture->getUrl();
+        $name = $picture->getPath();
 
         $userId = $user->getId();
         if($pictureService->delete($name, $userId , 300, 300)) {

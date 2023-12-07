@@ -11,24 +11,31 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 class ProgrammeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('workshop', HiddenType::class)
+        // ->add('workshop', HiddenType::class)
         ->add('lesson', EntityType::class, [
-            'label' => 'Lesson',
+            'label' => 'Lesson: * ',
+            'placeholder' => 'Choose a lesson',
             'class' => Lesson::class,
             'choice_label' =>  'name',
+            'required' => true, 
         ])
 
-        ->add('StartDate', DateType::class, [
-            'label' => 'Starting date',
+        ->add('StartDate', DateTimeType::class, [
+            'widget' => 'single_text',
+            'label' => 'Starting date: * ',
+            'required' => true, 
         ])
-        ->add('EndDate', DateType::class, [
-            'label' => 'Ending date',
+        ->add('EndDate', DateTimeType::class, [
+            'widget' => 'single_text', 
+            'label' => 'Ending date: * ',
+            'required' => true, 
             // 'attr' => ['min' => 1, 'max' => 100]
         ])
 

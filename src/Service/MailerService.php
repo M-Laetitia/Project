@@ -4,16 +4,23 @@ namespace App\Service;
 
 use App\Entity\Area;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Part\DataPart;
+use App\Controller\PdfGeneratorController;
 use Symfony\Component\Mailer\MailerInterface;
+
 
 class MailerService
 {
     private $mailer;
+    private $pdfGeneratorController;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, PdfGeneratorController $pdfGeneratorController)
     {
         $this->mailer = $mailer;
+        $this->pdfGeneratorController = $pdfGeneratorController;
     }
+
+
 
     // public function sendWelcomeEmail($to, $username, $registrationDate)
     // {
@@ -40,13 +47,28 @@ class MailerService
     }
 
     public function sendExpositionConfirmationEmail($expo, array $usersToNotify) {
-        $subject = 'Exposition Confirmation: ' . $expo->getName();
-        $message = '<p>Thank you! The exposition ' . $expo->getName() . ' has reached the required number of proposals.</p>';
-        foreach ($usersToNotify as $email) {
-            // Envoyer un e-mail à chaque utilisateur
-            $this->sendEmail($email, $subject, $message);
-        }
+    $subject = 'Exposition Confirmation: ' . $expo->getName();
+    $message = '<p>Thank you! The exposition ' . $expo->getName() . ' has reached the required number of proposals.</p>';
+
+    // Generate PDF content using PdfGeneratorController
+    $pdfContent = $this->pdfGeneratorController->generatePdfContent();
+    // dump($pdfContent);die;
+
+    foreach ($usersToNotify as $emailAddress) {
+        // Create a new Email instance for each user
+        $email = (new Email())
+            ->from('admin@example.com') // Set the sender's email
+            ->to($emailAddress)
+            ->subject($subject)
+            ->html($message);
+
+        // Attach the PDF to the email
+        $email->attach($pdfContent, 'exposition_confirmation.pdf', 'application/pdf');
+
+        // Send the email
+        $this->mailer->send($email);
     }
+}
 
     private function sendEmail($to, $subject, $message)
     {
@@ -55,6 +77,7 @@ class MailerService
             ->to($to)
             ->subject($subject)
             ->html($message);
+
 
         $this->mailer->send($email);
     }

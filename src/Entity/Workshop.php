@@ -42,13 +42,27 @@ class Workshop
         value: "today",
         message: 'Date must be greater than or equal to current date.'
     )]
+    #[Assert\When(
+        expression: 'this.getEndDate() !=null',
+        constraints: [
+            new Assert\LessThan(
+                propertyPath: 'endDate',
+                message: 'The selected end date must be later than the start date.'
+            )
+        ]
+    )]
     private ?\DateTimeInterface $startDate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank(message: 'Please select an ending date')]
-    #[Assert\GreaterThanOrEqual(
-        propertyPath: "startDate",
-        message: 'The end date should be equal or later than the start date.'
+    #[Assert\When(
+        expression: 'this.getStartDate() != null',
+        constraints: [
+            new Assert\GreaterThan(
+                propertyPath: 'startDate',
+                message: 'The end date should later than the start date.'
+            )
+        ]
     )]
     private ?\DateTimeInterface $endDate = null;
 
@@ -64,7 +78,10 @@ class Workshop
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: Programme::class)]
+    // ajouter cascade persist + orphanRemovalTrue
+    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: Programme::class, cascade:['persist'], orphanRemoval:true)]
+    // @OrderBy({"lesson" = "ASC"})
+    #[ORM\OrderBy(["lesson" => "ASC"])]
     private Collection $programmes;
 
     public function __construct()

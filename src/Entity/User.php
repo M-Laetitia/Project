@@ -70,6 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: ExpositionProposal::class)]
     private Collection $expositionProposals;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: AreaParticipation::class)]
+    private Collection $areaParticipations;
+
     public function __construct()
     {
         // $this->roles = ['ROLE_USER'];
@@ -77,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->contacts = new ArrayCollection();
         $this->workshops = new ArrayCollection();
         $this->expositionProposals = new ArrayCollection();
+        $this->areaParticipations = new ArrayCollection();
     }
 
     public function __toString() {
@@ -472,6 +476,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($expositionProposal->getUser() === $this) {
                 $expositionProposal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AreaParticipation>
+     */
+    public function getAreaParticipations(): Collection
+    {
+        return $this->areaParticipations;
+    }
+
+    public function addAreaParticipation(AreaParticipation $areaParticipation): static
+    {
+        if (!$this->areaParticipations->contains($areaParticipation)) {
+            $this->areaParticipations->add($areaParticipation);
+            $areaParticipation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAreaParticipation(AreaParticipation $areaParticipation): static
+    {
+        if ($this->areaParticipations->removeElement($areaParticipation)) {
+            // set the owning side to null (unless already changed)
+            if ($areaParticipation->getUser() === $this) {
+                $areaParticipation->setUser(null);
             }
         }
 

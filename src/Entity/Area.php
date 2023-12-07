@@ -43,11 +43,15 @@ class Area
     #[ORM\OneToMany(mappedBy: 'area', targetEntity: ExpositionProposal::class)]
     private Collection $expositionProposals;
 
+    #[ORM\OneToMany(mappedBy: 'area', targetEntity: AreaParticipation::class)]
+    private Collection $areaParticipations;
+
 
 
     public function __construct()
     {
         $this->expositionProposals = new ArrayCollection();
+        $this->areaParticipations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,6 +179,36 @@ class Area
             // set the owning side to null (unless already changed)
             if ($expositionProposal->getArea() === $this) {
                 $expositionProposal->setArea(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AreaParticipation>
+     */
+    public function getAreaParticipations(): Collection
+    {
+        return $this->areaParticipations;
+    }
+
+    public function addAreaParticipation(AreaParticipation $areaParticipation): static
+    {
+        if (!$this->areaParticipations->contains($areaParticipation)) {
+            $this->areaParticipations->add($areaParticipation);
+            $areaParticipation->setArea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAreaParticipation(AreaParticipation $areaParticipation): static
+    {
+        if ($this->areaParticipations->removeElement($areaParticipation)) {
+            // set the owning side to null (unless already changed)
+            if ($areaParticipation->getArea() === $this) {
+                $areaParticipation->setArea(null);
             }
         }
 

@@ -35,6 +35,11 @@
         {{ form_row(formAddWorkshop.picture) }}
         {{ form_row(formAddWorkshop.user) }}
 
+        {# Constuire dynamiquement la liste des lessons existants à partir  de la collection de programme #}
+
+        <h2>Programme du workshop: </h2>
+        {# {{ form_row(formAddWorkshop.programmes) }} #}
+
         {{ form_row(formAddWorkshop.Create) }}
 
     {{ form_end(formAddWorkshop) }}

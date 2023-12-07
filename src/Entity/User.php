@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -63,11 +64,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json', nullable: true)]
     private ?array $artistInfos = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Workshop::class)]
+    private Collection $workshops;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ExpositionProposal::class)]
+    private Collection $expositionProposals;
+
     public function __construct()
     {
         // $this->roles = ['ROLE_USER'];
         $this->pictures = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->workshops = new ArrayCollection();
+        $this->expositionProposals = new ArrayCollection();
     }
 
     public function __toString() {
@@ -321,7 +330,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPictures(): Collection
     {
-        return $this->pictures;
+        // Create a criteria to filter pictures by user
+        $criteria = Criteria::create()->where(Criteria::expr()->eq('user', $this));
+
+        // Apply the filter to get only the pictures of this user
+        return $this->pictures->matching($criteria);
     }
 
     public function addPicture(Picture $picture): static
@@ -404,5 +417,65 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     // {
     //     return $this->artistInfos['discipline'] ?? null;
     // }
+
+    /**
+     * @return Collection<int, Workshop>
+     */
+    public function getWorkshops(): Collection
+    {
+        return $this->workshops;
+    }
+
+    public function addWorkshop(Workshop $workshop): static
+    {
+        if (!$this->workshops->contains($workshop)) {
+            $this->workshops->add($workshop);
+            $workshop->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshop(Workshop $workshop): static
+    {
+        if ($this->workshops->removeElement($workshop)) {
+            // set the owning side to null (unless already changed)
+            if ($workshop->getUser() === $this) {
+                $workshop->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ExpositionProposal>
+     */
+    public function getExpositionProposals(): Collection
+    {
+        return $this->expositionProposals;
+    }
+
+    public function addExpositionProposal(ExpositionProposal $expositionProposal): static
+    {
+        if (!$this->expositionProposals->contains($expositionProposal)) {
+            $this->expositionProposals->add($expositionProposal);
+            $expositionProposal->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpositionProposal(ExpositionProposal $expositionProposal): static
+    {
+        if ($this->expositionProposals->removeElement($expositionProposal)) {
+            // set the owning side to null (unless already changed)
+            if ($expositionProposal->getUser() === $this) {
+                $expositionProposal->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

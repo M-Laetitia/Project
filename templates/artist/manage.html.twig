@@ -60,7 +60,7 @@
                     {% for picture in user.pictures %}
                         
                         <div class="slide{% if loop.first %} current-slide{% endif %}">
-                            <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ picture.url) }}" alt="{{picture.altDescription}}" width="150">
+                            <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/works/mini/300x300-' ~ picture.path) }}" alt="{{picture.altDescription}}" width="150">
                         </div>
                     {% endfor %}
 
@@ -87,7 +87,7 @@
     
     <div>
         {% for picture in user.pictures %}
-            <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/mini/300x300-' ~ picture.url) }}" alt="{{picture.altDescription}}" width="150">
+            <img class="image" src="{{ asset('images/artists/' ~ user.id ~'/works/mini/300x300-' ~ picture.path) }}" alt="{{picture.altDescription}}" width="150">
         {% endfor %}
     </div>
 

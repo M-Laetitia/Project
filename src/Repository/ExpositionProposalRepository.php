@@ -40,6 +40,23 @@ class ExpositionProposalRepository extends ServiceEntityRepository
 
     }
 
+    // ^ Get the number of proposal per Exposition
+
+    // public function countProposalsPerExposition(?int $areaId = null) {
+    //     $em = $this->getEntityManager();
+    //     $qb = $em->createQueryBuilder();
+
+    //     $qb ->select('COUNT(ep.id) as proposalCount')
+    //     ->from('App\Entity\ExpositionProposal', 'ep')
+    //     ->leftJoin('ep.area', 'a')
+    //     ->where('a.id = :areaId')
+    //     ->setParameter('areaId', $areaId)
+    //     ->groupBy('a.id');
+
+    //     $query = $qb->getQuery();
+    //     return $query->getResult();
+    // }
+
 //    /**
 //     * @return ExpositionProposal[] Returns an array of ExpositionProposal objects
 //     */

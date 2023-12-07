@@ -7,11 +7,22 @@
 
 <h1>Expositions list (ongoing ones)</h1>
 
+{# {{ dump(existingProposals) }} 
+{{ dump(proposalCounts) }} #}
+
 {% for expo in expos %}
     <p>name: {{expo.name}}</p>
     <p>description: {{expo.description}}</p>
     <p>dates: {{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
     <p>Capacity: {{expo.nbRooms}}</p>
+    <p>Number of Proposals: {{ proposalCounts[expo.id] }}</p> - {{expo.status}}
+
+    {% if expo.status == 'OPEN' %}
+        <p>Inscriptions open - click <a href="#">here</a></p>
+    {% else %}
+        <p>Inscriptions not open</p>
+    {% endif %}
+    
     <hr>
     <p>Want to showcase your work in this exposition?</p>
     

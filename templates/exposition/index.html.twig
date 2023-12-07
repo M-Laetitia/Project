@@ -18,7 +18,7 @@
     <p>Number of Proposals: {{ proposalCounts[expo.id] }}</p> - {{expo.status}}
 
     {% if expo.status == 'OPEN' %}
-        <p>Inscriptions open - click <a href="#">here</a></p>
+        <p>Inscriptions open - click <a href="{{ path('show_exposition', {'id' : expo.id})}}">here</a></p>
     {% else %}
         <p>Inscriptions not open</p>
     {% endif %}

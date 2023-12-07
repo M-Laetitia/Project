@@ -22,19 +22,22 @@ class EventType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
+
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'open' => 'open',
                     'close' => 'close',
                     'open soon' => 'open_soon',
                     'archived' => 'archived',
-                ]
+                ],
+                'multiple' => false,
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'private' => 'private',
-                    'public' => 'close',
-                ]
+                    'public' => 'public',
+                ],
+                'multiple' => false,
             ])
 
 

@@ -7,11 +7,19 @@
 
     <h1>list artists</h1>
 
+    <h2>last artists added</h2>
+
+
+    <h3>All artists </h3>
+
     {% for artist in artists %}
         
+
     <div class="artist-container">
-        <p>Name/pseudo: {{ artist.artistName}}</p>
-        <p>Art domain: {{artist.artistDiscipline}}</p>
+        <p>Artist Name: {{ artist.artistInfos.artistName }}</p>
+        {# {{ dump(artist)}} #}
+        <p>Discipline: {{ artist.artistInfos.discipline }}</p>
+
         <div>
             <img src="" alt="picture of the artist">
         </div>

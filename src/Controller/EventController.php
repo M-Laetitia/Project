@@ -40,31 +40,30 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/dashboard/new', name:'new_event')]
-    #[Route('/dashboard/{id}/edit', name:'edit_event')]
-    public function new_edit(Event $event = null, Request $request, EntityManagerInterface $entityManager ) : Response
-    {
+    // #[Route('/dashboard/new', name:'new_event')]
+    // #[Route('/dashboard/{id}/edit', name:'edit_event')]
+    // public function new_edit(Event $event = null, Request $request, EntityManagerInterface $entityManager ) : Response
+    // {
 
+    //     if(!$event) {
+    //         $event = new Event();
+    //     }
 
-        if(!$event) {
-            $event = new Event();
-        }
+    //     $form= $this->createForm(EventType::class, $event);
+    //     $form->handleRequest($request);
 
-        $form= $this->createForm(EventType::class, $event);
-        $form->handleRequest($request);
+    //     if ($form->isSubmitted() && $form->isValid() ) {
+    //         $event = $form->getData();
+    //         $entityManager->persist($event);
+    //         $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid() ) {
-            $event = $form->getData();
-            $entityManager->persist($event);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_dashboard');
-        }
+    //         return $this->redirectToRoute('app_dashboard');
+    //     }
 
     
-        return $this->render('dashboard/newEvent.html.twig', [
-            'formAddEvent' => $form,
-            'edit' =>$event->getId(),
-        ]);
-    }
+    //     return $this->render('dashboard/newEvent.html.twig', [
+    //         'formAddEvent' => $form,
+    //         'edit' =>$event->getId(),
+    //     ]);
+    // }
 }

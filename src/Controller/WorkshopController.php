@@ -47,6 +47,7 @@ class WorkshopController extends AbstractController
         // dump($users);die;
         if(!$workshop) {
             $workshop = new Workshop();
+            
         }
 
         $form = $this->createForm(WorkshopType::class, $workshop, [
@@ -57,6 +58,8 @@ class WorkshopController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() ) {
             $workshop = $form->getData();
+            // dump($workshop);die;
+           
             $entityManager->persist($workshop);
             $entityManager->flush();
 
@@ -65,10 +68,15 @@ class WorkshopController extends AbstractController
 
     
         return $this->render('dashboard/newWorkshop.html.twig', [
-            'formAddWorkshop' => $form,
+            'form' => $form,
             'edit' =>$workshop->getId(),
+            'workshopId' => $workshop->getId(),
            
         ]);
     }
 
 }
+
+
+
+// Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa

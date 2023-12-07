@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Expositions{% endblock %}
+{% block meta %}List Expositions{% endblock %}
+
+{% block body %}
+
+<h1>Expositions detail</h1>
+
+<h2>Infos</h2> <br>
+<p>Name: {{area.name}}</p>
+<p>Description: {{area.description}}</p>
+<h2>Artists:</h2> <br>
+
+
+<h3>Participate</h3> <br>
+<p>Want to participate ? <br>
+<a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
+
+{# {% for artist in area %}
+    <p>Name: {{area.user.username}}</p>
+{% endfor %} #}
+
+
+{% endblock %}

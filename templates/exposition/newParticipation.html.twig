@@ -7,6 +7,13 @@
 
 <h1>Partipate to an exhibition</h1>
 
+{{ form_start(formSendParticipation)}}
+    {{ form_errors(formSendParticipation)}}
 
+    {{ form_row(formSendParticipation.firstname)}}
+    {{ form_row(formSendParticipation.lastname)}}
+    {{ form_row(formSendParticipation.submit)}}
+
+{{ form_end(formSendParticipation)}}
 
 {% endblock %}

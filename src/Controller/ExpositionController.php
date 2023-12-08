@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\AreaParticipationRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExpositionProposalRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -91,11 +92,30 @@ class ExpositionController extends AbstractController
 
     // ^ Show detail expo
     #[Route('/exposition/{id}', name: 'show_exposition')]
-    public function show(Area $area = null): Response 
+    public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
 
+        $user = $security->getUser();
+        $userId = $user->getId();
+        
+        $areaId = $area->getId();
+        // dump($areaId);die;
+
+
+        $existingParticipation = [];
+        // ! voir pour utiliser dql
+        // $existingParticipation = $areaParticipationRepository->checkIfUserHasExistingParticipation($userId, $areaId);
+
+        // dump($existingParticipation);die;
+
+        $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
+        // dump($hasExistingParticipation);die;
+        $existingParticipation = $hasExistingParticipation !== null;
+    
+        // dump($existingParticipation);die;
         return $this->render('exposition/show.html.twig', [
             'area' => $area,
+            '$existingParticipation' => $existingParticipation
         ]);
     }
 

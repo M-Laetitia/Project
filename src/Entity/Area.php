@@ -46,12 +46,16 @@ class Area
     #[ORM\OneToMany(mappedBy: 'area', targetEntity: AreaParticipation::class)]
     private Collection $areaParticipations;
 
+    #[ORM\ManyToMany(targetEntity: AreaCategory::class, inversedBy: 'areas')]
+    private Collection $areaCategories;
+
 
 
     public function __construct()
     {
         $this->expositionProposals = new ArrayCollection();
         $this->areaParticipations = new ArrayCollection();
+        $this->areaCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +224,30 @@ class Area
                 $areaParticipation->setArea(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, AreaCategory>
+     */
+    public function getAreaCategories(): Collection
+    {
+        return $this->areaCategories;
+    }
+
+    public function addAreaCategory(AreaCategory $areaCategory): static
+    {
+        if (!$this->areaCategories->contains($areaCategory)) {
+            $this->areaCategories->add($areaCategory);
+        }
+
+        return $this;
+    }
+
+    public function removeAreaCategory(AreaCategory $areaCategory): static
+    {
+        $this->areaCategories->removeElement($areaCategory);
 
         return $this;
     }

@@ -28,6 +28,10 @@ class ExpositionController extends AbstractController
         // Fetch all expo from the AreaRepository
         $expos = $areaRepository->findBy(['type' => 'EXPO']);
 
+        //^recup nb de réservation - initialisation tableau vide
+        // ! indiquer nb restant
+        $reservationCounts = [];
+
         // Initialize arrays to store existing proposals and proposal counts
         $existingProposals = [];
         $proposalCounts = [];
@@ -45,6 +49,9 @@ class ExpositionController extends AbstractController
            
             // Get the proposals associated with this exposition
             $expositionProposals = $expo->getExpositionProposals();
+
+            // ^ get the reservation count
+            $reservationCounts[$expositionId] = $areaRepository->countParticipationPerExpo($expositionId);
 
             // Initialize an array to store associated users
             $usersToNotify = [];
@@ -78,6 +85,7 @@ class ExpositionController extends AbstractController
             'expos' => $expos, 
             'existingProposals' => $existingProposals,
             'proposalCounts' => $proposalCounts,
+            'reservationCounts' => $reservationCounts,
         ]);
     }
 

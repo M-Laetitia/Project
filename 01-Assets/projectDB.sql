@@ -40,13 +40,42 @@ REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `start_date`, `end_d
 	(3, 'Event 01', 'blablablalbla', NULL, '2023-12-06 16:09:27', '2023-12-06 16:09:28', 20, 'EVENT', 'OPEN'),
 	(4, 'Event 02', 'blablablalba', NULL, '2023-12-06 16:10:05', '2023-12-06 16:10:06', 12, 'EVENT', 'CLOSED');
 
+-- Listage de la structure de table project. area_area_category
+CREATE TABLE IF NOT EXISTS `area_area_category` (
+  `area_id` int NOT NULL,
+  `area_category_id` int NOT NULL,
+  PRIMARY KEY (`area_id`,`area_category_id`),
+  KEY `IDX_DC7F5F32BD0F409C` (`area_id`),
+  KEY `IDX_DC7F5F32397D3792` (`area_category_id`),
+  CONSTRAINT `FK_DC7F5F32397D3792` FOREIGN KEY (`area_category_id`) REFERENCES `area_category` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_DC7F5F32BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table project.area_area_category : ~2 rows (environ)
+REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
+	(3, 1),
+	(4, 2);
+
+-- Listage de la structure de table project. area_category
+CREATE TABLE IF NOT EXISTS `area_category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table project.area_category : ~3 rows (environ)
+REPLACE INTO `area_category` (`id`, `name`) VALUES
+	(1, 'categ01'),
+	(2, 'categ02'),
+	(3, 'categ03');
+
 -- Listage de la structure de table project. area_participation
 CREATE TABLE IF NOT EXISTS `area_participation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `firstname` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
   `inscription_date` datetime NOT NULL,
   `area_id` int NOT NULL,
   `user_id` int NOT NULL,
@@ -55,9 +84,12 @@ CREATE TABLE IF NOT EXISTS `area_participation` (
   KEY `IDX_B269FA74A76ED395` (`user_id`),
   CONSTRAINT `FK_B269FA74A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_B269FA74BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area_participation : ~0 rows (environ)
+-- Listage des données de la table project.area_participation : ~2 rows (environ)
+REPLACE INTO `area_participation` (`id`, `firstname`, `lastname`, `start_date`, `end_date`, `inscription_date`, `area_id`, `user_id`) VALUES
+	(1, 'test', 'test', NULL, NULL, '2023-12-08 08:25:31', 1, 8),
+	(2, 'test02', 'test02', NULL, NULL, '2023-12-08 09:37:07', 1, 7);
 
 -- Listage de la structure de table project. contact
 CREATE TABLE IF NOT EXISTS `contact` (
@@ -257,7 +289,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Listage des données de la table project.user : ~7 rows (environ)
 REPLACE INTO `user` (`id`, `email`, `username`, `password`, `roles`, `is_verified`, `avatar`, `registration_date`, `last_login_date`, `last_profil_edit_date`, `artist_infos`) VALUES
 	(7, '05@exemple.com', 'test05', '$2y$13$JLmhaHe/j7US1RkvTZUi0uK9UUHnvl81GhrIBUsftIp7fwzPc3IE.', '["ROLE_USER"]', 0, NULL, '2023-11-29 00:28:28', '2023-12-06 17:52:56', NULL, NULL),
-	(8, 'cath@exemple.com', 'Cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2023-12-07 10:20:29', NULL, '{"emailPro": "CathCreation@exempla.com", "artistName": "Cath Creation", "discipline": "Wood Handcrafted Artisan"}'),
+	(8, 'cath@exemple.com', 'Cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2023-12-08 12:40:22', NULL, '{"emailPro": "CathCreation@exempla.com", "artistName": "Cath Creation", "discipline": "Wood Handcrafted Artisan"}'),
 	(9, '02@exemple.com', 'test03', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, NULL, '2023-11-30 16:18:54', NULL, '{"emailPro": "JohnCreator@exemple.com", "artistName": "John Creation", "discipline": "Illustrator"}'),
 	(10, '04@exemple.com', 'test04', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER"]', 0, NULL, '2023-11-28 23:35:55', NULL, NULL, NULL),
 	(11, '01@exemple.com', 'test', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER"]', 0, NULL, '2023-11-29 09:26:35', NULL, NULL, NULL),

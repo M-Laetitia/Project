@@ -15,7 +15,30 @@
 
 <h3>Participate</h3> <br>
 <p>Want to participate ? <br>
-<a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
+
+
+
+{# si place restante
+    >si pas déjà inscrit
+        > inscription possible
+Sinon reservation impossibles #}
+
+{# {{ dump(existingParticipation) }} #}
+
+{# {% if existingParticipation %}
+        <p>vous participez déjà à cet event</p>
+{% else %}
+        <p>test2</p>
+{% endif %} #}
+
+{% if area.nbReversationRemaining == 0 %}
+       <p>No more rooms avalaible</p>
+    {% else %}
+        <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
+{% endif %}
+
+
+
 
 {# {% for artist in area %}
     <p>Name: {{area.user.username}}</p>

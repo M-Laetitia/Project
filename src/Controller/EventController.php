@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 
-use App\Entity\Event;
+use App\Entity\Area;
 use App\Form\EventType;
-use App\Repository\EventRepository;
+use App\Repository\AreaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +15,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class EventController extends AbstractController
 {
     #[Route('/event', name: 'app_event')]
-    public function index(EventRepository $eventRepository): Response
+    public function index(AreaRepository $areaRepository): Response
     {
 
-        $events = $eventRepository->findBy([]);
-
+        $events = $areaRepository->findBy(['type' => 'EVENT']);
         return $this->render('event/index.html.twig', [
             // 'controller_name' => 'DashboardController',
             'events' => $events,
@@ -28,42 +27,38 @@ class EventController extends AbstractController
 
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
     #[Route('/event/{id}', name: 'show_event')]
-    public function show(Event $event = null): Response
+    public function show(Area $area = null): Response
     {
 
-        // if (!$event) {
-        //     return $this->redirectToRoute('app_event');
-        // }
-
         return $this->render('event/show.html.twig', [
-            'event' => $event,
+            'area' => $area,
         ]);
     }
 
-    // #[Route('/dashboard/new', name:'new_event')]
-    // #[Route('/dashboard/{id}/edit', name:'edit_event')]
-    // public function new_edit(Event $event = null, Request $request, EntityManagerInterface $entityManager ) : Response
-    // {
+    #[Route('/dashboard/new', name:'new_event')]
+    #[Route('/dashboard/{id}/edit', name:'edit_event')]
+    public function new_edit(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
+    {
 
-    //     if(!$event) {
-    //         $event = new Event();
-    //     }
+        if(!$area) {
+            $area = new Area();
+        }
 
-    //     $form= $this->createForm(EventType::class, $event);
-    //     $form->handleRequest($request);
+        $form= $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid() ) {
-    //         $event = $form->getData();
-    //         $entityManager->persist($event);
-    //         $entityManager->flush();
+        if ($form->isSubmitted() && $form->isValid() ) {
+            $event = $form->getData();
+            $entityManager->persist($event);
+            $entityManager->flush();
 
-    //         return $this->redirectToRoute('app_dashboard');
-    //     }
+            return $this->redirectToRoute('app_dashboard');
+        }
 
     
-    //     return $this->render('dashboard/newEvent.html.twig', [
-    //         'formAddEvent' => $form,
-    //         'edit' =>$event->getId(),
-    //     ]);
-    // }
+        return $this->render('dashboard/newEvent.html.twig', [
+            'formAddEvent' => $form,
+            'edit' =>$event->getId(),
+        ]);
+    }
 }

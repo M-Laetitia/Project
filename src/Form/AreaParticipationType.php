@@ -6,6 +6,7 @@ use App\Entity\AreaParticipation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AreaParticipationType extends AbstractType
 {
@@ -13,12 +14,14 @@ class AreaParticipationType extends AbstractType
     {
         $builder
             ->add('firstname')
-            // ->add('lastname')
+            ->add('lastname')
             // ->add('startDate')
-            ->add('endDate')
+            // ->add('endDate')
             // ->add('inscriptionDate')
             // ->add('area')
             // ->add('user')
+
+            ->add('submit', SubmitType::class)
         ;
     }
 

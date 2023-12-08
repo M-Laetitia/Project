@@ -5,16 +5,21 @@
 {% block body %}
 
     <h1>Event:</h1>
-
-
-
     
-    <p>✦{{event.name}}| {{event.status}} | {{event.nbPlace}} </p> 
+    <h2>Infos</h2> <br>
+    <p>Name: {{area.name}}</p>
+    <p>Description: {{area.description}}</p>
 
-    <p>see more</p>
+
     <hr>
     
+    <p>Want to participate ? <br>
 
+    {% if area.nbReversationRemaining == 0 %}
+    <p>No more rooms avalaible</p>
+    {% else %}
+        {# <a href="{{ path('new_event_participation', {'id': area.id }) }}">Participate</a></p> #}
+    {% endif %}
 
 
 {% endblock %}

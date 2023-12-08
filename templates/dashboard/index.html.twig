@@ -8,28 +8,36 @@
 
     <h2>Event:</h2>
 
-    {# <p>List:</p>
+    <p>List:</p>
 
         {% for event in events %}
-            <p>✦{{event.name}}| {{event.status}} | {{event.nbPlace}} </p> 
-            <p>Actions :  #}
-                {# <a href="{{ path('edit_event', {'id': event.id}) }}">edit</a> #}
-            {# <br>/ delete / open / lock / unlock / Archive / </p>
+            <p>✦{{event.name}}|| {{event.nbRooms}} </p> 
+            {{event.startDate|formatDate}}  -  {{event.endDate|formatDate}} 
+            <p>Actions :  
+                <a href="{{ path('edit_event', {'id': event.id}) }}">edit</a> 
+            <br>/ delete / open / lock / unlock / Archive / </p>
             <p>add picture</p>
             <hr>
         {% endfor %}
 
-        <p>ongoing event</p>
-        <p>scheduled event</p>
-        <p>previous event</p> #}
 
     {# <p><a href="{{ path('new_event') }}">add an event:</a></p> #}
     
-
+    <hr><br>
     <h2>Expo</h2>
 
-    <h2>Space/equipment</h2>
+    {% for expo in expositions %}
+        <p>✦{{expo.name}}|| {{expo.nbRooms}} </p> 
+        {{expo.startDate|formatDate}}  -  {{expo.endDate|formatDate}} 
+        <p>Actions :  
+            {# <a href="{{ path('edit_expo', {'id': expo.id}) }}">edit</a>  #}
+        <br>/ delete / open / lock / unlock / Archive / </p>
+        <p>add picture</p>
+        <hr>
+    {% endfor %}
 
+
+    <hr><br>
     <h2>Workshop</h2>
 
     {% for workshop in workshops %}
@@ -44,5 +52,7 @@
 
     <p><a href="{{ path('new_workshop') }}">add a workshop:</a></p>
 
+    <hr><br>
+    <h2>Studios</h2>
 
 {% endblock %}

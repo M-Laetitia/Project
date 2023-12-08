@@ -14,7 +14,10 @@
     <p>name: {{expo.name}}</p>
     <p>description: {{expo.description}}</p>
     <p>dates: {{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
-    <p>Capacity: {{expo.nbRooms}}</p>
+    <p>Capacity {{ reservationCounts[expo.id] }} / {{expo.nbRooms}}</p>
+    <p>passing by entity</p>
+    <p>Capacity: {{expo.nbReversationMade}}  /  {{expo.nbRooms}}</p>
+    <p>Remaining: {{expo.nbReversationRemaining}}</p>
     <p>Number of Proposals: {{ proposalCounts[expo.id] }}</p> - {{expo.status}}
 
     {% if expo.status == 'OPEN' %}

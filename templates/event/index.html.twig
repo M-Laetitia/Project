@@ -8,13 +8,20 @@
 
     <p>LIST:</p>
 
+
+
     {% for event in events %}
-    <p>✦{{event.name}}| {{event.status}} | {{event.nbPlace}} </p> 
+        <p>name: {{event.name}}</p>
+        <p>description: {{event.description}}</p>
+        <p>dates: {{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
+        {# <p>Capacity {{ reservationCounts[event.id] }} / {{event.nbRooms}}</p> #}
 
-    <p></p>
+        <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
+        <p>Remaining: {{event.nbReversationRemaining}}</p>
 
-    <a href="{{ path('show_event', {'id' : event.id }) }}">see more</a>
-    <hr>
+        <a href="{{ path('show_event', {'id' : event.id }) }}">see more</a>
+        <hr>
+
     {% endfor %}
 
     <p>SEE PREVIOUS EVENTS:</p>

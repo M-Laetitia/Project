@@ -131,6 +131,15 @@ class Area
         return $this;
     }
 
+    public function getNbReversationMade() {
+        return count($this->areaParticipations);
+    }
+
+    public function getNbReversationRemaining() {
+        return $this->nbRooms - count($this->areaParticipations);
+    }
+
+
     public function getType(): ?string
     {
         return $this->type;

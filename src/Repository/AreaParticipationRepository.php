@@ -21,6 +21,26 @@ class AreaParticipationRepository extends ServiceEntityRepository
         parent::__construct($registry, AreaParticipation::class);
     }
 
+    //^ check if an user has already a participation 
+
+    public function checkIfUserHasExistingParticipation(?int $userId = null,  ?int $areaId = null) 
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('ap.id')
+        ->from('App\Entity\ExpositionProposal', 'ap')
+        ->where('ap.id =  :userId')
+        ->andWhere('ap.id = :areaId')
+        ->setParameter('userId', $userId)
+        ->setParameter('areaId', $areaId);
+
+        $query = $qb->getQuery();
+        $query->getResult();
+        return $query !== null;
+        
+    }
+
 //    /**
 //     * @return AreaParticipation[] Returns an array of AreaParticipation objects
 //     */

@@ -35,6 +35,36 @@ class AreaRepository extends ServiceEntityRepository
         return $qb->getSingleScalarResult();
     }
 
+    public function countParticipationPerExpo(?int $expositionId = null) {
+        // $em = $this->getEntityManager();
+        // $qb = $em->createQueryBuilder();
+         
+        // $qb ->select('COUNT(a.id) as counts')
+        // ->leftJoin('a.areaParticipation', 'ap')
+        // ->from('App\Entity\Area', 'a')
+        // ->where('a.id = :expositionId')
+        // ->setParameter('expositionId', $expositionId)
+        // ->groupBy('a.id')
+        // ->getQuery();
+
+        // $query = $qb->getQuery();
+        // $query->getResult();
+
+
+        $qb = $this->createQueryBuilder('a')
+        ->select('COUNT(ap.id) as counts')
+        ->leftJoin('a.areaParticipations', 'ap')
+        ->andWhere('a.id = :expositionId')
+        ->setParameter('expositionId', $expositionId)
+        ->groupBy('a.id')
+        ->getQuery();
+
+        return $qb->getSingleScalarResult();
+
+        // return $qb->getSingleScalarResult();
+        // return $query !== null;
+    }
+
    
 
 //    /**

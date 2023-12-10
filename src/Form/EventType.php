@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Event;
-use App\Entity\CategoryEvent;
+use App\Entity\Area;
+use App\Entity\AreaCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -41,7 +41,7 @@ class EventType extends AbstractType
             ])
 
 
-            ->add('nbPlace', IntegerType::class, [
+            ->add('nbRooms', IntegerType::class, [
                 'constraints' => [
                     new GreaterThan([
                         'value' => 0,
@@ -52,9 +52,10 @@ class EventType extends AbstractType
             ])
 
             
-            ->add('categoryEvent', EntityType::class, [
-                'class' => CategoryEvent::class,
-                // 'attr' => ['class' => 'custom-dropdown'],
+            ->add('areaCategories', EntityType::class, [
+                'class' => AreaCategory::class,
+                'multiple' => true,
+                'expanded' => true, 
             ])
 
             ->add('Create', SubmitType::class);
@@ -64,7 +65,7 @@ class EventType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Event::class,
+            'data_class' => Area::class,
         ]);
     }
 }

@@ -141,9 +141,22 @@ class ParticipationController extends AbstractController
     #[IsGranted("ROLE_ADMIN")]
     public function delete(AreaParticipation $areaParticipation, EntityManagerInterface $entityManager)
     {
+        $area =  $areaParticipation->getArea();
         $areaId = $areaParticipation->getArea()->getId();
         $entityManager->remove($areaParticipation);
         $entityManager->flush();
+
+        $nbReversationRemaining = $area->getNbReversationRemaining();
+        if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
+            // Update the status to "closed"
+            $area->setStatus('CLOSED');
+            $entityManager->flush();
+        } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
+            $area->setStatus('OPEN');
+            $entityManager->flush();
+        }
+
+
 
         return $this->redirectToRoute('show_event_admin', ['id' => $areaId]);
     }

@@ -27,36 +27,54 @@ class ParticipationController extends AbstractController
 
     // ^ Make a participation for an exposition
     #[Route('/expostion/{id}/new', name: 'new_exposition_participation')]
-    public function new(AreaParticipation $areaParticipation = null, Area $area, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
+    public function newExpo(AreaParticipation $areaParticipation = null, Area $area, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
     {
 
-        // $area = $areaParticipation->
         $user = $security->getUser();
-        $areaId = $area->getId();
-        $area = $areaRepository->findBy(['id' => $areaId ]);
-        // dump($area); die;
-        // dump($area[0]); die;
-        
+        // $areaId = $area->getId();
+        // $area = $areaRepository->findBy(['id' => $areaId ]);
+
         $form = $this->createForm(AreaParticipationType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
 
-            $expoParticipation = $form->getData();
-            $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
-            $expoParticipation->setUser($user);
-            $expoParticipation->setArea($area[0]);
+            // Check if the maximum number of participants has been reached
+            $maxParticipants = $area->getNbRooms();
+            $currentParticipants = $area->getNbReversationMade();
 
-            $entityManager->persist($expoParticipation);
-            $entityManager->flush();
+            if ($currentParticipants < $maxParticipants) {
 
-            // //send the email
-            $userEmail = $user->getEmail();
-            $expositionDetails = 'test';
-            $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+                $expoParticipation = $form->getData();
+                $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
+                $expoParticipation->setUser($user);
+                $expoParticipation->setArea($area);
+    
+                $entityManager->persist($expoParticipation);
+                $entityManager->flush();
+    
+                //send the email
+                $userEmail = $user->getEmail();
+                $expositionDetails = 'test';
+                $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+    
+                // Check if the maximum number of participants has been reached after the new registration
+                $nbReversationRemaining = $area->getNbReversationRemaining();
+                if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'closed') {
+                    // Update the status to "closed"
+                    $area->setStatus('CLOSED');
+                    $entityManager->flush();
+                }
+    
+                // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+                return $this->redirectToRoute('app_exposition');
 
-            // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
-            return $this->redirectToRoute('app_exposition');
+            } else {
+                // Redirect / display a message indicating that the maximum number of participants has been reached
+                // return $this->render('exposition/maxParticipantsReached.html.twig');
+                return $this->redirectToRoute('app_exposition');
+            }
+
         
         }
 
@@ -66,4 +84,50 @@ class ParticipationController extends AbstractController
 
         ]);
     }
+
+    // ^ Make a participation for an event
+    #[Route('/event/{id}/new', name: 'new_event_participation')]
+    public function newArea(AreaParticipation $areaParticipation = null, Area $area, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
+    {
+
+        $user = $security->getUser();
+
+        $form = $this->createForm(AreaParticipationType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            $expoParticipation = $form->getData();
+            $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
+            $expoParticipation->setUser($user);
+            $expoParticipation->setArea($area);
+
+            $entityManager->persist($expoParticipation);
+            $entityManager->flush();
+
+            //send the email
+            $userEmail = $user->getEmail();
+            $expositionDetails = 'test';
+            $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+
+            $nbReversationRemaining = $area->getNbReversationRemaining();
+            if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'closed') {
+                // Update the status to "closed"
+                $area->setStatus('CLOSED');
+                $entityManager->flush();
+            }
+
+            // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+            return $this->redirectToRoute('app_event');
+        
+        }
+
+        return $this->render('exposition/newParticipation.html.twig', [
+            'formSendParticipation' => $form,
+            'user' => $user,
+
+        ]);
+    }
+
+
 }

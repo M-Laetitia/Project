@@ -10,16 +10,22 @@
     <p>Name: {{area.name}}</p>
     <p>Description: {{area.description}}</p>
 
-
     <hr>
     
     <p>Want to participate ? <br>
 
-    {% if area.nbReversationRemaining == 0 %}
-    <p>No more rooms avalaible</p>
-    {% else %}
-        {# <a href="{{ path('new_event_participation', {'id': area.id }) }}">Participate</a></p> #}
-    {% endif %}
 
-
+    {% if existingParticipation %}
+        <p>You are already participating in this exhibition</p>
+        {% else %}
+        
+        {% if area.nbReversationRemaining == 0 %}
+        <p>No more space available for this exhibition</p>
+        {% else %}
+                <a href="{{ path('new_event_participation', {'id': area.id }) }}">Participate</a></p>
+        {% endif %}
+   {% endif %}
+        
+        
+        
 {% endblock %}

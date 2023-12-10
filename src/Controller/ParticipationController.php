@@ -60,9 +60,13 @@ class ParticipationController extends AbstractController
     
                 // Check if the maximum number of participants has been reached after the new registration
                 $nbReversationRemaining = $area->getNbReversationRemaining();
-                if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'closed') {
+                
+                if ( $currentParticipants +1 >= $maxParticipants && $area->getStatus() !== 'CLOSED') {
                     // Update the status to "closed"
                     $area->setStatus('CLOSED');
+                    $entityManager->flush();
+                } elseif ($currentParticipants < $maxParticipants && $area->getStatus() !== 'OPEN') {
+                    $area->setStatus('OPEN');
                     $entityManager->flush();
                 }
     
@@ -111,9 +115,12 @@ class ParticipationController extends AbstractController
             $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
 
             $nbReversationRemaining = $area->getNbReversationRemaining();
-            if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'closed') {
+            if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
                 // Update the status to "closed"
                 $area->setStatus('CLOSED');
+                $entityManager->flush();
+            } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
+                $area->setStatus('OPEN');
                 $entityManager->flush();
             }
 

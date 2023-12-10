@@ -17,25 +17,16 @@
 <p>Want to participate ? <br>
 
 
-
-{# si place restante
-    >si pas déjà inscrit
-        > inscription possible
-Sinon reservation impossibles #}
-
-{# {{ dump(existingParticipation) }} #}
-
-{# {% if existingParticipation %}
-        <p>vous participez déjà à cet event</p>
+{% if existingParticipation %}
+        <p>You are already participating in this exhibition</p>
 {% else %}
-        <p>test2</p>
-{% endif %} #}
-
-{% if area.nbReversationRemaining == 0 %}
-       <p>No more rooms avalaible</p>
-    {% else %}
-        <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
+        {% if area.nbReversationRemaining == 0 %}
+        <p>No more space available for this exhibition</p>
+        {% else %}
+                <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
+        {% endif %}
 {% endif %}
+
 
 
 

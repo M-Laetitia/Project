@@ -48,8 +48,8 @@ class EventController extends AbstractController
 
 
 
-    #[Route('/dashboard/new', name:'new_event')]
-    #[Route('/dashboard/{id}/edit', name:'edit_event')]
+    #[Route('/dashboard/new/event', name:'new_event')]
+    #[Route('/dashboard/{id}/edit/event', name:'edit_event')]
     public function new_edit(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
     {
 
@@ -57,12 +57,12 @@ class EventController extends AbstractController
             $area = new Area();
         }
 
-        $form= $this->createForm(EventType::class, $event);
+        $form= $this->createForm(EventType::class, $area);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
-            $event = $form->getData();
-            $entityManager->persist($event);
+            $area = $form->getData();
+            $entityManager->persist($area);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_dashboard');
@@ -71,7 +71,7 @@ class EventController extends AbstractController
     
         return $this->render('dashboard/newEvent.html.twig', [
             'formAddEvent' => $form,
-            'edit' =>$event->getId(),
+            'edit' =>$area->getId(),
         ]);
     }
 }

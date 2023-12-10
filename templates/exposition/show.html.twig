@@ -12,6 +12,18 @@
 <p>Description: {{area.description}}</p>
 <h2>Artists:</h2> <br>
 
+<ul>
+{% for artist in area.expositionProposals %}
+        <li>{{ artist.user.artistInfos.artistName }}  | <a href="{{ path('show_artist', {'id': artist.id }) }}">See more</a> </li>  
+        {% endfor %}
+        </ul>
+
+{# {{ dump(area.expositionProposals) }} #}
+{# force l'initialisation de la collection #}
+{# {{ area.expositionProposals|length }}  #}
+{# {{ dump(area.expositionProposals) }} #}
+
+
 
 <h3>Participate</h3> <br>
 <p>Want to participate ? <br>

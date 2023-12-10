@@ -92,10 +92,14 @@ class EventController extends AbstractController
     // ^ Delete Event (admin)
 
     #[Route('/dashboard/{id}/delete/event', name: 'delete_event')]
+    #[IsGranted("ROLE_ADMIN")]
     public function delete_event(Area $area, EntityManagerInterface $entityManager) :Response 
     {
         $entityManager->remove($area);
         $entityManager->flush();
+        
+    
+        
 
         return $this->redirectToRoute('app_dashboard');
     }

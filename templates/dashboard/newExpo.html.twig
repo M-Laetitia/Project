@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+    {% if edit %}
+        Edit Expo
+    {% else %}
+        Add Expo
+    {% endif %}
+{% endblock %}
+
+{% block meta %}add/edit expo{% endblock %}
+
+{% block body %}
+
+   
+
+    {% if edit %}
+        <h1>Edit Expo:</h1>
+    {% else %}
+        <h1>Add Expo:</h1>
+    {% endif %}
+
+    {{ form_start(formAddExpo) }}
+
+        {{ form_row(formAddExpo.name) }}
+        {{ form_row(formAddExpo.description) }}
+        {{ form_row(formAddExpo.status) }}
+        {{ form_row(formAddExpo.type) }}
+        {{ form_row(formAddExpo.nbRooms) }}
+        {{ form_row(formAddExpo.startDate) }}
+        {{ form_row(formAddExpo.endDate) }}
+        {{ form_row(formAddExpo.areaCategories) }}
+
+    {{ form_row(formAddExpo.Create) }}
+
+{{ form_end(formAddExpo) }}
+
+
+{% endblock %}

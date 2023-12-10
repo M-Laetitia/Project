@@ -185,6 +185,8 @@ class ExpositionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
+
+            $area->setType('EXPO');
             $area = $form->getData();
             $entityManager->persist($area);
             $entityManager->flush();
@@ -199,5 +201,16 @@ class ExpositionController extends AbstractController
         ]);
     }
 
-    
+    // ^ Delete Expo (admin)
+
+    #[Route('/dashboard/{id}/delete/expo', name: 'delete_expo')]
+    public function delete_expo(Area $area, EntityManagerInterface $entityManager) :Response 
+    {
+        $entityManager->remove($area);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
+    }
+
+
 }

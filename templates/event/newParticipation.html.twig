@@ -8,13 +8,16 @@
 <h1>Event request</h1>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-{# 
-{{ form_start(formAddEventProposal) }}
-    {{ form_errors(formAddEventProposal) }}
 
-    {{ form_row(formAddEventProposal.Send) }}
 
-{{ form_end(formAddEventProposal) }} #}
+{{ form_start(formSendParticipation)}}
+    {{ form_errors(formSendParticipation)}}
+
+    {{ form_row(formSendParticipation.firstname)}}
+    {{ form_row(formSendParticipation.lastname)}}
+    {{ form_row(formSendParticipation.submit)}}
+
+{{ form_end(formSendParticipation)}}
 
 
 {% endblock %}

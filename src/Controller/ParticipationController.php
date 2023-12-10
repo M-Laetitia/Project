@@ -136,5 +136,17 @@ class ParticipationController extends AbstractController
         ]);
     }
 
+    // ^ Delete a participation (admin)
+    #[Route('/dashboard/{id}/delete/participation', name: 'delete_participation')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function delete(AreaParticipation $areaParticipation, EntityManagerInterface $entityManager)
+    {
+        $areaId = $areaParticipation->getArea()->getId();
+        $entityManager->remove($areaParticipation);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_event_admin', ['id' => $areaId]);
+    }
+
 
 }

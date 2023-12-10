@@ -35,13 +35,13 @@ class ExpositionType extends AbstractType
                 'multiple' => false,
             ])
 
-            ->add('type', ChoiceType::class, [
-                'choices' => [
-                    'private' => 'private',
-                    'public' => 'public',
-                ],
-                'multiple' => false,
-            ])
+            // ->add('type', ChoiceType::class, [
+            //     'choices' => [
+            //         'private' => 'private',
+            //         'public' => 'public',
+            //     ],
+            //     'multiple' => false,
+            // ])
 
 
             ->add('startDate', DateTimeType::class, [

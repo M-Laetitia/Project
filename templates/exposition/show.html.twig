@@ -17,13 +17,16 @@
 <p>Want to participate ? <br>
 
 
+
 {% if existingParticipation %}
         <p>You are already participating in this exhibition</p>
-{% else %}
-        {% if area.nbReversationRemaining == 0 %}
-        <p>No more space available for this exhibition</p>
-        {% else %}
+{% else %}  
+        {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
+                <p>No more space available for this exhibition</p>
+        {% elseif area.status == 'OPEN' %}
                 <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
+        {% else %}
+                <p>Invalid status for participation</p>
         {% endif %}
 {% endif %}
 

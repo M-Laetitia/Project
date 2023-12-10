@@ -18,6 +18,7 @@
 
         <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
         <p>Remaining: {{event.nbReversationRemaining}}</p>
+        <p>status: {{ event.status}}</p>
 
         <a href="{{ path('show_event', {'id' : event.id }) }}">see more</a>
         <hr>

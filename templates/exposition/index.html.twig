@@ -19,9 +19,10 @@
     <p>Capacity: {{expo.nbReversationMade}}  /  {{expo.nbRooms}}</p>
     <p>Remaining: {{expo.nbReversationRemaining}}</p>
     <p>Number of Proposals: {{ proposalCounts[expo.id] }}</p> - {{expo.status}}
+    <p><a href="{{ path('show_exposition', {'id' : expo.id}) }}">SEE MORE</a></p>
 
     {% if expo.status == 'OPEN' %}
-        <p>Inscriptions open - click <a href="{{ path('show_exposition', {'id' : expo.id})}}">here</a></p>
+        <p>Inscriptions open - click <a href="{{ path('show_exposition', {'id' : expo.id}) }}">here</a></p>
     {% else %}
         <p>Inscriptions not open</p>
     {% endif %}

@@ -8,7 +8,9 @@ use App\Form\EventType;
 use App\Repository\AreaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\AreaParticipationRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -27,13 +29,24 @@ class EventController extends AbstractController
 
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
     #[Route('/event/{id}', name: 'show_event')]
-    public function show(Area $area = null): Response
+    public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
+        $user = $security->getUser();
+        $userId = $user->getId();
+        $areaId = $area->getId();
+
+        $existingParticipation = [];
+
+        $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
+        $existingParticipation = $hasExistingParticipation !== null;
 
         return $this->render('event/show.html.twig', [
             'area' => $area,
+            'existingParticipation' => $existingParticipation
         ]);
     }
+
+
 
     #[Route('/dashboard/new', name:'new_event')]
     #[Route('/dashboard/{id}/edit', name:'edit_event')]

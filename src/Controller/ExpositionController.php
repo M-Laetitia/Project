@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Area;
 use App\Entity\User;
+use App\Form\ExpositionType;
 use App\Service\MailerService;
 use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
@@ -170,6 +171,33 @@ class ExpositionController extends AbstractController
     }
 
     // ! Add delete exposition proposal
+
+    #[Route('/dashboard/new/expo', name:'new_expo')]
+    #[Route('/dashboard/{id}/edit/expo', name:'edit_expo')]
+    public function new_edit_Expo(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
+    {
+
+        if(!$area) {
+            $area = new Area();
+        }
+
+        $form= $this->createForm(ExpositionType::class, $area);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+            $area = $form->getData();
+            $entityManager->persist($area);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_dashboard');
+        }
+
+    
+        return $this->render('dashboard/newExpo.html.twig', [
+            'formAddExpo' => $form,
+            'edit' =>$area->getId(),
+        ]);
+    }
 
     
 }

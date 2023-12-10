@@ -61,6 +61,7 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
+            $area->setType('EVENT');
             $area = $form->getData();
             $entityManager->persist($area);
             $entityManager->flush();
@@ -73,5 +74,16 @@ class EventController extends AbstractController
             'formAddEvent' => $form,
             'edit' =>$area->getId(),
         ]);
+    }
+
+    // ^ Delete Event (admin)
+
+    #[Route('/dashboard/{id}/delete/event', name: 'delete_event')]
+    public function delete_event(Area $area, EntityManagerInterface $entityManager) :Response 
+    {
+        $entityManager->remove($area);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
     }
 }

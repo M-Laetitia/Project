@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Lesson;
+use App\Entity\Workshop;
 use App\Entity\Programme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +19,15 @@ class ProgrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        // ->add('workshop', HiddenType::class)
+        ->add('workshop', HiddenType::class)
+        // ->add('workshop', EntityType::class, [
+        //     'class' => Workshop::class,
+        //     'choice_label' => 'name',
+        //     // 'label' => false,  // Set label to false to hide it
+        //     // 'attr' => [
+        //     //     'style' => 'display: none;',  // Hide the field
+        //     // ],
+        // ])
         ->add('lesson', EntityType::class, [
             'label' => 'Lesson: * ',
             'placeholder' => 'Choose a lesson',

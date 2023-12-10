@@ -13,15 +13,17 @@
         {% for event in events %}
             <p>✦{{event.name}}|| {{event.nbRooms}} </p> 
             {{event.startDate|formatDate}}  -  {{event.endDate|formatDate}} 
-            <p>Actions :  
+            <p><a href="{{ path('show_event_admin', {'id': event.id}) }}">SEE MORE:</a></p>
+            <p>Actions :  <br>
                 <a href="{{ path('edit_event', {'id': event.id}) }}">edit</a> 
+                <a href="{{ path('delete_event', {'id': event.id}) }}">Delete</a>
             <br>/ delete / open / lock / unlock / Archive / </p>
             <p>add picture</p>
             <hr>
         {% endfor %}
 
 
-    {# <p><a href="{{ path('new_event') }}">add an event:</a></p> #}
+    <p><a href="{{ path('new_event') }}">add an event:</a></p>
     
     <hr><br>
     <h2>Expo</h2>
@@ -29,12 +31,16 @@
     {% for expo in expositions %}
         <p>✦{{expo.name}}|| {{expo.nbRooms}} </p> 
         {{expo.startDate|formatDate}}  -  {{expo.endDate|formatDate}} 
-        <p>Actions :  
-            {# <a href="{{ path('edit_expo', {'id': expo.id}) }}">edit</a>  #}
+        <p><a href="{{ path('show_expo_admin', {'id': expo.id}) }}">SEE MORE:</a></p>
+        <p>Actions :  <br>
+            <a href="{{ path('edit_expo', {'id': expo.id}) }}">edit</a> 
+            <a href="{{ path('delete_expo', {'id': expo.id}) }}">Delete</a>
         <br>/ delete / open / lock / unlock / Archive / </p>
         <p>add picture</p>
         <hr>
     {% endfor %}
+
+    <p><a href="{{ path('new_expo') }}">add an expo:</a></p>
 
 
     <hr><br>
@@ -43,8 +49,9 @@
     {% for workshop in workshops %}
         <p>✦{{workshop.name}}|| {{workshop.nbRooms}} </p> 
         {{workshop.startDate|formatDate}}  -  {{workshop.endDate|formatDate}} 
-        <p>Actions : 
+        <p>Actions : <br>
             <a href="{{ path('edit_workshop', {'id': workshop.id}) }}">edit</a>
+            <a href="{{ path('delete_workshop', {'id': workshop.id}) }}">Delete</a>
         <br>/ delete / open / lock / unlock / Archive / </p>
         <p>add picture</p>
         <hr>

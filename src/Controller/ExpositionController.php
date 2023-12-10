@@ -97,25 +97,22 @@ class ExpositionController extends AbstractController
 
         $user = $security->getUser();
         $userId = $user->getId();
-        
         $areaId = $area->getId();
-        // dump($areaId);die;
-
 
         $existingParticipation = [];
         // ! voir pour utiliser dql
         // $existingParticipation = $areaParticipationRepository->checkIfUserHasExistingParticipation($userId, $areaId);
 
-        // dump($existingParticipation);die;
-
         $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
-        // dump($hasExistingParticipation);die;
         $existingParticipation = $hasExistingParticipation !== null;
+
+        // sets $existingParticipation to true if $hasExistingParticipation is not null, and to false otherwise.
+        // $existingParticipation = $hasExistingParticipation !== null ?? false;
+
     
-        // dump($existingParticipation);die;
         return $this->render('exposition/show.html.twig', [
             'area' => $area,
-            '$existingParticipation' => $existingParticipation
+            'existingParticipation' => $existingParticipation
         ]);
     }
 

@@ -36,8 +36,8 @@ class WorkshopController extends AbstractController
     }
 
    
-    #[Route('/dashboard/new', name:'new_workshop')]
-    #[Route('/dashboard/{id}/edit', name:'edit_workshop')]
+    #[Route('/dashboard/new/workshop', name:'new_workshop')]
+    #[Route('/dashboard/{id}/edit/workshop', name:'edit_workshop')]
     public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager ) : Response
     {
 
@@ -59,6 +59,13 @@ class WorkshopController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() ) {
             $workshop = $form->getData();
             // dump($workshop);die;
+
+            // // Transform the workshop data to Workshop entity
+            // $workshopId = $data['workshop'];
+            // $workshop = $this->entityManager->getRepository(Workshop::class)->find($workshopId);
+
+            // // Set the Workshop entity back to the form data
+            // $data['workshop'] = $workshop;
            
             $entityManager->persist($workshop);
             $entityManager->flush();

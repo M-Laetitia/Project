@@ -36,6 +36,7 @@ class WorkshopController extends AbstractController
     }
 
    
+    // ^ Create/Edit workshop (admin)
     #[Route('/dashboard/new/workshop', name:'new_workshop')]
     #[Route('/dashboard/{id}/edit/workshop', name:'edit_workshop')]
     public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager ) : Response
@@ -80,6 +81,17 @@ class WorkshopController extends AbstractController
             'workshopId' => $workshop->getId(),
            
         ]);
+    }
+
+    // ^ Delete workshop (admin)
+    #[Route('/dashboard/{id}/delete/workshop', name:'delete_workshop')] 
+    public function delete(Workshop $workshop, EntityManagerInterface $entityManager) :Response
+    {
+        // dump($workshop);die;
+        $entityManager->remove($workshop);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_dashboard');
     }
 
 }

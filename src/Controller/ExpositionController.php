@@ -91,7 +91,7 @@ class ExpositionController extends AbstractController
         ]);
     }
 
-    // ^ Show detail expo
+    // ^ Show detail expo (user)
     #[Route('/exposition/{id}', name: 'show_exposition')]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
@@ -114,6 +114,17 @@ class ExpositionController extends AbstractController
         return $this->render('exposition/show.html.twig', [
             'area' => $area,
             'existingParticipation' => $existingParticipation
+        ]);
+    }
+
+    // ^ show detail expo (admin)
+    #[Route('/dashboard/{id}', name: 'show_expo_admin')]
+    public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    {
+   
+        return $this->render('dashboard/showExpo.html.twig', [
+            'area' => $area,
+
         ]);
     }
 

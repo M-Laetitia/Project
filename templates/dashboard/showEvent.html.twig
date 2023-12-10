@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}detail event{% endblock %}
+{% block meta %}detail event{% endblock %}
+
+{% block body %}
+
+    <h1>detail event(admin)</h1>
+
+    <p>{{area.name}}</p>
+    {# {{ dump(area) }} #}
+
+    <p>Participants list:</p>
+
+    <ul>
+
+        {% for participant in area.areaParticipations %}
+            <li>
+                <p>{{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.inscriptionDate|formatDate}} </p>
+                <p>actions: delete - edit </p>
+                <a href="{{ path('delete_participation', {'id': participant.id }) }}">DELETE</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    
+
+    
+{% endblock %}

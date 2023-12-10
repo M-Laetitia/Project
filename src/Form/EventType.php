@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EventType extends AbstractType
@@ -22,6 +23,19 @@ class EventType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
+            // ->add('detail')
+
+            ->add('startDate', DateTimeType::class, [
+                'widget' => 'single_text',
+                'label' => 'Starting date: * ',
+                'required' => true, 
+            ])
+
+            ->add('endDate',DateTimeType::class, [
+                'widget' => 'single_text',
+                'label' => 'Ending date: * ',
+                'required' => true, 
+            ])
 
             ->add('status', ChoiceType::class, [
                 'choices' => [
@@ -32,6 +46,7 @@ class EventType extends AbstractType
                 ],
                 'multiple' => false,
             ])
+
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'private' => 'private',

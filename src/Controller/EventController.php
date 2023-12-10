@@ -27,6 +27,19 @@ class EventController extends AbstractController
         ]);
     }
 
+    // ^ show event (admin)
+    #[Route('/dashboard/{id}', name: 'show_event_admin')]
+    public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    {
+   
+        return $this->render('dashboard/showEvent.html.twig', [
+            'area' => $area,
+
+        ]);
+    }
+
+
+    // ^ show event (user)
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
     #[Route('/event/{id}', name: 'show_event')]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 

@@ -275,14 +275,18 @@ REPLACE INTO `reset_password_request` (`id`, `user_id`, `selector`, `hashed_toke
 -- Listage de la structure de table project. studio
 CREATE TABLE IF NOT EXISTS `studio` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `detail` longtext COLLATE utf8mb4_unicode_ci,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `nb_rooms` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.studio : ~0 rows (environ)
+-- Listage des données de la table project.studio : ~3 rows (environ)
+REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `nb_rooms`) VALUES
+	(1, 'Studio 01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, 12),
+	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, 8),
+	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, 10);
 
 -- Listage de la structure de table project. timeslot
 CREATE TABLE IF NOT EXISTS `timeslot` (
@@ -290,12 +294,17 @@ CREATE TABLE IF NOT EXISTS `timeslot` (
   `start_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   `studio_id` int NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_3BE452F7446F285F` (`studio_id`),
-  CONSTRAINT `FK_3BE452F7446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_3BE452F7A76ED395` (`user_id`),
+  CONSTRAINT `FK_3BE452F7446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`),
+  CONSTRAINT `FK_3BE452F7A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.timeslot : ~0 rows (environ)
+-- Listage des données de la table project.timeslot : ~1 rows (environ)
+REPLACE INTO `timeslot` (`id`, `start_date`, `end_date`, `studio_id`, `user_id`) VALUES
+	(1, '2023-12-13 23:50:00', '2023-12-17 23:50:00', 1, 8);
 
 -- Listage de la structure de table project. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -354,8 +363,8 @@ CREATE TABLE IF NOT EXISTS `workshop_registration` (
   `id` int NOT NULL AUTO_INCREMENT,
   `workshop_id` int NOT NULL,
   `user_id` int NOT NULL,
-  `firstname` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(120) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `registration_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F3F1945B1FDCE57C` (`workshop_id`),

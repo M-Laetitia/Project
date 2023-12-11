@@ -28,6 +28,7 @@ class WorkshopController extends AbstractController
        
     }
 
+
     #[Route('/workshop/{id}', name: 'show_workshop')]
     public function show(Workshop $workshop = null, Security $security, WorkshopRegistrationRepository $workshopRegistrationRepository ): Response
     {
@@ -70,7 +71,6 @@ class WorkshopController extends AbstractController
         // dump($users);die;
         if(!$workshop) {
             $workshop = new Workshop();
-            
         }
 
         $form = $this->createForm(WorkshopType::class, $workshop, [
@@ -80,7 +80,7 @@ class WorkshopController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
-            $workshop = $form->getData();
+            
             // dump($workshop);die;
 
             // // Transform the workshop data to Workshop entity
@@ -89,7 +89,9 @@ class WorkshopController extends AbstractController
 
             // // Set the Workshop entity back to the form data
             // $data['workshop'] = $workshop;
-           
+
+            $workshop->setStatus('OPEN');
+            $workshop = $form->getData();
             $entityManager->persist($workshop);
             $entityManager->flush();
 

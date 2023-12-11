@@ -24,6 +24,13 @@ class Timeslot
     #[ORM\JoinColumn(nullable: false)]
     private ?Studio $studio = null;
 
+    #[ORM\ManyToOne(inversedBy: 'timeslots')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+
+  
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +68,18 @@ class Timeslot
     public function setStudio(?Studio $studio): static
     {
         $this->studio = $studio;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

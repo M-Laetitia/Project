@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}new timeslot {% endblock %}
+{% block meta %}new timeslot {% endblock %}
+
+{% block body %}
+
+    <h1>new timeslot</h1>
+
+    {{ form_start(formAddTimeslot) }}
+        {{ form_errors(formAddTimeslot) }}
+
+        {{ form_row(formAddTimeslot.startDate) }}
+        {{ form_row(formAddTimeslot.endDate) }}
+        {{ form_row(formAddTimeslot.studio) }}
+
+        {{ form_row(formAddTimeslot.Submit) }}
+
+    {{ form_end(formAddTimeslot) }}
+
+
+{% endblock %}

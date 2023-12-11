@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Make a workshop registration{% endblock %}
+{% block meta %}Make a workshop registration{% endblock %}
+
+{% block body %}
+
+<h1>Workshop registration</h1>
+
+
+{{ form_start(formSendRegistration)}}
+    {{ form_errors(formSendRegistration)}}
+
+    {{ form_row(formSendRegistration.firstname)}}
+    {{ form_row(formSendRegistration.lastname)}}
+    {{ form_row(formSendRegistration.Participate)}}
+
+{{ form_end(formSendRegistration)}}
+
+
+{% endblock %}

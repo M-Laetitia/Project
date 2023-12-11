@@ -73,6 +73,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: AreaParticipation::class)]
     private Collection $areaParticipations;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Registration::class)]
+    private Collection $registrations;
+
     public function __construct()
     {
         // $this->roles = ['ROLE_USER'];
@@ -81,6 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->workshops = new ArrayCollection();
         $this->expositionProposals = new ArrayCollection();
         $this->areaParticipations = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
 
     public function __toString() {
@@ -506,6 +510,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($areaParticipation->getUser() === $this) {
                 $areaParticipation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getUser() === $this) {
+                $registration->setUser(null);
             }
         }
 

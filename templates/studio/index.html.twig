@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}list of art studio {% endblock %}
+{% block meta %}list of art studio {% endblock %}
+
+{% block body %}
+
+    <h1>List of art studios</h1>
+
+    {% for studio in studios %}
+
+        <p>Name: {{ studio.name}}</p>
+        <p>Detail: {{ studio.description}}</p>
+        <p>Detail: {{ studio.nbRooms}}</p>
+        <p>
+            <a href="#">SE MORE</a>
+        </p>
+        <hr>
+        
+    {% endfor %}
+
+
+{% endblock %}

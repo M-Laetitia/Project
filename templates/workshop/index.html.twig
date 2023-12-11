@@ -12,7 +12,12 @@
         <p>Name: {{workshop.name}}</p>
         {# <p>Dates: {{workshop.startDate}} - {{workshop.endDate}}</p> #}
         <p>Description: {{workshop.description}}</p>
-        <p>Rooms: {{workshop.nbRooms}}</p>
+
+        <p>Capacity: {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}}</p>
+        <p>Remaining: {{workshop.nbRegistrationRemaining}}</p>
+        
+        <p>Status: {{workshop.status}}</p>
+
         <p><a href="{{ path('show_workshop', {'id': workshop.id }) }}">see more</a></p>
 
         <hr>

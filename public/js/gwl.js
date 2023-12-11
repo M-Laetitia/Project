@@ -1,23 +1,27 @@
 // Scripts jQuery / JavaScript généraux
 $(document).ready(function() { 
-    console.log('test')
+    console.log('test2')
     // Une fois que le document (base.html.twig) HTML/CSS a bien été complètement chargé...
     // add-collection-widget.js : fonction permettant d'ajouter un nouveau bloc "programme" au sein d'une session (pour agrandir la collection)
     $('.add-another-collection-widget').click(function (e) {
         var list = $($(this).attr('data-list-selector'))
+       
         // Récupération du nombre actuel d'élément "programme" dans la collection (à défaut, utilisation de la longueur de la collection)
         var counter = list.data('widget-counter') || list.children().length
         // Récupération de l'identifiant de la session concernée, en cours de création/modification
-        var session = list.data('session')
+        var workshop = list.data('workshop')
+   
         // Extraction du prototype complet du champ (que l'on va adapter ci-dessous)
         var newWidget = list.attr('data-prototype')
+        
         // Remplacement des séquences génériques "__name__" utilisées dans les parties "id" et "name" du prototype
         // par un numéro unique au sein de la collection de "programmes" : ce numéro sera la valeur du compteur
         // courant (équivalent à l'index du prochain champ, en cours d'ajout).
         // Au final, l'attribut ressemblera à "session[programmes][n°]"
         newWidget = newWidget.replace(/__name__/g, counter)
         // Ajout également des attributs personnalisés "class" et "value", qui n'apparaissent pas dans le prototype original 
-        newWidget = newWidget.replace(/><input type="hidden"/, ' class="borders"><input type="hidden" value="'+session+'"')
+        newWidget = newWidget.replace(/><input type="hidden"/, ' class="borders"><input type="hidden" value="'+workshop+'"')
+
         // Incrément du compteur d'éléments et mise à jour de l'attribut correspondant
         counter++
         list.data('widget-counter', counter)

@@ -84,13 +84,18 @@ class Workshop
     #[ORM\OrderBy(["lesson" => "ASC"])]
     private Collection $programmes;
 
-    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: Registration::class)]
-    private Collection $registrations;
+    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: WorkshopRegistration::class)]
+    private Collection $workshopRegistrations;
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $status = null;
+
+
 
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
-        $this->registrations = new ArrayCollection();
+        $this->workshopRegistrations = new ArrayCollection();
     }
 
     public function __toString()
@@ -165,11 +170,11 @@ class Workshop
     }
 
     public function getNbRegistrationMade() {
-        return count($this->registrations);
+        return count($this->workshopRegistrations);
     }
 
     public function getNbRegistrationRemaining() {
-        return $this->nbRooms - count($this->registrations);
+        return $this->nbRooms - count($this->workshopRegistrations);
     }
 
     public function getPicture(): ?string
@@ -239,32 +244,45 @@ class Workshop
     }
 
     /**
-     * @return Collection<int, Registration>
+     * @return Collection<int, WorkshopRegistration>
      */
-    public function getRegistrations(): Collection
+    public function getWorkshopRegistrations(): Collection
     {
-        return $this->registrations;
+        return $this->workshopRegistrations;
     }
 
-    public function addRegistration(Registration $registration): static
+    public function addWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
     {
-        if (!$this->registrations->contains($registration)) {
-            $this->registrations->add($registration);
-            $registration->setWorkshops($this);
+        if (!$this->workshopRegistrations->contains($workshopRegistration)) {
+            $this->workshopRegistrations->add($workshopRegistration);
+            $workshopRegistration->setWorkshop($this);
         }
 
         return $this;
     }
 
-    public function removeRegistration(Registration $registration): static
+    public function removeWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
     {
-        if ($this->registrations->removeElement($registration)) {
+        if ($this->workshopRegistrations->removeElement($workshopRegistration)) {
             // set the owning side to null (unless already changed)
-            if ($registration->getWorkshops() === $this) {
-                $registration->setWorkshops(null);
+            if ($workshopRegistration->getWorkshop() === $this) {
+                $workshopRegistration->setWorkshop(null);
             }
         }
 
         return $this;
     }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
 }

@@ -8,8 +8,10 @@ use App\Repository\UserRepository;
 use App\Repository\WorkshopRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\WorkshopRegistrationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WorkshopController extends AbstractController
@@ -27,14 +29,34 @@ class WorkshopController extends AbstractController
     }
 
     #[Route('/workshop/{id}', name: 'show_workshop')]
-    public function show(Workshop $workshop = null): Response
+    public function show(Workshop $workshop = null, Security $security, WorkshopRegistrationRepository $workshopRegistrationRepository ): Response
     {
+
+        $user = $security->getUser();
+        $userId = $user->getId();
+        $workshopId = $workshop->getId();
+
+        $existingRegistration = [];
+
+        $hasExistingRegistration = $workshopRegistrationRepository->findOneBy(['user' => $user->getId(), 'workshop' => $workshopId]);
+        $existingRegistration = $hasExistingRegistration !== null;
+        // dump($existingRegistration);die;
 
         return $this->render('workshop/show.html.twig', [
             'workshop' => $workshop,
+            'existingRegistration' => $existingRegistration,
         ]);
     }
 
+    // ^ show workshop (admin)
+    #[Route('/dashboard/{id}/workshop/', name: 'show_workshop_admin')]
+    public function show_admin(Workshop $workshop = null): Response
+    {
+
+        return $this->render('dashboard/showWorkshop.html.twig', [
+            'workshop' => $workshop,
+        ]);
+    }
    
     // ^ Create/Edit workshop (admin)
     #[Route('/dashboard/new/workshop', name:'new_workshop')]
@@ -88,21 +110,21 @@ class WorkshopController extends AbstractController
     public function delete(Workshop $workshop, EntityManagerInterface $entityManager) :Response
     {
 
-        // $area = $workshop->getArea(); 
+        $area = $workshop->getArea(); 
         // dump($workshop);die;
         $entityManager->remove($workshop);
         $entityManager->flush();
 
 
-        // $nbReversationRemaining = $area->getNbReversationRemaining();
-        // if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
-        //     // Update the status to "closed"
-        //     $area->setStatus('CLOSED');
-        //     $entityManager->flush();
-        // } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
-        //     $area->setStatus('OPEN');
-        //     $entityManager->flush();
-        // }
+        $nbReversationRemaining = $area->getNbReversationRemaining();
+        if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
+            // Update the status to "closed"
+            $area->setStatus('CLOSED');
+            $entityManager->flush();
+        } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
+            $area->setStatus('OPEN');
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('app_dashboard');
     }

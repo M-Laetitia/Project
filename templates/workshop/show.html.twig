@@ -22,4 +22,20 @@
      #}
 
 
+    {# {{ dump(existingRegistration)}} #}
+
+    {% if existingRegistration %}
+        <p>You are already participating in this workshop</p>
+    {% else %}
+        
+        {% if workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
+                <p>No more space available for this exhibition</p>
+            {% elseif workshop.status == 'OPEN' %}
+                <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Participate</a></p>
+            {% else %}
+        {% endif %}
+    {% endif %}
+
+
+
 {% endblock %}

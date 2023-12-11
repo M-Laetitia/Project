@@ -21,6 +21,24 @@ class TimeslotRepository extends ServiceEntityRepository
         parent::__construct($registry, Timeslot::class);
     }
 
+    public function findExistingTimeSlots(TimeSlot $timeSlot, ?int $studioId = null) {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('ts')
+        ->from('App\Entity\Timeslot', 'ts')
+        ->innerJoin('ts.studio', 's')
+        ->Where('ts.startDate < :endDate')
+        ->andWhere('ts.endDate > :startDate')
+        ->andWhere('s.id = :studioId')
+        ->setParameter('startDate', $timeSlot->getStartDate())
+        ->setParameter('endDate', $timeSlot->getEndDate())
+        ->setParameter('studioId', $studioId);
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Timeslot[] Returns an array of Timeslot objects
 //     */

@@ -84,11 +84,14 @@ class Workshop
     #[ORM\OrderBy(["lesson" => "ASC"])]
     private Collection $programmes;
 
+    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: Registration::class)]
+    private Collection $registrations;
+
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
-
 
     public function __toString()
     {
@@ -161,6 +164,14 @@ class Workshop
         return $this;
     }
 
+    public function getNbRegistrationMade() {
+        return count($this->registrations);
+    }
+
+    public function getNbRegistrationRemaining() {
+        return $this->nbRooms - count($this->registrations);
+    }
+
     public function getPicture(): ?string
     {
         return $this->picture;
@@ -221,6 +232,36 @@ class Workshop
             // set the owning side to null (unless already changed)
             if ($programme->getWorkshop() === $this) {
                 $programme->setWorkshop(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setWorkshops($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getWorkshops() === $this) {
+                $registration->setWorkshops(null);
             }
         }
 

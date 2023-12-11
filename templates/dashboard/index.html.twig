@@ -50,8 +50,9 @@
     <h2>Workshop</h2>
 
     {% for workshop in workshops %}
-        <p>✦{{workshop.name}}|| {{workshop.nbRooms}} </p> 
+        <p>✦{{workshop.name}}|| {{workshop.nbRooms}}  || {{workshop.status}}</p> 
         {{workshop.startDate|formatDate}}  -  {{workshop.endDate|formatDate}} 
+        <p><a href="{{ path('show_workshop_admin', {'id': workshop.id}) }}">SEE MORE:</a></p>
         <p>Actions : <br>
             <a href="{{ path('edit_workshop', {'id': workshop.id}) }}">edit</a>
             <a href="{{ path('delete_workshop', {'id': workshop.id}) }}">Delete</a>

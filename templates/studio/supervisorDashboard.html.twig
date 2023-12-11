@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}General planning {% endblock %}
+{% block meta %}General planning {% endblock %}
+
+{% block body %}
+
+    <h1>General planning </h1>
+
+    <h2>See my planning</h2>
+
+    <h2>Add a timeSlot</h2>
+    <a href="{{ path('new_timeslot', {'id': app.user.id }) }}">ADD</a>
+
+{% endblock %}

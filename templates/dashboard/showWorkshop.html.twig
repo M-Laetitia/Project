@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}detail expo{% endblock %}
+{% block meta %}detail expo{% endblock %}
+
+{% block body %}
+
+    <h1>detail expo(admin)</h1>
+
+    <p>{{workshop.name}}</p>
+    {# {{ dump(workshop) }} #}
+
+
+    <p>Participants list:</p>
+
+    <ul>
+        {% for participant in workshop.workshopRegistrations %}
+            <li>
+                <p>{{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.registrationDate|formatDate}} </p>
+                <p>actions: delete - edit </p>
+                <a href="{{ path('delete_registration', {'id': participant.id }) }}">DELETE</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    
+
+{% endblock %}

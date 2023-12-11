@@ -73,8 +73,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: AreaParticipation::class)]
     private Collection $areaParticipations;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Registration::class)]
-    private Collection $registrations;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: WorkshopRegistration::class)]
+    private Collection $workshopRegistrations;
+
+
 
     public function __construct()
     {
@@ -84,7 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->workshops = new ArrayCollection();
         $this->expositionProposals = new ArrayCollection();
         $this->areaParticipations = new ArrayCollection();
-        $this->registrations = new ArrayCollection();
+        $this->workshopRegistrations = new ArrayCollection();
     }
 
     public function __toString() {
@@ -517,33 +519,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Registration>
+     * @return Collection<int, WorkshopRegistration>
      */
-    public function getRegistrations(): Collection
+    public function getWorkshopRegistrations(): Collection
     {
-        return $this->registrations;
+        return $this->workshopRegistrations;
     }
 
-    public function addRegistration(Registration $registration): static
+    public function addWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
     {
-        if (!$this->registrations->contains($registration)) {
-            $this->registrations->add($registration);
-            $registration->setUser($this);
+        if (!$this->workshopRegistrations->contains($workshopRegistration)) {
+            $this->workshopRegistrations->add($workshopRegistration);
+            $workshopRegistration->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeRegistration(Registration $registration): static
+    public function removeWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
     {
-        if ($this->registrations->removeElement($registration)) {
+        if ($this->workshopRegistrations->removeElement($workshopRegistration)) {
             // set the owning side to null (unless already changed)
-            if ($registration->getUser() === $this) {
-                $registration->setUser(null);
+            if ($workshopRegistration->getUser() === $this) {
+                $workshopRegistration->setUser(null);
             }
         }
 
         return $this;
     }
+
+   
 
 }

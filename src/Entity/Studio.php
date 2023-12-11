@@ -31,6 +31,11 @@ class Studio
     #[ORM\OneToMany(mappedBy: 'studio', targetEntity: Timeslot::class)]
     private Collection $timeslots;
 
+    public function __toString() 
+    {
+        return $this->name; 
+    }
+
     public function __construct()
     {
         $this->timeslots = new ArrayCollection();

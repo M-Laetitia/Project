@@ -163,7 +163,7 @@ class ParticipationController extends AbstractController
         return $this->redirectToRoute('show_event_admin', ['id' => $areaId]);
     }
 
-    // ^ Make a registration for a workshp
+    // ^ Make a registration for a workshop
     #[Route('/workshop/{id}/new', name: 'new_workshop_registration')]
     public function newWorkshopRegistration(WorkshopRegistration $workshopRegistration = null, Workshop $workshop, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
     {
@@ -225,6 +225,32 @@ class ParticipationController extends AbstractController
         ]);
     }
 
+
+        // ^ Delete a registration -workshop / studios (admin)
+        #[Route('/dashboard/{id}/delete/registration', name: 'delete_registration')]
+        #[IsGranted("ROLE_ADMIN")]
+        public function delete_registration(WorkshopRegistration $workshopRegistration, EntityManagerInterface $entityManager)
+        {
+            $workshop =  $workshopRegistration->getWorkshop();
+            // dump($workshop);die;
+            $workshopId = $workshopRegistration->getWorkshop()->getId();
+            $entityManager->remove($workshopRegistration);
+            $entityManager->flush();
+    
+            $nbRegistrationRemaining = $workshop->getNbRegistrationRemaining();
+            if ( $nbRegistrationRemaining == 0 && $workshop->getStatus() !== 'CLOSED') {
+                // Update the status to "closed"
+                $workshop->setStatus('CLOSED');
+                $entityManager->flush();
+            } elseif ($nbRegistrationRemaining > 0 && $workshop->getStatus() !== 'OPEN') {
+                $workshop->setStatus('OPEN');
+                $entityManager->flush();
+            }
+    
+    
+            return $this->redirectToRoute('show_workshop_admin', ['id' => $workshopId]);
+        }
+    
 
 
 }

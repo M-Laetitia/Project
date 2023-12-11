@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Area;
 use App\Entity\User;
+use App\Entity\Workshop;
 use App\Service\MailerService;
 use App\Entity\AreaParticipation;
 use App\Repository\AreaRepository;
 use App\Form\AreaParticipationType;
+use App\Entity\WorkshopRegistration;
+use App\Form\WorkshopRegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -157,9 +160,71 @@ class ParticipationController extends AbstractController
         }
 
 
-
         return $this->redirectToRoute('show_event_admin', ['id' => $areaId]);
     }
+
+    // ^ Make a registration for a workshp
+    #[Route('/workshop/{id}/new', name: 'new_workshop_registration')]
+    public function newWorkshopRegistration(WorkshopRegistration $workshopRegistration = null, Workshop $workshop, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
+    {
+
+        $user = $security->getUser();
+
+        $form = $this->createForm(WorkshopRegistrationType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            // Check if the maximum number of participants has been reached
+            $maxParticipants = $workshop->getNbRooms();
+            $currentParticipants = $workshop->getNbRegistrationMade();
+
+            if ($currentParticipants < $maxParticipants) {
+
+                $workshopRegistration = $form->getData();
+                $workshopRegistration->setRegistrationDate(new \DateTimeImmutable());
+                $workshopRegistration->setUser($user);
+                $workshopRegistration->setWorkshop($workshop);
+    
+                $entityManager->persist($workshopRegistration);
+                $entityManager->flush();
+    
+                //send the email
+                $userEmail = $user->getEmail();
+                $expositionDetails = 'test';
+                $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+    
+                // Check if the maximum number of participants has been reached after the new registration
+                $nbReversationRemaining = $workshop->getNbRegistrationRemaining();
+                
+                if ( $currentParticipants +1 >= $maxParticipants && $workshop->getStatus() !== 'CLOSED') {
+                    // Update the status to "closed"
+                    $workshop->setStatus('CLOSED');
+                    $entityManager->flush();
+                } elseif ($currentParticipants < $maxParticipants && $workshop->getStatus() !== 'OPEN') {
+                    $workshop->setStatus('OPEN');
+                    $entityManager->flush();
+                }
+    
+                // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+                return $this->redirectToRoute('app_workshop');
+
+            } else {
+                // Redirect / display a message indicating that the maximum number of participants has been reached
+                // return $this->render('exposition/maxParticipantsReached.html.twig');
+                return $this->redirectToRoute('app_workshop');
+            }
+
+        
+        }
+
+        return $this->render('workshop/newParticipation.html.twig', [
+            'formSendRegistration' => $form,
+            'user' => $user,
+
+        ]);
+    }
+
 
 
 }

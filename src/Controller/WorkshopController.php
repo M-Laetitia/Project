@@ -87,9 +87,22 @@ class WorkshopController extends AbstractController
     #[Route('/dashboard/{id}/delete/workshop', name:'delete_workshop')] 
     public function delete(Workshop $workshop, EntityManagerInterface $entityManager) :Response
     {
+
+        // $area = $workshop->getArea(); 
         // dump($workshop);die;
         $entityManager->remove($workshop);
         $entityManager->flush();
+
+
+        // $nbReversationRemaining = $area->getNbReversationRemaining();
+        // if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
+        //     // Update the status to "closed"
+        //     $area->setStatus('CLOSED');
+        //     $entityManager->flush();
+        // } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
+        //     $area->setStatus('OPEN');
+        //     $entityManager->flush();
+        // }
 
         return $this->redirectToRoute('app_dashboard');
     }

@@ -7,6 +7,29 @@
 
     <h1>General planning </h1>
 
+    {% for studio in studios %}
+        <p>Name: {{studio.name}}</p>
+        <p>Capacity: {{studio.nbRooms}}</p>
+        
+        {% for timeslot in studio.timeslots %}
+            <p>{{timeslot.startDate|formatDate}} - {{timeslot.endDate|formatDate}} - {{timeslot.user}} </p>
+        {% endfor %}
+
+
+        {# {{ dump(studio)}} #}
+
+        <hr>
+    {% endfor %}
+
+    
+
+    {% for timeslot in timeslots %}
+        <p>Date: {{ timeslot.startDate|formatDate}} - {{ timeslot.endDate|formatDate}} - Supervisor: {{ timeslot.user}}</p>
+        <p></p>
+    {% endfor %}
+
+    {# {{ dump(timeslots) }} #}
+
     <h2>See my planning</h2>
 
     <h2>Add a timeSlot</h2>

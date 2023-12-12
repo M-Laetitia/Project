@@ -30,9 +30,14 @@
 
     {# {{ dump(timeslots) }} #}
 
-    <h2>See my planning</h2>
+    {% if app.user and is_granted('ROLE_SUPERVISOR') %}
+        <h2>See my planning</h2>
+        <a href="{{ path('show_planning', {'id': app.user.id }) }}">SEE</a>
 
-    <h2>Add a timeSlot</h2>
-    <a href="{{ path('new_timeslot', {'id': app.user.id }) }}">ADD</a>
+        <h2>Add a timeSlot</h2>
+        <a href="{{ path('new_timeslot', {'id': app.user.id }) }}">ADD</a>
+    {% endif %}
+
+    
 
 {% endblock %}

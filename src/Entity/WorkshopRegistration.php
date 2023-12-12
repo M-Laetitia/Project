@@ -24,12 +24,14 @@ class WorkshopRegistration
     private ?\DateTimeInterface $registrationDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'workshopRegistrations')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Workshop $workshop = null;
 
     #[ORM\ManyToOne(inversedBy: 'workshopRegistrations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'workshopRegistrations')]
+    private ?Timeslot $timeslot = null;
 
     public function getId(): ?int
     {
@@ -92,6 +94,18 @@ class WorkshopRegistration
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTimeslot(): ?Timeslot
+    {
+        return $this->timeslot;
+    }
+
+    public function setTimeslot(?Timeslot $timeslot): static
+    {
+        $this->timeslot = $timeslot;
 
         return $this;
     }

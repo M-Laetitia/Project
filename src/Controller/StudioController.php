@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Studio;
 use App\Entity\Timeslot;
 use App\Form\TimeSlotType;
+use App\Service\MailerService;
+use App\Entity\WorkshopRegistration;
 use App\Repository\StudioRepository;
 use App\Repository\TimeslotRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,6 +26,17 @@ class StudioController extends AbstractController
 
         return $this->render('studio/index.html.twig', [
             'studios' => $studios,
+
+        ]);
+    }
+
+    // ^ show art studios (user)
+    #[Route('/studio/{id}', name: 'show_studio')]
+    public function show(Studio $studio =null, StudioRepository $studioRepository): Response
+    {
+  
+        return $this->render('studio/show.html.twig', [
+            'studio' => $studio,
 
         ]);
     }
@@ -62,7 +76,7 @@ class StudioController extends AbstractController
 
         
         if(!$timeslot) {
-            $timeslot = new TimeSlot();
+            $timeslot = new Timeslot();
         }
 
         $form = $this->createForm(TimeSlotType::class, $timeslot );
@@ -125,6 +139,8 @@ class StudioController extends AbstractController
 
         return $this->redirectToRoute('show_planning', ['id' => $user->getId()]);
     }
+
+    
 
  
 }

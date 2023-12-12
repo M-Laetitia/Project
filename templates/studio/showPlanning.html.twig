@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}planning {% endblock %}
+{% block meta %}planning {% endblock %}
+
+{% block body %}
+
+    <h1>My planning </h1>
+
+    {{user}}
+
+
+    {# {{dump(timeslots)}} #}
+    {% for timeslot in timeslots %}
+        {# <p>TimeSlot {{timeslot.id}}</p> #}
+        <p>date: {{timeslot.startDate|formatDate}} - {{timeslot.endDate|formatDate}} </p>
+        <p> {{timeslot.studio.name}}</p>
+
+        
+        {# option pour supprimer mais fixer contrainte impossible de supprimer si déjà user inscrit + X jours avant #}
+        
+        <a href="{{ path('delete_timeslot', {'id': timeslot.id }) }}">delete</a>
+
+
+    {% endfor %}
+    
+
+
+
+
+{% endblock %}

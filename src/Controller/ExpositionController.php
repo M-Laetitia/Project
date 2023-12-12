@@ -215,6 +215,7 @@ class ExpositionController extends AbstractController
     // ^ Delete Expo (admin)
 
     #[Route('/dashboard/{id}/delete/expo', name: 'delete_expo')]
+    #[isGranted("ROLE_ADMIN")]
     public function delete_expo(Area $area, EntityManagerInterface $entityManager) :Response 
     {
         $entityManager->remove($area);

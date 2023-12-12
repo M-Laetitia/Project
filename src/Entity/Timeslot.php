@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TimeslotRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +29,14 @@ class Timeslot
     #[ORM\ManyToOne(inversedBy: 'timeslots')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'timeslot', targetEntity: WorkshopRegistration::class)]
+    private Collection $workshopRegistrations;
+
+    public function __construct()
+    {
+        $this->workshopRegistrations = new ArrayCollection();
+    }
 
 
   
@@ -80,6 +90,36 @@ class Timeslot
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, WorkshopRegistration>
+     */
+    public function getWorkshopRegistrations(): Collection
+    {
+        return $this->workshopRegistrations;
+    }
+
+    public function addWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
+    {
+        if (!$this->workshopRegistrations->contains($workshopRegistration)) {
+            $this->workshopRegistrations->add($workshopRegistration);
+            $workshopRegistration->setTimeslot($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
+    {
+        if ($this->workshopRegistrations->removeElement($workshopRegistration)) {
+            // set the owning side to null (unless already changed)
+            if ($workshopRegistration->getTimeslot() === $this) {
+                $workshopRegistration->setTimeslot(null);
+            }
+        }
 
         return $this;
     }

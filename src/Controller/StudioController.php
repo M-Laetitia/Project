@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Timeslot;
 use App\Form\TimeSlotType;
 use App\Repository\StudioRepository;
+use App\Repository\TimeslotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -28,12 +29,26 @@ class StudioController extends AbstractController
 
     // ^ list art studios / planning (supervisor + admin)
     #[Route('/studio/dashboard', name: 'studio_dashboard')]
-    public function index_dashboard(StudioRepository $studioRepository): Response
+    public function index_dashboard(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository): Response
     {
+
         $studios = $studioRepository->findBy([]);
+        // dump($studios);die;
+        
+        foreach ($studios as $studio) {
+            $studioId = $studio->getId();
+        }
+        // dump($studioId);die;
+
+        $timeslots = $timeslotRepository->findBy([]);
+        // $timeslotsPerStudio = $timeslotRepository->findTimeSlotsPerStudio($studioId); 
+
+        // dump($timeslots);die;
 
         return $this->render('studio/supervisorDashboard.html.twig', [
             'studios' => $studios,
+            'timeslots' => $timeslots, 
+            // 'timeslotsPerStudio' => $timeslotsPerStudio,
 
         ]);
     }

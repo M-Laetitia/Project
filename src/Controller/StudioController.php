@@ -85,4 +85,46 @@ class StudioController extends AbstractController
 
         ]);
     }
+
+     // ^ planning art studio (supervisor only)
+     #[Route('/studio/{id}/planning', name: 'show_planning')]
+     #[isGranted("ROLE_SUPERVISOR")]
+     public function index_planning(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository, Security $security): Response
+     {
+ 
+
+        $user = $security->getUser();
+
+        if(!$user) {
+            return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+            // return $this->redirectToRoute('app_home');
+        }
+    
+
+        $studios = $studioRepository->findBy([]);
+         // dump($studios);die;
+        $timeslots = $timeslotRepository->findBy(['user' => $user]);
+
+        return $this->render('studio/showPlanning.html.twig', [
+            'user' => $user,
+            'studios' => $studios,
+            'timeslots' => $timeslots, 
+ 
+         ]);
+     }
+
+    // ^ delete timeslot (supervisor)
+    #[Route('/studio/{id}/planning/delete', name: 'delete_timeslot')]
+    #[isGranted("ROLE_SUPERVISOR")]
+    public function delete_timeslot(Timeslot $timeslot, EntityManagerInterface $entityManager, Security $security) : Response
+    {
+
+        $user = $security->getUser();
+        $entityManager->remove($timeslot);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_planning', ['id' => $user->getId()]);
+    }
+
+ 
 }

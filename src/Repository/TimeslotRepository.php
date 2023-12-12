@@ -39,6 +39,25 @@ class TimeslotRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+
+    // ^ find timeslots by studio
+
+    // public function findTimeSlotsPerStudio(?int $studioId = null) 
+    // {
+    //     $em = $this->getEntityManager();
+    //     $qb = $em->createQueryBuilder();
+
+    //     $qb->select('ts')
+    //     ->from('App\Entity\Timeslot', 'ts')
+    //     ->leftJoin('ts.studio', 's')
+    //     ->Where('ts.studio = :studioId')
+    //     ->setParameter('studioId', $studioId);
+
+    //     $query = $qb->getQuery();
+    //     return $query->getResult();
+    // }
+
+
 //    /**
 //     * @return Timeslot[] Returns an array of Timeslot objects
 //     */

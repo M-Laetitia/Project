@@ -300,11 +300,12 @@ CREATE TABLE IF NOT EXISTS `timeslot` (
   KEY `IDX_3BE452F7A76ED395` (`user_id`),
   CONSTRAINT `FK_3BE452F7446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`),
   CONSTRAINT `FK_3BE452F7A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.timeslot : ~1 rows (environ)
+-- Listage des données de la table project.timeslot : ~2 rows (environ)
 REPLACE INTO `timeslot` (`id`, `start_date`, `end_date`, `studio_id`, `user_id`) VALUES
-	(1, '2023-12-13 23:50:00', '2023-12-17 23:50:00', 1, 8);
+	(1, '2023-12-13 23:50:00', '2023-12-17 23:50:00', 1, 8),
+	(3, '2023-12-12 09:12:35', '2023-12-12 09:12:36', 1, 7);
 
 -- Listage de la structure de table project. user
 CREATE TABLE IF NOT EXISTS `user` (
@@ -361,23 +362,26 @@ REPLACE INTO `workshop` (`id`, `name`, `description`, `detail`, `start_date`, `e
 -- Listage de la structure de table project. workshop_registration
 CREATE TABLE IF NOT EXISTS `workshop_registration` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `workshop_id` int NOT NULL,
-  `user_id` int NOT NULL,
   `firstname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `registration_date` datetime NOT NULL,
+  `user_id` int NOT NULL,
+  `workshop_id` int DEFAULT NULL,
+  `timeslot_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_F3F1945B1FDCE57C` (`workshop_id`),
   KEY `IDX_F3F1945BA76ED395` (`user_id`),
+  KEY `IDX_F3F1945BF920B9E9` (`timeslot_id`),
   CONSTRAINT `FK_F3F1945B1FDCE57C` FOREIGN KEY (`workshop_id`) REFERENCES `workshop` (`id`),
-  CONSTRAINT `FK_F3F1945BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_F3F1945BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_F3F1945BF920B9E9` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.workshop_registration : ~3 rows (environ)
-REPLACE INTO `workshop_registration` (`id`, `workshop_id`, `user_id`, `firstname`, `lastname`, `registration_date`) VALUES
-	(6, 1, 8, 'test', 'test', '2023-12-11 10:48:08'),
-	(7, 5, 8, '4242', '424242', '2023-12-11 10:54:25'),
-	(10, 5, 9, 'test', 'test', '2023-12-11 15:00:28');
+REPLACE INTO `workshop_registration` (`id`, `firstname`, `lastname`, `registration_date`, `user_id`, `workshop_id`, `timeslot_id`) VALUES
+	(6, 'test', 'test', '2023-12-11 10:48:08', 8, 1, NULL),
+	(7, '4242', '424242', '2023-12-11 10:54:25', 8, 5, NULL),
+	(10, 'test', 'test', '2023-12-11 15:00:28', 9, 5, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

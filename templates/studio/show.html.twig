@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}show art studio {% endblock %}
+{% block meta %}show art studio {% endblock %}
+
+{% block body %}
+
+    <h1>show art studios</h1>
+
+    <p>Name: {{ studio.name}}</p>
+    <p>Capacity:  {{ studio.nbRooms}}</p>
+
+
+    <p>Réserver une plage horaire:</p>
+    <a href="{{ path('new_registration', {'id': studio.id}) }}">réserver </a>
+
+
+{% endblock %}

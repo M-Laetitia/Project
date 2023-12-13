@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Area;
 use App\Entity\User;
+use App\Entity\Timeslot;
 use App\Entity\Workshop;
 use App\Service\MailerService;
 use App\Entity\AreaParticipation;
@@ -230,15 +231,15 @@ class ParticipationController extends AbstractController
 
     // ^ Make a registration for a studio (user)
     #[Route('/studio/{id}/new', name: 'new_registration')]
-    public function new_registration(WorkshopRegistration $workshopRegistration, Timeslot $timeslot, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) 
+    public function new_registration(WorkshopRegistration $workshopRegistration = null, Security $security, EntityManagerInterface $entityManager, MailerService $mailerService, Timeslot $timeslot = null, Request $request) : Response
     {
 
         $user = $security->getUser();
 
 
-        if(!$workshopRegistration) {
-            $workshopRegistration = new WorkshopRegistration();
-        }
+        // if(!$workshopRegistration) {
+        //     $workshopRegistration = new WorkshopRegistration();
+        // }
 
         $form= $this->createForm(WorkshopRegistrationType::class);
         $form->handleRequest($request);
@@ -246,7 +247,8 @@ class ParticipationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $workshopRegistration = $form->getData();
             $workshopRegistration->setUser($user);
-            $workshopRegistration->setWorkshop($timeslot);
+            $workshopRegistration->setRegistrationDate(new \DateTimeImmutable());
+            $workshopRegistration->setTimeslot($timeslot);
             $entityManager->persist($workshopRegistration);
             $entityManager->flush();
 
@@ -255,12 +257,13 @@ class ParticipationController extends AbstractController
             $expositionDetails = 'test';
             $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
 
-            return $this->redirectToRoute('app_workshop');
+            return $this->redirectToRoute('app_studio');
         }
 
 
         return $this->render('studio/newRegistration.html.twig', [
                 'formAddRegistration' =>$form,
+                'user' => $user,
                 
         ]);
     }

@@ -39,16 +39,23 @@ class StudioController extends AbstractController
   
         $studioTimeslots = $studio->getTimeslots();
         
+        $timeslotRegistrations = [];
         foreach ($studioTimeslots as $timeslot) {
             $timeslotId = $timeslot->getId();
             $nbRegistrationPerTimeslot = $workshopRegistrationRepository->getRegistrationPerTimeslot($timeslotId);
-            // return $nbRegistrationPerTimeslot;
+            
             // dump($nbRegistrationPerTimeslot);die;
+
+            // Stockez le nombre de réservations par timeslot dans un tableau
+            $timeslotRegistrations[$timeslotId] = $nbRegistrationPerTimeslot;
+            // dump($timeslotRegistrations[$timeslotId]);die;
         }
+
         // dump($timeslotId);die;
         return $this->render('studio/show.html.twig', [
             'studio' => $studio,
             'studioTimeslots' => $studioTimeslots,
+            'timeslotRegistrations' => $timeslotRegistrations,
             // 'nbRegistrationPerTimeslot' => $nbRegistrationPerTimeslot,
 
         ]);
@@ -76,7 +83,6 @@ class StudioController extends AbstractController
         }
         // dump($studioId);die;
 
-
         $timeslots = $timeslotRepository->findBy([]);
 
         // $timeslotsPerStudio = $timeslotRepository->findTimeSlotsPerStudio($studioId); 
@@ -98,7 +104,6 @@ class StudioController extends AbstractController
 
         $user = $security->getUser();
 
-        
         if(!$timeslot) {
             $timeslot = new Timeslot();
         }

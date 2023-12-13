@@ -66,4 +66,12 @@
     <hr><br>
     <h2>Studios</h2>
 
+    {% for studio in studios %}
+            <p>✦ Name {{ studio.name}}</p>
+            <p>Capacity: {{ studio.nbRooms}}</p>
+            <p><a href="{{ path('show_studio_admin', {'id': studio.id}) }}">SEE MORE:</a></p>
+        <p>Action: edit /delete </p>
+        
+    {% endfor %}
+
 {% endblock %}

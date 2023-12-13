@@ -14,7 +14,7 @@
 
 <ul>
 {% for artist in area.expositionProposals %}
-        <li>{{ artist.user.artistInfos.artistName }}  | <a href="{{ path('show_artist', {'id': artist.id }) }}">See more</a> </li>  
+        <li>{{ artist.user.artistInfos.artistName }}  | <a href="{{ path('show_artist', {'id': artist.user.id }) }}">See more</a> </li>  
         {% endfor %}
         </ul>
 
@@ -38,7 +38,7 @@
         {% elseif area.status == 'OPEN' %}
                 <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
         {% else %}
-                <p>Invalid status for participation</p>
+                <p>not open yet</p>
         {% endif %}
 {% endif %}
 

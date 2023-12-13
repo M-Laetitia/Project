@@ -10,9 +10,28 @@
     <p>Name: {{ studio.name}}</p>
     <p>Capacity:  {{ studio.nbRooms}}</p>
 
+    <p>Plages horaires:</p>
 
-    <p>Réserver une plage horaire:</p>
-    <a href="{{ path('new_registration', {'id': studio.id}) }}">réserver </a>
+    {# {{ dump(studio)}} #}
+
+    {% if studio.timeslots|length > 0 %}
+        <ul>
+            {# Affichier date : 00-00-0000 puis créneau horaire 9h00-10h00) #}
+            {% for timeslot in studio.timeslots %}
+                <li>{{timeslot.startDate|formatDate}} -  {{timeslot.endDate|formatDate}}  | {{timeslot.user}}</li>
+
+                <p>Réserver cette plage horaire:</p>
+                <a href="{{ path('new_registration', {'id': timeslot.id}) }}">réserver </a>
+                
+            {% endfor %}
+        </ul>
+    {% else %}
+            <p>Pas de créneau horaire dispo pour ce studio.</p>
+    {% endif %}
+
+
+
+    
 
 
 {% endblock %}

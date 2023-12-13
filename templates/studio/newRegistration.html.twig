@@ -8,14 +8,14 @@
     <h1>rent a studio</h1>
 
 
-    {# {{ from_start(formAddRegistration)}}
-        {{ from_errors(formAddRegistration)}}
+    {{ form_start(formAddRegistration)}}
+        {{ form_errors(formAddRegistration)}}
 
         {{ form_row(formAddRegistration.firstname)}}
         {{ form_row(formAddRegistration.lastname)}}
 
 
-    {{ from_end(formAddRegistration)}} #}
+    {{ form_end(formAddRegistration)}}
 
 
 

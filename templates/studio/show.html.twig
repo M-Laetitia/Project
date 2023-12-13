@@ -10,9 +10,17 @@
     <p>Name: {{ studio.name}}</p>
     <p>Capacity:  {{ studio.nbRooms}}</p>
 
+    <p>test:  {{ studio.nbRegistrationMade}}</p>
+
+    {{dump(studioTimeslots)}}
+    {% for studioTimeslot in studioTimeslots %}
+        <p>timeslot:  {{ studioTimeslot.id}}  +  {{ studioTimeslot.studio}}</p>
+    {% endfor %}
+    
+
     <p>Plages horaires:</p>
 
-    {# {{ dump(studio)}} #}
+    {{ dump(studio)}}
 
     {% if studio.timeslots|length > 0 %}
         <ul>

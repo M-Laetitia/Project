@@ -31,8 +31,9 @@ class StudioController extends AbstractController
         ]);
     }
 
+    // ! pb route à régler !!! conflit avec studio/dashboard'
     // ^ show art studio (user)
-    #[Route('/studio/{id}', name: 'show_studio')]
+    #[Route('/studio/show/{id}', name: 'show_studio')]
     public function show(Studio $studio =null, StudioRepository $studioRepository, WorkshopRegistrationRepository $workshopRegistrationRepository): Response
     {
   
@@ -55,7 +56,7 @@ class StudioController extends AbstractController
 
     // ^show art studio (admin)
     #[Route('/dashboard/{id}/studio', name: 'show_studio_admin')]
-    public function show_adminStudio (Studio $studio): Response 
+    public function show_adminStudio(Studio $studio): Response 
     {
         return $this->render('dashboard/showStudio.html.twig', [
             'studio' => $studio, 
@@ -75,7 +76,9 @@ class StudioController extends AbstractController
         }
         // dump($studioId);die;
 
+
         $timeslots = $timeslotRepository->findBy([]);
+
         // $timeslotsPerStudio = $timeslotRepository->findTimeSlotsPerStudio($studioId); 
 
         // dump($timeslots);die;

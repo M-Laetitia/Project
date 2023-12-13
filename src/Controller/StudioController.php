@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\WorkshopRegistrationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StudioController extends AbstractController
@@ -30,14 +31,34 @@ class StudioController extends AbstractController
         ]);
     }
 
-    // ^ show art studios (user)
+    // ^ show art studio (user)
     #[Route('/studio/{id}', name: 'show_studio')]
-    public function show(Studio $studio =null, StudioRepository $studioRepository): Response
+    public function show(Studio $studio =null, StudioRepository $studioRepository, WorkshopRegistrationRepository $workshopRegistrationRepository): Response
     {
   
+        $studioTimeslots = $studio->getTimeslots();
+        
+        foreach ($studioTimeslots as $timeslot) {
+            $timeslotId = $timeslot->getId();
+            $nbRegistrationPerTimeslot = $workshopRegistrationRepository->getRegistrationPerTimeslot($timeslotId);
+            // return $nbRegistrationPerTimeslot;
+            // dump($nbRegistrationPerTimeslot);die;
+        }
+        // dump($timeslotId);die;
         return $this->render('studio/show.html.twig', [
             'studio' => $studio,
+            'studioTimeslots' => $studioTimeslots,
+            // 'nbRegistrationPerTimeslot' => $nbRegistrationPerTimeslot,
 
+        ]);
+    }
+
+    // ^show art studio (admin)
+    #[Route('/dashboard/{id}/studio', name: 'show_studio_admin')]
+    public function show_adminStudio (Studio $studio): Response 
+    {
+        return $this->render('dashboard/showStudio.html.twig', [
+            'studio' => $studio, 
         ]);
     }
 
@@ -139,8 +160,6 @@ class StudioController extends AbstractController
 
         return $this->redirectToRoute('show_planning', ['id' => $user->getId()]);
     }
-
-    
 
  
 }

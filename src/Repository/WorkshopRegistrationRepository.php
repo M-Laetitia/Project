@@ -21,6 +21,23 @@ class WorkshopRegistrationRepository extends ServiceEntityRepository
         parent::__construct($registry, WorkshopRegistration::class);
     }
 
+    // ^ get registration per timeslot
+    public function getRegistrationPerTimeslot(?int $timeslotId = null) 
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('wr')
+            ->from('App\Entity\WorkshopRegistration', 'wr')
+            ->where('wr.timeslot = :timeslotId')
+            ->setParameters('timeslotId', $timeslotId);
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+        
+
+    }
+
 //    /**
 //     * @return WorkshopRegistration[] Returns an array of WorkshopRegistration objects
 //     */

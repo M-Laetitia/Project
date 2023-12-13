@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}detail studio{% endblock %}
+{% block meta %}detail studio{% endblock %}
+
+{% block body %}
+
+    <h1>detail studio(admin)</h1>
+
+    <p>Name: {{ studio.name }}</p>
+    <p>Description: {{ studio.description }}</p>
+    <p>Capacity: {{ studio.nbRooms}} </p>
+
+    <p>Time Slot</p>
+
+    <ul>
+        {% for timeslot in studio.timeslots %}
+        <li><p>{{ timeslot.startDate|formatDate}}  - {{ timeslot.endDate|formatDate}} - {{ timeslot.user}}</p></li>
+
+            <ul>
+                <p>List registrations:</p>
+                {% for registration in timeslot.workshopRegistrations %}
+                    <li>{{ registration.firstname}} - {{ registration.lastname}} - {{ registration.registrationDate|formatDate}}</li>
+                {% endfor %}
+
+            </ul>
+            
+        {% endfor %}
+
+    </ul>
+
+    {{ dump(studio)}}
+    {# montrer inscription par timeslot #}
+
+{% endblock %}

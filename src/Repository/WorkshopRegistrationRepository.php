@@ -27,10 +27,11 @@ class WorkshopRegistrationRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select('wr')
+        $qb->select('COUNT(wr.id) as nbRegistration')
             ->from('App\Entity\WorkshopRegistration', 'wr')
             ->where('wr.timeslot = :timeslotId')
-            ->setParameters('timeslotId', $timeslotId);
+            ->setParameter('timeslotId', $timeslotId)
+            ->groupBy('wr.id');
 
         $query = $qb->getQuery();
         return $query->getResult();

@@ -94,6 +94,16 @@ class Studio
         return $this;
     }
 
+    public function getNbRegistrationMade()
+    {
+        return count($this->timeslots);
+    }
+
+    public function getNbRegistrationRemaining() 
+    {
+        return $this->nbRooms - count($this->timeslots);
+    }
+
     /**
      * @return Collection<int, Timeslot>
      */

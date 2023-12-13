@@ -22,6 +22,7 @@ class WorkshopRegistrationRepository extends ServiceEntityRepository
     }
 
     // ^ get registration per timeslot
+    // ! gérer le cas où le timeslotId*  est nul !
     public function getRegistrationPerTimeslot(?int $timeslotId = null) 
     {
         $em = $this->getEntityManager();
@@ -30,12 +31,22 @@ class WorkshopRegistrationRepository extends ServiceEntityRepository
         $qb->select('COUNT(wr.id) as nbRegistration')
             ->from('App\Entity\WorkshopRegistration', 'wr')
             ->where('wr.timeslot = :timeslotId')
-            ->setParameter('timeslotId', $timeslotId)
-            ->groupBy('wr.id');
+            ->setParameter('timeslotId', $timeslotId);
+            // ->groupBy('wr.id');
 
         $query = $qb->getQuery();
-        return $query->getResult();
+        // return $query->getResult();
+        // getSingleScalarResult est utilisé car la requête DQL est construite pour renvoyer un seul résultat scalaire, qui est le nombre de réservations pour un timeslot donné (et non pas une collection d'entités)
+        //Un résultat scalaire est un résultat unique qui n'est pas une entité ou un objet complexe, mais plutôt une valeur simple.
+        return $query->getSingleScalarResult();
         
+
+        // return $this->createQueryBuilder('wr')
+        // ->select('COUNT(wr.id) as nbRegistrations')
+        // ->andWhere('wr.timeslot = :timeslotId')
+        // ->setParameter('timeslotId', $timeslotId)
+        // ->getQuery()
+        // ->getSingleScalarResult();
 
     }
 

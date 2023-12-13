@@ -13,9 +13,10 @@
     <p>test:  {{ studio.nbRegistrationMade}}</p>
 
     {{dump(studioTimeslots)}}
-    {% for studioTimeslot in studioTimeslots %}
-        <p>timeslot:  {{ studioTimeslot.id}}  +  {{ studioTimeslot.studio}}</p>
-    {% endfor %}
+
+    {# {% for studioTimeslot in studioTimeslots %}
+        <p>timeslot:  {{ studioTimeslot.id}}  +  {{ studioTimeslot.studio}} -  {{ timeslotRegistrations[studioTimeslot.id] }} réservations</p>
+    {% endfor %} #}
     
 
     <p>Plages horaires:</p>
@@ -26,10 +27,19 @@
         <ul>
             {# Affichier date : 00-00-0000 puis créneau horaire 9h00-10h00) #}
             {% for timeslot in studio.timeslots %}
-                <li>{{timeslot.startDate|formatDate}} -  {{timeslot.endDate|formatDate}}  | {{timeslot.user}}</li>
+            <li>
+                {{timeslot.startDate|formatDate}} -  {{timeslot.endDate|formatDate}}  | {{timeslot.user}} <p>timeslot:  {{ timeslotRegistrations[timeslot.id] }} registration/s /   {{timeslot.studio.nbRooms}} </p>
+            </li>
 
+            {% if timeslotRegistrations[timeslot.id] ==  timeslot.studio.nbRooms %}
+                <p>plus de place disponibles</p>
+            {% else %}
+                
                 <p>Réserver cette plage horaire:</p>
                 <a href="{{ path('new_registration', {'id': timeslot.id}) }}">réserver </a>
+                
+            {% endif %}
+
                 
             {% endfor %}
         </ul>

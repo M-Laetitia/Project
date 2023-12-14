@@ -169,5 +169,27 @@ class StudioController extends AbstractController
         return $this->redirectToRoute('show_planning', ['id' => $user->getId()]);
     }
 
+    // ! throw?
+    // ^ Delete registration for timeslot - studio (admin)
+    #[Route('/studio/{id}/registration/delete', name: 'delete_timeslot_registration')]
+    #[isGranted("ROLE_SUPERVISOR")]
+    public function delete_timeslot_registration(WorkshopRegistration $workshopRegistration, EntityManagerInterface $entityManager, Security $security) : Response
+    {
+
+        $studioId = $workshopRegistration->getTimeslot()->getStudio()->getId();
+
+        // Vérifier si le studio existe
+        // if (!$studio) {
+        //     throw $this->createNotFoundException('Studio not found.');
+        // }
+
+        // $studioId = $studio->getId();
+        $user = $security->getUser();
+        $entityManager->remove($workshopRegistration);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('show_studio_admin', ['id' => $studioId]);
+    }
+
  
 }

@@ -20,7 +20,9 @@
             <ul>
                 <p>List registrations:</p>
                 {% for registration in timeslot.workshopRegistrations %}
-                    <li>{{ registration.firstname}} - {{ registration.lastname}} - {{ registration.registrationDate|formatDate}}</li>
+                    <li>{{ registration.firstname}} - {{ registration.lastname}} - {{ registration.registrationDate|formatDate}}  -
+                        <a href="{{ path('delete_timeslot_registration', {'id': registration.id })}}">DELETE</a>
+                    </li>
                 {% endfor %}
 
             </ul>

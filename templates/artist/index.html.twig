@@ -1,33 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List artists{% endblock %}
+{% block title %}Artists{% endblock %}
+{% block meta %}Discover our artist community{% endblock %}
 
 {% block body %}
+    <h1>Artists</h1>
 
+    <h2>Last Artists added:</h2>
 
-    <h1>list artists</h1>
+    <h2>All artists:</h2>
 
-    <h2>last artists added</h2>
-
-
-    <h3>All artists </h3>
-
-    {% for artist in artists %}
+    <div class="artists-container">
+        {% for artist in artists %}    
+        <div class="artist-container">
+            <p>
+                <a href="{{ path('show_artist', {'id': artist.id }) }}">{{ artist.artistInfos.artistName }}</a>
+            </p>
+            <p>{{ artist.artistInfos.discipline }}</p>
+            <p id="{{artist.id}}">
+                <a href="{{ path('show_artist', {'id': artist.id }) }}"><i class="ri-eye-close-fill"></i></a>
+            </p>
         
-
-    <div class="artist-container">
-        <p>Artist Name: {{ artist.artistInfos.artistName }}</p>
-        {# {{ dump(artist)}} #}
-        <p>Discipline: {{ artist.artistInfos.discipline }}</p>
-
-        <div>
-            <img src="" alt="picture of the artist">
+            <div>
+                <img src="" alt="picture of the artist">
+            </div>
+    
         </div>
-
-        <p><a href="{{ path('show_artist', {'id': artist.id }) }}">see more</a></p>
+        {% endfor %}
     </div>
 
-    {% endfor %}
-
-    <h2>Request:</h2>
+  
 {% endblock %}

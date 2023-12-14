@@ -47,7 +47,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $qb = $em->createQueryBuilder();
 
 
-        $qb ->select('u.id', 'u.artistInfos')
+        $qb ->select('u')
             ->from('App\Entity\User', 'u')
             ->where('u.roles LIKE :role')
             ->setParameter('role', '%"ROLE_ARTIST"%');

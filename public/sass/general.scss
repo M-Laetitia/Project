@@ -74,22 +74,52 @@ body {
     }
 }
 
-.artist-container {
-    // background-color: grey;
-    width: 12rem;
-    height: 16rem;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+// ARTIST PAGES ------------------------------------------------
+// -------------------------------------------------------------
 
-    div {
-        background-color: grey;
-        width: 100%;
-        height: 100%;
+
+.artists-container {
+    // background-color: red;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 80%;
+
+    .artist-container {
+        // background-color: grey;
+        width: 12rem;
+        height: 16rem;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        div {
+            background-color: grey;
+            width: 100%;
+            height: 100%;
+
+        }
+    
     }
+}
+
+.artist-works {
+    // background-color: red;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+#test a {
+    transition: ease-in-out 1s;
+    // color: red;
+}
+
+.ri-eye-close-fill:hover {
+    color: red;
 
 }
+
 
 .alert-success {
     background-color: #8abe8c;
@@ -281,8 +311,8 @@ $boxShadowOffset: 10px;
 
         div {
             background-color: white;
-            width: $sizeCross / 2.7 ;
-            height: $sizeCross / 2.7 ;
+            // width: $sizeCross / 2.7 ;
+            // height: $sizeCross / 2.7 ;
             $boxShadow: $boxShadowOffset $boxShadowOffset white,
                          0px $boxShadowOffset white,
                          $boxShadowOffset 0px white;

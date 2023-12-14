@@ -57,7 +57,12 @@ body {
   width: 100%;
 }
 
-.artist-container {
+.artists-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 80%;
+}
+.artists-container .artist-container {
   width: 12rem;
   height: 16rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -65,10 +70,24 @@ body {
   flex-direction: column;
   align-items: center;
 }
-.artist-container div {
+.artists-container .artist-container div {
   background-color: grey;
   width: 100%;
   height: 100%;
+}
+
+.artist-works {
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+#test a {
+  transition: ease-in-out 1s;
+}
+
+.ri-eye-close-fill:hover {
+  color: red;
 }
 
 .alert-success {
@@ -227,8 +246,6 @@ body {
 }
 .cross2 div div {
   background-color: white;
-  width: 37.037037037%;
-  height: 37.037037037%;
   box-shadow: 10px 10px white, 0px 10px white, 10px 0px white;
   backdrop-filter: blur(1px);
 }

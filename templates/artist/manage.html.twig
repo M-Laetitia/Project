@@ -31,12 +31,25 @@
 
     <h1>My artist page (manage)</h1>
 
-    {# <p>artist name: {{ user.artistName }}</p>
-    <p>Discipline: {{user.artistDiscipline}}</p> #}
+    <p>Artist Name : {{ user.artistInfos.artistName }}</p>
+    <p>Discipline : {{ user.artistInfos.discipline }}</p>
+    <p>Email: {{ user.artistInfos.emailPro }}</p>
+    {# <p>test: {{ user.artistInfos.discipline ?? 'Non renseigné' }}</p> #}
 
-    <p>EmailPro(json): {{ user.artistInfos.emailPro }}</p>
-    <p>Artist Name(json): {{ user.artistInfos.artistName }}</p>
-    <p>Discipline(json): {{ user.artistInfos.discipline }}</p>
+    <div class="edit-info-btn">Edit</div>
+
+    <div class="edit-infos" style="display:none">
+        {{ form_start(formEditArtist) }}
+            {{ form_errors(formEditArtist) }}
+       
+                <div>{{ form_row(formEditArtist.emailPro) }}</div> 
+                <div>{{ form_row(formEditArtist.discipline) }}</div>  
+                <div>{{ form_row(formEditArtist.artistName) }}</div>
+         
+            <div id="edit_artist_submit">{{ form_row(formEditArtist.Submit) }}</div>
+        {{ form_end(formEditArtist) }}
+    </div>
+
 
     
 

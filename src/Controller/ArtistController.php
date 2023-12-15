@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Picture;
 use App\Form\ArtistType;
+use App\Form\EditArtistType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +21,6 @@ class ArtistController extends AbstractController
     #[Route('/artist', name: 'app_artist')]
     public function index(UserRepository $userRepository): Response
     {
-
         $artists = $userRepository->findArtistUsers();
         return $this->render('artist/index.html.twig', [
             'artists' => $artists,
@@ -28,42 +28,84 @@ class ArtistController extends AbstractController
     }
 
 
+    // ^ show artist detail (all)
     #[Route('/artist/{id}', name: 'show_artist')]
     public function show(UserRepository $userRepository, int $id): Response {
-    // $user = $security->getUser();
+
+        // get the artist
+        $artist = $userRepository->findArtistUsers($id);
+        // check if the artist exists
+        if (!$artist) {
+            // if not, redirect to the error page
+            return $this->render('error/error404.html.twig', [], new Response('', Response::HTTP_NOT_FOUND));
+        }
 
         $artist = $userRepository->findArtistUsers($id);
-        // dd($artist);
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
 
         ]);
     }
 
-
+    // ^ artist page -manage  (ROLE ARTIST)
     #[Route('/artist/{id}/manage', name: 'manage_artist')]
-    public function manage(User $user = null, Security $security): Response {
-    $user = $security->getUser();
+    #[IsGranted("ROLE_ARTIST")]
+    public function manage(User $user = null, Security $security, EntityManagerInterface $entityManager,  Request $request): Response 
+    {
+        $user = $security->getUser();
+        $artistInfos = $user->getArtistInfos() ?? [];
+        $form = $this->createForm(EditArtistType::class, $artistInfos, [
+            'data_class' => null,
+        ]);
+        
+        
+        $form->handleRequest($request);
 
-        // if (!$user instanceof User) {
-        //     return $this->redirectToRoute('app_home');
-        // }
+        if ($form->isSubmitted() && $form->isValid() ) {
 
-        // Récupérez le champ artistInfos en tant que chaîne JSON
-        // $artistInfosJson = $user->getArtistInfos();
+            // ^ Json infos
+            $email = $form->get('emailPro')->getData();
+            $discipline =$form->get('discipline')->getData();
+            $artistName =$form->get('artistName')->getData();
 
-        // dd($artistInfosJson);
-        // Décodez le JSON en tableau associatif
-        // $artistInfos = json_decode($artistInfosJson, true);
+            
+            // Vérifier les valeurs existantes avant de les mettre à jour
+            $fields = [];
 
-        // Utilisez $artistInfos comme vous le souhaitez
-   
-        // dd($emailPro);
+            if ($email !== null && $email !== $artistInfos['emailPro']) {
+                $fields['emailPro'] = $email;
+            }
+
+            if ($discipline !== null && $discipline !== $artistInfos['discipline']) {
+                $fields['discipline'] = $discipline;
+            }
+
+            if ($artistName !== null && $artistName !== $artistInfos['artistName']) {
+                $fields['artistName'] = $artistName;
+            }
+            
+
+            // Fusionner les champs avec artistInfos
+            $artistInfos = array_merge($artistInfos, $fields);
+
+            // Mettez à jour artistInfos dans l'entité User
+            $user->setArtistInfos($artistInfos);
+
+            // ^ -----------
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Informations successfully edited!');
+            return $this->redirectToRoute('manage_artist', ['id' => $user->getId()]);
+        }
 
         return $this->render('artist/manage.html.twig', [
             'user' => $user,
+            'formEditArtist'=> $form,
         ]);
     }
+
+
 
     #[Route('/artist/{id}/new', name: 'new_artist')]
     #[Route('/artist/{id}/edit', name: 'edit_artist')]
@@ -110,33 +152,39 @@ class ArtistController extends AbstractController
             // Mettez à jour artistInfos dans l'entité User
             $user->setArtistInfos($artistInfos);
 
-
+           
             // ^ pictures
             // récupérer les images téléchargées
             $picture = $form->get('pictures')->getData();
             // dd($pictures);
+
 
                 // on définit le dossier de destination
                 $userId = $user->getId();
                 $folder = $userId;
 
                 // on appelle le service d'ajout
-                $file = $pictureService->add($picture, $folder, 300, 300);
-                
-                // obtenir l'altDescription associée à cette image
-                $altDescription = $form->get('altDescription')->getData();
+                if ($picture !== null) 
+                {
+                    $file = $pictureService->add($picture, $folder, 300, 300);
+                    $altDescription = $form->get('altDescription')->getData();
+                    $img = new Picture();
+                    $img->setPath($file);
+                    $img->setAltDescription($altDescription);
+                    $img->setType('work');
+                    $img->setUser($user);
+                    $entityManager->persist($img);
+                    $entityManager->flush();
 
-                $img = new Picture();
-                $img->setPath($file);
-                $img->setAltDescription($altDescription);
-                $img->setType('work');
-                // $user->addPicture($picture);
-                $img->setUser($user);
-                $entityManager->persist($img);
-                $entityManager->flush();
+                    $this->addFlash('success', 'Images ajoutées avec succès!');
+                }
+                
             
             // ^ -----------
+
+          
             // Mise à jour des rôles dans l'entité User
+
             $user->setRoles($userRoles);
             $user = $form->getData();
             $entityManager->persist($user);
@@ -148,7 +196,7 @@ class ArtistController extends AbstractController
             // $this->get('security.token_storage')->setToken($token);
 
             // Message flash
-            $this->addFlash('success', 'Images ajoutées avec succès!');
+            $this->addFlash('success', 'Information successfully edited!');
 
             return $this->redirectToRoute('manage_artist', ['id' => $user->getId()]);
         }

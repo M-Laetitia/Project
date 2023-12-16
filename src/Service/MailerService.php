@@ -35,6 +35,13 @@ class MailerService
     //     $this->sendEmail($to, $subject, $message);
     // }
 
+    // ^  Event participation confirmation :
+    public function sendEventParticipationConfirmation($to, $expositionDetails)
+    {
+        $subject = 'event participation confirmation';
+        $message = '<p>Thank you for your participation in this event:</p>' . $expositionDetails;
+        $this->sendEmail($to, $subject, $message);
+    }
 
 
     public function sendExpositionProposalConfirmation($to, $expositionDetails)
@@ -45,6 +52,8 @@ class MailerService
 
         $this->sendEmail($to, $subject, $message);
     }
+
+
 
     public function sendExpositionConfirmationEmail($expo, array $usersToNotify) {
     $subject = 'Exposition Confirmation: ' . $expo->getName();
@@ -63,7 +72,7 @@ class MailerService
             ->html($message);
 
         // Attach the PDF to the email
-        $email->attach($pdfContent, 'exposition_confirmation.pdf', 'application/pdf');
+        // $email->attach($pdfContent, 'exposition_confirmation.pdf', 'application/pdf');
 
         // Send the email
         $this->mailer->send($email);

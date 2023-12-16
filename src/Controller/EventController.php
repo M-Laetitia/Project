@@ -20,10 +20,20 @@ class EventController extends AbstractController
     public function index(AreaRepository $areaRepository): Response
     {
 
-        $events = $areaRepository->findBy(['type' => 'EVENT']);
+        $ongoingEvents = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+
+        $pastEvents = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['ARCHIVED'],
+        ]);
+
         return $this->render('event/index.html.twig', [
             // 'controller_name' => 'DashboardController',
-            'events' => $events,
+            'ongoingEvents' => $ongoingEvents,
+            'pastEvents' => $pastEvents,
         ]);
     }
 
@@ -98,9 +108,6 @@ class EventController extends AbstractController
         $entityManager->remove($area);
         $entityManager->flush();
         
-    
-        
-
         return $this->redirectToRoute('app_dashboard');
     }
 }

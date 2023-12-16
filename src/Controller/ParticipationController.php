@@ -35,8 +35,7 @@ class ParticipationController extends AbstractController
     {
 
         $user = $security->getUser();
-        // $areaId = $area->getId();
-        // $area = $areaRepository->findBy(['id' => $areaId ]);
+
 
         $form = $this->createForm(AreaParticipationType::class);
         $form->handleRequest($request);
@@ -75,6 +74,7 @@ class ParticipationController extends AbstractController
                 }
     
                 // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+                $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
                 return $this->redirectToRoute('app_exposition');
 
             } else {
@@ -115,8 +115,16 @@ class ParticipationController extends AbstractController
 
             //send the email
             $userEmail = $user->getEmail();
-            $expositionDetails = 'test';
-            $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+            //  sprintf en PHP est utilisée pour formater une chaîne selon un modèle spécifié. Les %s dans la chaîne de format sont des spécificateurs de format qui indiquent à la fonction sprintf où insérer les valeurs correspondantes dans la chaîne résultante.
+            $expositionDetails = sprintf(
+                "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                $area->getName(),
+                $area->getStartDate()->format('Y-m-d H:i:s'),
+                $area->getEndDate()->format('Y-m-d H:i:s'),
+                $area->getDescription()
+            );
+
+            $mailerService->sendEventParticipationConfirmation($userEmail, $expositionDetails);
 
             $nbReversationRemaining = $area->getNbReversationRemaining();
             if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
@@ -129,11 +137,12 @@ class ParticipationController extends AbstractController
             }
 
             // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+            $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
             return $this->redirectToRoute('app_event');
         
         }
 
-        return $this->render('exposition/newParticipation.html.twig', [
+        return $this->render('event/newParticipation.html.twig', [
             'formSendParticipation' => $form,
             'user' => $user,
 

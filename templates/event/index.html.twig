@@ -4,27 +4,70 @@
 
 {% block body %}
 
-    <h1>Events:</h1>
-
-    <p>LIST:</p>
+    <h1>Events :</h1>
 
 
+    <div class="ongoing-events">
 
-    {% for event in events %}
-        <p>name: {{event.name}}</p>
-        <p>description: {{event.description}}</p>
-        <p>dates: {{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
-        {# <p>Capacity {{ reservationCounts[event.id] }} / {{event.nbRooms}}</p> #}
+        
+            {% for event in ongoingEvents %}
+            <div>
+                <p>
+                    <span class="name">{{event.name}}</span> 
+                    <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                        (event.status == 'CLOSED' ? 'closed' : 
+                                        (event.status == 'PENDING' ? 'pending' : 
+                                        (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                        {{ event.status }}
+                    </span>
+                
+                </p>
+                <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
+                <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
+        
+                <p>{{event.description}}</p>
+                
+                {# <p>Capacity {{ reservationCounts[event.id] }} / {{event.nbRooms}}</p> #}
+        
+                <p>Capacity : {{event.nbReversationMade}}  /  {{event.nbRooms}} - Remaining : {{event.nbReversationRemaining}}</p>
+    
+                <a href="{{ path('show_event', {'id' : event.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+                <hr>
+            </div>
+            {% endfor %}
 
-        <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
-        <p>Remaining: {{event.nbReversationRemaining}}</p>
-        <p>status: {{ event.status}}</p>
+        
+    </div>
 
-        <a href="{{ path('show_event', {'id' : event.id }) }}">see more</a>
-        <hr>
+    <div class="past-event-title">
+        <h2>See past events </h2> 
+        <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
+    </div>
 
-    {% endfor %}
+    <div class="past-events" style="display:none">
+        {% for event in pastEvents %}
+        <div>
+            <p>
+                <span class="name">{{event.name}}</span> 
+                <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                    (event.status == 'CLOSED' ? 'closed' : 
+                                    (event.status == 'PENDING' ? 'pending' : 
+                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                    {{ event.status }}
+                </span>
+            
+            </p>
 
-    <p>SEE PREVIOUS EVENTS:</p>
+           
+            <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
+            <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
+    
+            <p>{{event.description}}</p>
+
+            <a href="{{ path('show_event', {'id' : event.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}

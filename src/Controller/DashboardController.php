@@ -21,12 +21,27 @@ class DashboardController extends AbstractController
         $expositions = $areaRepository->findBy(['type' => 'EXPO']);
         $studios = $studioRepository->findBy([]);
 
+
+        $ongoingEvents = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+        $pastEvents = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['ARCHIVED'],
+        ]);
+
+
+
         return $this->render('dashboard/index.html.twig', [
             // 'controller_name' => 'DashboardController',
             'events' => $events,
             'expositions' => $expositions,
             'workshops' => $workshops,
             'studios' => $studios,
+
+            'ongoingEvents' => $ongoingEvents,
+            'pastEvents' => $pastEvents,
         ]);
     }
 }

@@ -1,31 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Detail Event{% endblock %}
+{% block metal %}Detail Event{% endblock %}
 
 {% block body %}
 
-    <h1>Event:</h1>
+    <h1>Event:</h1>   
+    <h2>Detail:</h2> <br>
+
+    <div class="ongoing-events">
+        <div>
+            <p>
+                <span class="name">{{area.name}}</span> 
+                <span class="status {{ area.status == 'OPEN' ? 'open' : 
+                                    (area.status == 'CLOSED' ? 'closed' : 
+                                    (area.status == 'PENDING' ? 'pending' : 
+                                    (area.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                    {{ area.status }}
+                </span>
+            
+            </p>
+            <p>{{area.startDate|formatDate}} - {{area.endDate|formatDate}} </p>
+            <p>{{area.startDate|date('H:i')}} - {{area.endDate|date('H:i')}}</p>
     
-    <h2>Infos</h2> <br>
-    <p>Name: {{area.name}}</p>
-    <p>Description: {{area.description}}</p>
-
-    <hr>
+            <p>{{area.description}}</p>
     
-    <p>Want to participate ? <br>
+            <p>Capacity : {{area.nbReversationMade}}  /  {{area.nbRooms}} - Remaining : {{area.nbReversationRemaining}}</p>
+
+        </div>
+   
+    </div>
 
 
-    {% if existingParticipation %}
-        <p>You are already participating in this exhibition</p>
-    {% else %}  
-        {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
-            <p>No more space available for this exhibition</p>
-        {% elseif area.status == 'OPEN' %}
-            <a href="{{ path('new_event_participation', {'id': area.id }) }}">Participate</a></p>
-        {% else %}
-            <p>Invalid status for participation</p>
+    {% if area.status != 'ARCHIVED' %}
+        <p>Do want to participate ? <br>
+        {% if existingParticipation %}
+            <p>You are already participating</p>
+        {% else %} 
+            {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
+                <p>No more space available for this exhibition</p>
+            {% elseif area.status == 'OPEN' %}
+                <a href="{{ path('new_event_participation', {'id': area.id }) }}">Click here!</a></p>
+            {% else %}
+                <p>Invalid status for participation</p>
+            {% endif %}
         {% endif %}
-   {% endif %}
+    {% endif %}
+
         
         
         

@@ -165,3 +165,21 @@ $(document).ready(function() {
     
 })
 
+// ^ see past events toggle
+
+$(document).ready(function() {
+    $('.past-event-btn').click(function(){
+        $(".past-events").slideToggle();
+    });
+
+    $('.past-event-btn').hover(
+        function() {
+            $('.past-event-title h2').css('color', 'rgb(240, 189, 47)');
+        },
+        function() {
+            $('.past-event-title h2').css('color', 'rgb(25, 24, 27)');
+        }
+    );
+    
+})
+

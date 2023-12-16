@@ -183,3 +183,29 @@ $(document).ready(function() {
     
 })
 
+// ^ DASHBOARD MAIN PAGE : 
+
+
+
+$(document).ready(function() {
+
+    // ^ confirmation delete poppup
+    $('.delete-btn').click(function(){
+        event.preventDefault(); 
+        var targetId = $(this).data('target');
+        console.log(targetId)
+        $("#" + targetId).slideToggle();
+    });
+
+    $('.close-confirmation-btn').click(function(){
+        var deleteContainer = $(this).closest('.delete-container');
+        deleteContainer.slideToggle();
+    })
+
+    // ^ show/hide past event
+
+    $('#arrow-past-event').click(function() {
+        $('.past-events-container').slideToggle();
+    })
+
+})

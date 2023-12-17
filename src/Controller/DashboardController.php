@@ -40,6 +40,13 @@ class DashboardController extends AbstractController
             'status' => ['ARCHIVED'],
         ]);
 
+        $ongoingWorkshop = $workshopRepository->findBy([
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+        $pastWorkshop = $workshopRepository->findBy([
+            'status' => ['ARCHIVED'],
+        ]);
+
 
 
         return $this->render('dashboard/index.html.twig', [
@@ -54,6 +61,9 @@ class DashboardController extends AbstractController
 
             'ongoingExpos' => $ongoingExpos,
             'pastExpos' => $pastExpos,
+
+            'ongoingWorkshop' => $ongoingWorkshop,
+            'pastWorkshop' => $pastWorkshop,
 
 
         ]);

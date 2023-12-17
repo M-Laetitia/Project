@@ -36,7 +36,14 @@
     {% for artistData in artist %}
         <h3>Contact:</h3>
         <p>{{ artistData.artistInfos.emailPro }}</p>
+        
+        {# Test avec condition en fonction des données #}
+        {# {% if artistData.artistInfos.discipline is not null %}
+            <p>test: {{ artistData.artistInfos.discipline }}</p>
+        {% endif %} #}
+
     {% endfor %}
 
+ 
    
 {% endblock %}

@@ -33,21 +33,100 @@ footer {
     }
 }
 
+/**
+ * Smooth scrolling on the whole document
+ */
+ html {
+	scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+// NAV ---------------------------------------------------------
+// -------------------------------------------------------------
+
 nav {
 
     position: absolute;
-    padding: 1.3rem;
     margin-bottom: 2rem;
     width: 100%;
+    height: 5rem;
     background-color: rgb(32, 32, 32);
+    display: grid;
+    grid-template-columns: 20% 50% 30%;
+    gap: 2rem;
+    align-items: center;
+    padding: 0 6rem ;
+
+    .home {
+        i {
+            font-size: 1.7rem;
+        }
+    }
+
+    .links {
+        a {
+            position: relative; // Assure que les positions absolues dans les enfants sont relatives à cet élément
+            margin-left: 2rem;
+            background-image: linear-gradient(
+                to right,
+                rgb(37, 149, 177),
+                rgb(37, 149, 177) 50%,
+                #ffffff 50%
+            );
+            background-size: 200% 100%;
+            background-position: -100%;
+            // clips the background gradient to the text so it appears the text is actually the color of the background.
+            // strips the color out of the text to make it transparent. 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease-in-out;
+            font-weight: 600;
+    
+            &:before {
+                content: '';
+                background:  rgb(37, 149, 177);
+                display: block;
+                position: absolute;
+                bottom: -3px;
+                left: 0;
+                width: 0;
+                height: 2px;
+                transition: width 0.3s ease-in-out;
+            }
+    
+            &:hover {
+                background-position: 0;
+            }
+    
+            &:hover::before {
+                width: 100%;
+            }
+        }
+    }
+
+    .roles{
+        display: flex;
+        column-gap: 1.2rem;
+    }
+    
     a {
         color:white;
-
         &:hover {
             color: rgb(37, 149, 177);
         }
     }
+
+    i {
+        font-size: 1.3rem;
+    }
 }
+
+
 
 body {
     // margin-top: 5rem;

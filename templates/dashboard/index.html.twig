@@ -6,8 +6,7 @@
 
     <h1>Dashboard</h1>
 
-    <div class="dahsboard-container">
-
+    <div class="dahsboard-container-events">
         <div>
             <h2>Event</h2>
             <p><a class="btn" href="{{ path('new_event') }}">Create</a></p>
@@ -95,31 +94,109 @@
         </div>
 
         
-        
-    
-       
-        
    
     </div>
-    <h2>Expo</h2>
 
-    {% for expo in expositions %}
-        <p>✦{{expo.name}}|| {{expo.nbRooms}} </p> 
-        {{expo.startDate|formatDate}}  -  {{expo.endDate|formatDate}} 
-        <p><a href="{{ path('show_expo_admin', {'id': expo.id}) }}">SEE MORE:</a></p>
-        <p>Actions :  <br>
-            <a href="{{ path('edit_expo', {'id': expo.id}) }}">edit</a> 
-            <a href="{{ path('delete_expo', {'id': expo.id}) }}">Delete</a>
-        <br>/ delete / open / lock / unlock / Archive / </p>
-        <p>add picture</p>
-        <hr>
-    {% endfor %}
+    <div class="dashboard-container-expos">
+        <div>
+            <h2>Expositions</h2>
+            <p><a class="btn" href="{{ path('new_expo') }}">Create</a></p>
+        </div>
 
-    <p><a href="{{ path('new_expo') }}">add an expo:</a></p>
+        <div class="ongoing">
+            <h3>Current and future Events  <span> <i class="ri-arrow-down-s-line"></i></span></h3>
 
+            {% for expo in ongoingExpos %}
+            <div class="element">
+                <p>
+                     
+                    <a href="{{ path('show_expo_admin', {'id': expo.id}) }}"><span class="name">✦{{expo.name}}</span></a>
+                    <span class="status {{ expo.status == 'OPEN' ? 'open' : 
+                                        (expo.status == 'CLOSED' ? 'closed' : 
+                                        (expo.status == 'PENDING' ? 'pending' : 
+                                        (expo.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                        {{ expo.status }}
+                    </span>
+                
+                </p>
 
-    <hr><br>
-    <h2>Workshop</h2>
+                <p>{{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
+                <p>{{expo.startDate|date('H:i')}} - {{expo.endDate|date('H:i')}}</p>
+
+                <p>Proposals: {{ expo.getNbExpositionProposals}}</p>
+                
+                <p>Capacity: {{expo.nbReversationMade}}  /  {{expo.nbRooms}} - Remaining: {{expo.nbReversationRemaining}}</p>
+                <div> 
+                    <a href="{{ path('show_expo_admin', {'id': expo.id}) }}"><i class="ri-eye-close-fill"></i></a>
+                    <a href="{{ path('edit_expo', {'id': expo.id}) }}"><i class="ri-file-edit-fill"></i></a> 
+                    <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ expo.id}}"></i></a>
+                </div>
+                <hr>
+
+                <div class="delete-container" id="{{expo.id}}" style="display:none">
+                    <p>Are you sure you want to delete this entry? This cannot be undone.</p>
+                    <div>
+                        <p><a href="{{ path('delete_expo', {'id': expo.id}) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                        <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+            <div class="past-expos">
+                <h3>Past Expositions  <span> <i id="arrow-past-expo" class="ri-arrow-down-s-line"></i></span></h3>
+                {% for expo in pastExpos %}
+                <div class="element past-expos-container" style="display:none">
+                    <p>
+                         
+                        <a href="{{ path('show_expo_admin', {'id': expo.id}) }}"><span class="name">✦{{expo.name}}</span></a>
+                        <span class="status {{ expo.status == 'OPEN' ? 'open' : 
+                                            (expo.status == 'CLOSED' ? 'closed' : 
+                                            (expo.status == 'PENDING' ? 'pending' : 
+                                            (expo.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                            {{ expo.status }}
+                        </span>
+                    
+                    </p>
+    
+                    <p>{{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
+                    <p>{{expo.startDate|date('H:i')}} - {{expo.endDate|date('H:i')}}</p>
+                    
+                    <p>Capacity: {{expo.nbReversationMade}}  /  {{expo.nbRooms}} - Remaining: {{expo.nbReversationRemaining}}</p>
+                    <div> 
+                        <a href="{{ path('show_expo_admin', {'id': expo.id}) }}"><i class="ri-eye-close-fill"></i></a>
+                        <a href="{{ path('edit_expo', {'id': expo.id}) }}"><i class="ri-file-edit-fill"></i></a> 
+                        <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ expo.id}}"></i></a>
+                    </div>
+                    <hr>
+    
+                    <div class="delete-container" id="{{expo.id}}" style="display:none">
+                        <p>Are you sure you want to delete this entry? This cannot be undone.</p>
+                        <div>
+                            <p><a href="{{ path('delete_expo', {'id': expo.id}) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                            <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                        </div>
+                    </div>
+    
+                </div>
+                {% endfor %}
+    
+            </div>
+
+        </div>
+    </div>
+
+    <div class="dashboard-container-workshop">
+        <div>
+            <h2>Workshop</h2>
+            <p><a class="btn" href="{{ path('new_workshop') }}">Create</a></p>
+        </div>
+
+        <div></div>
+    </div>
+   
+    
 
     {% for workshop in workshops %}
         <p>✦{{workshop.name}}|| {{workshop.nbRooms}}  || {{workshop.status}}</p> 
@@ -133,7 +210,7 @@
         <hr>
     {% endfor %}
 
-    <p><a href="{{ path('new_workshop') }}">add a workshop:</a></p>
+    <p><a href=>add a workshop:</a></p>
 
     <hr><br>
     <h2>Studios</h2>

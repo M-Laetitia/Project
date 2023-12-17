@@ -10,15 +10,25 @@
     <p>{{area.name}}</p>
     {# {{ dump(area) }} #}
 
-    <p>Participants list:</p>
+    <p>Artists list:</p>
 
+    <ul>
+        {% for proposal in area.expositionProposals %}
+            <li>{{ proposal.user.artistInfos.artistName }} - {{ proposal.user.artistInfos.discipline }} - {{ proposal.user.artistInfos.emailPro}}</li>
+            <a href="{{ path('delete_proposal', {'id': proposal.id }) }}">DELETE</a>
+        {% endfor %}
+
+    </ul>
+
+    
+    <p>Participants list:</p>
     <ul>
 
         {% for participant in area.areaParticipations %}
             <li>
                 <p>{{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.inscriptionDate|formatDate}} </p>
                 <p>actions: delete - edit </p>
-                <a href="{{ path('delete_participation', {'id': participant.id }) }}">DELETE</a>
+                <a href="{{ path('delete_expo_participation', {'id': participant.id }) }}">DELETE</a>
             </li>
         {% endfor %}
     </ul>

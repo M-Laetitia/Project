@@ -208,4 +208,8 @@ $(document).ready(function() {
         $('.past-events-container').slideToggle();
     })
 
+    $('#arrow-past-expo').click(function() {
+        $('.past-expos-container').slideToggle();
+    })
+
 })

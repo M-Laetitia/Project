@@ -7,20 +7,68 @@
 {% block body %}
 
     <h1>workshops:</h1>
-    {# {{dump(workshops)}} #}
-    {% for workshop in workshops %}
-        <p>Name: {{workshop.name}}</p>
-        {# <p>Dates: {{workshop.startDate}} - {{workshop.endDate}}</p> #}
-        <p>Description: {{workshop.description}}</p>
 
-        <p>Capacity: {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}}</p>
-        <p>Remaining: {{workshop.nbRegistrationRemaining}}</p>
+    <div class="ongoing-events">
+        {% for workshop in ongoingWorkshop %}
+        <div>
+            <p>
+                <span class="name">{{workshop.name}}</span> 
+                <span class="status {{ workshop.status == 'OPEN' ? 'open' : 
+                                    (workshop.status == 'CLOSED' ? 'closed' : 
+                                    (workshop.status == 'PENDING' ? 'pending' : 
+                                    (workshop.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                    {{ workshop.status }}
+                </span>
+            
+            </p>
+
+            <p>{{workshop.startDate|formatDate}} - {{workshop.endDate|formatDate}} </p>
+            <p>{{workshop.startDate|date('H:i')}} - {{workshop.endDate|date('H:i')}}</p>
         
-        <p>Status: {{workshop.status}}</p>
+            <p>{{workshop.description}}</p>
+    
+            <p>Capacity: {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}} - Remaining: {{workshop.nbRegistrationRemaining}}</p>
+            
+    
+            <p><a href="{{ path('show_workshop', {'id': workshop.id }) }}">See details <i class="fa-solid fa-plus"></i></a></p>
+    
+            <hr>
+        </div>
+        {% endfor %}
 
-        <p><a href="{{ path('show_workshop', {'id': workshop.id }) }}">see more</a></p>
+    </div>
 
-        <hr>
-    {% endfor %}
+    <div class="past-event-title">
+        <h2>See past events </h2> 
+        <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
+    </div>
+
+    <div class="past-events" style="display:none">
+        {% for event in pastWorkshop %}
+        <div>
+            <p>
+                <span class="name">{{event.name}}</span> 
+                <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                    (event.status == 'CLOSED' ? 'closed' : 
+                                    (event.status == 'PENDING' ? 'pending' : 
+                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                    {{ event.status }}
+                </span>
+            
+            </p>
+
+           
+            <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
+            <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
+    
+            <p>{{event.description}}</p>
+
+            <a href="{{ path('show_event', {'id' : event.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+
+    
 
 {% endblock %}

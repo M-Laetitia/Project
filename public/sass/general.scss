@@ -440,33 +440,35 @@ $colorborder: rgba(0,0,0, 0.8);
         font-size: 1.2rem;
     }
 
-    .status {
-        color: white;
-        font-size: 0.8rem;
-        padding: 0.2rem;
-        border-radius: 0.2rem;
-    }
-    .open {
-        background-color: rgb(112, 161, 108);
-    }
     
-    .closed {
-        background-color: orange;
-    }
     
-    .pending {
-        background-color: blue;
-    }
-    
-    .archived {
-        background-color: gray;
-    }
-    
-    .default {
-        /* Styles par défaut si le statut n'est aucun des cas ci-dessus */
-        background-color: black;
-    }
-    
+}
+
+.status {
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+}
+.open {
+    background-color: #71b7c0;
+}
+
+.closed {
+    background-color: orange;
+}
+
+.pending {
+    background-color: #8181a2;
+}
+
+.archived {
+    background-color: gray;
+}
+
+.default {
+    /* Styles par défaut si le statut n'est aucun des cas ci-dessus */
+    background-color: black;
 }
 
 .past-event-title {
@@ -475,3 +477,48 @@ $colorborder: rgba(0,0,0, 0.8);
     align-items: center;
     column-gap: 0.3rem;
 }
+
+
+// DAHSBOARD ---------------------------------------------------
+// -------------------------------------------------------------
+.dahsboard-container-events,
+.dashboard-container-expos,
+.dashboard-container-workshop {
+
+    div:nth-child(1) {
+       display: flex;
+       align-items: center;
+       column-gap: 0.6rem;
+    }
+    .ongoing{
+        line-height: 1.4;
+        .element {
+            border-left: 2px solid rgb(240, 189, 47);
+            padding: 0.3rem;
+            margin-bottom: 1.5rem;
+    
+        }
+    }
+}
+
+
+
+.delete-container {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 2px 2px -2px;
+    border-radius: 0 0 0.6rem 0.6rem;
+    padding: 0.3rem;
+
+    div {
+        display: flex;
+        column-gap: 0.6rem;
+
+        p {
+            cursor: pointer;
+            &:hover {
+                color: rgb(240, 189, 47);
+            }
+        }
+
+    }
+}
+

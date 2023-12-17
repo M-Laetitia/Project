@@ -348,25 +348,31 @@ body {
 .ongoing-events .name, .past-events .name {
   font-size: 1.2rem;
 }
-.ongoing-events .status, .past-events .status {
+
+.status {
   color: white;
   font-size: 0.8rem;
   padding: 0.2rem;
   border-radius: 0.2rem;
 }
-.ongoing-events .open, .past-events .open {
-  background-color: rgb(112, 161, 108);
+
+.open {
+  background-color: #71b7c0;
 }
-.ongoing-events .closed, .past-events .closed {
+
+.closed {
   background-color: orange;
 }
-.ongoing-events .pending, .past-events .pending {
-  background-color: blue;
+
+.pending {
+  background-color: #8181a2;
 }
-.ongoing-events .archived, .past-events .archived {
+
+.archived {
   background-color: gray;
 }
-.ongoing-events .default, .past-events .default {
+
+.default {
   /* Styles par défaut si le statut n'est aucun des cas ci-dessus */
   background-color: black;
 }
@@ -376,6 +382,42 @@ body {
   margin-top: 0.6rem;
   align-items: center;
   column-gap: 0.3rem;
+}
+
+.dahsboard-container-events div:nth-child(1),
+.dashboard-container-expos div:nth-child(1),
+.dashboard-container-workshop div:nth-child(1) {
+  display: flex;
+  align-items: center;
+  column-gap: 0.6rem;
+}
+.dahsboard-container-events .ongoing,
+.dashboard-container-expos .ongoing,
+.dashboard-container-workshop .ongoing {
+  line-height: 1.4;
+}
+.dahsboard-container-events .ongoing .element,
+.dashboard-container-expos .ongoing .element,
+.dashboard-container-workshop .ongoing .element {
+  border-left: 2px solid rgb(240, 189, 47);
+  padding: 0.3rem;
+  margin-bottom: 1.5rem;
+}
+
+.delete-container {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 2px 2px -2px;
+  border-radius: 0 0 0.6rem 0.6rem;
+  padding: 0.3rem;
+}
+.delete-container div {
+  display: flex;
+  column-gap: 0.6rem;
+}
+.delete-container div p {
+  cursor: pointer;
+}
+.delete-container div p:hover {
+  color: rgb(240, 189, 47);
 }
 
 /*# sourceMappingURL=general.css.map */

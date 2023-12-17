@@ -5,7 +5,7 @@
 
 {% block body %}
 
-    <h1>detail expo(admin)</h1>
+    <h1>detail expo(admin!)</h1>
 
     <p>{{workshop.name}}</p>
     {# {{ dump(workshop) }} #}
@@ -17,8 +17,18 @@
         {% for participant in workshop.workshopRegistrations %}
             <li>
                 <p>{{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.registrationDate|formatDate}} </p>
-                <p>actions: delete - edit </p>
-                <a href="{{ path('delete_registration', {'id': participant.id }) }}">DELETE</a>
+         
+
+                <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ participant.id}}"></i></a>
+                <div class="delete-container" id="{{participant.id}}" style="display:none">
+                    <p>Are you sure you want to delete this participation? This cannot be undone.</p>
+                    <div>
+                        <p><a href="{{ path('delete_registration', {'id': participant.id }) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                        <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                    </div>
+                </div>
+
+
             </li>
         {% endfor %}
     </ul>

@@ -214,9 +214,7 @@ class ParticipationController extends AbstractController
     public function newWorkshopRegistration(WorkshopRegistration $workshopRegistration = null, Workshop $workshop, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
     {
 
-
         // ! if $workshopRegistration
-        
         $user = $security->getUser();
 
         $form = $this->createForm(WorkshopRegistrationType::class);
@@ -240,8 +238,14 @@ class ParticipationController extends AbstractController
     
                 //send the email
                 $userEmail = $user->getEmail();
-                $expositionDetails = 'test';
-                $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+                $expositionDetails = sprintf(
+                    "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                    $workshop->getName(),
+                    $workshop->getStartDate()->format('Y-m-d H:i:s'),
+                    $workshop->getEndDate()->format('Y-m-d H:i:s'),
+                    $workshop->getDescription()
+                );
+                $mailerService->sendWorkshopParticipationConfirmation($userEmail, $expositionDetails);
     
                 // Check if the maximum number of participants has been reached after the new registration
                 $nbReversationRemaining = $workshop->getNbRegistrationRemaining();
@@ -299,8 +303,12 @@ class ParticipationController extends AbstractController
 
             //send the email
             $userEmail = $user->getEmail();
-            $expositionDetails = 'test';
-            $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+            $expositionDetails = sprintf(
+                "StartDate:  %s\r\nEndDate: %s", 
+                $timeslot->getStartDate()->format('Y-m-d H:i:s'),
+                $timeslot->getEndDate()->format('Y-m-d H:i:s'),
+            );
+            $mailerService->sendStudioBookingConfirmation($userEmail, $expositionDetails);
 
             $this->addFlash('success', 'Your participation has been successfully processed. You have received a confirmation email.');
             return $this->redirectToRoute('app_studio');
@@ -316,7 +324,7 @@ class ParticipationController extends AbstractController
 
 
 
-    // ^ Delete a registration -workshop / studios (admin)
+    // ^ Delete a registration -workshop (admin)
     #[Route('/dashboard/{id}/delete/registration', name: 'delete_registration')]
     #[IsGranted("ROLE_ADMIN")]
     public function delete_registration(WorkshopRegistration $workshopRegistration, EntityManagerInterface $entityManager)
@@ -324,6 +332,7 @@ class ParticipationController extends AbstractController
         $workshop =  $workshopRegistration->getWorkshop();
         // dump($workshop);die;
         $workshopId = $workshopRegistration->getWorkshop()->getId();
+
         $entityManager->remove($workshopRegistration);
         $entityManager->flush();
 
@@ -339,6 +348,38 @@ class ParticipationController extends AbstractController
 
         $this->addFlash('success', 'Registration successfully deleted.');
         return $this->redirectToRoute('show_workshop_admin', ['id' => $workshopId]);
+    }
+
+    // ^ Delete a registration - studios (admin)
+    #[Route('/dashboard/{id}/delete/registration_studio', name: 'delete_registration_studio')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function delete_registration_studio(WorkshopRegistration $workshopRegistration, EntityManagerInterface $entityManager)
+    {
+        $timeslot =  $workshopRegistration->getTimeslot();
+        
+        $timeslotId = $workshopRegistration->getTimeslot()->getId();
+
+        $nbRoomsStudio = $timeslot->getStudio()->getNbRooms();
+        
+        $entityManager->remove($workshopRegistration);
+        $entityManager->flush();
+
+        $nbRegistrations = $timeslot->getNbRegistrations();
+        // dump($nbRegistrations);die;
+        $nbRoomsRemaining = $nbRoomsStudio - $nbRegistrations;
+        // dump($nbRoomsRemaining);die;
+
+        // if ( $nbRoomsRemaining == 0 && $workshop->getStatus() !== 'CLOSED') {
+        //     // Update the status to "closed"
+        //     $workshop->setStatus('CLOSED');
+        //     $entityManager->flush();
+        // } elseif ($nbRegistrationRemaining > 0 && $workshop->getStatus() !== 'OPEN') {
+        //     $workshop->setStatus('OPEN');
+        //     $entityManager->flush();
+        // }
+
+        $this->addFlash('success', 'Registration successfully deleted.');
+        return $this->redirectToRoute('studio_dashboard');
     }
 
     // ^ Make an exposition proposal (artists)

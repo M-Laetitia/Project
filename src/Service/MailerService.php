@@ -38,7 +38,7 @@ class MailerService
     // ^  Event participation confirmation :
     public function sendEventParticipationConfirmation($to, $expositionDetails)
     {
-        $subject = 'event participation confirmation';
+        $subject = 'Event participation confirmation';
         $message = '<p>Thank you for your participation in this event:</p>' . $expositionDetails;
         $this->sendEmail($to, $subject, $message);
     }
@@ -48,16 +48,29 @@ class MailerService
     {
         $subject = 'Exposition Proposal Confirmation';
         $message = '<p>Thank you for your proposal for the exposition details:</p>' . $expositionDetails;
-        // $message = $this->generateExpositionConfirmationMessage($expositionDetails);
-
         $this->sendEmail($to, $subject, $message);
     }
 
+    public function sendExpositionParticipationConfirmation($to, $expositionDetails)
+    {
+        $subject = 'Exposition participation confirmation';
+        $message = '<p>Thank you for your participation in this exposition:</p>' . $expositionDetails;
+        $this->sendEmail($to, $subject, $message);
+    }
+
+    // public function sendExpositionConfirmation($to, $expositionDetails)
+    // {
+    //     $subject = 'Exposition opening confirmation';
+    //     $message = '<p>The exposition has obtained the necessary number of artist applications, and will therefore take place. Thank you for your participation:</p>' . $expositionDetails;
+    //     $this->sendEmail($to, $subject, $message);
+    // }
 
 
-    public function sendExpositionConfirmationEmail($expo, array $usersToNotify) {
+
+
+    public function sendExpositionConfirmation($expo, array $usersToNotify) {
     $subject = 'Exposition Confirmation: ' . $expo->getName();
-    $message = '<p>Thank you! The exposition ' . $expo->getName() . ' has reached the required number of proposals.</p>';
+    $message = '<p>Thank you! The exposition ' . $expo->getName() . ' has reached the required number of proposals, and will therefore take place. Thank you for your participation</p>';
 
     // Generate PDF content using PdfGeneratorController
     $pdfContent = $this->pdfGeneratorController->generatePdfContent();

@@ -5,38 +5,33 @@
 
 {% block body %}
 
-    <h1>show art studios</h1>
-
-    <p>Name: {{ studio.name}}</p>
+    <h1>{{ studio.name}}</h1>
     <p>Capacity:  {{ studio.nbRooms}}</p>
 
-    <p>test:  {{ studio.nbRegistrationMade}}</p>
+    {# <p>test:  {{ studio.nbRegistrationMade}}</p> #}
 
-    {{dump(studioTimeslots)}}
+    {# {{dump(studioTimeslots)}} #}
 
-    {# {% for studioTimeslot in studioTimeslots %}
-        <p>timeslot:  {{ studioTimeslot.id}}  +  {{ studioTimeslot.studio}} -  {{ timeslotRegistrations[studioTimeslot.id] }} réservations</p>
-    {% endfor %} #}
-    
 
-    <p>Plages horaires:</p>
+    <p>Open time slots for this Art Studio:</p>
 
-    {{ dump(studio)}}
+    {# {{ dump(studio)}} #}
 
     {% if studio.timeslots|length > 0 %}
         <ul>
-            {# Affichier date : 00-00-0000 puis créneau horaire 9h00-10h00) #}
+    
             {% for timeslot in studio.timeslots %}
             <li>
-                {{timeslot.startDate|formatDate}} -  {{timeslot.endDate|formatDate}}  | {{timeslot.user}} <p>timeslot:  {{ timeslotRegistrations[timeslot.id] }} registration/s /   {{timeslot.studio.nbRooms}} </p>
+                {{timeslot.startDate|formatDate}}  - {{timeslot.startDate|date('H:i')}} - {{timeslot.endDate|date('H:i')}}| {{timeslot.user}} </p>
+                <p>Registration/s:  {{ timeslotRegistrations[timeslot.id] }}  /   {{timeslot.studio.nbRooms}} </p>
             </li>
 
             {% if timeslotRegistrations[timeslot.id] ==  timeslot.studio.nbRooms %}
-                <p>plus de place disponibles</p>
+                <p>This time slot is fully booked.</p>
             {% else %}
                 
-                <p>Réserver cette plage horaire:</p>
-                <a href="{{ path('new_registration', {'id': timeslot.id}) }}">réserver </a>
+                <p>Make a reservation for this time slot:</p>
+                <a href="{{ path('new_registration', {'id': timeslot.id}) }}">Booking </a>
                 
             {% endif %}
 

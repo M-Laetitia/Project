@@ -5,19 +5,27 @@
 
 {% block body %}
 
-    <h1>List of art studios</h1>
+    <h1>List of Art Studios</h1>
 
-    {% for studio in studios %}
+    <div class="ongoing-events">
 
-        <p>Name: {{ studio.name}}</p>
-        <p>Detail: {{ studio.description}}</p>
-        <p>Detail: {{ studio.nbRooms}}</p>
-        <p>
-            <a href="{{ path('show_studio', {'id': studio.id }) }}">SEE MORE</a>
-        </p>
-        <hr>
-        
-    {% endfor %}
+        {% for studio in studios %}
+            <div>
+                <p>
+                    <span class="name">{{studio.name}}</span> 
+                </p>
+                 
+                <p>{{studio.description}}</p>                
+    
+                <a href="{{ path('show_studio', {'id' : studio.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+                <hr>
+            </div>
+            {% endfor %}
+
+    </div>
+
+
+
 
 
 {% endblock %}

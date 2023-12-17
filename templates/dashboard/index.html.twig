@@ -5,7 +5,7 @@
 {% block body %}
 
     <h1>Dashboard</h1>
-    <p><a href="#event">EVENTS</a> | <a href="#expo">EXPOSITIONS</a> |<a href="#workshop">WORKSHOP </a> | STUDIO</p>
+    <p><a href="#event">EVENTS</a> | <a href="#expo">EXPOSITIONS</a> |<a href="#workshop">WORKSHOP </a> | <a href="#studio">STUDIO</a></p>
 
     <div class="dahsboard-container-events">
         <div>
@@ -278,20 +278,25 @@
 
     </div>
    
-    
+    <div class="dashboard-container-studio">
+        <div>
+            <h2 id="studio">Art Studios</h2>
+        </div>
 
-
+        <div class="ongoing">
  
+            {% for studio in studios %}
+            <div class="element">
+                <p>
+                    <a href="{{ path('show_studio_admin', {'id': studio.id}) }}"><span class="name">✦{{studio.name}}</span></a>
+                </p>
+                <p>Capacity: {{studio.nbRooms}} </p>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
 
-    <hr><br>
-    <h2>Studios</h2>
-
-    {% for studio in studios %}
-            <p>✦ Name {{ studio.name}}</p>
-            <p>Capacity: {{ studio.nbRooms}}</p>
-            <p><a href="{{ path('show_studio_admin', {'id': studio.id}) }}">SEE MORE:</a></p>
-        <p>Action: edit /delete </p>
-        
-    {% endfor %}
+    </div>
+    
 
 {% endblock %}

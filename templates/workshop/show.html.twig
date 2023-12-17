@@ -15,25 +15,22 @@
     <p>Rooms: {{workshop.nbRooms}}</p>
 
     <p>Participate:</p>
-    {# mettre condition en fonction de statut et statut type
-        ouvrir formulaire pour rentrer nom et prénom, bien demander validation
-    puis mettre à jour base de donnée
-    envoyer pdf et /ou email avec pdf en pièce jointe
-     #}
 
-
-    {# {{ dump(existingRegistration)}} #}
-
-    {% if existingRegistration %}
-        <p>You are already participating in this workshop</p>
+    {% if workshop.status != 'ARCHIVED' %}
+    {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
+        <p>Registration will open soon</p>
     {% else %}
-        
-        {% if workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
-                <p>No more space available for this exhibition</p>
-            {% elseif workshop.status == 'OPEN' %}
-                <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Participate</a></p>
-            {% else %}
+        <p>Do you want to participate ?<br>
+        {% if existingRegistration %}
+            <p>You are already participating</p>
+        {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
+            <p>No more space available for this exhibition</p>
+        {% elseif workshop.status == 'OPEN' %}
+            <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p>
         {% endif %}
+        
+        </p>
+    {% endif %}
     {% endif %}
 
 

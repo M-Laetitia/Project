@@ -102,6 +102,10 @@ class Timeslot
         return $this->workshopRegistrations;
     }
 
+    public function getNbRegistrations() {
+        return count($this->workshopRegistrations);
+    }
+
     public function addWorkshopRegistration(WorkshopRegistration $workshopRegistration): static
     {
         if (!$this->workshopRegistrations->contains($workshopRegistration)) {

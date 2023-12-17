@@ -12,12 +12,14 @@ use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
 use App\Form\AreaParticipationType;
 use App\Entity\WorkshopRegistration;
+use App\Form\ExpositionProposalType;
 use App\Form\WorkshopRegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ExpositionProposalRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ParticipationController extends AbstractController
@@ -36,7 +38,6 @@ class ParticipationController extends AbstractController
     {
 
         $user = $security->getUser();
-
 
         $form = $this->createForm(AreaParticipationType::class);
         $form->handleRequest($request);
@@ -59,8 +60,14 @@ class ParticipationController extends AbstractController
     
                 //send the email
                 $userEmail = $user->getEmail();
-                $expositionDetails = 'test';
-                $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+                $expositionDetails = sprintf(
+                    "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                    $area->getName(),
+                    $area->getStartDate()->format('Y-m-d H:i:s'),
+                    $area->getEndDate()->format('Y-m-d H:i:s'),
+                    $area->getDescription()
+                );
+                $mailerService->sendExpositionParticipationConfirmation($userEmail, $expositionDetails);
     
                 // Check if the maximum number of participants has been reached after the new registration
                 $nbReversationRemaining = $area->getNbReversationRemaining();
@@ -76,11 +83,13 @@ class ParticipationController extends AbstractController
     
                 // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
                 $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
+
                 return $this->redirectToRoute('app_exposition');
 
             } else {
                 // Redirect / display a message indicating that the maximum number of participants has been reached
                 // return $this->render('exposition/maxParticipantsReached.html.twig');
+                //! redirection ver detail expo ou liste expo?
                 return $this->redirectToRoute('app_exposition');
             }
 
@@ -330,6 +339,105 @@ class ParticipationController extends AbstractController
 
         $this->addFlash('success', 'Registration successfully deleted.');
         return $this->redirectToRoute('show_workshop_admin', ['id' => $workshopId]);
+    }
+
+    // ^ Make an exposition proposal (artists)
+    #[Route('/exposition/{id}/new/', name:'new_exposition_proposal')]
+    #[IsGranted("ROLE_ARTIST")]
+    // #[Route('/exposition/{id}/edit', name:'edit_workshop_proposal')]
+    public function new_edit(Area $area, ExpositionProposal $expositionProposal = null, ExpositionProposalRepository $ExpoProposalRepository, Security $security, Request $request,  EntityManagerInterface $entityManager, MailerService $mailerService ) : Response
+    {
+
+        $user = $security->getUser();
+        // $hasExistingRequest = $expoProposalRepository->findOneBy(['user' => $user->getId(), 'exposition' => $expositionId]);
+        // findby?
+        // dump($userId);die;
+        if(!$expositionProposal) {
+            $expositionProposal = new ExpositionProposal();
+        }
+
+        $expositionProposal->setArea($area);
+        $form = $this->createForm(ExpositionProposalType::class, $expositionProposal);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+
+
+
+            $expositionProposal = $form->getData();
+
+            $expositionProposal->setProposalDate(new \DateTimeImmutable());
+            $expositionProposal->setStatus('pending');
+            $expositionProposal->setUser($user);
+
+            $entityManager->persist($expositionProposal);
+            $entityManager->flush();
+
+            $nbProposalRemaining = $area->getNbExpositionProposals();
+            // dump($nbProposalRemaining);die;
+            if ( $nbProposalRemaining < 3 && $area->getStatus() !== 'PENDING') {
+                // Update the status to "closed"
+                $area->setStatus('PENDING');
+                $entityManager->flush();
+            } elseif ($nbProposalRemaining >= 3 && $area->getStatus() !== 'OPEN') {
+                $area->setStatus('OPEN');
+                $entityManager->flush();
+            }
+
+            // send the email
+            // $username = $user->getUsername();
+            $userEmail = $user->getEmail();
+            // $registrationDate = new \DateTimeImmutable();
+            $expositionDetails = sprintf(
+                "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                $area->getName(),
+                $area->getStartDate()->format('Y-m-d H:i:s'),
+                $area->getEndDate()->format('Y-m-d H:i:s'),
+                $area->getDescription()
+            );
+            $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
+            // ---------  
+
+
+            // Send email to confirm exposition ----------
+            // Initialize an array to store associated users
+            $usersToNotify = [];
+            if ( $nbProposalRemaining == 3 ) {
+                // get 'id' in the Area entity
+                $expo = $expositionProposal->getArea();
+                $expoId = $expo->getId();
+                $proposals = $expo->getExpositionProposals();
+                
+                
+                
+                foreach ($proposals as $proposal){
+                    $user = $proposal->getUser();
+                    
+
+                    // Vérifier si l'utilisateur existe et a un e-mail
+                    if ($user && $user->getEmail()) {
+                        $usersToNotify[] = $user->getEmail();
+                    }
+                }
+                 // Send email
+                 $mailerService->sendExpositionConfirmation($expo, $usersToNotify);
+            }
+            // -----------------------------------
+
+
+            $this->addFlash('success', 'Your request to participate in this exhibition has been successfully processed. A confirmation e-mail has been sent to you.');
+            return $this->redirectToRoute('app_exposition');
+        }
+
+    
+        return $this->render('exposition/newExpositionProposal.html.twig', [
+            'formAddExpoProposal' => $form,
+            // 'edit' =>$workshop->getId(),
+            // 'hasExistingRequest' => $hasExistingRequest !== null,
+           
+        ]);
     }
     
     // ^ Delete Artist proposal (admin)

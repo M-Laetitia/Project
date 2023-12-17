@@ -5,10 +5,11 @@
 {% block body %}
 
     <h1>Dashboard</h1>
+    <p><a href="#event">EVENTS</a> | <a href="#expo">EXPOSITIONS</a> |<a href="#workshop">WORKSHOP </a> | STUDIO</p>
 
     <div class="dahsboard-container-events">
         <div>
-            <h2>Event</h2>
+            <h2 id="event">Event</h2>
             <p><a class="btn" href="{{ path('new_event') }}">Create</a></p>
         </div>
         
@@ -99,7 +100,7 @@
 
     <div class="dashboard-container-expos">
         <div>
-            <h2>Expositions</h2>
+            <h2 id="expo">Expositions</h2>
             <p><a class="btn" href="{{ path('new_expo') }}">Create</a></p>
         </div>
 
@@ -189,28 +190,98 @@
 
     <div class="dashboard-container-workshop">
         <div>
-            <h2>Workshop</h2>
+            <h2 id="workshop">Workshop</h2>
             <p><a class="btn" href="{{ path('new_workshop') }}">Create</a></p>
         </div>
 
-        <div></div>
+        <div class="ongoing">
+            <h3>Current and future Workshops  <span> <i class="ri-arrow-down-s-line"></i></span></h3>
+
+            {% for event in ongoingWorkshop %}
+            <div class="element">
+                <p>
+                     
+                    <a href="{{ path('show_workshop_admin', {'id': event.id}) }}"><span class="name">✦{{event.name}}</span></a>
+                    <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                        (event.status == 'CLOSED' ? 'closed' : 
+                                        (event.status == 'PENDING' ? 'pending' : 
+                                        (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                        {{ event.status }}
+                    </span>
+                
+                </p>
+
+                <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
+                <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
+                
+                <p>Capacity: {{event.nbRegistrationMade}}  /  {{event.nbRooms}} - Remaining: {{event.nbRegistrationRemaining}}</p>
+                <div> 
+                    <a href="{{ path('show_workshop_admin', {'id': event.id}) }}"><i class="ri-eye-close-fill"></i></a>
+                    <a href="{{ path('edit_workshop', {'id': event.id}) }}"><i class="ri-file-edit-fill"></i></a> 
+                    <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ event.id}}"></i></a>
+                </div>
+                <hr>
+
+                <div class="delete-container" id="{{event.id}}" style="display:none">
+                    <p>Are you sure you want to delete this entry? This cannot be undone.</p>
+                    <div>
+                        <p><a href="{{ path('delete_workshop', {'id': event.id}) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                        <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="past-events">
+            <h3>Past Workshops  <span> <i id="arrow-past-workshop" class="ri-arrow-down-s-line"></i></span></h3>
+            {% for event in pastWorkshop %}
+            <div class="element past-workshops-container" style="display:none">
+                <p>
+                     
+                    <a href="{{ path('show_workshop_admin', {'id': event.id}) }}"><span class="name">✦{{event.name}}</span></a>
+                    <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                        (event.status == 'CLOSED' ? 'closed' : 
+                                        (event.status == 'PENDING' ? 'pending' : 
+                                        (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                        {{ event.status }}
+                    </span>
+                
+                </p>
+
+                <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
+                <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
+                
+                <p>Capacity: {{event.nbRegistrationMade}}  /  {{event.nbRooms}} - Remaining: {{event.nbRegistrationRemaining}}</p>
+                <div> 
+                    <a href="{{ path('show_workshop_admin', {'id': event.id}) }}"><i class="ri-eye-close-fill"></i></a>
+                    <a href="{{ path('edit_workshop', {'id': event.id}) }}"><i class="ri-file-edit-fill"></i></a> 
+                    <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ event.id}}"></i></a>
+                </div>
+                <hr>
+
+                <div class="delete-container" id="{{event.id}}" style="display:none">
+                    <p>Are you sure you want to delete this entry? This cannot be undone.</p>
+                    <div>
+                        <p><a href="{{ path('delete_workshop', {'id': event.id}) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                        <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+
+
     </div>
    
     
 
-    {% for workshop in workshops %}
-        <p>✦{{workshop.name}}|| {{workshop.nbRooms}}  || {{workshop.status}}</p> 
-        {{workshop.startDate|formatDate}}  -  {{workshop.endDate|formatDate}} 
-        <p><a href="{{ path('show_workshop_admin', {'id': workshop.id}) }}">SEE MORE:</a></p>
-        <p>Actions : <br>
-            <a href="{{ path('edit_workshop', {'id': workshop.id}) }}">edit</a>
-            <a href="{{ path('delete_workshop', {'id': workshop.id}) }}">Delete</a>
-        <br>/ delete / open / lock / unlock / Archive / </p>
-        <p>add picture</p>
-        <hr>
-    {% endfor %}
 
-    <p><a href=>add a workshop:</a></p>
+ 
 
     <hr><br>
     <h2>Studios</h2>

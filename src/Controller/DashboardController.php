@@ -31,6 +31,15 @@ class DashboardController extends AbstractController
             'status' => ['ARCHIVED'],
         ]);
 
+        $ongoingExpos = $areaRepository->findBy([
+            'type' => 'EXPO',
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+        $pastExpos = $areaRepository->findBy([
+            'type' => 'EXPO',
+            'status' => ['ARCHIVED'],
+        ]);
+
 
 
         return $this->render('dashboard/index.html.twig', [
@@ -42,6 +51,11 @@ class DashboardController extends AbstractController
 
             'ongoingEvents' => $ongoingEvents,
             'pastEvents' => $pastEvents,
+
+            'ongoingExpos' => $ongoingExpos,
+            'pastExpos' => $pastExpos,
+
+
         ]);
     }
 }

@@ -8,6 +8,7 @@ use App\Entity\Timeslot;
 use App\Entity\Workshop;
 use App\Service\MailerService;
 use App\Entity\AreaParticipation;
+use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
 use App\Form\AreaParticipationType;
 use App\Entity\WorkshopRegistration;
@@ -149,7 +150,7 @@ class ParticipationController extends AbstractController
         ]);
     }
 
-    // ^ Delete a participation (admin)
+    // ^ Delete a participation  event (admin)
     #[Route('/dashboard/{id}/delete/participation', name: 'delete_participation')]
     #[IsGranted("ROLE_ADMIN")]
     public function delete(AreaParticipation $areaParticipation, EntityManagerInterface $entityManager)
@@ -169,9 +170,35 @@ class ParticipationController extends AbstractController
             $entityManager->flush();
         }
 
-
+        $this->addFlash('success', 'This participation has been successfully deleted.');
         return $this->redirectToRoute('show_event_admin', ['id' => $areaId]);
     }
+
+    // ^ Delete a participation  expo (admin)
+    #[Route('/dashboard/{id}/delete/expo_participation', name: 'delete_expo_participation')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function delete_participation_expo(AreaParticipation $areaParticipation, EntityManagerInterface $entityManager)
+    {
+        $area =  $areaParticipation->getArea();
+        $areaId = $areaParticipation->getArea()->getId();
+        $entityManager->remove($areaParticipation);
+        $entityManager->flush();
+
+        $nbReversationRemaining = $area->getNbReversationRemaining();
+        if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
+            // Update the status to "closed"
+            $area->setStatus('CLOSED');
+            $entityManager->flush();
+        } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
+            $area->setStatus('OPEN');
+            $entityManager->flush();
+        }
+
+        $this->addFlash('success', 'This exposition has been successfully deleted.');
+        return $this->redirectToRoute('show_expo_admin', ['id' => $areaId]);
+    }
+
+
 
     // ^ Make a registration for a workshop
     #[Route('/workshop/{id}/new', name: 'new_workshop_registration')]
@@ -220,6 +247,7 @@ class ParticipationController extends AbstractController
                 }
     
                 // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+                $this->addFlash('success', 'Your registration has been successfully processed. You have received a confirmation email.');
                 return $this->redirectToRoute('app_workshop');
 
             } else {
@@ -245,7 +273,6 @@ class ParticipationController extends AbstractController
 
         $user = $security->getUser();
 
-
         // if(!$workshopRegistration) {
         //     $workshopRegistration = new WorkshopRegistration();
         // }
@@ -266,6 +293,7 @@ class ParticipationController extends AbstractController
             $expositionDetails = 'test';
             $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
 
+            $this->addFlash('success', 'Your participation has been successfully processed. You have received a confirmation email.');
             return $this->redirectToRoute('app_studio');
         }
 
@@ -300,10 +328,39 @@ class ParticipationController extends AbstractController
             $entityManager->flush();
         }
 
-
+        $this->addFlash('success', 'Registration successfully deleted.');
         return $this->redirectToRoute('show_workshop_admin', ['id' => $workshopId]);
     }
     
+    // ^ Delete Artist proposal (admin)
 
+    #[Route('/dashboard/{id}/delete/proposal', name: 'delete_proposal')]
+    #[isGranted("ROLE_ADMIN")]
+    public function delete_expo_proposal(ExpositionProposal $expoProposal, EntityManagerInterface $entityManager) :Response 
+    {
+
+        $area = $expoProposal->getArea();
+        // dump($area);die;
+        $areaId = $expoProposal->getArea()->getId();
+        // dump($expoId);die;
+
+        $entityManager->remove($expoProposal);
+        $entityManager->flush();
+
+        $nbProposalRemaining = $area->getNbExpositionProposals();
+        // dump($nbProposalRemaining);die;
+        if ( $nbProposalRemaining < 3 && $area->getStatus() !== 'PENDING') {
+            // Update the status to "closed"
+            $area->setStatus('PENDING');
+            $entityManager->flush();
+        } elseif ($nbProposalRemaining > 3 && $area->getStatus() !== 'OPEN') {
+            $area->setStatus('OPEN');
+            $entityManager->flush();
+        }
+
+        $this->addFlash('success', 'Artist proposal successfully deleted.');
+        return $this->redirectToRoute('show_expo_admin', ['id' => $areaId ]);
+    
+    }
 
 }

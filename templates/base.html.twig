@@ -31,48 +31,53 @@
     <body>
 
         <nav>
-            <a href="{{ path('app_home') }}">HOME</a>
+            <div class="home">
 
-            <a href="{{ path('app_artist') }}">ARTISTS</a>
+                <a href="{{ path('app_home') }}"><i class="ri-home-heart-fill"></i></a>
+            </div>
 
-            <a href="{{ path('app_event') }}">EVENTS</a>
+            <div class="links">
+                <a href="{{ path('app_artist') }}">ARTISTS</a>
+                <a href="{{ path('app_event') }}">EVENTS</a>
+                <a href="{{ path('app_workshop') }}">WORKSHOPS</a>
+                <a href="{{ path('app_exposition') }}">EXPOSITIONS</a>
+                <a href="{{ path('app_studio') }}">ART STUDIOS</a>
+            </div>
 
-            <a href="{{ path('app_workshop') }}">WORKSHOPS</a>
-
-            <a href="{{ path('app_exposition') }}">EXPOSITIONS</a>
-
-            <a href="{{ path('app_studio') }}">ART STUDIOS</a>
-
-            {% if app.user %}
-                <a href="{{ path('show_user', {'id': app.user.id }) }}">profil</a>
-            {% else %}
-                <a href=" {{ path('app_register') }}">register</a>
-                <a href="{{ path('app_login') }}">login</a>
-            {% endif %}
-
-
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_dashboard')}}">dashboard(admin)</a>
-            {% endif %}
-
-
-            {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
-                <a href="{{ path('studio_dashboard')}}">art studios(supervisor)</a>
-            {% endif %}
-
-            
-            {% if is_granted('ROLE_ARTIST') %}
+            <div class="roles">
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_dashboard')}}"><i class="ri-dashboard-fill"></i></a>
+                {% endif %}
+                
+                
+                {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
+                <a href="{{ path('studio_dashboard')}}"><i class="ri-table-fill"></i></a>
+                {% endif %}
+                
+                
+                {% if is_granted('ROLE_ARTIST') %}
                 {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
-                <a href="{{ path('manage_artist', {'id': app.user.id }) }}">Manage artist page (artist)</a>
-            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="{{ path('manage_artist', {'id': app.user.id }) }}"><i class="fa-solid fa-palette"></i></a>
+                {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
                 {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
                 <a href="{{ path('new_artist', {'id': app.user.id }) }}">Join us (for artists)</a>
-            {% else %}
+                {% else %}
                 {# else, add something eventually or not #}
-            {% endif %}
+                {% endif %}
 
-            {# <a href="{{ path('new_artist', {'id': app.user.id }) }}">Join us (for artists)</a> #}
+
+                {% if app.user %}
+                    <a href="{{ path('show_user', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-user"></i></a>
+                {% else %}
+                    <a href=" {{ path('app_register') }}">register</a>
+                    <a href="{{ path('app_login') }}">login</a>
+                {% endif %}
+            </div>
+            
+            
         </nav>
+
+  
 
             {% for message in app.flashes('success') %}
             <div class="alert alert-success">

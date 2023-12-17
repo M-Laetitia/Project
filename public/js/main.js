@@ -212,4 +212,8 @@ $(document).ready(function() {
         $('.past-expos-container').slideToggle();
     })
 
+    $('#arrow-past-workshop').click(function() {
+        $('.past-workshops-container').slideToggle();
+    })
+
 })

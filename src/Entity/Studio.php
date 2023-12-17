@@ -31,6 +31,9 @@ class Studio
     #[ORM\OneToMany(mappedBy: 'studio', targetEntity: Timeslot::class)]
     private Collection $timeslots;
 
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $picture = null;
+
     public function __toString() 
     {
         return $this->name; 
@@ -130,6 +133,18 @@ class Studio
                 $timeslot->setStudio(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }

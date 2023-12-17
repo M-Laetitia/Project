@@ -5,28 +5,40 @@
 
 {% block body %}
 
-    <h1>General planning </h1>
+    <h1>General planning: </h1>
 
-    {% for studio in studios %}
-        <p>Name: {{studio.name}}</p>
-        <p>Capacity: {{studio.nbRooms}}</p>
-        
-        {% for timeslot in studio.timeslots %}
-            <p>{{timeslot.startDate|formatDate}} - {{timeslot.endDate|formatDate}} - {{timeslot.user}} </p>
+    <div class="ongoing-events">
+       
+        {% for studio in studios %}
+            <div>
+                <p>{{studio.name}}</p>
+            
+            <p>Capacity: {{studio.nbRooms}}</p>
+            
+            {% for timeslot in studio.timeslots %}
+                <p>{{timeslot.startDate|formatDate}} - {{timeslot.endDate|formatDate}} - Supervisor: {{timeslot.user}} </p>
+                <ul>
+                    {% for registration in timeslot.workshopRegistrations %}
+                    
+                        <li>{{registration.firstname}} - {{registration.lastname}} - {{registration.registrationDate|formatDate}} 
+                            {# <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ registration.id}}"></i></a>
+                            <div class="delete-container" id="{{registration.id}}" style="display:none">
+                                <p>Are you sure you want to delete this participation? This cannot be undone.</p>
+                                <div>
+                                    <p><a href="{{ path('delete_registration_studio', {'id': registration.id }) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                                    <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                                </div>
+                            </div> #}
+                        </li>
+                    {% endfor %}
+                </ul>
+                
+            {% endfor %}
+            <hr>
+            </div>
         {% endfor %}
+    </div>
 
-
-        {# {{ dump(studio)}} #}
-
-        <hr>
-    {% endfor %}
-
-    
-
-    {% for timeslot in timeslots %}
-        <p>Date: {{ timeslot.startDate|formatDate}} - {{ timeslot.endDate|formatDate}} - Supervisor: {{ timeslot.user}}</p>
-        <p></p>
-    {% endfor %}
 
     {# {{ dump(timeslots) }} #}
 

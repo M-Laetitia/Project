@@ -33,15 +33,38 @@
         <nav>
             <div class="home">
 
-                <a href="{{ path('app_home') }}"><i class="ri-home-heart-fill"></i></a>
+                <p class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}">
+                    <a href="{{ path('app_home') }}"><i class="ri-home-heart-fill"></i></a>
+                </p>
+
+
             </div>
 
             <div class="links">
-                <a href="{{ path('app_artist') }}">ARTISTS</a>
-                <a href="{{ path('app_event') }}">EVENTS</a>
-                <a href="{{ path('app_workshop') }}">WORKSHOPS</a>
-                <a href="{{ path('app_exposition') }}">EXPOSITIONS</a>
-                <a href="{{ path('app_studio') }}">ART STUDIOS</a>
+
+                <p class="{% if app.request.attributes.get('_route') == 'app_artist' %}active{% endif %}">
+                    <a href="{{ path('app_artist') }}">ARTISTS</a>
+                </p>
+
+                <p class="{% if app.request.attributes.get('_route') == 'app_event' %}active{% endif %}">
+                    <a href="{{ path('app_event') }}">EVENTS</a>
+                </p>
+
+                <p class="{% if app.request.attributes.get('_route') == 'app_workshop' %}active{% endif %}">
+                    <a href="{{ path('app_workshop') }}">WORKSHOPS</a>
+                </p>
+
+                <p class="{% if app.request.attributes.get('_route') == 'app_exposition' %}active{% endif %}">
+                    <a href="{{ path('app_exposition') }}">EXPOSITIONS</a>
+                </p>
+
+                <p class="{% if app.request.attributes.get('_route') == 'app_studio' %}active{% endif %}">
+                    <a href="{{ path('app_studio') }}">ART STUDIOS</a>
+                </p>
+
+
+            
+
             </div>
 
             <div class="roles">

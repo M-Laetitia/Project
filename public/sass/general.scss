@@ -68,7 +68,14 @@ nav {
         }
     }
 
+    .active a {
+        // color: rgb(37, 149, 177) !important;
+        -webkit-text-fill-color:   rgb(37, 149, 177) !important;
+        
+    }
+
     .links {
+        display: flex;
         a {
             position: relative; // Assure que les positions absolues dans les enfants sont relatives à cet élément
             margin-left: 2rem;
@@ -85,7 +92,7 @@ nav {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             transition: all 0.3s ease-in-out;
-            font-weight: 600;
+            font-weight: 500;
     
             &:before {
                 content: '';
@@ -112,6 +119,30 @@ nav {
     .roles{
         display: flex;
         column-gap: 1.2rem;
+        a {
+            position: relative; // Assure que les positions absolues dans les enfants sont relatives à cet élément
+            background-image: linear-gradient(
+                to right,
+                rgb(37, 149, 177),
+                rgb(37, 149, 177) 50%,
+                #ffffff 50%
+            );
+            background-size: 200% 100%;
+            background-position: -100%;
+            // clips the background gradient to the text so it appears the text is actually the color of the background.
+            // strips the color out of the text to make it transparent. 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease-in-out;
+            font-weight: 600;
+    
+            &:hover {
+                background-position: 0;
+            }
+            &:hover::before {
+                width: 100%;
+            }
+        }
     }
     
     a {

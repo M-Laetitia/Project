@@ -23,18 +23,95 @@ footer a:hover {
   color: rgb(37, 149, 177);
 }
 
+/**
+ * Smooth scrolling on the whole document
+ */
+html {
+  scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 nav {
   position: absolute;
-  padding: 1.3rem;
   margin-bottom: 2rem;
   width: 100%;
+  height: 5rem;
   background-color: rgb(32, 32, 32);
+  display: grid;
+  grid-template-columns: 20% 50% 30%;
+  gap: 2rem;
+  align-items: center;
+  padding: 0 6rem;
+}
+nav .home i {
+  font-size: 1.7rem;
+}
+nav .active a {
+  -webkit-text-fill-color: rgb(37, 149, 177) !important;
+}
+nav .links {
+  display: flex;
+}
+nav .links a {
+  position: relative;
+  margin-left: 2rem;
+  background-image: linear-gradient(to right, rgb(37, 149, 177), rgb(37, 149, 177) 50%, #ffffff 50%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+  font-weight: 500;
+}
+nav .links a:before {
+  content: "";
+  background: rgb(37, 149, 177);
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  transition: width 0.3s ease-in-out;
+}
+nav .links a:hover {
+  background-position: 0;
+}
+nav .links a:hover::before {
+  width: 100%;
+}
+nav .roles {
+  display: flex;
+  column-gap: 1.2rem;
+}
+nav .roles a {
+  position: relative;
+  background-image: linear-gradient(to right, rgb(37, 149, 177), rgb(37, 149, 177) 50%, #ffffff 50%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+  font-weight: 600;
+}
+nav .roles a:hover {
+  background-position: 0;
+}
+nav .roles a:hover::before {
+  width: 100%;
 }
 nav a {
   color: white;
 }
 nav a:hover {
   color: rgb(37, 149, 177);
+}
+nav i {
+  font-size: 1.3rem;
 }
 
 body {
@@ -386,19 +463,22 @@ body {
 
 .dahsboard-container-events div:nth-child(1),
 .dashboard-container-expos div:nth-child(1),
-.dashboard-container-workshop div:nth-child(1) {
+.dashboard-container-workshop div:nth-child(1),
+.dashboard-container-studio div:nth-child(1) {
   display: flex;
   align-items: center;
   column-gap: 0.6rem;
 }
 .dahsboard-container-events .ongoing,
 .dashboard-container-expos .ongoing,
-.dashboard-container-workshop .ongoing {
+.dashboard-container-workshop .ongoing,
+.dashboard-container-studio .ongoing {
   line-height: 1.4;
 }
 .dahsboard-container-events .ongoing .element,
 .dashboard-container-expos .ongoing .element,
-.dashboard-container-workshop .ongoing .element {
+.dashboard-container-workshop .ongoing .element,
+.dashboard-container-studio .ongoing .element {
   border-left: 2px solid rgb(240, 189, 47);
   padding: 0.3rem;
   margin-bottom: 1.5rem;
@@ -418,6 +498,11 @@ body {
 }
 .delete-container div p:hover {
   color: rgb(240, 189, 47);
+}
+
+#map {
+  height: 30rem;
+  width: 30rem;
 }
 
 /*# sourceMappingURL=general.css.map */

@@ -1,9 +1,31 @@
 var map = L.map('map').setView([48.5734, 7.7521], 13);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+
+var Stadia_StamenToner = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.{ext}', {
+	minZoom: 0,
+	maxZoom: 20,
+	attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://www.stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	ext: 'png'
 }).addTo(map);
+
+
+// ^ custom Icon
+var Icon = L.icon({
+    iconUrl: '../images/markerMap.png',
+    // shadowUrl: 'leaf-shadow.png',
+
+    iconSize:     [45, 45], // size of the icon
+    // shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [25, 40], // point of the icon which will correspond to marker's location
+    // shadowAnchor: [4, 62],  // the same for the shadow
+    popupAnchor:  [-3, -46] // point from which the popup should open relative to the iconAnchor
+});
+
+
 
 const adressElements = document.querySelectorAll(".address");
 
@@ -31,10 +53,13 @@ function geocodeAndMark(address, name, activity) {
         .then(data => {
             if (data.length > 0) {
                 var latlng = [data[0].lat, data[0].lon];
-                L.marker(latlng).addTo(map);
+                
+                // L.marker(latlng , {icon: Icon}).addTo(map);
 
                 // Ajout d'une popup au marqueur avec le contenu de l'adresse
-                var marker = L.marker(latlng).addTo(map);
+                // var marker = L.marker(latlng).addTo(map);
+
+                var marker = L.marker(latlng , {icon: Icon}).addTo(map);
                 marker.bindPopup(`${name}<br>${activity}<br>Address: ${address}`);
 
                 // Attacher un événement de clic au marqueur pour ouvrir la popup lorsqu'il est cliqué

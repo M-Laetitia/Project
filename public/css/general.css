@@ -501,8 +501,16 @@ body {
 }
 
 #map {
-  height: 30rem;
-  width: 30rem;
+  height: 35rem;
+  box-shadow: 7px 7px rgb(240, 189, 47), -7px -7px #737373;
+}
+
+.leaflet-popup-content-wrapper {
+  border-bottom: 2px solid rgb(37, 149, 177);
+}
+
+.leaflet-popup-tip-container {
+  z-index: 999;
 }
 
 /*# sourceMappingURL=general.css.map */

@@ -17,8 +17,15 @@
         {% for participant in area.areaParticipations %}
             <li>
                 <p>{{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.inscriptionDate|formatDate}} </p>
-                <p>actions: delete - edit </p>
-                <a href="{{ path('delete_participation', {'id': participant.id }) }}">DELETE</a>
+                
+                <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ participant.id}}"></i></a>
+                <div class="delete-container" id="{{participant.id}}" style="display:none">
+                    <p>Are you sure you want to delete this participation? This cannot be undone.</p>
+                    <div>
+                        <p><a href="{{ path('delete_participation', {'id': participant.id }) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                        <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                    </div>
+                </div>
             </li>
         {% endfor %}
     </ul>

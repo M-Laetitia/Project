@@ -22,8 +22,19 @@ class WorkshopController extends AbstractController
 
         $workshops = $workshopRepository->findBy([]);
 
+        $ongoingWorkshop = $workshopRepository->findBy([
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+        $pastWorkshop = $workshopRepository->findBy([
+            'status' => ['ARCHIVED'],
+        ]);
+
+
+
         return $this->render('workshop/index.html.twig', [
             'workshops' => $workshops,
+            'ongoingWorkshop' => $ongoingWorkshop,
+            'pastWorkshop' => $pastWorkshop,
         ]);
        
     }

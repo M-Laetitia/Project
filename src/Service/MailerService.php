@@ -58,6 +58,20 @@ class MailerService
         $this->sendEmail($to, $subject, $message);
     }
 
+    public function sendWorkshopParticipationConfirmation($to, $expositionDetails)
+    {
+        $subject = 'workshop participation confirmation';
+        $message = '<p>Thank you for your participation in this workshop:</p>' . $expositionDetails;
+        $this->sendEmail($to, $subject, $message);
+    }
+
+    public function sendStudioBookingConfirmation($to, $expositionDetails)
+    {
+        $subject = 'Studio booking confirmation';
+        $message = '<p> Your reservation for this studio and time slot has been successfully processed.</p>' . $expositionDetails;
+        $this->sendEmail($to, $subject, $message);
+    }
+
     // public function sendExpositionConfirmation($to, $expositionDetails)
     // {
     //     $subject = 'Exposition opening confirmation';

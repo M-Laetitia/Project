@@ -198,6 +198,13 @@ class Area
         return $this;
     }
 
+    public function getNbExpositionProposals() 
+    {
+        return count($this->expositionProposals);
+    }
+
+    
+
     /**
      * @return Collection<int, AreaParticipation>
      */

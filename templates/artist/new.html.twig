@@ -14,8 +14,6 @@
 
     {{ form_start(formAddArtist) }}
         {{ form_errors(formAddArtist) }}
-        {# <div>{{ form_row(formAddArtist.artistName) }}</div>
-        <div>{{ form_row(formAddArtist.artistDiscipline) }}</div> #}
 
         
         <div>{{ form_row(formAddArtist.emailPro) }}</div> 
@@ -41,7 +39,7 @@
         
         <div>{{ form_row(formAddArtist.pictures) }}</div>
         <div>{{ form_row(formAddArtist.altDescription) }}</div>
-        
+        <p>After submitting the form you will be automatically redirected to page home and logged out.</p>
         <div>{{ form_row(formAddArtist.Submit) }}</div>
     {{ form_end(formAddArtist) }}
 

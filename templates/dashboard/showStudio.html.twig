@@ -24,14 +24,13 @@
                         <a href="{{ path('delete_timeslot_registration', {'id': registration.id })}}">DELETE</a>
                     </li>
                 {% endfor %}
-
             </ul>
             
         {% endfor %}
 
     </ul>
 
-    {{ dump(studio)}}
+    {# {{ dump(studio)}} #}
     {# montrer inscription par timeslot #}
 
 {% endblock %}

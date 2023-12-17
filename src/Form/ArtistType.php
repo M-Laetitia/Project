@@ -18,13 +18,13 @@ class ArtistType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('artistName', TextType::class)
-            // ->add('artistDiscipline', TextType::class)
+
 
             ->add('pictures', FileType::class, [
                 'label' => false,
                 'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
-                'required' => false,
+                // 'mapped' => !$options['edit_mode'], // Ne mappez pas le champ si c'est en mode édition
+                'required' => false, 
             ])
 
             ->add('altDescription', TextType::class, [
@@ -35,9 +35,13 @@ class ArtistType extends AbstractType
                     ]),
                 ],
                 'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
+                'required' => false, 
+                // 'label'=> 'sdsddmffds',
             ])
 
-        // JSON ARTIST-INFO
+            // Contact (social networks)
+
+            // JSON ARTIST-INFO
             ->add('emailPro', EmailType::class, [
                 'label' => 'Email Professionnel',
                 'mapped' => false,
@@ -66,6 +70,7 @@ class ArtistType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
             'allow_extra_fields' => true, // Permettre les champs supplémentaires qui ne sont pas directement liés à l'entité User
+            'editMode' => false,
         ]);
     }
 }

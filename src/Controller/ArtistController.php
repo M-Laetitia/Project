@@ -109,7 +109,6 @@ class ArtistController extends AbstractController
 
     #[Route('/artist/{id}/new', name: 'new_artist')]
     #[Route('/artist/{id}/edit', name: 'edit_artist')]
-    // injecter en injection de dépendances
     // error avec Picture $picture / Si 'int $pictureId' , en ajustant le typehint de Picture à int dans la signature de la méthode,  Symfony va s'attendre à recevoir l'ID de l'imgen tant que paramètre, plutôt qu'une instance d'entité complète. 
     public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ) : Response 
     {
@@ -196,9 +195,9 @@ class ArtistController extends AbstractController
             // $this->get('security.token_storage')->setToken($token);
 
             // Message flash
-            $this->addFlash('success', 'Information successfully edited!');
+            $this->addFlash('success', 'Profil artist successfully created');
 
-            return $this->redirectToRoute('manage_artist', ['id' => $user->getId()]);
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('artist/new.html.twig', [

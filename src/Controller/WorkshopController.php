@@ -61,7 +61,7 @@ class WorkshopController extends AbstractController
     }
 
     // ^ show workshop (admin)
-    #[Route('/dashboard/{id}/workshop/', name: 'show_workshop_admin')]
+    #[Route('/dashboard/show/{id}/workshop/', name: 'show_workshop_admin')]
     public function show_admin(Workshop $workshop = null): Response
     {
 

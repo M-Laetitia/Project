@@ -27,10 +27,10 @@ class ExpositionType extends AbstractType
 
             ->add('status', ChoiceType::class, [
                 'choices' => [
-                    'open' => 'open',
-                    'close' => 'close',
-                    'open soon' => 'open_soon',
-                    'archived' => 'archived',
+                    'OPEN' => 'OPEN',
+                    'CLOSED' => 'CLOSED',
+                    'PENDING' => 'PENDING',
+                    'ARCHIVED' => 'ARCHIVED',
                 ],
                 'multiple' => false,
             ])

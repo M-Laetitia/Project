@@ -30,6 +30,15 @@ class ExpositionController extends AbstractController
         // Fetch all expo from the AreaRepository
         $expos = $areaRepository->findBy(['type' => 'EXPO']);
 
+        $ongoingExpos = $areaRepository->findBy([
+            'type' => 'EXPO',
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+        $pastExpos = $areaRepository->findBy([
+            'type' => 'EXPO',
+            'status' => ['ARCHIVED'],
+        ]);
+
         //^recup nb de réservation - initialisation tableau vide
         // ! indiquer nb restant
         $reservationCounts = [];
@@ -38,6 +47,7 @@ class ExpositionController extends AbstractController
         $existingProposals = [];
         $proposalCounts = [];
 
+        // ! vérifier si nécessaire !!
         // Iterate through each expo
         foreach ($expos as $expo) {
             // get 'id' in the Area entity
@@ -79,12 +89,16 @@ class ExpositionController extends AbstractController
                 }
         
                 // Send email
-                $mailerService->sendExpositionConfirmationEmail($expo, $usersToNotify);
+                // $mailerService->sendExpositionConfirmationEmail($expo, $usersToNotify);
             }
         }
         
         return $this->render('exposition/index.html.twig', [
             'expos' => $expos, 
+
+            'ongoingExpos' => $ongoingExpos,
+            'pastExpos' => $pastExpos,
+
             'existingProposals' => $existingProposals,
             'proposalCounts' => $proposalCounts,
             'reservationCounts' => $reservationCounts,
@@ -118,7 +132,7 @@ class ExpositionController extends AbstractController
     }
 
     // ^ show detail expo (admin)
-    #[Route('/dashboard/{id}', name: 'show_expo_admin')]
+    #[Route('/dashboard/expo/{id}', name: 'show_expo_admin')]
     public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
    
@@ -130,63 +144,13 @@ class ExpositionController extends AbstractController
 
 
 
-    // ^ Make an exposition proposal (artists)
-    #[Route('/exposition/{id}/new/', name:'new_exposition_proposal')]
-    // #[Route('/exposition/{id}/edit', name:'edit_workshop_proposal')]
-    public function new_edit(Area $area, ExpositionProposal $expositionProposal = null, ExpositionProposalRepository $ExpoProposalRepository, Security $security, Request $request,  EntityManagerInterface $entityManager, MailerService $mailerService ) : Response
-    {
-
-        $user = $security->getUser();
-
-        // $hasExistingRequest = $expoProposalRepository->findOneBy(['user' => $user->getId(), 'exposition' => $expositionId]);
-        // findby?
-        // dump($userId);die;
-        if(!$expositionProposal) {
-            $expositionProposal = new ExpositionProposal();
-        }
-
-        $expositionProposal->setArea($area);
-        $form = $this->createForm(ExpositionProposalType::class, $expositionProposal);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() ) {
-
-            $expositionProposal = $form->getData();
-
-            $expositionProposal->setProposalDate(new \DateTimeImmutable());
-            $expositionProposal->setStatus('pending');
-            $expositionProposal->setUser($user);
-
-            $entityManager->persist($expositionProposal);
-            $entityManager->flush();
-
-            // send the email
-            // $username = $user->getUsername();
-            $userEmail = $user->getEmail();
-            // $registrationDate = new \DateTimeImmutable();
-            $expositionDetails = 'test';
-            $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
-            // ---------  
-
-            return $this->redirectToRoute('app_exposition');
-        }
-
-    
-        return $this->render('exposition/newExpositionProposal.html.twig', [
-            'formAddExpoProposal' => $form,
-            // 'edit' =>$workshop->getId(),
-            // 'hasExistingRequest' => $hasExistingRequest !== null,
-           
-        ]);
-    }
-
-    // ! Add delete exposition proposal
 
     #[Route('/dashboard/new/expo', name:'new_expo')]
     #[Route('/dashboard/{id}/edit/expo', name:'edit_expo')]
+    #[IsGranted("ROLE_ADMIN")]
     public function new_edit_Expo(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
     {
+        $isNewEvent = !$area;
 
         if(!$area) {
             $area = new Area();
@@ -202,6 +166,8 @@ class ExpositionController extends AbstractController
             $entityManager->persist($area);
             $entityManager->flush();
 
+            $message = $isNewEvent ? 'Exposition created successfully!' : 'Exposition edited successfully!';
+            $this->addFlash('success', $message);
             return $this->redirectToRoute('app_dashboard');
         }
 

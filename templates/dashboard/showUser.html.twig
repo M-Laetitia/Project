@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}detail user{% endblock %}
+{% block meta %}detail user{% endblock %}
+
+{% block body %}
+
+   <h1>{{ user}}</h1>
+
+    
+   {% if is_granted('ROLE_ADMIN') %}
+        <p>Actions: EDIT - DELETE</p>
+    {% endif %}
+
+   <h2>Infos:</h2>
+
+   <p>email: {{ user.email}}</p>
+   <p>Registration date: {{ user.registrationDate|formatDate}}</p>
+   <p>Member since: {{ user.durationSinceRegistration}} </p>
+   <p>last login date: {{ user.lastLoginDate|formatDate}} </p>
+   <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
+
+   <h3>Activity: (workshop/event/etc)</h3>  
+   
+   {# en cours / à venir / passé #}
+   {# Rajouter hyperliens #}
+
+   <p>Event:</p>
+   <ul>
+       {% for participation in user.areaParticipations %}
+            {% if participation.area.type == 'EVENT' %}
+            
+           <li>
+               <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
+               <p> <a href="{{ path('show_event', {'id' : participation.area.id })}}">{{ participation.area.name}} </a>
+                - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+           </li>
+           {% endif %}
+       {% endfor %}
+   </ul>
+
+   <p>Exposition:</p>
+   <ul>
+       {% for participation in user.areaParticipations %}
+            {% if participation.area.type == 'EXPO' %}
+            
+           <li>
+               <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
+               <p><a href="{{ path('show_exposition', {'id' : participation.area.id })}}">{{ participation.area.name}}</a> - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+           </li>
+           {% endif %}
+       {% endfor %}
+   </ul>
+   
+
+   <p>Studios:</p>
+   <ul>
+       {% for participation in user.workshopRegistrations %}
+            {% if participation.timeslot != null %}
+            
+           <li>
+                <p>registration date: {{ participation.registrationDate|formatDate}}</p>
+                <p>{{participation.timeslot.studio.name}}</p>
+                <p>time slot: {{participation.timeslot.startDate|formatDate}} - {{participation.timeslot.endDate|formatDate}}</p>
+           </li>
+           {% endif %}
+       {% endfor %}
+   </ul>
+
+   <p>Workshop:</p>
+   <ul>
+       {% for participation in user.workshopRegistrations %}
+            {% if participation.workshop != null %}
+            
+            <li>
+                
+                <p>registration date: {{ participation.registrationDate|formatDate}}</p>
+                <p><a href="{{ path('show_workshop', {'id' : participation.workshop.id})}}">{{participation.workshop.name}}</a></p>
+                <p>Date: {{participation.workshop.startDate|formatDate}} - {{participation.workshop.endDate|formatDate}}</p>
+           </li>
+           {% endif %}
+       {% endfor %}
+   </ul>
+   
+   <p>subscription:</p>
+
+
+
+   {# ajouter suppression 
+   détail activité #}
+   {# detail si artist?
+   si supervisor? #}
+   {# ajouter si abonnement #}
+   {# permettre suppression pour registration? #}
+
+{% endblock %}

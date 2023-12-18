@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\AreaRepository;
+use App\Repository\UserRepository;
 use App\Repository\StudioRepository;
 use App\Repository\WorkshopRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
 {
+
+    // ^ main page with all event/expo/workshop/studio
     #[Route('/dashboard', name: 'app_dashboard')]
+    #[IsGranted("ROLE_ADMIN")]
     public function index(WorkshopRepository $workshopRepository, AreaRepository $areaRepository, StudioRepository $studioRepository): Response
     {
 
@@ -20,7 +25,6 @@ class DashboardController extends AbstractController
         $events = $areaRepository->findBy(['type' => 'EVENT']);
         $expositions = $areaRepository->findBy(['type' => 'EXPO']);
         $studios = $studioRepository->findBy([]);
-
 
         $ongoingEvents = $areaRepository->findBy([
             'type' => 'EVENT',
@@ -47,8 +51,6 @@ class DashboardController extends AbstractController
             'status' => ['ARCHIVED'],
         ]);
 
-
-
         return $this->render('dashboard/index.html.twig', [
             // 'controller_name' => 'DashboardController',
             'events' => $events,
@@ -64,8 +66,27 @@ class DashboardController extends AbstractController
 
             'ongoingWorkshop' => $ongoingWorkshop,
             'pastWorkshop' => $pastWorkshop,
+        ]);
+    }
 
+    // ^ list users
+    #[Route('/dashboard/index', name: 'list_users')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function list_users(UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findBy([], ['username' => 'ASC']);
+        return $this->render('dashboard/indexUsers.html.twig', [
+            'users' => $users,
+        ]);
+    }
 
+    // ^ detail user
+    #[Route('/dashboard/admin/{id}/detail_user', name: 'detail_user_admin')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function show_user(User $user): Response
+    {
+        return $this->render('dashboard/showUser.html.twig', [
+            'user' => $user,
         ]);
     }
 }

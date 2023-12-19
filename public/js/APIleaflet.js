@@ -36,6 +36,7 @@ adressElements.forEach(function(addressElement) {
     const country = addressElement.getAttribute('data-country');
     const name = addressElement.getAttribute('data-name');
     const activity = addressElement.getAttribute('data-activity');
+    
 
     const address = `${street}, ${city} ${postalCode},${country}`;
     
@@ -47,32 +48,44 @@ adressElements.forEach(function(addressElement) {
 
 // Fonction pour géocoder une adresse et placer un marqueur
 function geocodeAndMark(address, name, activity) {
+
+    // get the ID of the artist
+    adressElements.forEach(function(addressElement) {
+    const artistId = addressElement.getAttribute('data-id');
+  
     // Utilisation du service Nominatim pour géocoder l'adresse
     fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address))
         .then(response => response.json())
         .then(data => {
             if (data.length > 0) {
                 var latlng = [data[0].lat, data[0].lon];
-                
-                // L.marker(latlng , {icon: Icon}).addTo(map);
-
-                // Ajout d'une popup au marqueur avec le contenu de l'adresse
-                // var marker = L.marker(latlng).addTo(map);
-
                 var marker = L.marker(latlng , {icon: Icon}).addTo(map);
-                marker.bindPopup(`${name}<br>${activity}<br>Address: ${address}`);
 
+                // Créer un élément <a> avec le lien vers la page de l'artiste
+                var artistLink = document.createElement('a');
+                artistLink.href = `http://127.0.0.1:8000/artist/${artistId}`;
+                artistLink.innerText = name;
+
+                // Créer la popup avec le contenu HTML
+                var popupContent = document.createElement('div');
+                popupContent.appendChild(artistLink);
+                popupContent.innerHTML += `<br>${activity}<br>Address: ${address}`;
+
+                // Ajouter la popup au marqueur
+                marker.bindPopup(popupContent);
+
+                // marker.bindPopup(`${name}<br>${activity}<br>Address: ${address}`);
                 // Attacher un événement de clic au marqueur pour ouvrir la popup lorsqu'il est cliqué
                 marker.on('click', function() {
                     marker.openPopup();
                 });
-
 
             } else {
                 console.error('Address not found:', address);
             }
         })
         .catch(error => console.error('Geocoding error:', error));
+    });
 }
 
 

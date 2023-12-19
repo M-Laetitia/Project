@@ -57,4 +57,24 @@ class HomeController extends AbstractController
         ]);
     }
 
+      // ^ test stripe
+      #[Route('/home/test_stripe', name: 'test_stripe')]
+      public function index_stripe(): Response
+      {
+
+          return $this->render('home/stripeTest.html.twig', [
+             
+          ]);
+      }
+
+      // ^ test stripe payment php
+      #[Route('/home/payment', name: 'test_payment')]
+      public function index_payment(): Response
+      {
+
+          return $this->render('home/payment.php', [
+             
+          ]);
+      }
+
 }

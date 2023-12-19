@@ -1,0 +1,17 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PaymentController!{% endblock %}
+
+{% block body %}
+
+<h1>test stripe</h1>
+
+<form action="/payment.php"method="post">
+    <label for="prix"> prix</label>
+    <input type="text" name="prix" id="prix">
+
+    <button>Procéder au paiement</button>
+</form>
+
+{% endblock %}

@@ -217,7 +217,7 @@ class PaymentController extends AbstractController
             //  dump($intent);die;
          
  
-            return $this->json(['clientSecret' => $paymentIntent->client_secret]);
+            // return $this->json(['clientSecret' => $paymentIntent->client_secret]);
          
          return $this->render('payment/payment.html.twig', [
              'subscriptionType' => $subscriptionType,

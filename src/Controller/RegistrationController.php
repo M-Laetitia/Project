@@ -3,17 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
+use App\Repository\UserRepository;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -26,7 +27,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -41,6 +42,22 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            // Obtenerla valeur du champ "formation" directement à partir du formulaire
+            $formation = $form->get('information')->getData();
+             // Vérifier si l'adresse e-mail existe déjà
+            $existingUser = $userRepository->findOneBy(['email' => $formation]);
+
+            if ($existingUser) {
+                // L'adresse e-mail existe déjà, affichez un message d'erreur ou faites ce que vous voulez
+                $this->addFlash('error', 'This mail already exists');
+                return $this->redirectToRoute('app_register');
+            }
+
+            $user = new User();
+
+
+            
+            $user->setEmail($formation); 
             $user->setRegistrationDate(new \DateTimeImmutable());
             // dd($user);
             $entityManager->persist($user);

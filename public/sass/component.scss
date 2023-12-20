@@ -1,0 +1,89 @@
+$color-yellow : rgb(240, 189, 47);
+$color-blue: #207E93;
+$color-red: #F44C4C;
+$color-black: #242424;
+$color-white: #F2F2F2;
+
+
+//1rem = 16px - 
+// 0.9rem = 14px
+$font-size-small: 0.9rem;
+
+.component {
+    font-size: $font-size-small;
+    .space {
+        background-color: transparent;
+        height: 15px;
+        width: 100%;
+    }
+}
+
+$transition-bezier: 0.800, 1.000, 0.000, 1.000;
+$transition-len: 0.35s;
+.btn2 {
+    // border-radius: 3px;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: .2rem 1.3rem;
+    border: 1px solid $color-yellow;
+    z-index: 20;
+    transition: all $transition-len cubic-bezier($transition-bezier); 
+  }
+  
+  .btn2:hover {
+    color: $color-yellow;
+    border: 1px solid $color-black;
+  }
+  
+  .btn-color {
+    border-color: $color-yellow;
+    color: $color-yellow;
+    
+    &::before,
+    &::after {
+      background: $color-black;
+    }
+  }
+  
+  .btn2::before,
+  .btn2::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    transition: all $transition-len cubic-bezier($transition-bezier); 
+  }
+  
+  .btn-l-r::after {
+    height: 100%;
+    width: 0;
+    top: 0;
+  }
+   
+  .btn-l-r:hover::after { 
+    width: 100%; 
+  }
+  .btn-l-r::after {
+    left: 0;
+  }
+  
+
+.btn3 {
+    // background-color: red;
+    border:1px solid $color-yellow; 
+    display: inline-block;
+    padding: .2rem 1.3rem;
+    position: relative;
+    cursor: pointer;
+    color: $color-yellow;
+    transition: all $transition-len cubic-bezier($transition-bezier); 
+
+
+    &:hover {
+        border:1px solid $color-black;
+        background-color: $color-black;
+        color: $color-yellow;
+    }
+
+}

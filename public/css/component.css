@@ -1,0 +1,71 @@
+.component {
+  font-size: 0.9rem;
+}
+.component .space {
+  background-color: transparent;
+  height: 15px;
+  width: 100%;
+}
+
+.btn2 {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.2rem 1.3rem;
+  border: 1px solid rgb(240, 189, 47);
+  z-index: 20;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+
+.btn2:hover {
+  color: rgb(240, 189, 47);
+  border: 1px solid #242424;
+}
+
+.btn-color {
+  border-color: rgb(240, 189, 47);
+  color: rgb(240, 189, 47);
+}
+.btn-color::before, .btn-color::after {
+  background: #242424;
+}
+
+.btn2::before,
+.btn2::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+
+.btn-l-r::after {
+  height: 100%;
+  width: 0;
+  top: 0;
+}
+
+.btn-l-r:hover::after {
+  width: 100%;
+}
+
+.btn-l-r::after {
+  left: 0;
+}
+
+.btn3 {
+  border: 1px solid rgb(240, 189, 47);
+  display: inline-block;
+  padding: 0.2rem 1.3rem;
+  position: relative;
+  cursor: pointer;
+  color: rgb(240, 189, 47);
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn3:hover {
+  border: 1px solid #242424;
+  background-color: #242424;
+  color: rgb(240, 189, 47);
+}
+
+/*# sourceMappingURL=component.css.map */

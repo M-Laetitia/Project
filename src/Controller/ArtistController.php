@@ -145,8 +145,9 @@ class ArtistController extends AbstractController
                 // ajouter les autres
             ];
 
-            // Fusionner les champs avec artistInfos
-            $artistInfos = array_merge($artistInfos, $fields);
+            // Récupérer ou initialiser artistInfos
+            // $artistInfos = array_merge($artistInfos, $fields);
+            $artistInfos = $user->getArtistInfos() ?? [];
 
             // Mettez à jour artistInfos dans l'entité User
             $user->setArtistInfos($artistInfos);

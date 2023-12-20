@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subscription{% endblock %}
+{% block meta %}Subscription{% endblock %}
+
+{% block javascripts %}
+
+	<script src="https://js.stripe.com/v3/"></script>
+
+{% endblock %}
+
+{% block body %}
+
+<h1>Payment:</h1>
+
+<p>Subscription choosen:</p>
+<p>{{subscriptionType}}</p>
+<p>{{subscriptionType.price}} eur</p>
+<p>{{subscriptionType.duration}} days</p>
+
+<p>Make the payment</p>
+
+
+
+{# {{ form_start(formSubscriptionPayment)}}
+        {{ form_errors(formSubscriptionPayment)}}
+
+        {{ form_row(formSubscriptionPayment.firstname)}}
+        {{ form_row(formSubscriptionPayment.lastname)}}
+        {{ form_row(formSubscriptionPayment.address)}}
+        
+        
+        {{ form_row(formSubscriptionPayment.Subscribe)}}
+
+
+{{ form_end(formSubscriptionPayment)}} #}
+
+
+<form id="form" action="{{ path('subscription_payment', {'id': subscriptionType.id}) }}" method="post">
+<div id="errors"></div>
+
+
+    <input type="text" id="fisrtname" placeholder="firstname">
+    <input type="text" id="lastname" placeholder="lastname">
+    <input type="text" id="address" placeholder="lastname"> 
+    <!--contriendra les msg d'erreurs de paiements-->
+
+    
+    <input type="text" id="cardholder-name" placeholder="titulaire de la carte">
+
+    <!-- info de la carte elle-même-->
+    <div id="card-elements"></div>
+
+    <!-- contiendra les erreurs relatives à la carte-->
+    <div id="card-errors" role="alter"></div>
+
+    <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
+    <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
+<!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
+<button id="card-button" type="submit" data-secret="<?= $intent['id'] ?>_secret_<?= $intent['client_secret'] ?>">Procéder au paiement</button>
+
+
+</form>
+
+
+
+
+<script>
+    // sert à nous assurer que notre document est totalement chargé
+    window.onload = () => {
+        //variables
+        // la clef publique est mise à l'intérieur de notre instance Stripe
+        let stripe = Stripe('pk_test_51OOfxmFInhPlxmzGb5udco2DCaiaaH3PlKcFjVz4GK1xy7qYYFUkzDpkfoyBfhF8e70X3n6x5JpZL616aIrL5VvN0095RLpWkN')
+
+        // déclarer les élèments, numéro de carte, date d'expériation, les 3 chiffres, code postale de la personne
+        let elements = stripe.elements();
+        //faire une redirection si le paiment est un succès
+        let redirect = "/home/test_stripe"
+
+        // objets de la page
+        let cardHolderName = document.getElementById("cardholder-name");
+        let cardButton = document.getElementById("card-button")
+        let clientSecret = cardButton.dataset.secret;
+        let form = document.getElementById("form");
+
+        //créer les élements du formulaire de carte bancaire
+        let card = elements.create("card")
+        card.mount("#card-elements")
+
+
+        // on gère la saisie (message d'erreur)
+        //écouteur d'évènement, evènement change, à partir du moment où on modifie une valeur, on va s'accrocher à l'évènement change
+        card.addEventListener("change", (e) => {
+            let displayError = document.getElementById('card-errors')
+            if(e.error) {
+                displayError.textContent = e.error.message
+            } else {
+                displayError.textContent = "";
+            }
+        })
+
+        // gérer le paiement
+        // on gère ça en JS, ça passe par l'intermédiare d'une promesse donc en asynchrone,élèment en JS qui attend une réponse  et quand on a la réponse on fait une gestion de cette réponse 
+        // 1. intercepter le clic sur le bouton
+        form.addEventListener("submit",(e) => {
+            e.preventDefault(); // prevent default form submission
+            // lancer la promesse : je vais gérer le paiement
+            stripe.handleCardPayment(
+                // pour procéder au paiements il a besoin d'infos : le numéro secret de la transaction, les infos de la carte, nom du client
+                clientSecret, card,  {
+                    payment_method_data: {
+                        billing_details : { name: cardHolderName.value}
+                    }
+                }
+                //comme si une promesse on a then, et on obtient un résultat et on procède
+            ).then((result) => {
+                // vérifier si erreur ou pas
+                if(result.error) {
+                    document.getElementById("errors").innerText = result.error.message 
+                 }else{
+                    //redirection
+                    document.location.href = redirect
+                }
+                
+            })
+        })
+
+    }
+</script>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+{% endblock %}

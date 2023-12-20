@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -21,30 +22,34 @@ class RegistrationFormType extends AbstractType
 
     // Honey pot: add two fieds : the email and the honeypot
     // use const to define the names of the fields. Switch the names we would typically use for those two fields
-    public const HONEYPOT_FIELD_NAME = 'email';
     public const EMAIL_FIELD_NAME ='information';
+    public const HONEYPOT_FIELD_NAME = 'email';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email' , EmailType::class)
+            // ->add('email' , EmailType::class)
 
             ->add(self::EMAIL_FIELD_NAME, EmailType::class, [
+                'label' =>'test',
                 'required' => true,
                 'mapped' => false,
-                // 'constraint' => [
-                //     new NotBlank(),
-                //     // new Email(['mode' => 'strict'])
-                // ],
+                'constraints' => [
+                    new NotBlank(),
+                    new Email(['mode' => 'strict'])
+                ],
             ])
 
-            ->add(self::HONEYPOT_FIELD_NAME, TextType::class, ['required' => false])
-
+            ->add(self::HONEYPOT_FIELD_NAME, TextType::class, [
+                'required' => false,
+                'label' => false, // Désactive l'affichage du label
+                'attr' => ['hidden' => true], // Rend le champ invisible
+            ])
 
             ->add('username' , TextType::class)
             ->add('agreeTerms', CheckboxType::class, [
 
-                // 'label' => 'I accept ...',
+          
 
                 'mapped' => false,
                 'constraints' => [

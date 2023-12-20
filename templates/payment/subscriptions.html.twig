@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subscription{% endblock %}
+{% block meta %}Subscription{% endblock %}
+
+{% block body %}
+
+<h1>Subscription</h1>
+
+<p>Choose your subscription</p>
+
+{% for subscription in subscriptions %}
+<p>{{subscription}}</p>
+<p>{{subscription.price}} eur</p>
+<p>{{subscription.duration}} days</p>
+
+<a href="{{ path('subscription_payment', {'id': subscription.id}) }}"> <button>Subscribe!</button></a> 
+   
+<hr>
+    
+{% endfor %}
+
+
+{% endblock %}

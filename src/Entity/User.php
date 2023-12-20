@@ -79,6 +79,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Timeslot::class)]
     private Collection $timeslots;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscription::class)]
+    private Collection $subscriptions;
+
 
 
     public function __construct()
@@ -91,6 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->areaParticipations = new ArrayCollection();
         $this->workshopRegistrations = new ArrayCollection();
         $this->timeslots = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function __toString() {
@@ -576,6 +580,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($timeslot->getUser() === $this) {
                 $timeslot->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
+    }
+
+    public function addSubscription(Subscription $subscription): static
+    {
+        if (!$this->subscriptions->contains($subscription)) {
+            $this->subscriptions->add($subscription);
+            $subscription->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscription(Subscription $subscription): static
+    {
+        if ($this->subscriptions->removeElement($subscription)) {
+            // set the owning side to null (unless already changed)
+            if ($subscription->getUser() === $this) {
+                $subscription->setUser(null);
             }
         }
 

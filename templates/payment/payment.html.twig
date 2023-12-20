@@ -57,7 +57,9 @@
     <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
     <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
 <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
-<button id="card-button" type="submit" data-secret="<?= $intent['id'] ?>_secret_<?= $intent['client_secret'] ?>">Procéder au paiement</button>
+<button id="card-button" type="submit" data-secret="${id}_secret_${secret}">Procéder au paiement</button>
+
+
 
 
 </form>
@@ -81,6 +83,7 @@
         let cardHolderName = document.getElementById("cardholder-name");
         let cardButton = document.getElementById("card-button")
         let clientSecret = cardButton.dataset.secret;
+        
         let form = document.getElementById("form");
 
         //créer les élements du formulaire de carte bancaire
@@ -105,7 +108,9 @@
         form.addEventListener("submit",(e) => {
             e.preventDefault(); // prevent default form submission
             // lancer la promesse : je vais gérer le paiement
+            console.log(clientSecret)
             stripe.handleCardPayment(
+                
                 // pour procéder au paiements il a besoin d'infos : le numéro secret de la transaction, les infos de la carte, nom du client
                 clientSecret, card,  {
                     payment_method_data: {

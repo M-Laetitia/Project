@@ -88,6 +88,12 @@ nav .roles {
   display: flex;
   column-gap: 1.2rem;
 }
+nav .roles .ri-bard-fill {
+  -webkit-text-fill-color: rgb(240, 189, 47);
+}
+nav .roles .ri-bard-fill:hover {
+  box-shadow: rgba(240, 189, 47, 0.4) 0px 5px 15px;
+}
 nav .roles a {
   position: relative;
   background-image: linear-gradient(to right, rgb(37, 149, 177), rgb(37, 149, 177) 50%, #ffffff 50%);
@@ -503,14 +509,54 @@ body {
 #map {
   height: 35rem;
   box-shadow: 7px 7px rgb(240, 189, 47), -7px -7px #737373;
+  transition: ease-in-out 0.3s;
+}
+#map:hover {
+  box-shadow: -7px 7px #737373, 7px -7px rgb(240, 189, 47);
 }
 
 .leaflet-popup-content-wrapper {
   border-bottom: 2px solid rgb(37, 149, 177);
+  transition: ease-in-out 0.3s;
+}
+.leaflet-popup-content-wrapper:hover {
+  border-color: rgb(240, 189, 47);
+}
+.leaflet-popup-content-wrapper:hover + .leaflet-popup-tip-container .leaflet-popup-tip {
+  background-color: rgb(240, 189, 47);
 }
 
-.leaflet-popup-tip-container {
-  z-index: 999;
+.leaflet-popup-tip-container .leaflet-popup-tip {
+  background-color: rgb(37, 149, 177);
+  transition: ease-in-out 0.3s;
+}
+
+.leaflet-popup-content div a {
+  color: rgb(240, 189, 47);
+  font-weight: 600;
+  font-size: 18px;
+  transition: ease-in-out 0.3s;
+}
+.leaflet-popup-content div a:hover {
+  color: rgb(37, 149, 177);
+}
+
+.studios-container .studio {
+  width: 25rem;
+  height: 20rem;
+  background-color: #737373;
+  overflow: hidden;
+}
+.studios-container .studio img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: ease-in-out 0.6s;
+  filter: grayscale(0.6);
+}
+.studios-container .studio img:hover {
+  transform: scale(1.08);
+  filter: none;
 }
 
 /*# sourceMappingURL=general.css.map */

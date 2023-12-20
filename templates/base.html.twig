@@ -37,7 +37,6 @@
                     <a href="{{ path('app_home') }}"><i class="ri-home-heart-fill"></i></a>
                 </p>
 
-
             </div>
 
             <div class="links">
@@ -62,9 +61,7 @@
                     <a href="{{ path('app_studio') }}">ART STUDIOS</a>
                 </p>
 
-
             
-
             </div>
 
             <div class="roles">
@@ -74,7 +71,7 @@
                 
                 
                 {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
-                <a href="{{ path('studio_dashboard')}}"><i class="ri-table-fill"></i></a>
+                <a href="{{ path('studio_dashboard')}}"><i  class="ri-table-fill"></i></a>
                 {% endif %}
                 
                 
@@ -91,6 +88,7 @@
 
                 {% if app.user %}
                     <a href="{{ path('show_user', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-user"></i></a>
+                    <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a>
                 {% else %}
                     <a href=" {{ path('app_register') }}">register</a>
                     <a href="{{ path('app_login') }}">login</a>

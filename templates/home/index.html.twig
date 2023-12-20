@@ -7,6 +7,8 @@
 
  
     <h1>Home</h1>
+
+    <p><a href="{{ path('test_stripe')}}">test stripe </a></p>
     <div>
         {% for artist in artists %}
 
@@ -16,11 +18,11 @@
            data-postal-code="{{ artist.artistInfos.address.postalCode }}"
            data-country="{{ artist.artistInfos.address.country }}"
            data-name="{{ artist.artistInfos.artistName }}"
+           data-id="{{ artist.id }}"
            data-activity="{{ artist.artistInfos.discipline }}">
         </p>
     {% endfor %}
-  
-        
+
     </div>
 
     {# Penser à rajouter les crédits ! #}

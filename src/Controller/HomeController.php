@@ -77,4 +77,14 @@ class HomeController extends AbstractController
           ]);
       }
 
+      // ^ test style
+      #[Route('/home/style', name: 'test_style')]
+      public function index_style(): Response
+      {
+
+          return $this->render('home/testStyle.html.twig', [
+             
+          ]);
+      }
+
 }

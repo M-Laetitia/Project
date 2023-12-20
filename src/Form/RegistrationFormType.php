@@ -18,10 +18,29 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
+
+    // Honey pot: add two fieds : the email and the honeypot
+    // use const to define the names of the fields. Switch the names we would typically use for those two fields
+    public const HONEYPOT_FIELD_NAME = 'email';
+    public const EMAIL_FIELD_NAME ='information';
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email' , EmailType::class)
+
+            ->add(self::EMAIL_FIELD_NAME, EmailType::class, [
+                'required' => true,
+                'mapped' => false,
+                // 'constraint' => [
+                //     new NotBlank(),
+                //     // new Email(['mode' => 'strict'])
+                // ],
+            ])
+
+            ->add(self::HONEYPOT_FIELD_NAME, TextType::class, ['required' => false])
+
+
             ->add('username' , TextType::class)
             ->add('agreeTerms', CheckboxType::class, [
 

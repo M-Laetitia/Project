@@ -5,9 +5,13 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    stripe.secret_key: '%env(STRIPE_SECRET_KEY)%'
+
+
     avatars_directory: '%kernel.project_dir%/public/images/avatars'
     oldPictures_directory: '%kernel.project_dir%/public/images/old'
     artists_directory : '%kernel.project_dir%/public/images/artists/'
+
     
 services:
     # default configuration for services in *this* file
@@ -16,7 +20,7 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
+    # this creates a service per class whose id is the fully-qualified class nameSTRIPE
     App\:
         resource: '../src/'
         exclude:
@@ -47,3 +51,7 @@ services:
     App\Service\MailerService:
             arguments:
                 $mailer: '@Symfony\Component\Mailer\MailerInterface'
+
+    App\Controller\PaymentController:
+        arguments:
+             $stripeSecretKey: '%stripe.secret_key%'

@@ -21,50 +21,36 @@
 <p>Make the payment</p>
 
 
-
+<div id="secretkey">
+    {{clientSecret}}
+</div>
 {# {{ form_start(formSubscriptionPayment)}}
         {{ form_errors(formSubscriptionPayment)}}
-
         {{ form_row(formSubscriptionPayment.firstname)}}
         {{ form_row(formSubscriptionPayment.lastname)}}
         {{ form_row(formSubscriptionPayment.address)}}
-        
-        
+
+
         {{ form_row(formSubscriptionPayment.Subscribe)}}
-
-
 {{ form_end(formSubscriptionPayment)}} #}
 
 
 <form id="form" action="{{ path('subscription_payment', {'id': subscriptionType.id}) }}" method="post">
 <div id="errors"></div>
 
+<input type="text" name="firstname" id="firstname" placeholder="firstname">
+<input type="text" name="lastname" id="lastname" placeholder="lastname">
+<input type="text" name="address" id="address" placeholder="address">
 
-    <input type="text" id="fisrtname" placeholder="firstname">
-    <input type="text" id="lastname" placeholder="lastname">
-    <input type="text" id="address" placeholder="lastname"> 
-    <!--contriendra les msg d'erreurs de paiements-->
 
-    
     <input type="text" id="cardholder-name" placeholder="titulaire de la carte">
-
     <!-- info de la carte elle-même-->
     <div id="card-elements"></div>
-
     <!-- contiendra les erreurs relatives à la carte-->
     <div id="card-errors" role="alter"></div>
-
-    <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
-    <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
-<!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
-<button id="card-button" type="submit" data-secret="${id}_secret_${secret}">Procéder au paiement</button>
-
-
-
-
+<!-- Data-secret : numéro secret envoyé par Stripe qui est l'accumulation de l'id + clé secrète -->
+<button id="card-button" type="submit" >Procéder au paiement</button>
 </form>
-
-
 
 
 <script>
@@ -82,7 +68,12 @@
         // objets de la page
         let cardHolderName = document.getElementById("cardholder-name");
         let cardButton = document.getElementById("card-button")
-        let clientSecret = cardButton.dataset.secret;
+
+        let clientSecretDiv = document.getElementById("secretkey")
+        let clientSecret = clientSecretDiv.innerHTML;
+        console.log("secret key2 :", clientSecret)
+        
+        //let clientSecret = cardButton.dataset.secret;
         
         let form = document.getElementById("form");
 
@@ -108,7 +99,7 @@
         form.addEventListener("submit",(e) => {
             e.preventDefault(); // prevent default form submission
             // lancer la promesse : je vais gérer le paiement
-            console.log(clientSecret)
+            console.log("client secret" , clientSecret)
             stripe.handleCardPayment(
                 
                 // pour procéder au paiements il a besoin d'infos : le numéro secret de la transaction, les infos de la carte, nom du client
@@ -124,7 +115,7 @@
                     document.getElementById("errors").innerText = result.error.message 
                  }else{
                     //redirection
-                    document.location.href = redirect
+                   
                 }
                 
             })

@@ -21,69 +21,44 @@
 <p>Make the payment</p>
 
 
-<div id="secretkey">
-    {{clientSecret}}
-</div>
-{# {{ form_start(formSubscriptionPayment)}}
+{# changer nom id #}
+<div id="client-secret" data-client-secret="{{ clientSecret }}"></div>
+
+
+{{ form_start(formSubscriptionPayment, {'attr': {'id': 'subscription-form'}}) }}
         {{ form_errors(formSubscriptionPayment)}}
         {{ form_row(formSubscriptionPayment.firstname)}}
         {{ form_row(formSubscriptionPayment.lastname)}}
         {{ form_row(formSubscriptionPayment.address)}}
+        <div id="card-elements" class="stripe-card-elements"></div>
+        <div id="card-errors" role="alter"></div>
 
-
-        {{ form_row(formSubscriptionPayment.Subscribe)}}
-{{ form_end(formSubscriptionPayment)}} #}
-
-
-<form id="form" action="{{ path('subscription_payment', {'id': subscriptionType.id}) }}" method="post">
-<div id="errors"></div>
-
-<input type="text" name="firstname" id="firstname" placeholder="firstname">
-<input type="text" name="lastname" id="lastname" placeholder="lastname">
-<input type="text" name="address" id="address" placeholder="address">
-
-
-    <input type="text" id="cardholder-name" placeholder="titulaire de la carte">
-    <!-- info de la carte elle-même-->
-    <div id="card-elements"></div>
-    <!-- contiendra les erreurs relatives à la carte-->
-    <div id="card-errors" role="alter"></div>
-<!-- Data-secret : numéro secret envoyé par Stripe qui est l'accumulation de l'id + clé secrète -->
-<button id="card-button" type="submit" >Procéder au paiement</button>
-</form>
-
+        {{ form_row(formSubscriptionPayment.Subscribe, {'attr': {'class': 'card-button'}}) }}
+{{ form_end(formSubscriptionPayment)}}
 
 <script>
-    // sert à nous assurer que notre document est totalement chargé
+  
     window.onload = () => {
-        //variables
-        // la clef publique est mise à l'intérieur de notre instance Stripe
+
         let stripe = Stripe('pk_test_51OOfxmFInhPlxmzGb5udco2DCaiaaH3PlKcFjVz4GK1xy7qYYFUkzDpkfoyBfhF8e70X3n6x5JpZL616aIrL5VvN0095RLpWkN')
 
-        // déclarer les élèments, numéro de carte, date d'expériation, les 3 chiffres, code postale de la personne
         let elements = stripe.elements();
-        //faire une redirection si le paiment est un succès
         let redirect = "/home/test_stripe"
 
-        // objets de la page
-        let cardHolderName = document.getElementById("cardholder-name");
-        let cardButton = document.getElementById("card-button")
+        let cardHolderFirstNameDiv = document.getElementById("subscription_payment_firstname");
+        let cardHolderLastNameDiv = document.getElementById("subscription_payment_lastname");
 
-        let clientSecretDiv = document.getElementById("secretkey")
-        let clientSecret = clientSecretDiv.innerHTML;
-        console.log("secret key2 :", clientSecret)
-        
-        //let clientSecret = cardButton.dataset.secret;
-        
-        let form = document.getElementById("form");
 
-        //créer les élements du formulaire de carte bancaire
+        let clientSecretDiv = document.getElementById("client-secret")
+        let clientSecret = clientSecretDiv.dataset.clientSecret;
+        console.log("client secret :", clientSecret);
+        
+        var subscriptionForm = document.getElementById('subscription-form');
+
+
         let card = elements.create("card")
         card.mount("#card-elements")
 
-
-        // on gère la saisie (message d'erreur)
-        //écouteur d'évènement, evènement change, à partir du moment où on modifie une valeur, on va s'accrocher à l'évènement change
         card.addEventListener("change", (e) => {
             let displayError = document.getElementById('card-errors')
             if(e.error) {
@@ -93,29 +68,29 @@
             }
         })
 
-        // gérer le paiement
-        // on gère ça en JS, ça passe par l'intermédiare d'une promesse donc en asynchrone,élèment en JS qui attend une réponse  et quand on a la réponse on fait une gestion de cette réponse 
-        // 1. intercepter le clic sur le bouton
-        form.addEventListener("submit",(e) => {
-            e.preventDefault(); // prevent default form submission
-            // lancer la promesse : je vais gérer le paiement
+        const cardButton = document.querySelector('.card-button');
+        cardButton.addEventListener('click', (e) => {
+            e.preventDefault(); 
+ 
+            let cardHolderName = cardHolderFirstNameDiv.value + ' ' + cardHolderLastNameDiv.value; 
             console.log("client secret" , clientSecret)
             stripe.handleCardPayment(
                 
-                // pour procéder au paiements il a besoin d'infos : le numéro secret de la transaction, les infos de la carte, nom du client
                 clientSecret, card,  {
                     payment_method_data: {
-                        billing_details : { name: cardHolderName.value}
+                        billing_details : { name: cardHolderName}
+                        
                     }
+                    
                 }
-                //comme si une promesse on a then, et on obtient un résultat et on procède
+            
             ).then((result) => {
                 // vérifier si erreur ou pas
                 if(result.error) {
                     document.getElementById("errors").innerText = result.error.message 
                  }else{
                     //redirection
-                   
+                    subscriptionForm.submit();
                 }
                 
             })

@@ -18,6 +18,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PaymentController extends AbstractController
 {
 
+    private $stripeSecretKey;
+
+    public function __construct(string $stripeSecretKey) 
+    {
+        $this->stripeSecretKey = $stripeSecretKey;
+    }
+
     // ^ show subscriptions
     #[Route('/payment', name: 'app_subscription')]
     public function index(SubscriptionTypeRepository $subscriptionTypeRepository): Response
@@ -30,181 +37,181 @@ class PaymentController extends AbstractController
         ]);
     }
 
-    // // ^ payment page
-    // #[Route('/payment/{id}', name: 'subscription_payment')]
-    // public function index_payment(SubscriptionType $subscriptionType = null, Subscription $subscription = null, Request $request, Security $security, EntityManagerInterface $entityManager ): Response
-    // {
-    //     $user = $security->getUser();
-    //     // ! à revoir 
-    //     // Si $subscriptionType est null, essayez de charger le SubscriptionType depuis la base de données en utilisant l'ID
-    //     if (!$subscriptionType && $request->attributes->has('id')) {
-    //         $subscriptionTypeId = $request->attributes->get('id');
-    //         $subscriptionType = $this->getDoctrine()->getRepository(SubscriptionType::class)->find($subscriptionTypeId);
-    //     }
+    // ^ payment page
+    #[Route('/payment/{id}', name: 'subscription_payment')]
+    public function index_payment(SubscriptionType $subscriptionType = null, Subscription $subscription = null, Request $request, Security $security, EntityManagerInterface $entityManager ): Response
+    {
+        $user = $security->getUser();
+        // ! à revoir 
+        // Si $subscriptionType est null, essayez de charger le SubscriptionType depuis la base de données en utilisant l'ID
+        if (!$subscriptionType && $request->attributes->has('id')) {
+            $subscriptionTypeId = $request->attributes->get('id');
+            $subscriptionType = $this->getDoctrine()->getRepository(SubscriptionType::class)->find($subscriptionTypeId);
+        }
 
-    //     $form = $this->createForm(SubscriptionPaymentType::class , $subscription);
-    //     $form->handleRequest($request); 
-    //     $clientSecret = null;
+        $form = $this->createForm(SubscriptionPaymentType::class , $subscription);
+        $form->handleRequest($request); 
+        $clientSecret = null;
 
-    //     // STRIPE:
-    //     // récupérer montant subscription
-    //     $total = $subscriptionType->getPrice();
-    //     // STRIPE:
-    //     require_once('../vendor/autoload.php');
-    //     Stripe::setApiKey('sk_test_51OOfxmFInhPlxmzG0BuQ347vV5XipJaK5kaF3QWlN7GFwdJE78EtYLCQve2pT7BeqE0VoxX9qjvn6hi87wYry67B00g9GKqSln');
+        // STRIPE:
+        // récupérer montant subscription
+        $total = $subscriptionType->getPrice();
+        // STRIPE:
+        require_once('../vendor/autoload.php');
+        Stripe::setApiKey($this->stripeSecretKey);
 
-    //     $intent = PaymentIntent::create([
-    //     'amount' => $total*100,
-    //     'currency' => 'eur',
-    //     ]);
+        $intent = PaymentIntent::create([
+        'amount' => $total*100,
+        'currency' => 'eur',
+        ]);
 
-    //     $clientSecret = $intent['client_secret'];
-    //     //  dump($clientSecret);die;
-    //     //  pi_3OPA9KFInhPlxmzG0ZTvlRuS_secret_0JQRaXRVvKRLtMnfSc5h8CXZs
+        $clientSecret = $intent['client_secret'];
+        //  dump($clientSecret);die;
 
 
-    //     if ($form->isSubmitted() && $form->isValid() ) {
-    //         // ^Json infos
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+            // ^Json infos
+            // dump('test');die;
+            // Récupérer les valeurs pour le champ infosUser (json)
+            $firstname = $form->get('firstname')->getData();
+            $lastname =$form->get('lastname')->getData();
+            $address =$form->get('address')->getData();
             
-    //         // Récupérer les valeurs pour le champ infosUser (json)
-    //         $firstname = $form->get('firstname')->getData();
-    //         $lastname =$form->get('lastname')->getData();
-    //         $address =$form->get('address')->getData();
-            
-    //         // Définir les champs et leurs valeurs
-    //         $fields = [
-    //            'firstname' => $firstname,
-    //            'lastname' => $lastname,
-    //            'address' => $address,
-    //        ];
+            // Définir les champs et leurs valeurs
+            $fields = [
+               'firstname' => $firstname,
+               'lastname' => $lastname,
+               'address' => $address,
+           ];
 
-    //        $name = $subscriptionType->getName();
-    //        $price = $subscriptionType->getPrice();
-    //        $duration = $subscriptionType->getDuration();
+           $name = $subscriptionType->getName();
+           $price = $subscriptionType->getPrice();
+           $duration = $subscriptionType->getDuration();
 
-    //        $subscriptionInfo = [
-    //         'name' => $name,
-    //         'price' => $price,
-    //         'duration' => $duration,
-    //         ];
+           $subscriptionInfo = [
+            'name' => $name,
+            'price' => $price,
+            'duration' => $duration,
+            ];
 
 
-    //        // remplir les autres champs:
-    //        $subscription = new Subscription();
-    //         // $subscription = $form->getData();
-    //        $subscription->setUser($user);
-    //        $subscription->setInfosUser($fields);
-    //        $subscription->setPaymentDate(new \DateTimeImmutable());
-    //        $subscription->setInfosSubscription($subscriptionInfo);
-    //        $subscription->setSubscriptionType($subscriptionType);
-    //        $subscription->setTotal($total);
+           // remplir les autres champs:
+           $subscription = new Subscription();
+            // $subscription = $form->getData();
+           $subscription->setUser($user);
+           $subscription->setInfosUser($fields);
+           $subscription->setPaymentDate(new \DateTimeImmutable());
+           $subscription->setInfosSubscription($subscriptionInfo);
+           $subscription->setSubscriptionType($subscriptionType);
+           $subscription->setTotal($total);
 
-    //        $entityManager->persist($subscription);
-    //        $entityManager->flush();
+           $entityManager->persist($subscription);
+           $entityManager->flush();
 
-    //         $this->addFlash('success', 'success');
-    //         return $this->redirectToRoute('app_home');
-    //     }
+            $this->addFlash('success', 'success');
+            return $this->redirectToRoute('app_home');
+        }
 
-    //     return $this->render('payment/payment.html.twig', [
-    //         'subscriptionType' => $subscriptionType,
-    //         'formSubscriptionPayment' => $form,
-    //         'clientSecret' => $clientSecret,
+        return $this->render('payment/payment.html.twig', [
+            'subscriptionType' => $subscriptionType,
+            'formSubscriptionPayment' => $form,
+            'clientSecret' => $clientSecret,
     
-    //     ]);
-    // }
+        ]);
+    }
     
-     // ^ payment page
-     #[Route('/payment/{id}', name: 'subscription_payment', methods: ['GET','POST'])]
-     public function index_payment(SubscriptionType $subscriptionType = null, Subscription $subscription = null, Request $request, Security $security, EntityManagerInterface $entityManager ): Response
-     {
+    //  // ^ payment page
+    //  #[Route('/payment/{id}', name: 'subscription_payment', methods: ['GET','POST'])]
+    //  public function index_payment(SubscriptionType $subscriptionType = null, Subscription $subscription = null, Request $request, Security $security, EntityManagerInterface $entityManager ): Response
+    //  {
  
-         $user = $security->getUser();
-         // ! à revoir 
-         // Si $subscriptionType est null, essayez de charger le SubscriptionType depuis la base de données en utilisant l'ID
-         if (!$subscriptionType && $request->attributes->has('id')) {
-             $subscriptionTypeId = $request->attributes->get('id');
-             $subscriptionType = $this->getDoctrine()->getRepository(SubscriptionType::class)->find($subscriptionTypeId);
-         }
-        // !
+    //      $user = $security->getUser();
+    //      // ! à revoir 
+    //      // Si $subscriptionType est null, essayez de charger le SubscriptionType depuis la base de données en utilisant l'ID
+    //      if (!$subscriptionType && $request->attributes->has('id')) {
+    //          $subscriptionTypeId = $request->attributes->get('id');
+    //          $subscriptionType = $this->getDoctrine()->getRepository(SubscriptionType::class)->find($subscriptionTypeId);
+    //      }
+    //     // !
  
-        //  $form = $this->createForm(SubscriptionPaymentType::class , $subscription);
-        //  $form->handleRequest($request); 
+    //     //  $form = $this->createForm(SubscriptionPaymentType::class , $subscription);
+    //     //  $form->handleRequest($request); 
  
-         $clientSecret = null;
+    //      $clientSecret = null;
 
-             // ^Json infos
+    //          // ^Json infos
    
-             // récupérer montant subscription
-             $total = $subscriptionType->getPrice();
-             // STRIPE:
-             require_once('../vendor/autoload.php');
-             Stripe::setApiKey('sk_test_51OOfxmFInhPlxmzG0BuQ347vV5XipJaK5kaF3QWlN7GFwdJE78EtYLCQve2pT7BeqE0VoxX9qjvn6hi87wYry67B00g9GKqSln');
+    //          // récupérer montant subscription
+    //          $total = $subscriptionType->getPrice();
+    //          // STRIPE:
+    //          require_once('../vendor/autoload.php');
+    //          Stripe::setApiKey('sk_test_51OOfxmFInhPlxmzG0BuQ347vV5XipJaK5kaF3QWlN7GFwdJE78EtYLCQve2pT7BeqE0VoxX9qjvn6hi87wYry67B00g9GKqSln');
  
-             $intent = PaymentIntent::create([
-             'amount' => $total*100,
-             'currency' => 'eur',
-             ]);
+    //          $intent = PaymentIntent::create([
+    //          'amount' => $total*100,
+    //          'currency' => 'eur',
+    //          ]);
  
-             $clientSecret = $intent['client_secret'];
-             //  dump($clientSecret);die;
+    //          $clientSecret = $intent['client_secret'];
+    //          //  dump($clientSecret);die;
 
 
-             if ($request->isMethod('POST')) { 
+    //          if ($request->isMethod('POST')) { 
 
-                 // Récupérer les valeurs pour le champ infosUser (json)
-                 //récupérer données form
-                $firstname = $request->request->get('firstname');
-                 $lastname = $request->request->get('lastname');
-                 $address = $request->request->get('address');
-                //    dump($firstname);die;
+    //              // Récupérer les valeurs pour le champ infosUser (json)
+    //              //récupérer données form
+    //             $firstname = $request->request->get('firstname');
+    //              $lastname = $request->request->get('lastname');
+    //              $address = $request->request->get('address');
+    //             //    dump($firstname);die;
           
      
-                 // Définir les champs et leurs valeurs
-                  $fields = [
-                     'firstname' => $firstname,
-                     'lastname' => $lastname,
-                     'address' => $address,
-                 ];
+    //              // Définir les champs et leurs valeurs
+    //               $fields = [
+    //                  'firstname' => $firstname,
+    //                  'lastname' => $lastname,
+    //                  'address' => $address,
+    //              ];
       
-                 $name = $subscriptionType->getName();
+    //              $name = $subscriptionType->getName();
                  
-                 $price = $subscriptionType->getPrice();
-                 $duration = $subscriptionType->getDuration();
+    //              $price = $subscriptionType->getPrice();
+    //              $duration = $subscriptionType->getDuration();
       
-                 $subscriptionInfo = [
-                  'name' => $name,
-                  'price' => $price,
-                  'duration' => $duration,
-                  ];
+    //              $subscriptionInfo = [
+    //               'name' => $name,
+    //               'price' => $price,
+    //               'duration' => $duration,
+    //               ];
       
-                 // remplir les autres champs:
-                 $subscription = new Subscription();
-                 // $subscription = $form->getData();
-                 $subscription->setUser($user);
-                 $subscription->setInfosUser($fields);
-                 $subscription->setPaymentDate(new \DateTimeImmutable());
-                 $subscription->setInfosSubscription($subscriptionInfo);
-                 $subscription->setSubscriptionType($subscriptionType);
-                 $subscription->setTotal($total);
+    //              // remplir les autres champs:
+    //              $subscription = new Subscription();
+    //              // $subscription = $form->getData();
+    //              $subscription->setUser($user);
+    //              $subscription->setInfosUser($fields);
+    //              $subscription->setPaymentDate(new \DateTimeImmutable());
+    //              $subscription->setInfosSubscription($subscriptionInfo);
+    //              $subscription->setSubscriptionType($subscriptionType);
+    //              $subscription->setTotal($total);
       
-                 $entityManager->persist($subscription);
-                 $entityManager->flush();
+    //              $entityManager->persist($subscription);
+    //              $entityManager->flush();
       
-                 //  $this->addFlash('success', 'success');
-                 //  return $this->redirectToRoute('app_home');
-                 //  dump($intent);die;
+    //              //  $this->addFlash('success', 'success');
+    //              //  return $this->redirectToRoute('app_home');
+    //              //  dump($intent);die;
          
-                 // return $this->json(['clientSecret' => $paymentIntent->client_secret]);
-                }
+    //              // return $this->json(['clientSecret' => $paymentIntent->client_secret]);
+    //             }
 
          
-         return $this->render('payment/payment.html.twig', [
-             'subscriptionType' => $subscriptionType,
-            //  'formSubscriptionPayment' => $form,
-             'clientSecret' => $clientSecret,
-             '$intent' => $intent,
+    //      return $this->render('payment/payment.html.twig', [
+    //          'subscriptionType' => $subscriptionType,
+    //         //  'formSubscriptionPayment' => $form,
+    //          'clientSecret' => $clientSecret,
+    //          '$intent' => $intent,
      
-         ]);
-     }
+    //      ]);
+    //  }
 }

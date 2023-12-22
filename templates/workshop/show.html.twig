@@ -16,22 +16,45 @@
 
     <p>Participate:</p>
 
-    {% if workshop.status != 'ARCHIVED' %}
-    {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
-        <p>Registration will open soon</p>
-    {% else %}
-        <p>Do you want to participate ?<br>
-        {% if existingRegistration %}
-            <p>You are already participating</p>
-        {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
-            <p>No more space available for this exhibition</p>
-        {% elseif workshop.status == 'OPEN' %}
-            <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p>
-        {% endif %}
+    {% if app.user %}
+    {% if user.subscriptions is not empty %}
+        {% set hasActiveSubscription = false %}
+        {% for subscription in user.subscriptions %}
+            {% if subscription.isActive %}
+                {% set hasActiveSubscription = true %}
+            {% endif %}
+        {% endfor %}
         
-        </p>
+        {% if hasActiveSubscription %}
+            {% if workshop.status != 'ARCHIVED' %}
+                {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
+                    <p>Registration will open soon</p>
+                {% else %}
+                    <p>Do you want to participate?<br>
+                    {% if existingRegistration %}
+                        <p>You are already participating</p>
+                    {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
+                        <p>No more space available for this workshop</p>
+                    {% elseif workshop.status == 'OPEN' %}
+                    <p>valid subscription</p>
+                        <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p>
+                    {% endif %}
+                    </p>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {# Content for user without an active subscription #}
+            <p>You must have a valid subscription to benefit from this service.</p>
+            <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
+        {% endif %}
+    {% else %}
+        {# Content for user without any subscriptions #}
+        <p>You must have signed up for a subscription to benefit from this service.</p>
+        <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
     {% endif %}
-    {% endif %}
+{% endif %}
+
+
 
 
 

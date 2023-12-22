@@ -57,6 +57,7 @@ class WorkshopController extends AbstractController
         return $this->render('workshop/show.html.twig', [
             'workshop' => $workshop,
             'existingRegistration' => $existingRegistration,
+            'user' => $user,
         ]);
     }
 

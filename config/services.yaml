@@ -57,7 +57,6 @@ services:
         arguments:
              $stripeSecretKey: '%stripe.secret_key%'
 
-
     # UPDATE SUBSCRIPTION STATUS COMMAND
     App\Command\UpdateSubscriptionStatusCommand:
         arguments:

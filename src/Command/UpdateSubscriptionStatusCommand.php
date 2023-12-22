@@ -39,8 +39,6 @@ class UpdateSubscriptionStatusCommand extends Command
             $endDate= $subscription->getEndDate();
            
             // dump($endDate);die;
-
-             // Compare dat
             // Compare dates
             // use a DateTime because the endDate is a string
             if ($endDate <= $currentDate) {

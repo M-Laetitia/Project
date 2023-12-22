@@ -147,6 +147,15 @@ class Subscription
 
     }
 
+    public function getEndDate()
+    {
+        $duration = $this->subscriptionType->getDuration();
+        $paymentDate = clone $this->paymentDate;
+        $expirationDate = $paymentDate->add(new \DateInterval('P' . $duration . 'D'));
+        $currentDate = new \DateTimeImmutable();
+        return $expirationDate;
+    }
+
     public function isIsActive(): ?bool
     {
         return $this->isActive;
@@ -158,6 +167,16 @@ class Subscription
 
         return $this;
     }
+
+    // public function updateIsActive(): void;
+    // {
+    //     $currentDate= new \DateTimeImmutable();
+    //     $experiationDate = clone $this->paymentDate;
+    //     $experiationDate->add(new \DateInterval('P' . $this->subscriptionType->getDuration() . 'D'));
+
+    //     $this->isActive = $currentDate <= $expirationsDate;
+
+    // }
 
 
 

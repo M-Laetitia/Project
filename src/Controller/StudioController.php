@@ -34,10 +34,11 @@ class StudioController extends AbstractController
     // ! pb route à régler !!! conflit avec studio/dashboard'
     // ^ show art studio (user)
     #[Route('/studio/show/{id}', name: 'show_studio')]
-    public function show(Studio $studio =null, StudioRepository $studioRepository, WorkshopRegistrationRepository $workshopRegistrationRepository): Response
+    public function show(Studio $studio =null, StudioRepository $studioRepository, WorkshopRegistrationRepository $workshopRegistrationRepository, Security $security): Response
     {
   
         $studioTimeslots = $studio->getTimeslots();
+        $user = $security->getUser();
         
         $timeslotRegistrations = [];
         foreach ($studioTimeslots as $timeslot) {
@@ -56,6 +57,7 @@ class StudioController extends AbstractController
             'studio' => $studio,
             'studioTimeslots' => $studioTimeslots,
             'timeslotRegistrations' => $timeslotRegistrations,
+            'user' => $user,
             // 'nbRegistrationPerTimeslot' => $nbRegistrationPerTimeslot,
 
         ]);

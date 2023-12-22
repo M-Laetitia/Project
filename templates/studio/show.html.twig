@@ -12,8 +12,29 @@
 
     {# {{dump(studioTimeslots)}} #}
 
+   
+    {# {% if  app.user %}
+        {% for subscription in user.subscriptions %} 
+        {{ dump(subscription)}}
+        {% if subscription.isActive == true %}
+            <p> <a href="{{ path('new_registration', {'id': timeslot.id}) }}">Booking </a></p>
+        {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>you must have signed up for a subscription to benefit from this service</p>
+        <p>Check here !</p>
+        <a href="{{ path('app_payment')}}">test</a>
+{% endif %}
+ #}
+
+
+
 
     <p>Open time slots for this Art Studio:</p>
+
+ 
+
+
 
     {# {{ dump(studio)}} #}
 
@@ -31,7 +52,31 @@
             {% else %}
                 
                 <p>Make a reservation for this time slot:</p>
-                <a href="{{ path('new_registration', {'id': timeslot.id}) }}">Booking </a>
+
+                {% if app.user %}
+                {% if user.subscriptions is not empty %}
+                    {% set hasActiveSubscription = false %}
+                    {% for subscription in user.subscriptions %}
+                        {% if subscription.isActive %}
+                            {% set hasActiveSubscription = true %}
+                            {# Additional content for active subscription if needed #}
+                        {% endif %}
+                    {% endfor %}
+            
+                    {% if hasActiveSubscription %}
+                        <p>You have a valid subscription and are allowed to book.</p>
+                        <p><a href="{{ path('new_registration', {'id': timeslot.id}) }}">Booking</a></p>
+                    {% else %}
+                        <p>You must have a valid subscription to benefit from this service.</p>
+                        <p> <a href="{{ path('app_subscription') }}">Check here!</a></p>
+                    {% endif %}
+                {% else %}
+                    <p>You must have signed up for a subscription to benefit from this service.</p>
+                    <p> <a href="{{ path('app_subscription') }}">Check here!</a></p>
+                   
+                {% endif %}
+            {% endif %}
+            
                 
             {% endif %}
 
@@ -44,7 +89,6 @@
 
 
 
-    
 
 
 {% endblock %}

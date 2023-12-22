@@ -102,6 +102,7 @@ class PaymentController extends AbstractController
            $subscription->setUser($user);
            $subscription->setInfosUser($fields);
            $subscription->setPaymentDate(new \DateTimeImmutable());
+           $subscription->setisActive("1");
            $subscription->setInfosSubscription($subscriptionInfo);
            $subscription->setSubscriptionType($subscriptionType);
            $subscription->setTotal($total);

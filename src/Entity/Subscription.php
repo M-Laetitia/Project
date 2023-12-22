@@ -34,6 +34,9 @@ class Subscription
     #[ORM\JoinColumn(nullable: false)]
     private ?SubscriptionType $subscriptionType = null;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,4 +113,52 @@ class Subscription
 
         return $this;
     }
+
+    public function getDaysRemaining(): array
+    {
+        $duration = $this->subscriptionType->getDuration();
+        // creates an independent copy of the $this->paymentDate object. This ensures that any subsequent operations, like adding the subscription duration to calculate the expiration date, are performed on the copy without altering the original payment date. 
+        // Creates an independent copy of the $this->paymentDate object.
+        $paymentDate = clone $this->paymentDate;
+
+        // adds a specified duration (in days) to the $expirationDate object. It uses DateInterval to represent the duration, where 'P' indicates the period and 'D' denotes days. 
+
+       // Adds the subscription duration to the payment date.
+        $expirationDate = $paymentDate->add(new \DateInterval('P' . $duration . 'D'));
+        
+       // Use DateTimeImmutable to avoid unintended modifications.
+        $currentDate = new \DateTimeImmutable();
+
+        if ($currentDate > $expirationDate) {
+            // Subscription has already expired.
+            return [
+                'endDate' => 'Subscription ended',
+                'remaining' => 0
+            ];
+        }
+        
+
+        $remainingDays = $currentDate->diff($expirationDate)->days;
+
+        return [
+            'endDate' => $expirationDate->format('d-m-Y'),
+            'remaining' => $remainingDays
+        ];
+
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): static
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+
+
 }

@@ -27,13 +27,15 @@ class PaymentController extends AbstractController
 
     // ^ show subscriptions
     #[Route('/payment', name: 'app_subscription')]
-    public function index(SubscriptionTypeRepository $subscriptionTypeRepository): Response
+    public function index(SubscriptionTypeRepository $subscriptionTypeRepository, Security $security): Response
     {
 
+        $user = $security->getUser();
         $subscriptions = $subscriptionTypeRepository->findBy([]);
 
         return $this->render('payment/subscriptions.html.twig', [
-            'subscriptions' => $subscriptions
+            'subscriptions' => $subscriptions,
+            'user' => $user
         ]);
     }
 

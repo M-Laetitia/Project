@@ -9,16 +9,45 @@
 
 <p>Choose your subscription</p>
 
-{% for subscription in subscriptions %}
-<p>{{subscription}}</p>
-<p>{{subscription.price}} eur</p>
-<p>{{subscription.duration}} days</p>
+{% if app.user %}
+    {% if user.subscriptions is not empty %}
+        {% set hasActiveSubscription = false %}
+        {% for subscription in user.subscriptions %}
+            {% if subscription.isActive == true %}
+                {% set hasActiveSubscription = true %}
+                {# The user has an active subscription #}
+                <p>You already have an ongoing subscription.</p>
+            {% endif %}
+        {% endfor %}
+        
+        {% if not hasActiveSubscription %}
+            {# The user doesn't have any active subscriptions  #}
+            {% for subscription in subscriptions %}
+                <p>{{ subscription.name }}</p>
+                <p>{{ subscription.price }} EUR</p>
+                <p>{{ subscription.duration }} days</p>
 
-<a href="{{ path('subscription_payment', {'id': subscription.id}) }}"> <button>Subscribe!</button></a> 
+                <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><button>Subscribe!</button></a> 
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        {# The user doesn't have any subscriptions  #}
+        {% for subscription in subscriptions %}
+            <p>{{ subscription.name }}</p>
+            <p>{{ subscription.price }} EUR</p>
+            <p>{{ subscription.duration }} days</p>
+
+            <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><button>Subscribe!</button></a> 
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+
+  {# {% if user.subscriptions is not empty %} #}
    
 <hr>
     
-{% endfor %}
+
 
 
 {% endblock %}

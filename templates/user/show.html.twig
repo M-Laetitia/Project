@@ -17,6 +17,22 @@
     <p>Member since: {{ user.durationSinceRegistration}} </p>
 
     <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
+
+    <p>SUBSCRIPTION</p>
+
+    {# show only the current subscription #}
+    {% for subscription in user.subscriptions %}
+        {% set daysRemaining = subscription.daysRemaining %}
+        {% if daysRemaining.remaining > 0 %}
+            <p>Name: {{ subscription.subscriptionType.name }}</p>
+            <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
+            <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
+            <p>End date: {{ daysRemaining.endDate }}</p>
+            <p>Remaining days: {{ daysRemaining.remaining }}</p>
+        {% endif %}
+    {% endfor %}
+
+
     
     <p><a href="{{ path('edit_user', {'id': app.user.id }) }}">EDIT info</a></p>
     

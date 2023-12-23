@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\AreaRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AreaRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: AreaRepository::class)]
 class Area
@@ -48,6 +49,9 @@ class Area
 
     #[ORM\ManyToMany(targetEntity: AreaCategory::class, inversedBy: 'areas')]
     private Collection $areaCategories;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
 
 
@@ -257,6 +261,24 @@ class Area
         $this->areaCategories->removeElement($areaCategory);
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function generateSlug(): string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->getName());
     }
 
    

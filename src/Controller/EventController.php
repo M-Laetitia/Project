@@ -82,6 +82,7 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() ) {
             $area->setType('EVENT');
             $area = $form->getData();
+            $area->setSlug($area->generateSlug());
             $entityManager->persist($area);
             $entityManager->flush();
 

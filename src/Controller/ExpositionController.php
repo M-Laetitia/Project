@@ -144,7 +144,7 @@ class ExpositionController extends AbstractController
 
 
 
-
+    // ^create new expo (admin)
     #[Route('/dashboard/new/expo', name:'new_expo')]
     #[Route('/dashboard/{id}/edit/expo', name:'edit_expo')]
     #[IsGranted("ROLE_ADMIN")]
@@ -164,6 +164,7 @@ class ExpositionController extends AbstractController
             $area->setType('EXPO');
             $area = $form->getData();
             $entityManager->persist($area);
+            $area->setSlug($area->generateSlug());
             $entityManager->flush();
 
             $message = $isNewEvent ? 'Exposition created successfully!' : 'Exposition edited successfully!';

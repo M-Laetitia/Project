@@ -4,6 +4,8 @@
 
 {% block body %}
 
+
+
     <h1>Dashboard</h1>
 
     <p><a href="{{ path('list_users') }}">SEE USERS</a></p>
@@ -21,9 +23,11 @@
 
             {% for event in ongoingEvents %}
             <div class="element">
+
+          
                 <p>
                      
-                    <a href="{{ path('show_event_admin', {'id': event.id}) }}"><span class="name">✦{{event.name}}</span></a>
+                    <a href="{{ path('show_event_admin', {slug : event.slug  }) }}"><span class="name">✦{{event.name}}</span></a>
                     <span class="status {{ event.status == 'OPEN' ? 'open' : 
                                         (event.status == 'CLOSED' ? 'closed' : 
                                         (event.status == 'PENDING' ? 'pending' : 
@@ -38,7 +42,7 @@
                 
                 <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}} - Remaining: {{event.nbReversationRemaining}}</p>
                 <div> 
-                    <a href="{{ path('show_event_admin', {'id': event.id}) }}"><i class="ri-eye-close-fill"></i></a>
+                    <a href="{{ path('show_event_admin', {slug : event.slug }) }}"><i class="ri-eye-close-fill"></i></a>
                     <a href="{{ path('edit_event', {'id': event.id}) }}"><i class="ri-file-edit-fill"></i></a> 
                     <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ event.id}}"></i></a>
                 </div>
@@ -63,7 +67,7 @@
             <div class="element past-events-container" style="display:none">
                 <p>
                      
-                    <a href="{{ path('show_event_admin', {'id': event.id}) }}"><span class="name">✦{{event.name}}</span></a>
+                    <a href="{{ path('show_event_admin', {slug : event.slug  }) }}"><span class="name">✦{{event.name}}</span></a>
                     <span class="status {{ event.status == 'OPEN' ? 'open' : 
                                         (event.status == 'CLOSED' ? 'closed' : 
                                         (event.status == 'PENDING' ? 'pending' : 
@@ -78,7 +82,7 @@
                 
                 <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}} - Remaining: {{event.nbReversationRemaining}}</p>
                 <div> 
-                    <a href="{{ path('show_event_admin', {'id': event.id}) }}"><i class="ri-eye-close-fill"></i></a>
+                    <a href="{{ path('show_event_admin', {slug : event.slug  }) }}"><i class="ri-eye-close-fill"></i></a>
                     <a href="{{ path('edit_event', {'id': event.id}) }}"><i class="ri-file-edit-fill"></i></a> 
                     <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ event.id}}"></i></a>
                 </div>

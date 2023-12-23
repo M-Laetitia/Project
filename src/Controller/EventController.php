@@ -35,7 +35,7 @@ class EventController extends AbstractController
     }
 
     // ^ show event (admin)
-    #[Route('/dashboard/event/{id}', name: 'show_event_admin')]
+    #[Route('/dashboard/event/{slug}', name: 'show_event_admin')]
     #[IsGranted("ROLE_ADMIN")]
     public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
@@ -47,7 +47,7 @@ class EventController extends AbstractController
 
     // ^ show event (user)
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
-    #[Route('/event/{id}', name: 'show_event')]
+    #[Route('/event/{slug}', name: 'show_event')]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
         $user = $security->getUser();

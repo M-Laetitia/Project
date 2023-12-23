@@ -31,10 +31,11 @@
         
                 <p>Capacity : {{event.nbReversationMade}}  /  {{event.nbRooms}} - Remaining : {{event.nbReversationRemaining}}</p>
     
-                <a href="{{ path('show_event', {'id' : event.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+                <a href="{{ path('show_event', { slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
                 <hr>
             </div>
             {% endfor %}
+         
 
         
     </div>
@@ -64,7 +65,7 @@
     
             <p>{{event.description}}</p>
 
-            <a href="{{ path('show_event', {'id' : event.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+            <a href="{{ path('show_event', {slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
             <hr>
         </div>
         {% endfor %}

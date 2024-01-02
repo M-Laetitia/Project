@@ -104,6 +104,7 @@ class WorkshopController extends AbstractController
 
             $workshop->setStatus('OPEN');
             $workshop = $form->getData();
+            $workshop->setSlug($workshop->generateSlug());
             $entityManager->persist($workshop);
             $entityManager->flush();
 

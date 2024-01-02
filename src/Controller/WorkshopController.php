@@ -39,8 +39,8 @@ class WorkshopController extends AbstractController
        
     }
 
-
-    #[Route('/workshop/{id}', name: 'show_workshop')]
+    // ^ show workshop (user)
+    #[Route('/workshop/{slug}', name: 'show_workshop')]
     public function show(Workshop $workshop = null, Security $security, WorkshopRegistrationRepository $workshopRegistrationRepository ): Response
     {
 
@@ -62,7 +62,7 @@ class WorkshopController extends AbstractController
     }
 
     // ^ show workshop (admin)
-    #[Route('/dashboard/show/{id}/workshop/', name: 'show_workshop_admin')]
+    #[Route('/dashboard/show/{slug}/workshop/', name: 'show_workshop_admin')]
     public function show_admin(Workshop $workshop = null): Response
     {
 
@@ -73,7 +73,7 @@ class WorkshopController extends AbstractController
    
     // ^ Create/Edit workshop (admin)
     #[Route('/dashboard/new/workshop', name:'new_workshop')]
-    #[Route('/dashboard/{id}/edit/workshop', name:'edit_workshop')]
+    #[Route('/dashboard/{slug}/edit/workshop', name:'edit_workshop')]
     public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager ) : Response
     {
 
@@ -120,7 +120,7 @@ class WorkshopController extends AbstractController
     }
 
     // ^ Delete workshop (admin)
-    #[Route('/dashboard/{id}/delete/workshop', name:'delete_workshop')] 
+    #[Route('/dashboard/{slug}/delete/workshop', name:'delete_workshop')] 
     public function delete(Workshop $workshop, EntityManagerInterface $entityManager) :Response
     {
 

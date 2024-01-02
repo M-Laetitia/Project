@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\WorkshopRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\WorkshopRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: WorkshopRepository::class)]
 class Workshop
@@ -89,6 +90,9 @@ class Workshop
 
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $status = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
 
 
@@ -283,6 +287,24 @@ class Workshop
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function generateSlug(): string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->getName());
     }
 
 }

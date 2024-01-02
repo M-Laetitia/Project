@@ -30,7 +30,7 @@
             <p>Capacity: {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}} - Remaining: {{workshop.nbRegistrationRemaining}}</p>
             
     
-            <p><a href="{{ path('show_workshop', {'id': workshop.id }) }}">See details <i class="fa-solid fa-plus"></i></a></p>
+            <p><a href="{{ path('show_workshop', {slug: workshop.slug }) }}">See details <i class="fa-solid fa-plus"></i></a></p>
     
             <hr>
         </div>
@@ -63,7 +63,7 @@
     
             <p>{{event.description}}</p>
 
-            <a href="{{ path('show_event', {'id' : event.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+            <a href="{{ path('show_workshop', {slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
             <hr>
         </div>
         {% endfor %}

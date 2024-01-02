@@ -60,6 +60,7 @@ class RegistrationController extends AbstractController
             $user->setEmail($formation); 
             $user->setRegistrationDate(new \DateTimeImmutable());
             // dd($user);
+            $user->setSlug($area->generateSlug());
             $entityManager->persist($user);
             $entityManager->flush();
 

@@ -188,6 +188,7 @@ class ArtistController extends AbstractController
             $user->setRoles($userRoles);
             $user = $form->getData();
             $entityManager->persist($user);
+            $user->setSlug($area->generateSlug());
             $entityManager->flush();
 
             // Déconnexion et reconnexion manuelles de l'utilisateur

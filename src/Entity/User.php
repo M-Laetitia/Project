@@ -634,6 +634,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-   
+    public function generateSlug(): string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->getUsername());
+    }
 
 }

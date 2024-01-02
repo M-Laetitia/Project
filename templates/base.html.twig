@@ -135,17 +135,17 @@
                 
                 {% if is_granted('ROLE_ARTIST') %}
                 {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
-                <a href="{{ path('manage_artist', {'id': app.user.id }) }}"><i class="fa-solid fa-palette"></i></a>
+                <a href="{{ path('manage_artist', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette"></i></a>
                 {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
                 {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
-                <a href="{{ path('new_artist', {'id': app.user.id }) }}">Join us (for artists)</a>
+                <a href="{{ path('new_artist', {slug: app.user.slug }) }}">Join us (for artists)</a>
                 {% else %}
                 {# else, add something eventually or not #}
                 {% endif %}
 
 
                 {% if app.user %}
-                    <a href="{{ path('show_user', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-user"></i></a>
+                    <a href="{{ path('show_user', {slug: app.user.slug }) }}"><i class="fa-solid fa-circle-user"></i></a>
                     <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a>
                 {% else %}
                     <a href=" {{ path('app_register') }}">register</a>

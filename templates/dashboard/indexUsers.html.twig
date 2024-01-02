@@ -12,7 +12,7 @@
    <ul>
        {% for user in users %}
        <li>
-            <p>  Username : <a href="{{ path('detail_user_admin', {'id' : user.id}) }}">{{user}}</a></p>
+            <p>  Username : <a href="{{ path('detail_user_admin', {slug : user.slug}) }}">{{user}}</a></p>
             <p>Email: {{user.Email}}</p>
             <p>Registration date: {{user.registrationDate|formatDate}}</p>
             {% if user.getSimpleRoles|length > 0 %}

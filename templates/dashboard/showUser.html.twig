@@ -32,7 +32,7 @@
             
            <li>
                <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
-               <p> <a href="{{ path('show_event', {'id' : participation.area.id })}}">{{ participation.area.name}} </a>
+               <p> <a href="{{ path('show_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a>
                 - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
            </li>
            {% endif %}
@@ -46,7 +46,7 @@
             
            <li>
                <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
-               <p><a href="{{ path('show_exposition', {'id' : participation.area.id })}}">{{ participation.area.name}}</a> - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+               <p><a href="{{ path('show_exposition', {'id':  participation.area.id }) }}">{{ participation.area.name}}</a> - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
            </li>
            {% endif %}
        {% endfor %}
@@ -75,7 +75,7 @@
             <li>
                 
                 <p>registration date: {{ participation.registrationDate|formatDate}}</p>
-                <p><a href="{{ path('show_workshop', {'id' : participation.workshop.id})}}">{{participation.workshop.name}}</a></p>
+                <p><a href="{{ path('show_workshop', {slug : participation.workshop.slug})}}">{{participation.workshop.name}}</a></p>
                 <p>Date: {{participation.workshop.startDate|formatDate}} - {{participation.workshop.endDate|formatDate}}</p>
            </li>
            {% endif %}

@@ -82,6 +82,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Subscription::class)]
     private Collection $subscriptions;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
+
 
 
     public function __construct()
@@ -154,6 +157,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    
 
     /**
      * A visual identifier that represents this user.
@@ -612,6 +618,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $subscription->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

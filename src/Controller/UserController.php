@@ -28,7 +28,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{id}', name: 'show_user')]
+    #[Route('/user/{slug}', name: 'show_user')]
     public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
 
     if(!$user) {
@@ -84,7 +84,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{id}/edit', name: 'edit_user')]
+    #[Route('/user/{slug}/edit', name: 'edit_user')]
     public function new_edit(User $user = null, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher) : Response
     {
 

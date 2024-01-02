@@ -81,7 +81,7 @@ class DashboardController extends AbstractController
     }
 
     // ^ detail user
-    #[Route('/dashboard/admin/{id}/detail_user', name: 'detail_user_admin')]
+    #[Route('/dashboard/admin/{slug}/detail_user', name: 'detail_user_admin')]
     #[IsGranted("ROLE_ADMIN")]
     public function show_user(User $user): Response
     {
@@ -89,4 +89,6 @@ class DashboardController extends AbstractController
             'user' => $user,
         ]);
     }
+
+  
 }

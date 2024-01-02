@@ -29,7 +29,7 @@ class ArtistController extends AbstractController
 
 
     // ^ show artist detail (all)
-    #[Route('/artist/{id}', name: 'show_artist')]
+    #[Route('/artist/{slug}', name: 'show_artist')]
     public function show(UserRepository $userRepository, int $id): Response {
 
         // get the artist
@@ -48,7 +48,7 @@ class ArtistController extends AbstractController
     }
 
     // ^ artist page -manage  (ROLE ARTIST)
-    #[Route('/artist/{id}/manage', name: 'manage_artist')]
+    #[Route('/artist/{slug}/manage', name: 'manage_artist')]
     #[IsGranted("ROLE_ARTIST")]
     public function manage(User $user = null, Security $security, EntityManagerInterface $entityManager,  Request $request): Response 
     {

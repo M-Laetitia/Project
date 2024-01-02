@@ -14,7 +14,7 @@
 
 <ul>
 {% for artist in area.expositionProposals %}
-        <li>{{ artist.user.artistInfos.artistName }}  | <a href="{{ path('show_artist', {'id': artist.user.id }) }}">See more</a> </li>  
+        <li>{{ artist.user.artistInfos.artistName }}  | <a href="{{ path('show_artist', {slug: artist.user.slug }) }}">See more</a> </li>  
         {% endfor %}
         </ul>
 

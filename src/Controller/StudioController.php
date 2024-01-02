@@ -33,7 +33,7 @@ class StudioController extends AbstractController
 
     // ! pb route à régler !!! conflit avec studio/dashboard'
     // ^ show art studio (user)
-    #[Route('/studio/show/{id}', name: 'show_studio')]
+    #[Route('/studio/show/{slug}', name: 'show_studio')]
     public function show(Studio $studio =null, StudioRepository $studioRepository, WorkshopRegistrationRepository $workshopRegistrationRepository, Security $security): Response
     {
   
@@ -64,7 +64,7 @@ class StudioController extends AbstractController
     }
 
     // ^show art studio (admin)
-    #[Route('/dashboard/{id}/studio', name: 'show_studio_admin')]
+    #[Route('/dashboard/{slug}/studio', name: 'show_studio_admin')]
     public function show_adminStudio(Studio $studio): Response 
     {
         return $this->render('dashboard/showStudio.html.twig', [

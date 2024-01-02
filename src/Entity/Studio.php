@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\StudioRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\StudioRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: StudioRepository::class)]
 class Studio
@@ -33,6 +34,9 @@ class Studio
 
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $picture = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $slug = null;
 
     public function __toString() 
     {
@@ -147,5 +151,23 @@ class Studio
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function generateSlug(): string
+    {
+        $slugify = new Slugify();
+        return $slugify->slugify($this->getName());
     }
 }

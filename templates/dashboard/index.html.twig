@@ -295,7 +295,7 @@
             {% for studio in studios %}
             <div class="element">
                 <p>
-                    <a href="{{ path('show_studio_admin', {'id': studio.id}) }}"><span class="name">✦{{studio.name}}</span></a>
+                    <a href="{{ path('show_studio_admin', {slug : studio.slug}) }}"><span class="name">✦{{studio.name}}</span></a>
                 </p>
                 <p>Capacity: {{studio.nbRooms}} </p>
             </div>

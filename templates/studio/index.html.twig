@@ -17,7 +17,7 @@
                  
                 <p>{{studio.description}}</p>                
     
-                <a href="{{ path('show_studio', {'id' : studio.id }) }}">See details <i class="fa-solid fa-plus"></i></a>
+                <a href="{{ path('show_studio', {slug : studio.slug }) }}">See details <i class="fa-solid fa-plus"></i></a>
                 <hr>
             </div>
             {% endfor %}

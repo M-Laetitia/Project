@@ -74,38 +74,9 @@
     <h1>Calendrier des événements</h1>
 
     <div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
-    
-{{ dump(formattedEvents)}}
+{#     
+{{ dump(formattedEvents)}} #}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar');
-        
-        // Insérez ici le code pour récupérer les données du serveur
-        
 
-        // Récupérer la chaîne JSON de l'attribut data-formatted-events
-  const formattedEventsString = document.getElementById('calendar').getAttribute('data-formatted-events');
-
-  // récupérer sous forme de tableau:
-  const formattedEvents = JSON.parse(formattedEventsString);
-
-  // formatter les dates 
-  formattedEvents.forEach(event => {
-      event.start = new Date(event.start);
-      event.end = new Date(event.end);
-    });
-        
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: formattedEvents,
-            eventClick: function(info) {
-                window.location.href = '/event/' + info.event.id;
-            }
-        });
-    
-        calendar.render();
-    });
-</script>
 
 {% endblock %}

@@ -28,10 +28,59 @@ class EventController extends AbstractController
             'type' => 'EVENT',
             'status' => ['ARCHIVED'],
         ]);
+
+
+
+        $formattedEvents = []; // formater les events pour les rendre compatibles avec FullCalendar
+
+        foreach ($ongoingEvents as $event) {
+            $formattedEvents[] = [
+                'id' => $event->getId(),
+                'title' => $event->getName(),
+                'start' => $event->getStartDate()->format('Y-m-d H:i:s'),
+                'end' => $event->getEndDate()->format('Y-m-d H:i:s'),
+            ];
+        }
+
+        // $response = new JsonResponse($formattedEvents);
+        // dump($formattedEvents);die;
+
         return $this->render('event/index.html.twig', [
             'ongoingEvents' => $ongoingEvents,
             'pastEvents' => $pastEvents,
+            'formattedEvents' => json_encode($formattedEvents), // Passer les données formatées en JSON à la vue
+         
         ]);
+    }
+
+    // ^ Get events for calendar
+    public function getEventsCalendar(AreaRepository $areaRepository): Response
+    {
+        $events = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+
+        $formattedEvents = []; // formater les events pour les rendre compatibles avec FullCalendar
+
+        foreach ($events as $event) {
+            $formattedEvents[] = [
+                'id' => $event->getId(),
+                'name' => $event->getName(),
+                'start' => $event->getStartDate()->format('Y-m-d H:i:s'),
+                'end' => $event->getEndDate()->format('Y-m-d H:i:s'),
+            ];
+        }
+        
+
+        $jsonResponse = new JsonResponse($formattedEvents);
+        dump($jsonResponse); die; 
+
+        // Pour déboguer, vous pouvez envoyer le contenu de la réponse directement dans le corps de la réponse HTTP
+        // Cela peut être consulté dans l'onglet "Réseau" des outils de développement de votre navigateur
+        // $jsonResponse->setContent(json_encode($formattedEvents));
+
+        return $jsonResponse;
     }
 
     // ^ show event (admin)

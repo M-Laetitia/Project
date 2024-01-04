@@ -12,6 +12,7 @@ parameters:
     oldPictures_directory: '%kernel.project_dir%/public/images/old'
     artists_directory : '%kernel.project_dir%/public/images/artists/'
 
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
     
 services:
     # default configuration for services in *this* file

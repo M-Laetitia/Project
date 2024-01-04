@@ -39,6 +39,7 @@ class EventController extends AbstractController
                 'title' => $event->getName(),
                 'start' => $event->getStartDate()->format('Y-m-d H:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d H:i:s'),
+                'slug' => $event->getSlug(),
             ];
         }
 

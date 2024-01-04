@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
@@ -5,29 +6,45 @@
 {% block body %}
 <form method="post">
     {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
-
+    
     {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
+    <div class="mb-3">
+        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+    </div>
     {% endif %}
-
+    
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
+    
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
+    value="{{ csrf_token('authenticate') }}"
     >
-
+    
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
 </form>
 
+
+
+<h3>test google auth</h3>
+
+
+<a href="
+https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri=<?= urlencode('http://127.0.0.1:8000/connect') ?>&response_type=code&client_id=<?= GOOGLE_ID ?>">test google
+</a>
+
+
+{# <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri={{ url('connect') | url_encode }}&response_type=code&client_id={{ GOOGLE_ID }}">test google2</a> #}
+
+<a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri={{ 'http://127.0.0.1:8000/connect'|url_encode }}&response_type=code&client_id={{ GOOGLE_ID }}">test google3</a>
+
+
+ {# client_id=client_id"> #}
 <p>password forgotten? Reset it here : <a href="{{ path('app_forgot_password_request') }}">reset</a></p>
 {% endblock %}

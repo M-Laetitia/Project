@@ -19,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
-
     // Honey pot: add two fieds : the email and the honeypot
     // use const to define the names of the fields. Switch the names we would typically use for those two fields
     public const EMAIL_FIELD_NAME ='information';
@@ -28,10 +27,8 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('email' , EmailType::class)
-
             ->add(self::EMAIL_FIELD_NAME, EmailType::class, [
-                'label' =>'test',
+                'label' =>'Email',
                 'required' => true,
                 'mapped' => false,
                 'constraints' => [
@@ -39,18 +36,14 @@ class RegistrationFormType extends AbstractType
                     new Email(['mode' => 'strict'])
                 ],
             ])
-
             ->add(self::HONEYPOT_FIELD_NAME, TextType::class, [
                 'required' => false,
-                'label' => false, // Désactive l'affichage du label
-                'attr' => ['hidden' => true], // Rend le champ invisible
+                'label' => false, // Disables the display of the label
+                'attr' => ['hidden' => true], // Makes the field invisible
             ])
 
             ->add('username' , TextType::class)
             ->add('agreeTerms', CheckboxType::class, [
-
-          
-
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -58,6 +51,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

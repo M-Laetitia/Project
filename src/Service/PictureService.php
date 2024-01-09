@@ -39,10 +39,10 @@ class PictureService
                 $picture_source = imagecreatefromjpeg($picture);
                 break;
             case 'image/jpg':
-                $picture_source = imagecreatefromjpeg($picture);
+                $picture_source = imagecreatefromjpg($picture);
                 break;
-            case 'image/webp':
-                $picture_source = imagecreatefromwebp($picture);
+            case 'image/WebP':
+                $picture_source = imagecreatefromWebP($picture);
                 break;
             default:
                 throw new Exception('Incorrect image format');

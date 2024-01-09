@@ -15,23 +15,22 @@ class PictureService
         $this->params = $params;
     }
 
-    public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250)
+    public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250, ?int $maxFileSize = 5)
     {
-        // On donne un nouveau nom à l'image
-
-        $file = md5(uniqid(rand(), true)) . '.' . $picture->guessExtension();
-
-        // On récupère les infos de l'image
-        // "The md5 function is a hashing function that produces a 32-character hexadecimal checksum
+        // Generate a new and unique name for the image
+        // The md5 function is a hashing function that produces a 32-character hexadecimal checksum
         // uniqid(rand(), true) generates a unique string based on the current timestamp with microsecond resolution (the use of true adds more entropy to the string).
         // Md5 takes this unique string and converts it into a 32-character hexadecimal hash.
-        $picture_infos = getimagesize($picture);
+        $file = md5(uniqid(rand(), true)) . '.' . $picture->guessExtension();
+
+        // Retrieve image information
+        $picture_infos = getimagesize($picture); // returns an array with the dimensions and other details of the image.
 
         if ($picture_infos == false) {
-            throw new Exception('Format d\'image incorrect');
+            throw new Exception('Incorrect image format');
         }
 
-        // On vérifie le format de l'image
+        // Check the image format
         switch ($picture_infos['mime']) {
             case 'image/png':
                 $picture_source = imagecreatefrompng($picture);
@@ -39,12 +38,20 @@ class PictureService
             case 'image/jpeg':
                 $picture_source = imagecreatefromjpeg($picture);
                 break;
+            case 'image/jpg':
+                $picture_source = imagecreatefromjpeg($picture);
+                break;
             case 'image/webp':
                 $picture_source = imagecreatefromwebp($picture);
                 break;
             default:
-                throw new Exception('Format d\'image incorrect');
+                throw new Exception('Incorrect image format');
+        }
 
+        // Check file size
+        $maxFileSizeInMb = $maxFileSize * 1024 * 1024; // Convert MB to bytes
+        if ($picture->getSize() > $maxFileSizeInMb) {
+            throw new Exception('File size exceeds the maximum allowed limit.');
         }
 
         // on recadre l'image

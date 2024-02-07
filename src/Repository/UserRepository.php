@@ -91,6 +91,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
+    //^ search artists feature
+
+    public function findArtistByCriteria($criteria)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.username LIKE :username')
+            ->setParameter('username', '%' . $criteria->getUsername() . '%')
+            ->andWhere('u.roles LIKE :artistRole')
+            ->setParameter('artistRole', '%"ROLE_ARTIST"%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    // public function findArtistByCriteria($criteria)
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->andWhere('JSON_CONTAINS(u.artistInfos, :artistName) = 1')
+    //         ->setParameter('artistName', '%"artistName":"' . $criteria['artistName'] . '"%')
+    //         ->andWhere('u.roles LIKE :artistRole')
+    //         ->setParameter('artistRole', '%"ROLE_ARTIST"%')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

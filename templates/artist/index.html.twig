@@ -6,6 +6,25 @@
 {% block body %}
     <h1>Artists</h1>
 
+    <h2>Search</h2>
+    {{ form_start(formArtistSearch) }}
+    {{ form_widget(formArtistSearch) }}
+    <button type="submit">Search an artist</button>
+    {{ form_end(formArtistSearch) }}
+
+    {# Afficher les résultats de la recherche #}
+    {% if artistsSearch %}
+        <ul>
+            {% for artist in artistsSearch %}
+                <li>{{ artist.username }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No result found</p>
+    {% endif %}
+
+ 
+
     <h2>Last Artists added:</h2>
 
     <h2>All artists:</h2>

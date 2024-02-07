@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Picture;
 use App\Form\ArtistType;
 use App\Form\EditArtistType;
+use App\Form\SearchArtistType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,19 +14,45 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\session;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ArtistController extends AbstractController
 {
-    #[Route('/artist', name: 'app_artist')]
-    public function index(UserRepository $userRepository): Response
-    {
-        $artists = $userRepository->findArtistUsers();
-        return $this->render('artist/index.html.twig', [
-            'artists' => $artists,
-        ]);
+   #[Route('/artist', name: 'app_artist')]
+public function index(UserRepository $userRepository, Request $request): Response
+{
+    $formArtistSearch = $this->createForm(SearchArtistType::class);
+    $formArtistSearch->handleRequest($request);
+
+    $artistsSearch = [];
+
+    if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
+        $criteria = $formArtistSearch->getData();
+        $artistsSearch = $userRepository->findArtistByCriteria($criteria);
+        
+        // Stocker les résultats de la recherche en session
+        $request->getSession()->set('artistsSearch', $artistsSearch);
     }
+
+    // Effacer les résultats de la recherche si la page est chargée via la méthode GET
+    if ($request->getMethod() === 'GET') {
+        $request->getSession()->remove('artistsSearch');
+    } else {
+        // Si la page est chargée via une autre méthode (par exemple POST), récupérez les résultats de la recherche depuis la session
+        $artistsSearch = $request->getSession()->get('artistsSearch', []);
+    }
+
+    $artists = $userRepository->findArtistUsers();
+
+    return $this->render('artist/index.html.twig', [
+        'artists' => $artists,
+        'formArtistSearch' => $formArtistSearch->createView(),
+        'artistsSearch' => $artistsSearch,
+    ]);
+}
 
 
     // ^ show artist detail (all)

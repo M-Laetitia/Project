@@ -29,8 +29,8 @@ class ArtistController extends AbstractController
 
 
     // ^ show artist detail (all)
-    #[Route('/artist/{slug}', name: 'show_artist')]
-    public function show(UserRepository $userRepository, int $id): Response {
+    #[Route('/artist/{slug}-{id}', name: 'show_artist')]
+    public function show(UserRepository $userRepository, string $slug, int $id): Response {
 
         // get the artist
         $artist = $userRepository->findArtistUsers($id);

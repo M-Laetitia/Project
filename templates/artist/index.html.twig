@@ -14,11 +14,12 @@
         {% for artist in artists %}    
         <div class="artist-container">
             <p>
-                <a href="{{ path('show_artist', {'id': artist.id }) }}">{{ artist.artistInfos.artistName }}</a>
+                <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}">{{ artist.artistInfos.artistName }}</a>
+
             </p>
             <p>{{ artist.artistInfos.discipline }}</p>
             <p id="{{artist.id}}">
-                <a href="{{ path('show_artist', {'id': artist.id }) }}"><i class="ri-eye-close-fill"></i></a>
+                <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><i class="ri-eye-close-fill"></i></a>
             </p>
         
             <div>
@@ -31,3 +32,5 @@
 
   
 {% endblock %}
+
+

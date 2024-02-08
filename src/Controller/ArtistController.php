@@ -21,39 +21,75 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ArtistController extends AbstractController
 {
-   #[Route('/artist', name: 'app_artist')]
-public function index(UserRepository $userRepository, Request $request): Response
-{
-    $formArtistSearch = $this->createForm(SearchArtistType::class);
-    $formArtistSearch->handleRequest($request);
-
-    $artistsSearch = [];
-
-    if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
-        $criteria = $formArtistSearch->getData();
-        $artistsSearch = $userRepository->findArtistByCriteria($criteria);
-        
-        // Stocker les résultats de la recherche en session
-        $request->getSession()->set('artistsSearch', $artistsSearch);
+    #[Route('/artist', name: 'app_artist')]
+    public function index(UserRepository $userRepository, Request $request): Response
+    {
+        $formArtistSearch = $this->createForm(SearchArtistType::class);
+        $formArtistSearch->handleRequest($request);
+    
+        if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
+            $user = $formArtistSearch->getData(); // Récupérer l'objet User depuis le formulaire
+            $username = $user->getUsername(); // Récupérer le nom d'utilisateur depuis l'objet User
+            return $this->redirectToRoute('app_artist_search_username', ['username' => $username]);
+        }
+    
+        $artists = $userRepository->findArtistUsers();
+    
+        return $this->render('artist/index.html.twig', [
+            'artists' => $artists,
+            'formArtistSearch' => $formArtistSearch->createView(),
+        ]);
     }
 
-    // Effacer les résultats de la recherche si la page est chargée via la méthode GET
-    if ($request->getMethod() === 'GET') {
-        $request->getSession()->remove('artistsSearch');
-    } else {
-        // Si la page est chargée via une autre méthode (par exemple POST), récupérez les résultats de la recherche depuis la session
-        $artistsSearch = $request->getSession()->get('artistsSearch', []);
+    #[Route('/artist/search/username/{username}', name: 'app_artist_search_username', methods: ['GET'])]
+    public function searchByUsername(UserRepository $userRepository, string $username): Response
+    {
+        // Effectuer la recherche par pseudo en fonction des critères
+        $artistsSearch = $userRepository->findArtistByUsername($username);
+
+        // Rediriger vers une nouvelle page avec les résultats de la recherche
+        return $this->render('artist/searchResults.html.twig', [
+            'artistsSearch' => $artistsSearch,
+        ]);
     }
 
-    $artists = $userRepository->findArtistUsers();
 
-    return $this->render('artist/index.html.twig', [
-        'artists' => $artists,
-        'formArtistSearch' => $formArtistSearch->createView(),
-        'artistsSearch' => $artistsSearch,
-    ]);
-}
+    //^ search artist (by discipline)
+    #[Route('/artist/search/discipline', name: 'app_artist_search_discipline', methods: ['POST'])]
+    public function searchByDiscipline(UserRepository $userRepository, Request $request): Response
+    {
+        // Récupérer les critères de recherche
+        $criteria = $request->request->get('search');
 
+        // Effectuer la recherche par activité en fonction des critères
+        $artistsSearch = $userRepository->findArtistByDiscipline($criteria);
+
+        // Rediriger vers une nouvelle page avec les résultats de la recherche
+        return $this->render('artist/search_results.html.twig', [
+            'artistsSearch' => $artistsSearch,
+        ]);
+    }
+    
+
+
+
+    //^ AJAX search artist
+    #[Route('/artist/search', name: 'app_artist_search', methods: ['POST'])]
+    public function search(UserRepository $userRepository, Request $request): JsonResponse
+    {
+        if ($request->isXmlHttpRequest()) {
+            $criteria = $request->request->get('search');
+    
+            // Effectuer la recherche en fonction des critères
+            $artistsSearch = $userRepository->findArtistByCriteria($criteria);
+    
+            // Retourner les résultats de recherche au format JSON
+            return new JsonResponse(['artistsSearch' => $artistsSearch]);
+        }
+    
+        // En cas de requête non-AJAX, retourner une erreur
+        return new JsonResponse(['error' => 'Invalid request'], JsonResponse::HTTP_BAD_REQUEST);
+    }
 
     // ^ show artist detail (all)
     #[Route('/artist/{slug}-{id}', name: 'show_artist')]

@@ -6,14 +6,14 @@
 {% block body %}
     <h1>Artists</h1>
 
-    <h2>Search</h2>
+    {# <h2>Search</h2>
     {{ form_start(formArtistSearch) }}
     {{ form_widget(formArtistSearch) }}
     <button type="submit">Search an artist</button>
-    {{ form_end(formArtistSearch) }}
+    {{ form_end(formArtistSearch) }} #}
 
     {# Afficher les résultats de la recherche #}
-    {% if artistsSearch %}
+    {# {% if artistsSearch %}
         <ul>
             {% for artist in artistsSearch %}
                 <li>{{ artist.username }}</li>
@@ -21,7 +21,22 @@
         </ul>
         {% else %}
         <p>No result found</p>
-    {% endif %}
+    {% endif %} #}
+
+
+    <h2>Search 2</h2>
+    {# Formulaire de recherche par pseudo #}
+    {{ form_start(formArtistSearch, {'method': 'POST'}) }}
+    {{ form_widget(formArtistSearch.username) }}
+    <button type="submit">Search</button>
+    {{ form_end(formArtistSearch) }}
+    
+    
+    {# Formulaire de recherche par activité #}
+    {# {{ form_start(formDisciplineSearch, {'action': path('app_artist_search_discipline'), 'method': 'POST'}) }}
+    {{ form_widget(formDisciplineSearch) }}
+    <button type="submit">Search by Discipline</button>
+    {{ form_end(formDisciplineSearch) }} #}
 
  
 
@@ -49,6 +64,45 @@
         {% endfor %}
     </div>
 
+    <div id="search-results"></div>
+
+    <script>
+        // Capture de l'événement de soumission du formulaire de recherche
+        document.querySelector('.search-form').addEventListener('submit', function (event) {
+            // Empêcher le comportement par défaut du formulaire
+            event.preventDefault();
+    
+            // Récupérer les données du formulaire de recherche
+            const formData = new FormData(this);
+    
+            // Envoyer une requête AJAX pour obtenir les résultats de la recherche
+            fetch('{{ path('app_artist_search') }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Mettre à jour dynamiquement les résultats de la recherche dans la page HTML
+                const searchResults = document.querySelector('#search-results');
+                searchResults.innerHTML = '';
+    
+                if (data.artistsSearch.length > 0) {
+                    const ul = document.createElement('ul');
+                    data.artistsSearch.forEach(artist => {
+                        const li = document.createElement('li');
+                        li.textContent = artist.username;
+                        ul.appendChild(li);
+                    });
+                    searchResults.appendChild(ul);
+                } else {
+                    searchResults.innerHTML = '<p>No result found</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
   
 {% endblock %}
 

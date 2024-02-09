@@ -116,6 +116,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
+
+
     public function findArtistByDiscipline($criteria) 
     {
         $allUsers = $this->findAll();
@@ -141,13 +143,58 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                     // Vérifier si le mot correspond au critère de recherche
                     if ($word == $criteria) {
                         $artists[] = $user;
-                        break; // Arrêter la boucle dès qu'une correspondance est trouvée
+                        break; 
                     }
                 }
             }
         }
     
         return $artists;
+    }
+
+    public function findArtistByDisciplineFilter($criteria) 
+    {
+        $allUsers = $this->findAll();
+        $artists = [];
+    
+        foreach ($allUsers as $user) {
+            $artistInfos = $user->getArtistInfos();
+            
+            // Vérifier si $artistInfos est null
+            if ($artistInfos !== null && isset($artistInfos['discipline'])) {
+                $artistDiscipline = $artistInfos['discipline'];
+
+                    if ($artistDiscipline == $criteria) {
+                        $artists[] = $user;
+                    }
+                }
+            
+        }
+    
+        return $artists;
+    }
+
+    public function findAllDisciplines() 
+    {
+        $allUsers = $this->findAll();
+        $disciplines = [];
+    
+        foreach ($allUsers as $user) {
+            $artistInfos = $user->getArtistInfos();
+            
+            // Vérifier si $artistInfos est null
+            if ($artistInfos !== null && isset($artistInfos['discipline'])) {
+                $artistDiscipline = $artistInfos['discipline'];
+
+                 // Ajouter la discipline au tableau des disciplines uniquement si elle n'est pas déjà présente
+                if (!in_array($artistDiscipline, $disciplines)) {
+                $disciplines[] = $artistDiscipline;
+
+                }
+            }
+        }
+    
+        return $disciplines;
     }
     
 

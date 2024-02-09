@@ -63,8 +63,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     }
 
-    //^ get users filtered by role
+    // ^ find users by username
+    public function findUserByUsername($criteria)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.username LIKE :username')
+            ->setParameter('username', '%' . $criteria . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
+    //^ get users filtered by role
     public function findUsersbyRole(?string $role = null, ?int $userId = null) {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
@@ -91,19 +100,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    //^ search artists feature
 
-    // public function findArtistByCriteria($criteria)
-    // {
-    //     return $this->createQueryBuilder('u')
-    //         ->andWhere('u.username LIKE :username')
-    //         ->setParameter('username', '%' . $criteria->getUsername() . '%')
-    //         ->andWhere('u.roles LIKE :artistRole')
-    //         ->setParameter('artistRole', '%"ROLE_ARTIST"%')
-    //         ->getQuery()
-    //         ->getResult();
-    // }
 
+    // ^ find artists by username
     public function findArtistByUsername($criteria)
     {
         return $this->createQueryBuilder('u')
@@ -117,7 +116,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
 
 
-
+    //^ get artists filtered by discipline
     public function findArtistByDiscipline($criteria) 
     {
         $allUsers = $this->findAll();

@@ -56,27 +56,46 @@ class ArtistController extends AbstractController
         $formArtistSearch = $this->createForm(SearchArtistType::class);
         $formArtistSearch->handleRequest($request);
         $searchResults = [];
+
+        $disciplines = $userRepository->findAllDisciplines();
+
+        // Vérifier si la discipline est sélectionnée dans la requête GET
+        $discipline = $request->query->get('discipline');
+        
+
+        if ($discipline) {
+            // Utiliser la discipline pour filtrer les artistes
+            $searchResults = $userRepository->findArtistByDisciplineFilter($discipline);
+             // Stocker les résultats de la recherche dans la session
+             $session->set('searchResults', $searchResults);
     
-        if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
-            $username = $formArtistSearch->get('username')->getData();
-            $discipline = $formArtistSearch->get('discipline')->getData();
+             // Redirection vers la même page pour éviter le rechargement du formulaire
+             return $this->redirectToRoute('app_artist');
+             
+        } else {
+            // Si aucune discipline n'est sélectionnée dans la requête GET,
+            // vérifiez si le formulaire a été soumis et est valide
+            if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
+                $username = $formArtistSearch->get('username')->getData();
+                $discipline = $formArtistSearch->get('discipline')->getData();
     
-            if (!empty($username) && !empty($discipline)) {
-                // Combinez les résultats des deux requêtes
-                $artistsByUsername = $userRepository->findArtistByUsername($username);
-                $artistsByDiscipline = $userRepository->findArtistByDiscipline($discipline);
-                $searchResults = array_merge($artistsByUsername, $artistsByDiscipline);
-            } elseif (!empty($username)) {
-                $searchResults = $userRepository->findArtistByUsername($username);
-            } elseif (!empty($discipline)) {
-                $searchResults = $userRepository->findArtistByDiscipline($discipline);
+                if (!empty($username) && !empty($discipline)) {
+                    // Combinez les résultats des deux requêtes
+                    $artistsByUsername = $userRepository->findArtistByUsername($username);
+                    $artistsByDiscipline = $userRepository->findArtistByDiscipline($discipline);
+                    $searchResults = array_merge($artistsByUsername, $artistsByDiscipline);
+                } elseif (!empty($username)) {
+                    $searchResults = $userRepository->findArtistByUsername($username);
+                } elseif (!empty($discipline)) {
+                    $searchResults = $userRepository->findArtistByDiscipline($discipline);
+                }
+    
+                // Stocker les résultats de la recherche dans la session
+                $session->set('searchResults', $searchResults);
+    
+                // Redirection vers la même page pour éviter le rechargement du formulaire
+                return $this->redirectToRoute('app_artist');
             }
-    
-            // Stocker les résultats de la recherche dans la session
-            $session->set('searchResults', $searchResults);
-    
-            // Redirection vers la même page pour éviter le rechargement du formulaire
-            return $this->redirectToRoute('app_artist');
         }
     
         // Récupérer les résultats de la recherche depuis la session
@@ -89,6 +108,7 @@ class ArtistController extends AbstractController
             'artists' => $searchResults ?: $userRepository->findArtistUsers(), // Utiliser tous les artistes si aucun résultat de recherche
             'formArtistSearch' => $formArtistSearch->createView(),
             'searchResults' => $searchResults ? true : false, // Définir à true s'il y a des résultats de recherche, sinon à false
+            'disciplines' => $disciplines,
 
         ]);
     }
@@ -122,27 +142,23 @@ class ArtistController extends AbstractController
             'artistsSearch' => $artistsSearch,
         ]);
     }
-    
 
-
-
-    //^ AJAX search artist
-    #[Route('/artist/search', name: 'app_artist_search', methods: ['POST'])]
-    public function search(UserRepository $userRepository, Request $request): JsonResponse
+    //^ search artist (by filters)
+    #[Route('/artists/filter', name: 'app_artists_filter', methods: ['GET'])]
+    public function filterArtistsByDiscipline(UserRepository $userRepository, Request $request): Response
     {
-        if ($request->isXmlHttpRequest()) {
-            $criteria = $request->request->get('search');
-    
-            // Effectuer la recherche en fonction des critères
-            $artistsSearch = $userRepository->findArtistByCriteria($criteria);
-    
-            // Retourner les résultats de recherche au format JSON
-            return new JsonResponse(['artistsSearch' => $artistsSearch]);
-        }
-    
-        // En cas de requête non-AJAX, retourner une erreur
-        return new JsonResponse(['error' => 'Invalid request'], JsonResponse::HTTP_BAD_REQUEST);
+        $discipline = $request->query->get('discipline'); 
+        // dd($discipline);
+        $artistsSearch = $userRepository->findArtistByDiscipline($discipline);
+
+        return $this->render('artist/index.html.twig', [
+            'artistsSearch' => $artistsSearch,
+        ]);
     }
+        
+
+
+
 
     // ^ show artist detail (all)
     #[Route('/artist/{slug}-{id}', name: 'show_artist')]

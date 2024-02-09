@@ -56,31 +56,27 @@ class ArtistController extends AbstractController
         $formArtistSearch = $this->createForm(SearchArtistType::class);
         $formArtistSearch->handleRequest($request);
         $searchResults = [];
-
         $disciplines = $userRepository->findAllDisciplines();
-
-        // Vérifier si la discipline est sélectionnée dans la requête GET
+        // Check if discipline is selected in the GET request
         $discipline = $request->query->get('discipline');
-        
+        $redirectToSamePage = false; // Flag to determine if redirection is needed
 
         if ($discipline) {
-            // Utiliser la discipline pour filtrer les artistes
+            // Use discipline to filter artists
             $searchResults = $userRepository->findArtistByDisciplineFilter($discipline);
-             // Stocker les résultats de la recherche dans la session
-             $session->set('searchResults', $searchResults);
-    
-             // Redirection vers la même page pour éviter le rechargement du formulaire
-             return $this->redirectToRoute('app_artist');
+            // Store search results in session
+            $session->set('searchResults', $searchResults);
+            $redirectToSamePage = true;
              
         } else {
-            // Si aucune discipline n'est sélectionnée dans la requête GET,
-            // vérifiez si le formulaire a été soumis et est valide
+            // If no discipline is selected in the GET request,
+            // check if the form is submitted and valid
             if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
                 $username = $formArtistSearch->get('username')->getData();
                 $discipline = $formArtistSearch->get('discipline')->getData();
     
                 if (!empty($username) && !empty($discipline)) {
-                    // Combinez les résultats des deux requêtes
+                    // Combine results from both queries
                     $artistsByUsername = $userRepository->findArtistByUsername($username);
                     $artistsByDiscipline = $userRepository->findArtistByDiscipline($discipline);
                     $searchResults = array_merge($artistsByUsername, $artistsByDiscipline);
@@ -89,25 +85,27 @@ class ArtistController extends AbstractController
                 } elseif (!empty($discipline)) {
                     $searchResults = $userRepository->findArtistByDiscipline($discipline);
                 }
-    
-                // Stocker les résultats de la recherche dans la session
-                $session->set('searchResults', $searchResults);
-    
-                // Redirection vers la même page pour éviter le rechargement du formulaire
-                return $this->redirectToRoute('app_artist');
+                $redirectToSamePage = true;
             }
         }
+        
+        if ($redirectToSamePage) {
+            // Store search results in session if needed
+            $session->set('searchResults', $searchResults);
+            // Redirect to the same page to avoid form resubmission
+            return $this->redirectToRoute('app_artist');
+        }
     
-        // Récupérer les résultats de la recherche depuis la session
+        // Retrieve search results from session
         if ($session->has('searchResults')) {
             $searchResults = $session->get('searchResults');
-            $session->remove('searchResults'); // Supprimer les résultats de la session après utilisation
+            $session->remove('searchResults'); // Remove search results from session after use
         }
     
         return $this->render('artist/index.html.twig', [
-            'artists' => $searchResults ?: $userRepository->findArtistUsers(), // Utiliser tous les artistes si aucun résultat de recherche
+            'artists' => $searchResults ?: $userRepository->findArtistUsers(), // Use all artists if no search result
             'formArtistSearch' => $formArtistSearch->createView(),
-            'searchResults' => $searchResults ? true : false, // Définir à true s'il y a des résultats de recherche, sinon à false
+            'searchResults' => $searchResults ? true : false, // Set to true if there are search results, otherwise false
             'disciplines' => $disciplines,
 
         ]);

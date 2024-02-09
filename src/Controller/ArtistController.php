@@ -88,6 +88,7 @@ class ArtistController extends AbstractController
         return $this->render('artist/index.html.twig', [
             'artists' => $searchResults ?: $userRepository->findArtistUsers(), // Utiliser tous les artistes si aucun résultat de recherche
             'formArtistSearch' => $formArtistSearch->createView(),
+            'searchResults' => $searchResults ? true : false, // Définir à true s'il y a des résultats de recherche, sinon à false
 
         ]);
     }

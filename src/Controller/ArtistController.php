@@ -21,6 +21,35 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ArtistController extends AbstractController
 {
+    // #[Route('/artist', name: 'app_artist')]
+    // public function index(UserRepository $userRepository, Request $request): Response
+    // {
+    //     $formArtistSearch = $this->createForm(SearchArtistType::class);
+    //     $formArtistSearch->handleRequest($request);
+    
+    //     if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
+    //         $user = $formArtistSearch->getData(); // Récupérer l'objet User depuis le formulaire
+    //         $username = $user->getUsername(); // Récupérer le nom d'utilisateur depuis l'objet User
+
+    //         $discipline = $formArtistSearch->get('discipline')->getData();
+
+    //         if (!empty($username)) {
+    //             return $this->redirectToRoute('app_artist_search_username', ['username' => $username]);
+    //         } elseif (!empty($discipline)) {
+    //             return $this->redirectToRoute('app_artist_search_discipline', ['discipline' => $discipline]);
+    //         }
+
+    //     }
+    
+    //     $artists = $userRepository->findArtistUsers();
+    
+    //     return $this->render('artist/index.html.twig', [
+    //         'artists' => $artists,
+    //         'formArtistSearch' => $formArtistSearch->createView(),
+    //     ]);
+    // }
+
+
     #[Route('/artist', name: 'app_artist')]
     public function index(UserRepository $userRepository, Request $request): Response
     {
@@ -28,32 +57,30 @@ class ArtistController extends AbstractController
         $formArtistSearch->handleRequest($request);
     
         if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
-            $user = $formArtistSearch->getData(); // Récupérer l'objet User depuis le formulaire
-            $username = $user->getUsername(); // Récupérer le nom d'utilisateur depuis l'objet User
-            
-
-            // $artistInfos  = $user->getArtistInfos();
-            // dd($artistInfos );
-
-            // $artistInfosArray = json_decode($artistInfos, true);
-            // $discipline = isset($artistInfosArray['discipline']) ? $artistInfosArray['discipline'] : null;
-
-            // $username = $formArtistSearch->getData()['username'];
-
-            // $discipline = $formArtistSearch->getData()['discipline'];
-
+            $username = $formArtistSearch->get('username')->getData();
             $discipline = $formArtistSearch->get('discipline')->getData();
-            // dd($discipline);
-
-            if (!empty($username)) {
-                return $this->redirectToRoute('app_artist_search_username', ['username' => $username]);
-            } elseif (!empty($discipline)) {
-                return $this->redirectToRoute('app_artist_search_discipline', ['discipline' => $discipline]);
-            }
-
-        }
     
-        $artists = $userRepository->findArtistUsers();
+            if (!empty($username) && !empty($discipline)) {
+
+                // Combinez les résultats des deux requêtes
+                $artistsByUsername = $userRepository->findArtistByUsername($username);
+                $artistsByDiscipline = $userRepository->findArtistByDiscipline($discipline);
+                $artists = array_merge($artistsByUsername, $artistsByDiscipline);
+            } elseif (!empty($username)) {
+
+                $artists = $userRepository->findArtistByUsername($username);
+            } elseif (!empty($discipline)) {
+
+                $artists = $userRepository->findArtistByDiscipline($discipline);
+            } else {
+                // Aucune recherche spécifique, récupérer tous les artistes
+                $artists = $userRepository->findArtistUsers();
+            }
+        } else {
+            // Aucune recherche spécifique, récupérer tous les artistes
+
+            $artists = $userRepository->findArtistUsers();
+        }
     
         return $this->render('artist/index.html.twig', [
             'artists' => $artists,

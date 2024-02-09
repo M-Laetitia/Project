@@ -12,8 +12,23 @@
    {{ form_row(formUserSearch.username) }}
    <button type="submit">Search</button>
    {{ form_end(formUserSearch) }}
-   {# filter by Role
-   by inscription date #}
+
+
+   <form method="GET" action="{{ path('list_users') }}">
+    <label for="role">Choose a role:</label>
+    <select id="role" name="role">
+            <option value="" disabled selected>Choisir un rôle</option>
+            <option value="ROLE_ADMIN">admin</option>
+            <option value="ROLE_ARTIST">artist</option>
+            <option value="ROLE_SUPERVISOR">supervisor</option>
+            {# <option value=user>USER</option> #}
+    </select>
+    <button type="submit">Filter</button>
+    </form>
+
+
+   {# filter 
+   affichage par ordre alphabétique ou du plus ancie, ou plus récent #}
 
    {% if searchResults %}
         <h2>Search results</h2>

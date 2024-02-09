@@ -81,18 +81,29 @@ class DashboardController extends AbstractController
         $formUserSearch = $this->createForm(SearchUserType::class);
         $formUserSearch->handleRequest($request);
         $searchResults = [];
+        $role = $request->query->get('role');
+        // dd($role);
 
         $redirectToSamePage = false; // Flag to determine if redirection is needed
 
-        if ($formUserSearch->isSubmitted() && $formUserSearch->isValid()) {
-            $username = $formUserSearch->get('username')->getData();
-            // $discipline = $formUserSearch->get('discipline')->getData();
-
-            $searchResults = $userRepository->findArtistByUsername($username);
-            
+        if ($role) {
+            // Use discipline to filter artists
+            $searchResults = $userRepository->findUsersbyRole($role);
+            // dd($searchResults);
+            // Store search results in session
+            $session->set('searchResults', $searchResults);
             $redirectToSamePage = true;
+             
+        } else {
+            if ($formUserSearch->isSubmitted() && $formUserSearch->isValid()) {
+                $username = $formUserSearch->get('username')->getData();
+    
+                $searchResults = $userRepository->findArtistByUsername($username);
+                
+                $redirectToSamePage = true;
+            }
         }
-
+ 
         if ($redirectToSamePage) {
             // Store search results in session if needed
             $session->set('searchResults', $searchResults);

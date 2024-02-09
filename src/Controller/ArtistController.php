@@ -51,40 +51,44 @@ class ArtistController extends AbstractController
 
 
     #[Route('/artist', name: 'app_artist')]
-    public function index(UserRepository $userRepository, Request $request): Response
+    public function index(UserRepository $userRepository, Request $request, SessionInterface $session): Response
     {
         $formArtistSearch = $this->createForm(SearchArtistType::class);
         $formArtistSearch->handleRequest($request);
+        $searchResults = [];
     
         if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
             $username = $formArtistSearch->get('username')->getData();
             $discipline = $formArtistSearch->get('discipline')->getData();
     
             if (!empty($username) && !empty($discipline)) {
-
                 // Combinez les résultats des deux requêtes
                 $artistsByUsername = $userRepository->findArtistByUsername($username);
                 $artistsByDiscipline = $userRepository->findArtistByDiscipline($discipline);
-                $artists = array_merge($artistsByUsername, $artistsByDiscipline);
+                $searchResults = array_merge($artistsByUsername, $artistsByDiscipline);
             } elseif (!empty($username)) {
-
-                $artists = $userRepository->findArtistByUsername($username);
+                $searchResults = $userRepository->findArtistByUsername($username);
             } elseif (!empty($discipline)) {
-
-                $artists = $userRepository->findArtistByDiscipline($discipline);
-            } else {
-                // Aucune recherche spécifique, récupérer tous les artistes
-                $artists = $userRepository->findArtistUsers();
+                $searchResults = $userRepository->findArtistByDiscipline($discipline);
             }
-        } else {
-            // Aucune recherche spécifique, récupérer tous les artistes
-
-            $artists = $userRepository->findArtistUsers();
+    
+            // Stocker les résultats de la recherche dans la session
+            $session->set('searchResults', $searchResults);
+    
+            // Redirection vers la même page pour éviter le rechargement du formulaire
+            return $this->redirectToRoute('app_artist');
+        }
+    
+        // Récupérer les résultats de la recherche depuis la session
+        if ($session->has('searchResults')) {
+            $searchResults = $session->get('searchResults');
+            $session->remove('searchResults'); // Supprimer les résultats de la session après utilisation
         }
     
         return $this->render('artist/index.html.twig', [
-            'artists' => $artists,
+            'artists' => $searchResults ?: $userRepository->findArtistUsers(), // Utiliser tous les artistes si aucun résultat de recherche
             'formArtistSearch' => $formArtistSearch->createView(),
+
         ]);
     }
 

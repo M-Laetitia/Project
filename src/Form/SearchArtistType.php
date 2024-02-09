@@ -14,8 +14,14 @@ class SearchArtistType extends AbstractType
     {
         $builder
         ->add('username', TextType::class, [
-            'label' => 'Search',
+            'label' => 'Search by username',
             'required' => false,
+        ])
+
+        ->add('discipline', TextType::class, [
+            'label' => 'Search by Discipline',
+            'required' => false,
+            'mapped' => false
         ]);
     }
 

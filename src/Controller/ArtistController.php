@@ -30,7 +30,27 @@ class ArtistController extends AbstractController
         if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
             $user = $formArtistSearch->getData(); // Récupérer l'objet User depuis le formulaire
             $username = $user->getUsername(); // Récupérer le nom d'utilisateur depuis l'objet User
-            return $this->redirectToRoute('app_artist_search_username', ['username' => $username]);
+            
+
+            // $artistInfos  = $user->getArtistInfos();
+            // dd($artistInfos );
+
+            // $artistInfosArray = json_decode($artistInfos, true);
+            // $discipline = isset($artistInfosArray['discipline']) ? $artistInfosArray['discipline'] : null;
+
+            // $username = $formArtistSearch->getData()['username'];
+
+            // $discipline = $formArtistSearch->getData()['discipline'];
+
+            $discipline = $formArtistSearch->get('discipline')->getData();
+            // dd($discipline);
+
+            if (!empty($username)) {
+                return $this->redirectToRoute('app_artist_search_username', ['username' => $username]);
+            } elseif (!empty($discipline)) {
+                return $this->redirectToRoute('app_artist_search_discipline', ['discipline' => $discipline]);
+            }
+
         }
     
         $artists = $userRepository->findArtistUsers();
@@ -41,6 +61,7 @@ class ArtistController extends AbstractController
         ]);
     }
 
+    //^ search artist (by username)
     #[Route('/artist/search/username/{username}', name: 'app_artist_search_username', methods: ['GET'])]
     public function searchByUsername(UserRepository $userRepository, string $username): Response
     {
@@ -55,17 +76,17 @@ class ArtistController extends AbstractController
 
 
     //^ search artist (by discipline)
-    #[Route('/artist/search/discipline', name: 'app_artist_search_discipline', methods: ['POST'])]
+    #[Route('/artist/search/discipline/{discipline}', name: 'app_artist_search_discipline', methods: ['GET'])]
     public function searchByDiscipline(UserRepository $userRepository, Request $request): Response
     {
-        // Récupérer les critères de recherche
-        $criteria = $request->request->get('search');
 
-        // Effectuer la recherche par activité en fonction des critères
-        $artistsSearch = $userRepository->findArtistByDiscipline($criteria);
+        $discipline = $request->attributes->get('discipline');
+        
+        // Effectuer la recherche par pseudo en fonction des critères
+        $artistsSearch = $userRepository->findArtistByDiscipline($discipline);
 
         // Rediriger vers une nouvelle page avec les résultats de la recherche
-        return $this->render('artist/search_results.html.twig', [
+        return $this->render('artist/searchResults.html.twig', [
             'artistsSearch' => $artistsSearch,
         ]);
     }

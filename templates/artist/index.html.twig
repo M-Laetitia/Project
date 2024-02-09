@@ -27,7 +27,8 @@
     <h2>Search 2</h2>
     {# Formulaire de recherche par pseudo #}
     {{ form_start(formArtistSearch, {'method': 'POST'}) }}
-    {{ form_widget(formArtistSearch.username) }}
+    {{ form_row(formArtistSearch.username) }}
+    {{ form_row(formArtistSearch.discipline) }}
     <button type="submit">Search</button>
     {{ form_end(formArtistSearch) }}
     

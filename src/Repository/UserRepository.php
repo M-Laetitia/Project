@@ -93,16 +93,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     //^ search artists feature
 
-    public function findArtistByCriteria($criteria)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.username LIKE :username')
-            ->setParameter('username', '%' . $criteria->getUsername() . '%')
-            ->andWhere('u.roles LIKE :artistRole')
-            ->setParameter('artistRole', '%"ROLE_ARTIST"%')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findArtistByCriteria($criteria)
+    // {
+    //     return $this->createQueryBuilder('u')
+    //         ->andWhere('u.username LIKE :username')
+    //         ->setParameter('username', '%' . $criteria->getUsername() . '%')
+    //         ->andWhere('u.roles LIKE :artistRole')
+    //         ->setParameter('artistRole', '%"ROLE_ARTIST"%')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
     public function findArtistByUsername($criteria)
     {
@@ -116,17 +116,40 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    public function findArtistByDiscipline($criteria) {
-        
-        // return $this->createQueryBuilder('u')
-        //     ->andWhere('u.username LIKE :username')
-        //     ->setParameter('username', '%' . $criteria->getUsername() . '%')
-        //     ->andWhere('u.roles LIKE :artistRole')
-        //     ->setParameter('artistRole', '%"ROLE_ARTIST"%')
-        //     ->getQuery()
-        //     ->getResult();
+    public function findArtistByDiscipline($criteria) 
+    {
+        $allUsers = $this->findAll();
+        $artists = [];
+    
+        foreach ($allUsers as $user) {
+            $artistInfos = $user->getArtistInfos();
+            
+            // Vérifier si $artistInfos est null
+            if ($artistInfos !== null && isset($artistInfos['discipline'])) {
+                $artistDiscipline = $artistInfos['discipline'];
 
+                // Diviser la discipline en mots individuels
+                $words = explode(' ', $artistDiscipline);
+                
+
+                // Vérifier chaque mot pour une correspondance partielle
+                foreach ($words as $word) {
+
+                    // Convertir le mot de la discipline en minuscules
+                    $word = strtolower($word);
+
+                    // Vérifier si le mot correspond au critère de recherche
+                    if ($word == $criteria) {
+                        $artists[] = $user;
+                        break; // Arrêter la boucle dès qu'une correspondance est trouvée
+                    }
+                }
+            }
+        }
+    
+        return $artists;
     }
+    
 
     // public function findArtistByCriteria($criteria)
     // {

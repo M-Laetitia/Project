@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\SearchUserType;
 use App\Repository\AreaRepository;
 use App\Repository\UserRepository;
 use App\Repository\StudioRepository;
 use App\Repository\WorkshopRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DashboardController extends AbstractController
@@ -72,11 +75,43 @@ class DashboardController extends AbstractController
     // ^ list users
     #[Route('/dashboard/index', name: 'list_users')]
     #[IsGranted("ROLE_ADMIN")]
-    public function list_users(UserRepository $userRepository): Response
+    public function list_users(UserRepository $userRepository, Request $request, SessionInterface $session): Response
     {
-        $users = $userRepository->findBy([], ['username' => 'ASC']);
+
+        $formUserSearch = $this->createForm(SearchUserType::class);
+        $formUserSearch->handleRequest($request);
+        $searchResults = [];
+
+        $redirectToSamePage = false; // Flag to determine if redirection is needed
+
+        if ($formUserSearch->isSubmitted() && $formUserSearch->isValid()) {
+            $username = $formUserSearch->get('username')->getData();
+            // $discipline = $formUserSearch->get('discipline')->getData();
+
+            $searchResults = $userRepository->findArtistByUsername($username);
+            
+            $redirectToSamePage = true;
+        }
+
+        if ($redirectToSamePage) {
+            // Store search results in session if needed
+            $session->set('searchResults', $searchResults);
+            // Redirect to the same page to avoid form resubmission
+            return $this->redirectToRoute('list_users');
+        }
+    
+        // Retrieve search results from session
+        if ($session->has('searchResults')) {
+            $searchResults = $session->get('searchResults');
+            $session->remove('searchResults'); // Remove search results from session after use
+        }
+    
+        // $users = $userRepository->findBy([], ['username' => 'ASC']);
         return $this->render('dashboard/indexUsers.html.twig', [
-            'users' => $users,
+            // 'users' => $users,
+            'users' => $searchResults ?: $userRepository->findBy([], ['username' => 'ASC']), // Use all users if no search result
+            'formUserSearch' => $formUserSearch->createView(),
+            'searchResults' => $searchResults ? true : false, // Set to true if there are search results, otherwise false
         ]);
     }
 
@@ -89,6 +124,21 @@ class DashboardController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    // //^ search user (by username)
+    // #[Route('/artist/search/username/{username}', name: 'app_artist_search_username', methods: ['GET'])]
+    // public function searchByUsername(UserRepository $userRepository, string $username): Response
+    // {
+    //     // Effectuer la recherche par pseudo en fonction des critères
+    //     $userSearch = $userRepository->findUserByUsername($username);
+
+    //     // Rediriger vers une nouvelle page avec les résultats de la recherche
+    //     return $this->render('artist/searchResults.html.twig', [
+    //         'userSearch' => $userSearch,
+    //     ]);
+    // }
+
+
 
   
 }

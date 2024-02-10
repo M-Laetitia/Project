@@ -134,7 +134,26 @@ class StudioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() ) 
         {
+
+            // Récupérer les données soumises par le formulaire
+            $startTime = $form ->get('TimeSlotAvailability')->getData()->getStartTime();
+            $endTime = $form ->get('TimeSlotAvailability')->getData()->getEndTime();
+
+            $day = $form->get('day')->getData();
+            $dayString = $day->format('Y-m-d');
+
+            // Combiner la date sélectionnée avec les heures de début et de fin pour obtenir les DateTime complets
+            $startDateString = $dayString . ' ' . $startTime->format('H:i:s');
+            $endDateString = $dayString . ' ' . $endTime->format('H:i:s');
+
+            // Convertir les chaînes de caractères en objets DateTime complets
+            $startDate = \DateTime::createFromFormat('Y-m-d H:i:s', $startDateString);
+            $endDate = \DateTime::createFromFormat('Y-m-d H:i:s', $endDateString);
+
             $timeslot->setUser($user);
+            $timeslot->setStartDate($startDate);
+            $timeslot->setEndDate($endDate);
+
             $timeslot = $form->getData();
             $entityManager->persist($timeslot);
             $entityManager->flush();

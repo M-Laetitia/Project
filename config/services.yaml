@@ -65,3 +65,11 @@ services:
             $subscriptionRepository: '@App\Repository\SubscriptionRepository'
         tags:
             - { name: 'console.command' }
+
+    # MARK EVENTS AS ARCHIVED
+    App\Command\MarkEventsAsArchivedCommand:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+            $areaRepository: '@App\Repository\AreaRepository'
+        tags:
+            - { name: 'console.command' }

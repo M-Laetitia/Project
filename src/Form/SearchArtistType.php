@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -16,12 +17,25 @@ class SearchArtistType extends AbstractType
         ->add('username', TextType::class, [
             'label' => 'Search by username',
             'required' => false,
+            'constraints' => [
+                new Length([
+                    'min' => 3,
+                    'minMessage' => 'You must enter a search of at least 3 characters.',
+                ]),
+            ],
+            
         ])
 
         ->add('discipline', TextType::class, [
             'label' => 'Search by Discipline',
             'required' => false,
-            'mapped' => false
+            'mapped' => false,
+            'constraints' => [
+                new Length([
+                    'min' => 3,
+                    'minMessage' => 'You must enter a search of at least 3 characters.',
+                ]),
+            ],
         ]);
     }
 

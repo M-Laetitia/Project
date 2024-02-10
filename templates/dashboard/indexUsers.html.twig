@@ -9,9 +9,15 @@
 
    <h2>search</h2>
    {{ form_start(formUserSearch, {'method': 'POST'}) }}
-   {{ form_row(formUserSearch.username) }}
+   {{ form_errors(formUserSearch)}}
+
+   {{ form_row(formUserSearch.username, {
+    'attr': {'minlength': 3}
+    }) }}
+
    <button type="submit">Search</button>
    {{ form_end(formUserSearch) }}
+
 
 
    <form method="GET" action="{{ path('list_users') }}">
@@ -37,9 +43,6 @@
     </select>
     <button type="submit">Filter</button>
     </form>
-
-
-
 
 
    {# filter 

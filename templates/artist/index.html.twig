@@ -6,13 +6,19 @@
 {% block body %}
     <h1>Artists</h1>
 
-    {{ dump(disciplines)}}
-    
     <h2>Search 2</h2>
-    {# Formulaire de recherche par pseudo #}
     {{ form_start(formArtistSearch, {'method': 'POST'}) }}
-    {{ form_row(formArtistSearch.username) }}
-    {{ form_row(formArtistSearch.discipline) }}
+    {{ form_errors(formArtistSearch)}}
+    
+    {{ form_row(formArtistSearch.username, {
+        'attr': {'minlength': 3}
+    }) }}
+    
+
+    {{ form_row(formArtistSearch.discipline, {
+        'attr': {'minlength': 3} 
+    }) }}
+
     <button type="submit">Search</button>
     {{ form_end(formArtistSearch) }}
 
@@ -22,17 +28,13 @@
         <label for="discipline">Choose a discipline:</label>
         <select id="discipline" name="discipline">
             {% for discipline in disciplines %}
-                <option value="{{ discipline }}">{{ discipline }}</option>
+                <option value="{{ discipline }}" >{{ discipline }}</option>
             {% endfor %}
         </select>
         <button type="submit">Filter</button>
     </form>
     
     
-
-
- 
-
     <h2>Last Artists added:</h2>
 
  

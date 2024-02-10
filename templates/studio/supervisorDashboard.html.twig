@@ -59,7 +59,11 @@
             <option value="{{ timeslot.user.username }}">{{ timeslot.user.username }}</option>
         {% endfor %}
     </select>  
+    </form>
 
+    <form id="personalTimeslotsForm" data-user-id="{{ user.username }}">
+        <label for="personalTimeslots">Show my timeslots only</label>
+        <input type="checkbox" id="personalTimeslots" name="personalTimeslots"/>
     </form>
 
     {# <form method="GET" action="{{ path('app_artist') }}">

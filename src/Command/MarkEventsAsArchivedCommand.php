@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Area;
 use App\Repository\AreaRepository;
+use App\Repository\WorkshopRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +15,15 @@ class MarkEventsAsArchivedCommand extends Command
 {
     private $entityManager;
     private $areaRepository;
+    private $workshopRepository;
     
-    public function __construct(EntityManagerInterface $entityManager, AreaRepository $areaRepository) {
+    public function __construct(EntityManagerInterface $entityManager, AreaRepository $areaRepository, WorkshopRepository $workshopRepository) {
 
         parent::__construct();
 
         $this->entityManager = $entityManager;
         $this->areaRepository = $areaRepository;
+        $this->workshopRepository = $workshopRepository;
 
     }
 
@@ -36,18 +39,23 @@ class MarkEventsAsArchivedCommand extends Command
 
 
         $areas = $this->areaRepository->findAll();
+        $workshops = $this->workshopRepository->findAll();
 
-        foreach ($areas as $area) {
-            $endDate= $area->getEndDate();
-           
-            // dump($endDate);die;
-            // Compare dates
-            // use a DateTime because the endDate is a string
-            if ($endDate <= $currentDate) {
-                $area->setStatus("ARCHIVED");
-            }
+        // foreach ($areas as $area) {
+        //     $endDate= $area->getEndDate();
+        //     if ($endDate <= $currentDate) {
+        //         $area->setStatus("ARCHIVED");
+        //     }
         
+        // }
+
+        foreach ($workshops as $workshop) {
+            $endDate= $workshop->getEndDate();
+            if ($endDate <= $currentDate) {
+                $workshop->setStatus("ARCHIVED");
+            }        
         }
+
 
         $this->entityManager->flush();
 

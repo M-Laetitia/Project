@@ -71,5 +71,6 @@ services:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
             $areaRepository: '@App\Repository\AreaRepository'
+            $workshopRepository: '@App\Repository\WorkshopRepository'
         tags:
             - { name: 'console.command' }

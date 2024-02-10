@@ -82,24 +82,30 @@ class DashboardController extends AbstractController
         $formUserSearch->handleRequest($request);
         $searchResults = [];
         $role = $request->query->get('role');
+        $sortBy = $request->query->get('sortBy');
         // dd($role);
 
         $redirectToSamePage = false; // Flag to determine if redirection is needed
 
         if ($role) {
-            // Use discipline to filter artists
             $searchResults = $userRepository->findUsersbyRole($role);
-            // dd($searchResults);
-            // Store search results in session
-            $session->set('searchResults', $searchResults);
             $redirectToSamePage = true;
-             
-        } else {
-            if ($formUserSearch->isSubmitted() && $formUserSearch->isValid()) {
-                $username = $formUserSearch->get('username')->getData();
-    
-                $searchResults = $userRepository->findArtistByUsername($username);
-                
+        } elseif ($formUserSearch->isSubmitted() && $formUserSearch->isValid()) {
+            $username = $formUserSearch->get('username')->getData();
+            $searchResults = $userRepository->findArtistByUsername($username);
+            $redirectToSamePage = true;
+        } elseif ($sortBy) {
+            if ($sortBy === 'username_asc') {
+                $searchResults = $userRepository->findBy([], ['username' => 'ASC']);
+                $redirectToSamePage = true;
+            } elseif ($sortBy === 'username_desc') {
+                $searchResults = $userRepository->findBy([], ['username' => 'DESC']);
+                $redirectToSamePage = true;
+            } elseif ($sortBy === 'created_at_asc') {
+                $searchResults = $userRepository->findBy([], ['registrationDate' => 'ASC']);
+                $redirectToSamePage = true;
+            } elseif ($sortBy === 'created_at_desc') {
+                $searchResults = $userRepository->findBy([], ['registrationDate' => 'DESC']);
                 $redirectToSamePage = true;
             }
         }

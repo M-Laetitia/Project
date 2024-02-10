@@ -17,14 +17,29 @@
    <form method="GET" action="{{ path('list_users') }}">
     <label for="role">Choose a role:</label>
     <select id="role" name="role">
-            <option value="" disabled selected>Choisir un rôle</option>
+            <option value="" disabled selected>Choose a role</option>
             <option value="ROLE_ADMIN">admin</option>
             <option value="ROLE_ARTIST">artist</option>
             <option value="ROLE_SUPERVISOR">supervisor</option>
             {# <option value=user>USER</option> #}
+    </select>    
+    <button type="submit">Filter</button>
+    </form>
+
+    <form method="GET" action="{{ path('list_users') }}">
+    <label for="sortBy">Sort by:</label>
+    <select id="sortBy" name="sortBy">
+        <option value="" disabled selected>Choose a filter</option>
+        <option value="username_asc">Username (A-Z)</option>
+        <option value="username_desc">Username (Z-A)</option>
+        <option value="createdAt_asc">Date of Registration (Oldest first)</option>
+        <option value="createdAt_desc">Date of Registration (Newest first)</option>
     </select>
     <button type="submit">Filter</button>
     </form>
+
+
+
 
 
    {# filter 

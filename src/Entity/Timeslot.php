@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use App\Repository\TimeslotRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,7 @@ class Timeslot
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startDate = null;
@@ -33,13 +35,15 @@ class Timeslot
     #[ORM\OneToMany(mappedBy: 'timeslot', targetEntity: WorkshopRegistration::class)]
     private Collection $workshopRegistrations;
 
+    #[ORM\ManyToOne(inversedBy: 'timeslots')]
+    private ?TimeSlotAvailability $timeSlotAvailability = null;
+
     public function __construct()
     {
         $this->workshopRegistrations = new ArrayCollection();
     }
 
 
-  
 
     public function getId(): ?int
     {
@@ -124,6 +128,18 @@ class Timeslot
                 $workshopRegistration->setTimeslot(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTimeSlotAvailability(): ?TimeSlotAvailability
+    {
+        return $this->timeSlotAvailability;
+    }
+
+    public function setTimeSlotAvailability(?TimeSlotAvailability $timeSlotAvailability): static
+    {
+        $this->timeSlotAvailability = $timeSlotAvailability;
 
         return $this;
     }

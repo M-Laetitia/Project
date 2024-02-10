@@ -88,6 +88,12 @@ class StudioController extends AbstractController
         $formattedTimeslots = []; // formater les events pour les rendre compatibles avec FullCalendar
 
         foreach ($timeslots as $timeslot) {
+            $enlistedUsers = [];
+            foreach ($timeslot->getWorkshopRegistrations() as $registration) {
+                $fullName = $registration->getFirstname() . ' ' . $registration->getLastname();
+                $enlistedUsers[] = $fullName;
+            }
+
             $formattedTimeslots[] = [
                 'id' => $timeslot->getId(),
                 'start' => $timeslot->getStartDate()->format('Y-m-d H:i:s'),
@@ -96,6 +102,7 @@ class StudioController extends AbstractController
                 'supervisor' => $timeslot->getUser()->getUsername(),
                 'enlisted' => $timeslot->getNbRegistrations(),
                 'capacity' => $timeslot->getStudio()->getNbRooms(),
+                'enlistedUsers' => $enlistedUsers,
             ];
            
         }

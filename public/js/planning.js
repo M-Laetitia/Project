@@ -1,20 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('planning'); 
-        // Insérez ici le code pour récupérer les données du serveur
-        
+    const supervisorSelect = document.getElementById('supervisor-filter');
 
-// Récupérer la chaîne JSON de l'attribut data-formatted-events
-const formattedTimeslotsString = document.getElementById('planning').getAttribute('data-formatted-timeslots');
+    // Récupérer la chaîne JSON de l'attribut data-formatted-events
+    const formattedTimeslotsString = document.getElementById('planning').getAttribute('data-formatted-timeslots');
 
-// récupérer sous forme de tableau:
-const formattedTimeslots = JSON.parse(formattedTimeslotsString);
+    // récupérer sous forme de tableau:
+    const formattedTimeslots = JSON.parse(formattedTimeslotsString);
 
-// formatter les dates 
-formattedTimeslots.forEach(timeslot => {
-      timeslot.start = new Date(timeslot.start);
-      timeslot.end = new Date(timeslot.end);
-
-      
+    // formatter les dates 
+    formattedTimeslots.forEach(timeslot => {
+        timeslot.start = new Date(timeslot.start);
+        timeslot.end = new Date(timeslot.end);
       
     });
     console.log("all",formattedTimeslots )    
@@ -31,7 +28,6 @@ formattedTimeslots.forEach(timeslot => {
           slotMaxTime: '23:00', // La dernière heure affichée est 23h
 
         events: formattedTimeslots,
-        
 
         eventClick: function(info) {
             console.log('slug', info.event.id)
@@ -73,7 +69,31 @@ formattedTimeslots.forEach(timeslot => {
             // Ajouter une classe CSS pour les jours d'events
             return ['event-day'];
         }  
+
+        
     });
+
+    // Ajoutez un écouteur d'événements pour le changement de superviseur sélectionné
+    supervisorSelect.addEventListener('change', function() {
+        const selectedSupervisor = supervisorSelect.value;
+        let filteredTimeslots = []; // Initialisez un tableau pour stocker les timeslots filtrés
+    
+        if (selectedSupervisor === '') {
+            // Si aucun superviseur n'est sélectionné, afficher tous les timeslots
+            filteredTimeslots = formattedTimeslots;
+        } else if (selectedSupervisor === 'all') {
+            // Si l'option "Tous" est sélectionnée, afficher tous les timeslots
+            filteredTimeslots = formattedTimeslots;
+        } else {
+            // Sinon, filtrez les timeslots par superviseur sélectionné
+            filteredTimeslots = formattedTimeslots.filter(timeslot => timeslot.supervisor === selectedSupervisor);
+        }
+    
+        // Mettez à jour le calendrier avec les timeslots filtrés
+        calendar.removeAllEvents(); // Supprimez tous les événements du calendrier
+        calendar.addEventSource(filteredTimeslots); // Ajoutez les timeslots filtrés au calendrier
+    });
+
     
     calendar.render();
 });

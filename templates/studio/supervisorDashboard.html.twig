@@ -50,7 +50,29 @@
         <a href="{{ path('new_timeslot', {'id': app.user.id }) }}">ADD</a>
     {% endif %}
 
-    {{dump(formattedTimeslots)}}
+    <form>
+    <label for="supervisor">Choose a supervisor:</label>
+    <select id="supervisor-filter">
+        <option value="" disabled selected>Choose a supervisor</option>
+        <option value="all">All</option>
+        {% for timeslot in timeslots %}
+            <option value="{{ timeslot.user.username }}">{{ timeslot.user.username }}</option>
+        {% endfor %}
+    </select>  
+
+    </form>
+
+    {# <form method="GET" action="{{ path('app_artist') }}">
+        <label for="discipline">Choose a discipline:</label>
+        <select id="discipline" name="discipline">
+            {% for discipline in disciplines %}
+                <option value="{{ discipline }}">{{ discipline }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form> #}
+
+
 
     <div id="planning" data-formatted-timeslots='{{ formattedTimeslots|raw }}'></div>
     

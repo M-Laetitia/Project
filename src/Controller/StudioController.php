@@ -94,6 +94,8 @@ class StudioController extends AbstractController
                 'end' => $timeslot->getEndDate()->format('Y-m-d H:i:s'),
                 'studio' => $timeslot->getStudio()->getName(),
                 'supervisor' => $timeslot->getUser()->getUsername(),
+                'enlisted' => $timeslot->getNbRegistrations(),
+                'capacity' => $timeslot->getStudio()->getNbRooms(),
             ];
            
         }

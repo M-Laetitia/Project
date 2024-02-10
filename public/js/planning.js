@@ -73,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
     });
 
-    // Ajoutez un écouteur d'événements pour le changement de superviseur sélectionné
+    // Ajouter un écouteur d'événements pour le changement de superviseur sélectionné
     supervisorSelect.addEventListener('change', function() {
         const selectedSupervisor = supervisorSelect.value;
-        let filteredTimeslots = []; // Initialisez un tableau pour stocker les timeslots filtrés
+        let filteredTimeslots = []; // Initialiser un tableau pour stocker les timeslots filtrés
     
         if (selectedSupervisor === '') {
             // Si aucun superviseur n'est sélectionné, afficher tous les timeslots
@@ -85,14 +85,35 @@ document.addEventListener('DOMContentLoaded', function() {
             // Si l'option "Tous" est sélectionnée, afficher tous les timeslots
             filteredTimeslots = formattedTimeslots;
         } else {
-            // Sinon, filtrez les timeslots par superviseur sélectionné
+            // Sinon, filtrer les timeslots par superviseur sélectionné
             filteredTimeslots = formattedTimeslots.filter(timeslot => timeslot.supervisor === selectedSupervisor);
         }
     
-        // Mettez à jour le calendrier avec les timeslots filtrés
-        calendar.removeAllEvents(); // Supprimez tous les événements du calendrier
-        calendar.addEventSource(filteredTimeslots); // Ajoutez les timeslots filtrés au calendrier
+        // Mettre à jour le calendrier avec les timeslots filtrés
+        calendar.removeAllEvents(); // Supprimer tous les événements du calendrier
+        calendar.addEventSource(filteredTimeslots); // Ajouter les timeslots filtrés au calendrier
     });
+
+    const personalTimeslotsCheckbox = document.getElementById('personalTimeslots');
+    
+    personalTimeslotsCheckbox.addEventListener('change', function() {
+     
+        let filteredTimeslots = [];
+        const userId = personalTimeslotsForm.getAttribute('data-user-id');
+
+        if (personalTimeslotsCheckbox.checked) {
+            // Si la case à cocher est cochée, afficher uniquement les timeslots personnels
+            filteredTimeslots = formattedTimeslots.filter(timeslot => timeslot.supervisor === userId );
+        } else {
+            /// Si l'option "Tous" est sélectionnée, afficher tous les timeslots
+            filteredTimeslots = formattedTimeslots;
+        }
+
+        // Mettre à jour le calendrier avec les timeslots filtrés
+        calendar.removeAllEvents(); // Supprimer tous les événements du calendrier
+        calendar.addEventSource(filteredTimeslots); // Ajouter les timeslots filtrés au calendrier
+    });
+
 
     
     calendar.render();

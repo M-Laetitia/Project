@@ -40,15 +40,37 @@ formattedTimeslots.forEach(timeslot => {
         timeZone: 'UTC', 
 
         eventContent: function(arg) {
-       
             const studio = arg.event.extendedProps.studio;
             const supervisor = arg.event.extendedProps.supervisor;
-            return { html: `<div>Studio: ${studio}</div><div>Prof: ${supervisor}</div>` };
+        
+            // Générer une classe CSS dynamiquement à partir du nom du studio
+            const studioName = `studio-${studio.replace(/\s+/g, '-').toLowerCase()}`;
+        
+            // Créer un élément div pour contenir le contenu de l'événement
+            const content = document.createElement('div');
+            content.innerHTML = `<div>${studio}</div><div>${supervisor}</div>`;
+        
+             // Retourner le contenu de l'événement avec les informations de studio et de professeur
+            return { 
+            html: `<div class="">${studio}</div><div>${supervisor}</div>`,
+            // Ajouter la classe CSS dynamique du studio à l'événement
+            classList: [studioName]
+        };
         },
 
+        eventDidMount: function(arg) {
+            // Ajouter une classe à la div de l'événement
+            const studio = arg.event.extendedProps.studio;
+            const studioName = `${studio.replace(/\s+/g, '-').toLowerCase()}`;
+
+            // Ajouter la classe CSS dynamique à la div de l'événement
+            const eventDiv = arg.el;
+            eventDiv.classList.add(studioName);
+        },
+    
 
         eventClassNames: function(arg) {
-            // Ajouter une classe CSS pour les jours d'événements
+            // Ajouter une classe CSS pour les jours d'events
             return ['event-day'];
         }  
     });

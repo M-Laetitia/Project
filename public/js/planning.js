@@ -29,10 +29,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         events: formattedTimeslots,
 
-        // eventClick: function(info) {
-        //     console.log('id', info.timeslot.id)
-        //     window.location.href = '/timeslot/' + info.timeslot.id;
-        // },
+        eventClick: function(info) {
+            const studio = info.event.extendedProps.studio;
+            const supervisor = info.event.extendedProps.supervisor;
+            const enlisted = info.event.extendedProps.enlisted;
+            const capacity = info.event.extendedProps.capacity;
+            const start = info.event.extendedProps.start;
+            const end = info.event.extendedProps.end;
+            const enlistedUsers = info.event.extendedProps.enlistedUsers;
+
+            let enlistedUsersString = '';
+            for (let i = 0; i < enlistedUsers.length; i++) {
+                // Ajoutez chaque utilisateur à la chaîne avec un saut de ligne
+                enlistedUsersString += enlistedUsers[i] + '<br>';
+            }
+
+            const detailTimeslot = document.getElementById('detail-timeslot');
+
+            detailTimeslot.innerHTML = 
+                'studio: '+ studio + '<br>' +
+                'Time:' + start + ' - ' + end + '<br>'+
+                'Supervisor:' + supervisor + '<br>'+
+                'Capacity:' + enlisted / capacity + '<br>'+
+                'Enlisted: <br>' + enlistedUsersString ;
+
+        },
+
         timeZone: 'UTC', 
 
         eventContent: function(arg) {

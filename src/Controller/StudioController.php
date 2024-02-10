@@ -74,22 +74,16 @@ class StudioController extends AbstractController
 
     // ^ list art studios / planning (supervisor + admin)
     #[Route('/studio/dashboard', name: 'studio_dashboard')]
-    public function index_dashboard(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository): Response
+    public function index_dashboard(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository, Security $security): Response
     {
 
+        $user = $security->getUser();
         $studios = $studioRepository->findBy([]);
-        // dump($studios);die;
-        
         foreach ($studios as $studio) {
             $studioId = $studio->getId();
         }
-        // dump($studioId);die;
 
         $timeslots = $timeslotRepository->findBy([]);
-
-        // $timeslotsPerStudio = $timeslotRepository->findTimeSlotsPerStudio($studioId); 
-
-        
 
         $formattedTimeslots = []; // formater les events pour les rendre compatibles avec FullCalendar
 
@@ -109,6 +103,7 @@ class StudioController extends AbstractController
             'timeslots' => $timeslots, 
             // 'timeslotsPerStudio' => $timeslotsPerStudio,
             'formattedTimeslots' => json_encode($formattedTimeslots), // Passer les données formatées en JSON à la vue
+            'user' => $user,
 
         ]);
     }
@@ -211,32 +206,5 @@ class StudioController extends AbstractController
     }
 
  
-    // ^ Get timeslots for planning
-
-    public function getTimeslotsCalendar(TimeslotRepository $timeslotRepository): Response
-    {
-        $timeslots = $timeslotRepository->findBy([
-            'status' => ['OPEN', 'PENDING', 'CLOSED'],
-        ]);
-
-        $formattedTimeslots = []; // formater les events pour les rendre compatibles avec FullCalendar
-
-        foreach ($timeslots as $timeslot) {
-            $formattedTimeslots[] = [
-                'id' => $timeslot->getId(),
-                'start' => $timeslot->getStartDate()->format('Y-m-d H:i:s'),
-                'end' => $timeslot->getEndDate()->format('Y-m-d H:i:s'),
-            ];
-        }
-        
-
-        $jsonResponse = new JsonResponse($formattedTimeslots);
-        dump($jsonResponse); die; 
-
-        // Pour déboguer, vous pouvez envoyer le contenu de la réponse directement dans le corps de la réponse HTTP
-        // Cela peut être consulté dans l'onglet "Réseau" des outils de développement de votre navigateur
-        // $jsonResponse->setContent(json_encode($formattedEvents));
-
-        return $jsonResponse;
-    }
+   
 }

@@ -50,6 +50,10 @@
         <a href="{{ path('new_timeslot', {'id': app.user.id }) }}">ADD</a>
     {% endif %}
 
+    {{dump(formattedTimeslots)}}
+
+    <div id="planning" data-formatted-timeslots='{{ formattedTimeslots|raw }}'></div>
     
+    <script src="{{ asset('js/planning.js') }}"></script>
 
 {% endblock %}

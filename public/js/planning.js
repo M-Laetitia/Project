@@ -97,18 +97,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const personalTimeslotsCheckbox = document.getElementById('personalTimeslots');
     
     personalTimeslotsCheckbox.addEventListener('change', function() {
-     
         let filteredTimeslots = [];
         const userId = personalTimeslotsForm.getAttribute('data-user-id');
-
+        const message = document.getElementById('message-filter');
+    
         if (personalTimeslotsCheckbox.checked) {
             // Si la case à cocher est cochée, afficher uniquement les timeslots personnels
             filteredTimeslots = formattedTimeslots.filter(timeslot => timeslot.supervisor === userId );
+    
+            // Vérifier si aucun timeslot n'est trouvé
+            if (filteredTimeslots.length === 0) {
+                message.innerText = 'No timeslots.';
+            } else {
+                message.innerText = ''; // Effacer le message s'il y en a déjà un
+            }
         } else {
-            /// Si l'option "Tous" est sélectionnée, afficher tous les timeslots
+            // Si la case à cocher est décochée, afficher tous les timeslots
             filteredTimeslots = formattedTimeslots;
+            
+            // Effacer le message s'il y en a déjà un
+            message.innerText = '';
         }
-
+    
         // Mettre à jour le calendrier avec les timeslots filtrés
         calendar.removeAllEvents(); // Supprimer tous les événements du calendrier
         calendar.addEventSource(filteredTimeslots); // Ajouter les timeslots filtrés au calendrier

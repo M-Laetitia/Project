@@ -29,15 +29,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         events: formattedTimeslots,
 
-        eventClick: function(info) {
-            console.log('slug', info.event.id)
-            window.location.href = '/event/' + info.event.id;
-        },
+        // eventClick: function(info) {
+        //     console.log('id', info.timeslot.id)
+        //     window.location.href = '/timeslot/' + info.timeslot.id;
+        // },
         timeZone: 'UTC', 
 
         eventContent: function(arg) {
             const studio = arg.event.extendedProps.studio;
             const supervisor = arg.event.extendedProps.supervisor;
+            const enlisted = arg.event.extendedProps.enlisted;
+            const capacity = arg.event.extendedProps.capacity;
         
             // Générer une classe CSS dynamiquement à partir du nom du studio
             const studioName = `studio-${studio.replace(/\s+/g, '-').toLowerCase()}`;
@@ -46,12 +48,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const content = document.createElement('div');
             content.innerHTML = `<div>${studio}</div><div>${supervisor}</div>`;
         
-             // Retourner le contenu de l'événement avec les informations de studio et de professeur
-            return { 
-            html: `<div class="">${studio}</div><div>${supervisor}</div>`,
-            // Ajouter la classe CSS dynamique du studio à l'événement
-            classList: [studioName]
-        };
+            // Utiliser une condition ternaire  pour choisir le contenu en fonction de la condition
+            const htmlContent = (enlisted == capacity) ? 
+            `<div class="">${studio} - ${supervisor}</div> <div>${enlisted} / ${capacity} - <i class="fa-solid fa-lock"></i></div>` : 
+            `<div class="">${studio} - ${supervisor}</div> <div>${enlisted} / ${capacity}</div>`;
+
+        content.innerHTML = htmlContent;
+
+            // Retourner le contenu de l'événement avec les informations de studio et de professeur
+            return {
+                html: content.innerHTML,
+                // Ajouter la classe CSS dynamique du studio à l'événement
+                classList: [studioName]
+            };
         },
 
         eventDidMount: function(arg) {
@@ -64,12 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
             eventDiv.classList.add(studioName);
         },
     
-
         eventClassNames: function(arg) {
             // Ajouter une classe CSS pour les jours d'events
             return ['event-day'];
         }  
-
         
     });
 

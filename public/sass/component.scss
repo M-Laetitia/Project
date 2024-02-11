@@ -87,3 +87,247 @@ $transition-len: 0.35s;
     }
 
 }
+
+
+// ^ HOVER
+#hover1 {
+    background-color: rgb(0, 0, 0);
+  }
+.component-hover {
+  display: flex;
+  column-gap: 50px;
+ 
+
+  
+    div {
+
+      height: 200px;
+      width: 200px;
+      cursor: pointer; 
+      // aspect-ratio: 1;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: opacity ease-in-out 0.3s;
+
+        &:hover {
+          opacity: 0.3;
+        }
+      }
+
+      p {
+        font-size: 20px;
+      }
+      #text:after {
+        content: " _";
+        font-weight: bold;
+        color: $color-red;
+        visibility: hidden;
+        animation: blink 1s infinite;
+      }
+
+      img:hover + #text::after {
+        visibility: visible;
+    }
+
+      @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+  }
+}
+
+#hover2 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  img {
+    transition: opacity ease-in-out 0.3s;
+    &:hover {
+      opacity: 0.2;
+    }
+  }
+
+    #text2 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity ease-in-out 0.3s;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin: 0;
+      padding: 0;
+
+      span {
+        animation: blink 1s infinite;
+        font-weight: bold;
+        color: $color-blue;
+      }
+
+      @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+    }
+
+    &:hover #text2 {
+      opacity: 100%;
+      transition: opacity ease-in-out 1s;
+    }
+
+}
+
+
+#hover3 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+  transition: opacity ease-in-out 0.8s;
+
+  &:hover {
+    border: 1px $color-red solid;
+  }
+
+  img {
+    transition: opacity ease-in-out 0.3s;
+    
+    &:hover {
+      opacity: 0.3;
+    }
+  }
+
+    #text3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity ease-in-out 0.3s;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      margin: 0;
+      padding: 0;
+
+      span {
+        animation: blink 1s infinite;
+        font-weight: bold;
+        color: $color-red;
+      }
+
+      @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+    }
+
+    &:hover #text3 {
+      opacity: 100%;
+      transition: opacity ease-in-out 1s;
+    }
+
+}
+
+#hover4 {
+  color: white;
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+  transition: border ease-in-out 0.8;
+
+    &:hover {
+      border: 1px $color-yellow  solid;
+    }
+
+  img {
+    transition: opacity ease-in-out 0.5s;
+
+    &:hover {
+      opacity: 0;
+    }
+    
+  }
+
+    #text4 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity ease-in-out 0.3s;
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+      margin: 0;
+      padding: 0;
+
+      span {
+        animation: blink 1s infinite;
+        font-weight: bold;
+        color: $color-yellow ;
+      }
+
+      @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+    }
+
+    &:hover #text4 {
+      opacity: 100%;
+      transition: opacity ease-in-out 1s;
+    }
+
+}
+
+
+#hover5 {
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+
+    #text5 {
+      position: absolute;
+      background-color: white;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      width: 100%;
+      height: 150px;
+      transition: opacity ease-in-out 0.3s;
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+      margin: 0;
+      padding: 0;
+
+      span {
+        animation: blink 1s infinite;
+        font-weight: bold;
+        color: $color-yellow ;
+      }
+
+      @keyframes blink {
+        50% {
+            opacity: 0;
+        }
+    }
+    }
+
+    &:hover #text5 {
+      opacity: 100%;
+      transition: opacity ease-in-out 1s;
+    }
+
+}

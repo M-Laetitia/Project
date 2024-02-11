@@ -68,4 +68,208 @@
   color: rgb(240, 189, 47);
 }
 
+#hover1 {
+  background-color: rgb(0, 0, 0);
+}
+
+.component-hover {
+  display: flex;
+  column-gap: 50px;
+}
+.component-hover div {
+  height: 200px;
+  width: 200px;
+  cursor: pointer;
+}
+.component-hover div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: opacity ease-in-out 0.3s;
+}
+.component-hover div img:hover {
+  opacity: 0.3;
+}
+.component-hover div p {
+  font-size: 20px;
+}
+.component-hover div #text:after {
+  content: " _";
+  font-weight: bold;
+  color: #F44C4C;
+  visibility: hidden;
+  animation: blink 1s infinite;
+}
+.component-hover div img:hover + #text::after {
+  visibility: visible;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+#hover2 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+}
+#hover2 img {
+  transition: opacity ease-in-out 0.3s;
+}
+#hover2 img:hover {
+  opacity: 0.2;
+}
+#hover2 #text2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+#hover2 #text2 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: #207E93;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover2:hover #text2 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
+#hover3 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+  transition: opacity ease-in-out 0.8s;
+}
+#hover3:hover {
+  border: 1px #F44C4C solid;
+}
+#hover3 img {
+  transition: opacity ease-in-out 0.3s;
+}
+#hover3 img:hover {
+  opacity: 0.3;
+}
+#hover3 #text3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+#hover3 #text3 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: #F44C4C;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover3:hover #text3 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
+#hover4 {
+  color: white;
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+  transition: border ease-in-out 0.8;
+}
+#hover4:hover {
+  border: 1px rgb(240, 189, 47) solid;
+}
+#hover4 img {
+  transition: opacity ease-in-out 0.5s;
+}
+#hover4 img:hover {
+  opacity: 0;
+}
+#hover4 #text4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+#hover4 #text4 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: rgb(240, 189, 47);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover4:hover #text4 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
+#hover5 {
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+}
+#hover5 #text5 {
+  position: absolute;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  width: 100%;
+  height: 150px;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+#hover5 #text5 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: rgb(240, 189, 47);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover5:hover #text5 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
 /*# sourceMappingURL=component.css.map */

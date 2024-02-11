@@ -5,18 +5,75 @@
 
 {% block body %}
 
+{# {{ path('new_timeslot') }} #}
+
+<p>{{ user}}</p>
+{% for timeslotAvalaible in timeslotAvalaibles %}
+{{timeslotAvalaible}}
+{% endfor %}
+{# 
+<form method="GET" action=""> #}
+
+    {# <label for="date">Choose a date:</label>
+    <input type="date" id="date" name="date" required>
+
+    <label for="studio">Choose a studio:</label>
+    <select id="studio" name="studio" required>
+        {% for studio in studios %}
+            <option value="{{ studio }}" >{{ studio }}</option>
+        {% endfor %}
+    </select>
+
+    <button id="voirDispo" type="button">VOIR DISPO</button>
+</form>
+
+    <div id="result">
+        
+    </div> #}
+
+
     <h1>new timeslot</h1>
 
-    {{ form_start(formAddTimeslot) }}
+    <div id="timeslot-form">
+        {{ form_start(formAddTimeslot) }}
         {{ form_errors(formAddTimeslot) }}
-        {{ form_row(formAddTimeslot.day) }}
-        {{ form_row(formAddTimeslot.studio) }}
+        {# {{ form_row(formAddTimeslot.day) }}
+        {{ form_row(formAddTimeslot.studio) }} #}
         {{ form_row(formAddTimeslot.TimeSlotAvailability) }}
-        
-
         {{ form_row(formAddTimeslot.Submit) }}
-
     {{ form_end(formAddTimeslot) }}
+    </div>
+    
 
 {# {{dump(timeslotAvalaibles)}} #}
+
+<script>
+    $(document).ready(function(){
+        console.log("hello")
+        // Écouteur d'événements pour le clic sur le bouton "VOIR DISPO"
+        $("#voirDispo").click(function(event){
+            event.preventDefault(); // Empêche le comportement par défaut du formulaire
+    
+            // Récupérer les valeurs sélectionnées de la date et du studio
+            var selectedDate = $("#date").val();
+            var selectedStudio = $("#studio").val();
+            console.log(selectedDate)
+            console.log(selectedStudio)
+
+            // Vérifier si les champs date et studio sont remplis
+            if ($("#date").val() && $("#studio").val()) {
+                // Récupérer les valeurs sélectionnées de la date et du studio
+                var selectedDate = $("#date").val();
+                var selectedStudio = $("#studio").val();
+
+                $("#timeslot-form").toggle();
+
+                // Afficher les valeurs dans la div résultat
+                $("#result").text("Date sélectionnée : " + selectedDate + ", Studio sélectionné : " + selectedStudio);
+            } else {
+                alert("Veuillez sélectionner une date et un studio.");
+            }
+        });
+    });
+</script>
 {% endblock %}

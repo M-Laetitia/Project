@@ -9,14 +9,14 @@
 
     {{ form_start(formAddTimeslot) }}
         {{ form_errors(formAddTimeslot) }}
-
-        {{ form_row(formAddTimeslot.startDate) }}
-        {{ form_row(formAddTimeslot.endDate) }}
+        {{ form_row(formAddTimeslot.day) }}
         {{ form_row(formAddTimeslot.studio) }}
+        {{ form_row(formAddTimeslot.TimeSlotAvailability) }}
+        
 
         {{ form_row(formAddTimeslot.Submit) }}
 
     {{ form_end(formAddTimeslot) }}
 
-
+{# {{dump(timeslotAvalaibles)}} #}
 {% endblock %}

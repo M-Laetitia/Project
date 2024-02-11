@@ -18,14 +18,14 @@ class Timeslot
     private ?int $id = null;
 
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable:true)]
     private ?\DateTimeInterface $startDate = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable:true)]
     private ?\DateTimeInterface $endDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'timeslots')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Studio $studio = null;
 
     #[ORM\ManyToOne(inversedBy: 'timeslots')]
@@ -37,6 +37,9 @@ class Timeslot
 
     #[ORM\ManyToOne(inversedBy: 'timeslots')]
     private ?TimeSlotAvailability $timeSlotAvailability = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date = null;
 
     public function __construct()
     {
@@ -140,6 +143,18 @@ class Timeslot
     public function setTimeSlotAvailability(?TimeSlotAvailability $timeSlotAvailability): static
     {
         $this->timeSlotAvailability = $timeSlotAvailability;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }

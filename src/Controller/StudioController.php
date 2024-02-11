@@ -116,7 +116,7 @@ class StudioController extends AbstractController
 
     // ^ Create timeslot (supervisor)
     #[Route('/studio/dashboard/{studioId}/{selectedDate}', name: 'new_timeslot')]
-    public function new(Timeslot $timeslot = null, Request $request, $studioId, $selectedDate, StudioRepository $studioRepository, EntityManagerInterface $entityManager, TimeSlotAvailabilityRepository $timeslotRepository, Security $security): Response
+    public function new(Timeslot $timeslot = null, Request $request, $studioId, $selectedDate, TimeslotRepository $tsr, StudioRepository $studioRepository, EntityManagerInterface $entityManager, TimeSlotAvailabilityRepository $timeslotRepository, Security $security): Response
     {
 
         $user = $security->getUser();
@@ -150,7 +150,11 @@ class StudioController extends AbstractController
             $selectedTimeSlotAvailability = $form->get('TimeSlotAvailability')->getData();
             $selectedTimeSlotAvailabilityId = $selectedTimeSlotAvailability->getId();
             $timeslotSelected= $timeslotRepository->find($selectedTimeSlotAvailabilityId);
-            
+
+            // dd($studioId,$dayDate, $selectedTimeSlotAvailabilityId );
+
+          
+
          
            $selectedTimeSlotAvailability = $form->get('TimeSlotAvailability')->getData();
            // Extraire l'heure de début et de fin de l'objet TimeSlotAvailability
@@ -173,20 +177,23 @@ class StudioController extends AbstractController
             // var_dump($finalStartDate, $finalEndDate);die;
             // dd($timeslotSelected);
 
+            // dd($studioId, $dayDate, $selectedTimeSlotAvailabilityId );
             // Vérifier si un créneau horaire existe déjà pour le même studio, la même date et la même heure
-            $existingTimeslot = $timeslotRepository->findBy([
-                'studio' => $studio,
-                'date' => $selectedDate,
-                'startTime' => $startTime,
-                'endTime' => $endTime
-            ]);
+            // $existingTimeslot = $tsr->findBy([]);
+            // dd($existingTimeslot);
+            // dd($studioId,$dayDate, $selectedTimeSlotAvailabilityId );
 
+   
+            $existingTimeslot = $tsr->findBy([
+                'studio' => $studioId,
+                'date' => $dayDate,  
+                'timeSlotAvailability' => $selectedTimeSlotAvailabilityId,
+            ]);
             if ($existingTimeslot) {
                 // Un créneau horaire existe déjà pour ces critères, renvoyer un message d'erreur
                 $this->addFlash('error', 'This time slot is already booked. Please choose another time slot.');
-                return $this->redirectToRoute('new_timeslot', ['id' => $studioId, 'studioId' => $studioId, 'selectedDate' => $selectedDate]);
+                return $this->redirectToRoute('studio_dashboard');
             }
-
 
             $timeslot->setUser($user);
             $timeslot->setDate($dayDate);

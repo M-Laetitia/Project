@@ -40,15 +40,37 @@
     </div>
 
 
-    {# {{ dump(timeslots) }} #}
+
 
     {% if app.user and is_granted('ROLE_SUPERVISOR') %}
         <h2>See my planning</h2>
         <a href="{{ path('show_planning', {'id': app.user.id }) }}">SEE</a>
 
         <h2>Add a timeSlot</h2>
-        <a href="{{ path('new_timeslot', {'id': app.user.id }) }}">ADD</a>
+        {# <a href="{{ path('new_timeslot', {'id': app.user.id, 'studio': 1, 'startDate': '2024-01-01', 'endDate': '2024-01-01' }) }}">ADD</a> #}
     {% endif %}
+
+    <hr>
+    <hr>
+
+    <form method="GET" action="">
+        <label for="date">Choose a date:</label>
+        <input type="date" id="date" name="date" required>
+        <label for="studio">Choose a studio:</label>
+        <select id="studio" name="studio" required>
+            {% for studio in studios %}
+                <option id="{{studio.id}}" value="{{ studio }}" >{{ studio }}</option>
+            {% endfor %}
+        </select>
+        {# <button id="voirDispo" type="button" data-user-id="{{ app.user.id }}" data-route-url="{{ path('new_timeslot') }}">VOIR DISPO</button> #}
+        <a id="voirDispo" href="{{ path('new_timeslot', {'studioId': 1, 'selectedDate' : '2024-01-01' }) }}">
+            VOIR DISPO
+        </a>
+        
+
+
+    </form>
+
 
     <form>
     <label for="supervisor">Choose a supervisor:</label>
@@ -67,20 +89,22 @@
     </form>
     <div id="message-filter"></div>
 
-    {# <form method="GET" action="{{ path('app_artist') }}">
-        <label for="discipline">Choose a discipline:</label>
-        <select id="discipline" name="discipline">
-            {% for discipline in disciplines %}
-                <option value="{{ discipline }}">{{ discipline }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Filter</button>
-    </form> #}
 
 
+    <div id="detail-timeslot">
+
+    </div>
 
     <div id="planning" data-formatted-timeslots='{{ formattedTimeslots|raw }}'></div>
+
+{{dump(formattedTimeslots)}}
     
     <script src="{{ asset('js/planning.js') }}"></script>
+
+    <script>
+    
+    </script>
+
+
 
 {% endblock %}

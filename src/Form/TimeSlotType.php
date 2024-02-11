@@ -48,6 +48,7 @@ class TimeSlotType extends AbstractType
                 'required' => true, 
                 'class' => TimeSlotAvailability::class,
                 'choices' => $this->getTimeSlots($options['studioId'], $options['selectedDate']),
+                'invalid_message' => 'This time slot is already booked. Please choose another time slot',
 
             ])
 

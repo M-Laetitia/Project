@@ -18,18 +18,6 @@ class TimeSlotType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('startDate',  DateTimeType::class, [
-            //     'widget' => 'single_text',
-            //     'label' => 'Starting date: * ',
-            //     'required' => true,
-            // ])
-
-            
-            // ->add('endDate',  DateTimeType::class, [
-            //     'widget' => 'single_text',
-            //     'label' => 'Ending date: * ',
-            //     'required' => true, 
-            // ])
 
             ->add('day', DateType::class, [
                 'label' => 'Date',
@@ -38,19 +26,17 @@ class TimeSlotType extends AbstractType
                 'label' => 'Day: ',
             ])
 
+
+            ->add('studio', EntityType::class, [
+                'required' => true, 
+                'class' => Studio::class,
+            ])
+
             ->add('TimeSlotAvailability', EntityType::class, [
                 'required' => true, 
                 'class' => TimeSlotAvailability::class,
             ])
 
-
-            ->add('studio', EntityType::class, [
-                'required' => true, 
-                'class' => Studio::class,
-                // 'choice_label' => 'username', 
-                // 'placeholder' => 'Choose a supervisor',
-                // 'choices' => $options['studio']
-            ])
 
             ->add('Submit', SubmitType::class)
         ;

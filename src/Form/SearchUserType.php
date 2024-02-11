@@ -17,7 +17,7 @@ class SearchUserType extends AbstractType
 
         ->add('username', TextType::class, [
             'label' => 'Search by username',
-            'required' => false,
+            'required' => true,
             'constraints' => [
                 new Length([
                     'min' => 3,

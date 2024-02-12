@@ -28,6 +28,18 @@
 
     {# Penser à rajouter les crédits ! #}
 
+    <h2>become a part of the communauty - get the Artist Status</h2>
+
+    {{ form_start(formStatusArtist) }}
+        {{ form_errors(formStatusArtist) }}
+
+        {{ form_row(formStatusArtist.emailPro) }}
+        {{ form_row(formStatusArtist.discipline) }}
+        {{ form_row(formStatusArtist.artistName) }}
+        {{ form_row(formStatusArtist.category) }}
+
+    {{ form_end(formStatusArtist) }}
+
     <div id="map"></div>
 
     {# API LEAFLET #}

@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 
-use App\Repository\UserRepository;
+
 // use Geocoder\Query\GeocodeQuery;
 // use Geocoder\Provider\Nominatim\Nominatim;
+use App\Form\ArtistStatusType;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,10 +33,15 @@ class HomeController extends AbstractController
     // }
 
     #[Route('/home', name: 'app_home')]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, Security $security, Request $request): Response
     {
 
+        $user = $security->getUser();
         $artists = $userRepository->findArtistUsers();
+
+        $form = $this->createForm(ArtistStatusType::class, $user);
+        $form->handleRequest($request);
+        $userRoles = $user->getRoles(); // Récupérer les rôles actuels
 
         // $markers = [];
 
@@ -51,9 +60,11 @@ class HomeController extends AbstractController
         // }
 
 
+
         return $this->render('home/index.html.twig', [
             'artists' => $artists,
             // 'markers' => $markers,
+            'formStatusArtist'=> $form,
         ]);
     }
 
@@ -86,5 +97,8 @@ class HomeController extends AbstractController
              
           ]);
       }
+
+      
+
 
 }

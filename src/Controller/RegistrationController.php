@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Obtenerla valeur du champ "formation" directement à partir du formulaire
+            // Obtener la valeur du champ "formation" directement à partir du formulaire
             $formation = $form->get('information')->getData();
              // Vérifier si l'adresse e-mail existe déjà
             $existingUser = $userRepository->findOneBy(['email' => $formation]);
@@ -55,11 +55,9 @@ class RegistrationController extends AbstractController
 
             $user = new User();
 
-
-            
             $user->setEmail($formation); 
             $user->setRegistrationDate(new \DateTimeImmutable());
-            // dd($user);
+            $user->setIsPublished(0);
             $user->setSlug($area->generateSlug());
             $entityManager->persist($user);
             $entityManager->flush();

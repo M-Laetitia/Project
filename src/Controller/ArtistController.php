@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Contact;
 use App\Entity\Picture;
 use App\Form\ArtistType;
 use App\Form\EditArtistType;
@@ -240,6 +241,9 @@ class ArtistController extends AbstractController
     #[IsGranted("ROLE_ARTIST")]
     public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , Request $request): Response 
     {
+
+        
+
         $artist = $security->getUser();
         $artistId = $artist->getId();
         $artistInfos = $user->getArtistInfos() ?? [];
@@ -247,13 +251,21 @@ class ArtistController extends AbstractController
 
         $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
         $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
+        $contactFacebook = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Facebook']);
         
+        
+        // Initialiser les variables avant la boucle
+        $instagram = null;
+        $behance = null;
+        $facebook = null;
 
         foreach ($artistSocials as $social) {
             if ($social->getName() == 'Instagram') {
                 $instagram = $social->getUrl();
             } elseif ($social->getName() == 'Behance') {
                 $behance = $social->getUrl();
+            } elseif ($social->getName() == 'Facebook') {
+                $facebook = $social->getUrl();
             }
         }
 
@@ -272,6 +284,7 @@ class ArtistController extends AbstractController
 
             $artistInstagram = $form->get('instagram')->getData();
             $artistBehance = $form->get('behance')->getData();
+            $artistFacebook = $form->get('facebook')->getData();
  
             // Vérifier les valeurs existantes avant de les mettre à jour
             $fields = [];
@@ -288,18 +301,26 @@ class ArtistController extends AbstractController
                 $fields['artistName'] = $artistName;
             }
 
-            // socials: 
+            // Si pas de facebook pour cet utilisateur et ce réseau social
+            if (!$contactFacebook) {
+                // Créez une nouvelle instance de l'entité Contact
+                $contactFacebook = new Contact();
+                $contactFacebook->setUser($artist); // Associez l'utilisateur à ce contactFacebook
+                $contactFacebook->setName("Facebook"); // Définissez le nom du réseau social
+                $contactFacebook->setIcon('<i class="fa-brands fa-facebook"></i>');
+                $contactFacebook->setUrl($artistFacebook);
+                $entityManager->persist($contactFacebook);
+                $entityManager->flush($contactFacebook);
+            }
+
             $contactBehance->setUrl($artistBehance);
-            
+         
             // Fusionner les champs avec artistInfos
             $artistInfos = array_merge($artistInfos, $fields);
             // Mettez à jour artistInfos dans l'entité User
             $entityManager->persist($user);
             $user->setArtistInfos($artistInfos);
             $entityManager->flush();
-
-            
-
 
             $this->addFlash('success', 'Informations successfully edited!');
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
@@ -310,6 +331,7 @@ class ArtistController extends AbstractController
             'formEditArtist'=> $form,
             'instagram' => $instagram,
             'behance' => $behance,
+            'facebook' => $facebook, 
             
         ]);
     }

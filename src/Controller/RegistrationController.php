@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Cocur\Slugify\Slugify;
 use App\Security\EmailVerifier;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -44,6 +45,7 @@ class RegistrationController extends AbstractController
 
             // Obtener la valeur du champ "formation" directement à partir du formulaire
             $formation = $form->get('information')->getData();
+            
              // Vérifier si l'adresse e-mail existe déjà
             $existingUser = $userRepository->findOneBy(['email' => $formation]);
 
@@ -54,12 +56,19 @@ class RegistrationController extends AbstractController
             }
 
             $user = new User();
-
+            $user = $form->getData();
             $user->setEmail($formation); 
             $user->setRegistrationDate(new \DateTimeImmutable());
             $user->setIsPublished(0);
-            $user->setSlug($area->generateSlug());
+
+            // $slugify = new Slugify();
+            // $slug = $slugify->slugify($username);
+            // // dd($slug);
+            // $user->setSlug($slug);
+            
+            
             $entityManager->persist($user);
+            $user->setSlug($user->generateSlug());
             $entityManager->flush();
 
             // generate a signed url and email it to the user
@@ -70,7 +79,7 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
+
 
             return $this->redirectToRoute('app_login');
         }

@@ -14,10 +14,12 @@
         {% for artist in artists %}
 
         <p class="address"
-           data-street="{{ artist.artistInfos.address.street }}"
-           data-city="{{ artist.artistInfos.address.city }}"
-           data-postal-code="{{ artist.artistInfos.address.postalCode }}"
-           data-country="{{ artist.artistInfos.address.country }}"
+            {% if artist.artistInfos.address is defined %}
+                data-street="{{ artist.artistInfos.address.street }}"
+                data-city="{{ artist.artistInfos.address.city }}"
+                data-postal-code="{{ artist.artistInfos.address.postalCode }}"
+                data-country="{{ artist.artistInfos.address.country }}"
+            {% endif %}
            data-name="{{ artist.artistInfos.artistName }}"
            data-id="{{ artist.id }}"
            data-activity="{{ artist.artistInfos.discipline }}">
@@ -28,17 +30,22 @@
 
     {# Penser à rajouter les crédits ! #}
 
-    <h2>become a part of the communauty - get the Artist Status</h2>
 
-    {{ form_start(formStatusArtist) }}
-        {{ form_errors(formStatusArtist) }}
+    {% if app.user %}
+        <h2>become a part of the communauty - get the Artist Status</h2>
 
-        {{ form_row(formStatusArtist.emailPro) }}
-        {{ form_row(formStatusArtist.discipline) }}
-        {{ form_row(formStatusArtist.artistName) }}
-        {{ form_row(formStatusArtist.category) }}
+        {{ form_start(formStatusArtist) }}
+            {{ form_errors(formStatusArtist) }}
 
-    {{ form_end(formStatusArtist) }}
+            {{ form_row(formStatusArtist.emailPro) }}
+            {{ form_row(formStatusArtist.discipline) }}
+            {{ form_row(formStatusArtist.artistName) }}
+            {{ form_row(formStatusArtist.category) }}
+
+        {{ form_end(formStatusArtist) }}
+        
+    {% endif %}
+
 
     <div id="map"></div>
 

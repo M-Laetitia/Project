@@ -119,8 +119,14 @@
                     <a href="{{ path('app_studio') }}">ART STUDIOS</a>
                 </p>
 
+                {% if is_granted('ROLE_ARTIST') %}
+                <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
+                {% endif %}
             
             </div>
+
+
+
 
             <div class="roles">
                 {% if is_granted('ROLE_ADMIN') %}
@@ -191,6 +197,7 @@
     {# FullCalendar #}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script src="{{ asset('js/calendar.js') }}"></script>
+    
     
 
 </html>

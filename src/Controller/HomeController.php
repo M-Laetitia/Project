@@ -8,6 +8,7 @@ namespace App\Controller;
 // use Geocoder\Provider\Nominatim\Nominatim;
 use App\Form\ArtistStatusType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class HomeController extends AbstractController
     // }
 
     #[Route('/home', name: 'app_home')]
-    public function index(UserRepository $userRepository, Security $security, Request $request): Response
+    public function index(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
     {
 
         $user = $security->getUser();
@@ -41,7 +42,65 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(ArtistStatusType::class, $user);
         $form->handleRequest($request);
-        $userRoles = $user->getRoles(); // Récupérer les rôles actuels
+
+        if ($user) {
+            // Récupérer les rôles de l'utilisateur
+            $userRoles = $user->getRoles();
+        }    
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+            // Ajouter le rôle "ROLE_ARTIST" si ce n'est pas déjà présent
+            if (!in_array('ROLE_ARTIST', $userRoles, true)) {
+                $userRoles[] = 'ROLE_ARTIST';
+            }
+
+            // ^Json infos
+            // Récupérer les valeurs pour le champ artistInfos (json)
+            $email = $form->get('emailPro')->getData();
+            $discipline =$form->get('discipline')->getData();
+            $artistName =$form->get('artistName')->getData();
+            $category =$form->get('category')->getData();
+
+            // Récupérer ou initialiser artistInfos
+            $artistInfos = $user->getArtistInfos() ?? [];
+
+     
+            // Définir les champs et leurs valeurs
+            $fields = [
+                'emailPro' => $email,
+                'discipline' => $discipline,
+                'artistName' => $artistName,
+                'category' => $category,
+
+            ];
+
+            // Fusionner les nouvelles données avec les données existantes
+            $artistInfos = array_merge($artistInfos, $fields);
+            // dd($artistInfos);
+
+            // Mettez à jour artistInfos dans l'entité User
+            $user->setArtistInfos($artistInfos);
+
+            // Mise à jour des rôles dans l'entité User
+
+            $user->setRoles($userRoles);
+            $user = $form->getData();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            // Déconnexion et reconnexion manuelles de l'utilisateur
+            // $firewallName = 'main'; 
+            // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            // $this->get('security.token_storage')->setToken($token);
+
+            // Message flash
+            $this->addFlash('success', 'Status artist successfully created');
+
+            return $this->redirectToRoute('app_home');
+        }
+
+
+
 
         // $markers = [];
 

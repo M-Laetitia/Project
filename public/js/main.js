@@ -217,3 +217,38 @@ $(document).ready(function() {
     })
 
 })
+
+// ^^ 
+$(document).ready(function(){
+    console.log("hi");
+    $("#voirDispo").click(function(event){
+        event.preventDefault();
+        console.log("hello");
+        
+        // Récupérer les valeurs sélectionnées de la date et du studio
+        var selectedDate = $("#date").val();
+        var selectedStudio = $("#studio option:selected").attr("id"); // Récupérer l'ID du studio sélectionné
+        console.log("dateselectted", selectedDate);
+        console.log("studuiselectted", selectedStudio);
+
+        var link = $(this).attr("href");
+        // Séparer l'URL en parties
+        var parts = link.split('/');
+
+        // Trouver l'index de "dashboard/"
+        var dashboardIndex = parts.indexOf('dashboard');
+
+        // Remplacer les valeurs de studioID et selectedDate
+        parts[dashboardIndex + 1] = selectedStudio; // studioID
+        parts[dashboardIndex + 2] = selectedDate;   // selectedDate
+
+        // Reconstruire l'URL
+        link = parts.join('/');
+        console.log("link02", link);
+
+        // Rediriger vers la page avec le lien mis à jour
+        window.location.href = link;
+    });
+});
+
+

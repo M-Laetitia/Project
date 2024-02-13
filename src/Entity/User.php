@@ -2,9 +2,17 @@
 
 namespace App\Entity;
 
+use App\Entity\Contact;
+use App\Entity\Picture;
+use App\Entity\Timeslot;
+use App\Entity\Workshop;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\AreaParticipation;
+use App\Entity\ExpositionProposal;
 use App\Repository\UserRepository;
+use App\Entity\WorkshopRegistration;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

@@ -39,6 +39,13 @@
 {{ form_row(formEditArtist.instagram, {'value': instagram}) }}
 {{ form_row(formEditArtist.behance, {'value': behance}) }}
 
+{% if facebook %}
+    {{ form_row(formEditArtist.facebook, {'value': facebook}) }}
+{% else %}
+    {{ form_row(formEditArtist.facebook, {'value': "add your fb link"}) }}
+{% endif %}
+
+
 
 {# {% for contact in artist.contacts %}
     {{ form_row(formEditArtist.contacts, {'value': contact.url}) }}

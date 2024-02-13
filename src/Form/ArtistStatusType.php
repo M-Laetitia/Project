@@ -28,11 +28,11 @@ class ArtistStatusType extends AbstractType
                 'mapped' => false,
                 'required' => true, 
                 'choices' => [
-                    'illustration' => 'Illustration',
-                    'photography' => 'Photgraphy',
-                    'graphism' => 'Graphism',
-                    'crafsman' => 'Crafsman',
-                    'other' => 'Other',
+                    'Illustration' => 'illustration',
+                    'Photography' => 'photgraphy',
+                    'Graphism' => 'graphism',
+                    'Craftsman' => 'craftsman',
+                    'Other' => 'Other',
                 ],
             ])
 

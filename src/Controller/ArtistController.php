@@ -9,6 +9,7 @@ use App\Form\EditArtistType;
 use App\Form\SearchArtistType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
+use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -156,8 +157,6 @@ class ArtistController extends AbstractController
         
 
 
-
-
     // ^ show artist detail (all)
     #[Route('/artist/{slug}-{id}', name: 'show_artist')]
     public function show(UserRepository $userRepository, string $slug, int $id): Response {
@@ -236,9 +235,88 @@ class ArtistController extends AbstractController
     }
 
 
+    // ^ artist page -manage  (ROLE ARTIST)
+    #[Route('/artist/{slug}/artist_profil', name: 'manage_profil')]
+    #[IsGranted("ROLE_ARTIST")]
+    public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , Request $request): Response 
+    {
+        $artist = $security->getUser();
+        $artistId = $artist->getId();
+        $artistInfos = $user->getArtistInfos() ?? [];
+        $artistSocials = $artist->getContacts();
 
-    #[Route('/artist/{id}/new', name: 'new_artist')]
-    #[Route('/artist/{id}/edit', name: 'edit_artist')]
+        $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
+        $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
+        
+
+        foreach ($artistSocials as $social) {
+            if ($social->getName() == 'Instagram') {
+                $instagram = $social->getUrl();
+            } elseif ($social->getName() == 'Behance') {
+                $behance = $social->getUrl();
+            }
+        }
+
+        $form = $this->createForm(ArtistType::class, $artistInfos, [
+            'data_class' => null,
+        ]);
+        
+        $form->handleRequest($request);
+       
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            // ^ Json infos
+            $email = $form->get('emailPro')->getData();
+            $discipline =$form->get('discipline')->getData();
+            $artistName =$form->get('artistName')->getData();
+
+            $artistInstagram = $form->get('instagram')->getData();
+            $artistBehance = $form->get('behance')->getData();
+ 
+            // Vérifier les valeurs existantes avant de les mettre à jour
+            $fields = [];
+
+            if ($email !== null && $email !== $artistInfos['emailPro']) {
+                $fields['emailPro'] = $email;
+            }
+
+            if ($discipline !== null && $discipline !== $artistInfos['discipline']) {
+                $fields['discipline'] = $discipline;
+            }
+
+            if ($artistName !== null && $artistName !== $artistInfos['artistName']) {
+                $fields['artistName'] = $artistName;
+            }
+
+            // socials: 
+            $contactBehance->setUrl($artistBehance);
+            
+            // Fusionner les champs avec artistInfos
+            $artistInfos = array_merge($artistInfos, $fields);
+            // Mettez à jour artistInfos dans l'entité User
+            $entityManager->persist($user);
+            $user->setArtistInfos($artistInfos);
+            $entityManager->flush();
+
+            
+
+
+            $this->addFlash('success', 'Informations successfully edited!');
+            return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+        }
+
+        return $this->render('artist/manage_profil.html.twig', [
+            'artist' => $artist,
+            'formEditArtist'=> $form,
+            'instagram' => $instagram,
+            'behance' => $behance,
+            
+        ]);
+    }
+
+
+    #[Route('/artist/{slug}/new', name: 'new_artist')]
+    #[Route('/artist/{slug}/edit', name: 'edit_artist')]
     // error avec Picture $picture / Si 'int $pictureId' , en ajustant le typehint de Picture à int dans la signature de la méthode,  Symfony va s'attendre à recevoir l'ID de l'imgen tant que paramètre, plutôt qu'une instance d'entité complète. 
     public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ) : Response 
     {
@@ -272,7 +350,7 @@ class ArtistController extends AbstractController
             $fields = [
                 'emailPro' => $email,
                 'discipline' => $discipline,
-                // ajouter les autres
+
             ];
 
             // Récupérer ou initialiser artistInfos

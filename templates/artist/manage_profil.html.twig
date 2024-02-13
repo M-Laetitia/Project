@@ -1,0 +1,55 @@
+
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Manage my Artist page{% endblock %}
+
+{% block body %}
+
+<h1>Pseudo : {{ artist.artistInfos.artistName }}</h1>
+<p> Mail : {{ artist.artistInfos.emailPro }}</p>
+<p> Discipline : {{ artist.artistInfos.discipline }}</p>
+<p> category : {{ artist.artistInfos.category }}</p>
+<p> Banner : </p>
+
+{% if artist.artistInfos.quote is defined %}
+    <p>Quote : {{ artist.artistInfos.quote }}</p>
+{% else %}
+    <p>Quote : </p>
+{% endif %}
+
+{% if artist.artistInfos.quote is defined %}
+    <p>Quote : {{ artist.artistInfos.bio }}</p>
+{% else %}
+    <p>Biography : </p>
+{% endif %}
+
+
+<p>  </p>
+<p> Shop :  ?? </p>
+<p> Social medias </p>
+<p> Pictures </p>
+
+{{ form_start(formEditArtist) }}
+
+{# Affichez le champ emailPro #}
+{{ form_row(formEditArtist.emailPro, {'value': artist.artistInfos.emailPro}) }}
+{{ form_row(formEditArtist.discipline, {'value': artist.artistInfos.discipline}) }}
+{{ form_row(formEditArtist.artistName, {'value': artist.artistInfos.artistName}) }}
+{{ form_row(formEditArtist.instagram, {'value': instagram}) }}
+{{ form_row(formEditArtist.behance, {'value': behance}) }}
+
+
+{# {% for contact in artist.contacts %}
+    {{ form_row(formEditArtist.contacts, {'value': contact.url}) }}
+{% endfor %} #}
+
+
+<button type="submit">Sauvegarder</button>
+{{ form_end(formEditArtist) }}
+
+{# Permettre edit avec input et ajax / select and slide pour image / bouton pour published et unpusblsih, et bouton pour aperçu profil #}
+
+    
+{% endblock %}
+

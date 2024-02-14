@@ -7,12 +7,15 @@ use App\Entity\Contact;
 use App\Entity\Picture;
 use App\Form\ArtistType;
 use App\Form\EditArtistType;
+use App\Form\PictureFormType;
 use App\Form\SearchArtistType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
 use App\Form\PublishedArtistPageType;
 use App\Repository\ContactRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -240,13 +243,15 @@ class ArtistController extends AbstractController
     // ^ artist page -manage  (ROLE ARTIST)
     #[Route('/artist/{slug}/artist_profil', name: 'manage_profil')]
     #[IsGranted("ROLE_ARTIST")]
-    public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , Request $request): Response 
+    public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , PictureRepository $pictureRepo,  Request $request): Response 
     {
 
         $artist = $security->getUser();
         $artistId = $artist->getId();
         $artistInfos = $user->getArtistInfos() ?? [];
         $artistSocials = $artist->getContacts();
+
+        
 
         $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
         $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
@@ -277,6 +282,9 @@ class ArtistController extends AbstractController
 
         $formPage = $this->createForm(PublishedArtistPageType::class);
         $formPage->handleRequest($request);
+
+        $formBanner = $this->createForm(PictureFormType::class);
+        $formBanner->handleRequest($request);
 
        
         if ($form->isSubmitted() && $form->isValid() ) {
@@ -347,10 +355,65 @@ class ArtistController extends AbstractController
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
 
+        
+        $bannerFile = $formBanner->get('picture')->getData();
+        
+        if ($formBanner->isSubmitted() && $formBanner->isValid()) {
+            // $newFilename = uniqid().'.'.$bannerFile->guessExtension();
+            $newFilename = md5(uniqid(rand(), true)) . '.' . $bannerFile->guessExtension();
+
+            if ($bannerFile) {
+                
+                $oldBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
+                
+                
+
+                if ($oldBanner) {
+                    $oldBannerName = $oldBanner->getPath();
+                    $bannerDirectory = 'images/artists/' . $artistId . '/banner';
+                    $absoluteOldBannerPath = $this->getParameter('kernel.project_dir') . '/public/' . $bannerDirectory . '/' . $oldBannerName;
+                    // dd($absoluteOldBannerPath);
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldBannerPath)) {
+                        $filesystem->remove($absoluteOldBannerPath);
+                    }
+
+                    $oldBanner->setPath($newFilename);
+
+                } else {
+                    // Si aucune bannière existante, créer le dossier "banner"
+                    $filesystem = new Filesystem();
+                    $filesystem->mkdir($bannerDirectory);
+
+                    $picture = new Picture();
+
+                    $picture = $formBanner->getData();
+                    $picture->setUser($artist);
+                    $picture->setType('banner');
+                    $picture->setPath($newFilename);
+    
+                    $entityManager->persist($picture);
+                    
+                }
+
+            // Déplacer la nouvelle image vers le dossier "banner"
+            $bannerFile->move($bannerDirectory, $newFilename);
+            $entityManager->flush();
+
+            }
+
+            $this->addFlash('success', 'Your banner has been successfully added/edited');
+            return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+        }
+
         return $this->render('artist/manage_profil.html.twig', [
             'artist' => $artist,
+
             'formEditArtist'=> $form,
             'formPublishPageArtist' => $formPage,
+            'formAddBanner' => $formBanner,
+
             'instagram' => $instagram,
             'behance' => $behance,
             'facebook' => $facebook, 

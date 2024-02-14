@@ -6,6 +6,15 @@
 
 {% block body %}
 
+<p>Banner/s</p>
+{{ form_start(formAddBanner) }}
+{{ form_errors(formAddBanner) }}
+{{ form_row(formAddBanner.picture) }}
+{{ form_row(formAddBanner.altDescription) }}
+{{ form_row(formAddBanner.title) }}
+<button type="submit">Add</button>
+{{ form_end(formAddBanner) }}
+
 <h1>Pseudo : {{ artist.artistInfos.artistName }}</h1>
 <p> Mail : {{ artist.artistInfos.emailPro }}</p>
 <p> Discipline : {{ artist.artistInfos.discipline }}</p>
@@ -31,8 +40,6 @@
 <p> Pictures </p>
 
 {{ form_start(formEditArtist) }}
-
-{# Affichez le champ emailPro #}
 {{ form_row(formEditArtist.emailPro, {'value': artist.artistInfos.emailPro}) }}
 {{ form_row(formEditArtist.discipline, {'value': artist.artistInfos.discipline}) }}
 {{ form_row(formEditArtist.artistName, {'value': artist.artistInfos.artistName}) }}

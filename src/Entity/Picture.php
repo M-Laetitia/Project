@@ -29,6 +29,9 @@ class Picture
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $title = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +81,18 @@ class Picture
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): static
+    {
+        $this->title = $title;
 
         return $this;
     }

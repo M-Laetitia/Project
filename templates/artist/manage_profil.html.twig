@@ -5,6 +5,19 @@
 {% block title %}Manage my Artist page{% endblock %}
 
 {% block body %}
+{# {{ dump(bannerExists)}} #}
+<div>
+    {% if bannerExists %}
+        <div style="width: 1200px; height: 400px; background-color: grey;">
+            <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/artists/' ~ artist.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+        </div>
+    {% else %}
+    <div style="width: 500px; height: 100px; background-color: grey;">
+            <!-- Div sans image -->
+        </div>
+    {% endif %}
+</div>
+
 
 <p>Banner/s</p>
 {{ form_start(formAddBanner) }}

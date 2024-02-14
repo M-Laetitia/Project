@@ -651,7 +651,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $slugify->slugify($this->getUsername());
     }
 
-    public function isIsPublished(): ?bool
+    public function getIsPublished(): ?bool
     {
         return $this->isPublished;
     }

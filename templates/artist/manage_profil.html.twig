@@ -58,5 +58,14 @@
 {# Permettre edit avec input et ajax / select and slide pour image / bouton pour published et unpusblsih, et bouton pour aperçu profil #}
 
     
+{{ form_start(formPublishPageArtist) }}
+    {% if artist.isPublished == 1 %}
+    <button type="submit">Unpublish</button>
+    {% else %}
+    <button type="submit">Publish</button>
+    {% endif %}
+{{ form_end(formPublishPageArtist) }}
+
+
 {% endblock %}
 

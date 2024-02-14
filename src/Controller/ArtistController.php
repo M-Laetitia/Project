@@ -360,15 +360,30 @@ class ArtistController extends AbstractController
         }
 
         
+        // ^ banner upload
         $bannerFile = $formBanner->get('picture')->getData();
-        
         if ($formBanner->isSubmitted() && $formBanner->isValid()) {
-            // $newFilename = uniqid().'.'.$bannerFile->guessExtension();
+
+
             $newFilename = md5(uniqid(rand(), true)) . '.' . $bannerFile->guessExtension();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
             if ($bannerFile) {
                 
+                // vérifier le format du fichier
                 $oldBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
+                if (!in_array($bannerFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+                }
+        
+                // Vérifier la taille du fichier
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($bannerFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+                }
+
                 
                 if ($oldBanner) {
                     $oldBannerName = $oldBanner->getPath();

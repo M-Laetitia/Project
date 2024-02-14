@@ -10,6 +10,7 @@ use App\Form\EditArtistType;
 use App\Form\SearchArtistType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
+use App\Form\PublishedArtistPageType;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -242,8 +243,6 @@ class ArtistController extends AbstractController
     public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , Request $request): Response 
     {
 
-        
-
         $artist = $security->getUser();
         $artistId = $artist->getId();
         $artistInfos = $user->getArtistInfos() ?? [];
@@ -272,11 +271,15 @@ class ArtistController extends AbstractController
         $form = $this->createForm(ArtistType::class, $artistInfos, [
             'data_class' => null,
         ]);
-        
+
+
         $form->handleRequest($request);
+
+        $formPage = $this->createForm(PublishedArtistPageType::class);
+        $formPage->handleRequest($request);
+
        
         if ($form->isSubmitted() && $form->isValid() ) {
-
             // ^ Json infos
             $email = $form->get('emailPro')->getData();
             $discipline =$form->get('discipline')->getData();
@@ -326,9 +329,28 @@ class ArtistController extends AbstractController
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
 
+        if ($formPage->isSubmitted() && $formPage->isValid() ) {
+
+            if ($user->getIsPublished() == 1) {
+                $user->setIsPublished(0);
+                $message = 'Artist page successfully unpublished!';
+            } else {
+                $user->setIsPublished(1);
+                $message = 'Artist page successfully published!';
+            }
+
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', $message);
+            return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+        }
+
         return $this->render('artist/manage_profil.html.twig', [
             'artist' => $artist,
             'formEditArtist'=> $form,
+            'formPublishPageArtist' => $formPage,
             'instagram' => $instagram,
             'behance' => $behance,
             'facebook' => $facebook, 

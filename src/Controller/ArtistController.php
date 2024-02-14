@@ -251,11 +251,15 @@ class ArtistController extends AbstractController
         $artistInfos = $user->getArtistInfos() ?? [];
         $artistSocials = $artist->getContacts();
 
-        
+        $existingBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
+        $bannerExists =  $existingBanner->getPath();
+
 
         $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
         $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
         $contactFacebook = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Facebook']);
+
+
         
         
         // Initialiser les variables avant la boucle
@@ -366,8 +370,6 @@ class ArtistController extends AbstractController
                 
                 $oldBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
                 
-                
-
                 if ($oldBanner) {
                     $oldBannerName = $oldBanner->getPath();
                     $bannerDirectory = 'images/artists/' . $artistId . '/banner';
@@ -388,6 +390,8 @@ class ArtistController extends AbstractController
 
                     $picture = new Picture();
 
+                    
+
                     $picture = $formBanner->getData();
                     $picture->setUser($artist);
                     $picture->setType('banner');
@@ -398,6 +402,8 @@ class ArtistController extends AbstractController
                 }
 
             // Déplacer la nouvelle image vers le dossier "banner"
+            
+
             $bannerFile->move($bannerDirectory, $newFilename);
             $entityManager->flush();
 
@@ -407,12 +413,16 @@ class ArtistController extends AbstractController
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
 
+
+
+
         return $this->render('artist/manage_profil.html.twig', [
             'artist' => $artist,
 
             'formEditArtist'=> $form,
             'formPublishPageArtist' => $formPage,
             'formAddBanner' => $formBanner,
+            'bannerExists' => $bannerExists,
 
             'instagram' => $instagram,
             'behance' => $behance,

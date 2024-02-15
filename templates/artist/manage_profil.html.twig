@@ -80,7 +80,8 @@
 
 <h3>Gallery</h3>
 
-{{ form_start(formAddPictureGallery) }}
+{% if canUploadImage %}
+    {{ form_start(formAddPictureGallery) }}
     {{ form_errors(formAddPictureGallery) }}
 
     {% for picture in picturesGallery  %}
@@ -99,7 +100,22 @@
     {{ form_row(formAddPictureGallery.altDescription) }}
     {{ form_row(formAddPictureGallery.title) }}
     <button type="submit">ajouter</button>
-{{ form_end(formAddPictureGallery) }}
+    {{ form_end(formAddPictureGallery) }}
+
+{% else %}
+
+    {% for picture in picturesGallery  %}
+    <div>
+        <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
+
+        {# <a href="" data-delete data-token="{{csrf_token('delete' ~ picture.id )}}">delete</a> #}
+
+        <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
+
+    </div>
+    {% endfor %}
+    <p>Maximum image limit reached. Please delete some before adding more.</p>
+{% endif %}
 
     
 {{ form_start(formPublishPageArtist) }}

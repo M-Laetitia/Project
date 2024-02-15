@@ -430,11 +430,17 @@ class ArtistController extends AbstractController
 
         $formPicture = $this->createForm(PictureFormType::class);      
         $formPicture->handleRequest($request);
-        
+
+        $maxImagesAllowed = 2;
+        $numberOfImages = count($pictureRepo->findBy(['user' => $artistId, 'type' => 'work']));
+        // vérifier si l'user peut upload une image, renvoie true ou false 
+        $canUploadImage = $numberOfImages < $maxImagesAllowed;
+        // dd($canUploadImage);
+
             // on définit le dossier de destination
             $folder = $artistId;
             
-            if ($formPicture->isSubmitted() && $formPicture->isValid() ) {
+            if ($formPicture->isSubmitted() && $formPicture->isValid() && $numberOfImages < $maxImagesAllowed ) {
                 $pictureFile = $formPicture->get('picture')->getData();
                  // on appelle le service d'ajout
                 if ($pictureFile !== null) 
@@ -452,6 +458,9 @@ class ArtistController extends AbstractController
                     return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
                 }
 
+            } else {
+                // $this->addFlash('error', 'Maximum image limit reached. Please delete some before adding more.');
+                // return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
             }
            
 
@@ -464,6 +473,7 @@ class ArtistController extends AbstractController
             'formAddPictureGallery' => $formPicture,
             'bannerExists' => $bannerExists,
             'picturesGallery' => $picturesGallery,
+            'canUploadImage' => $canUploadImage,
 
             'instagram' => $instagram,
             'behance' => $behance,

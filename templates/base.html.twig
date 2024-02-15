@@ -119,6 +119,10 @@
                     <a href="{{ path('app_studio') }}">ART STUDIOS</a>
                 </p>
 
+                <p class="{% if app.request.attributes.get('_route') == 'app_artist' %}active{% endif %}">
+                    <a href="{{ path('app_calendar') }}">CALENDAR</a>
+                </p>
+
                 {% if is_granted('ROLE_ARTIST') %}
                 <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
                 {% endif %}
@@ -141,7 +145,7 @@
                 
                 {% if is_granted('ROLE_ARTIST') %}
                 {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
-                <a href="{{ path('manage_artist', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette"></i></a>
+                <a href="{{ path('manage_profil', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette"></i></a>
                 {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
                 {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
                 <a href="{{ path('new_artist', {slug: app.user.slug }) }}">Join us (for artists)</a>

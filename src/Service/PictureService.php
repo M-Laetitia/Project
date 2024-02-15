@@ -99,6 +99,7 @@ class PictureService
 
 
         $path = $this->params->get('artists_directory') .$folder;
+        
 
         // on crée le dossier de destination s'il n'existe pas
         if(!file_exists($path. '/works/mini')) {
@@ -127,23 +128,28 @@ class PictureService
 
 
 
-    public function delete(string $file, ?string $folder ="", ?int $width = 250, ?int $height = 250)
+    public function delete($file, ?string $folder ="", ?int $width = 250, ?int $height = 250)
     {
         if($file !== 'default.webp') { // ne pas supprimer le fichier par défault
             $success = false;
             $path = $this->params->get('artists_directory') .$folder;
+      
+            $miniPictureName = $width. 'x' . $height . '-' . $file ;
 
-            $mini = $path . '/mini/' . $width. 'x' . $height . '-' . $file ;;
-            if(file_exists($mini)) {
-                unlink($mini);
+            $WorkMiniDirectory = 'images/artists/' . $folder . '/works/mini';
+
+            $picturePath = $this->params->get('kernel.project_dir') . '/public/' . $WorkMiniDirectory . '/' . $miniPictureName;
+
+            if(file_exists($picturePath)) {
+                unlink($picturePath);
                 $success = true;
             }
 
-            $original = $path . '/' .$file; // chemin original
-            // dd($original);
+            $xorkDirectory = 'images/artists/' . $folder . '/works';
+            $originalPicutrePath = $this->params->get('kernel.project_dir') . '/public/' . $xorkDirectory . '/' . $file;
            
-            if(file_exists($original)) {
-                unlink($original);
+            if(file_exists($originalPicutrePath)) {
+                unlink($originalPicutrePath);
                 $success = true;
             }
 

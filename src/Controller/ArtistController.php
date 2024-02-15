@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Contact;
 use App\Entity\Picture;
 use App\Form\ArtistType;
+use App\Form\BannerFormType;
 use App\Form\EditArtistType;
 use App\Form\PictureFormType;
 use App\Form\SearchArtistType;
@@ -243,7 +244,7 @@ class ArtistController extends AbstractController
     // ^ artist page -manage  (ROLE ARTIST)
     #[Route('/artist/{slug}/artist_profil', name: 'manage_profil')]
     #[IsGranted("ROLE_ARTIST")]
-    public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , PictureRepository $pictureRepo,  Request $request): Response 
+    public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , PictureRepository $pictureRepo, PictureService $pictureService,  Request $request): Response 
     {
 
         $artist = $security->getUser();
@@ -254,14 +255,10 @@ class ArtistController extends AbstractController
         $existingBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
         $bannerExists =  $existingBanner->getPath();
 
-
         $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
         $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
         $contactFacebook = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Facebook']);
-
-
-        
-        
+      
         // Initialiser les variables avant la boucle
         $instagram = null;
         $behance = null;
@@ -287,8 +284,6 @@ class ArtistController extends AbstractController
         $formPage = $this->createForm(PublishedArtistPageType::class);
         $formPage->handleRequest($request);
 
-        $formBanner = $this->createForm(PictureFormType::class);
-        $formBanner->handleRequest($request);
 
        
         if ($form->isSubmitted() && $form->isValid() ) {
@@ -361,10 +356,11 @@ class ArtistController extends AbstractController
 
         
         // ^ banner upload
-        $bannerFile = $formBanner->get('picture')->getData();
+        $formBanner = $this->createForm(BannerFormType::class);
+        $formBanner->handleRequest($request);
+    
         if ($formBanner->isSubmitted() && $formBanner->isValid()) {
-
-
+            $bannerFile = $formBanner->get('picture')->getData();
             $newFilename = md5(uniqid(rand(), true)) . '.' . $bannerFile->guessExtension();
             $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
@@ -429,7 +425,35 @@ class ArtistController extends AbstractController
         }
 
 
+        // ^ pictures (gallery) upload
+        $picturesGallery = $pictureRepo->findBy(['user' => $artistId, 'type' => 'work']); 
 
+        $formPicture = $this->createForm(PictureFormType::class);      
+        $formPicture->handleRequest($request);
+        
+            // on définit le dossier de destination
+            $folder = $artistId;
+            
+            if ($formPicture->isSubmitted() && $formPicture->isValid() ) {
+                $pictureFile = $formPicture->get('picture')->getData();
+                 // on appelle le service d'ajout
+                if ($pictureFile !== null) 
+                {
+                    $file = $pictureService->add($pictureFile, $folder, 300, 300);
+                    $img = new Picture();
+                    $img = $formPicture->getData();
+                    $img->setPath($file);
+                    $img->setType('work');
+                    $img->setUser($artist);
+                    $entityManager->persist($img);
+                    $entityManager->flush();
+
+                    $this->addFlash('success', 'Your picture has been successfully added to your gallery');
+                    return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+                }
+
+            }
+           
 
         return $this->render('artist/manage_profil.html.twig', [
             'artist' => $artist,
@@ -437,7 +461,9 @@ class ArtistController extends AbstractController
             'formEditArtist'=> $form,
             'formPublishPageArtist' => $formPage,
             'formAddBanner' => $formBanner,
+            'formAddPictureGallery' => $formPicture,
             'bannerExists' => $bannerExists,
+            'picturesGallery' => $picturesGallery,
 
             'instagram' => $instagram,
             'behance' => $behance,
@@ -558,6 +584,7 @@ class ArtistController extends AbstractController
         // $this->denyAccessUnlessGranted('artist_edit', $user);
         $user = $security->getUser();
         $name = $picture->getPath();
+        
 
         $userId = $user->getId();
         if($pictureService->delete($name, $userId , 300, 300)) {
@@ -568,8 +595,8 @@ class ArtistController extends AbstractController
 
             $this->addFlash('success', 'Image deleted successfully.'); // Message flash de succès
 
-            return $this->redirectToRoute('edit_artist', ['id' => $user->getId()]); // Redirection vers une autre page après la suppression
+            return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
         }
-        return $this->redirectToRoute('manage_artist', ['id' => $user->getId()]);
+        return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
     }
 }

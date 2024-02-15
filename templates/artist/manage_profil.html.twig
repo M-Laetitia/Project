@@ -19,14 +19,14 @@
 </div>
 
 
-<p>Banner/s</p>
+{# <p>Banner/s</p>
 {{ form_start(formAddBanner) }}
 {{ form_errors(formAddBanner) }}
 {{ form_row(formAddBanner.picture) }}
 {{ form_row(formAddBanner.altDescription) }}
 {{ form_row(formAddBanner.title) }}
 <button type="submit">Add</button>
-{{ form_end(formAddBanner) }}
+{{ form_end(formAddBanner) }} #}
 
 <h1>Pseudo : {{ artist.artistInfos.artistName }}</h1>
 <p> Mail : {{ artist.artistInfos.emailPro }}</p>
@@ -72,10 +72,34 @@
 {% endfor %} #}
 
 
+
 <button type="submit">Sauvegarder</button>
 {{ form_end(formEditArtist) }}
 
 {# Permettre edit avec input et ajax / select and slide pour image / bouton pour published et unpusblsih, et bouton pour aperçu profil #}
+
+<h3>Gallery</h3>
+
+{{ form_start(formAddPictureGallery) }}
+    {{ form_errors(formAddPictureGallery) }}
+
+    {% for picture in picturesGallery  %}
+    <div>
+        <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
+
+        {# <a href="" data-delete data-token="{{csrf_token('delete' ~ picture.id )}}">delete</a> #}
+
+        <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
+
+    </div>
+    {% endfor %}
+
+
+    {{ form_row(formAddPictureGallery.picture) }}
+    {{ form_row(formAddPictureGallery.altDescription) }}
+    {{ form_row(formAddPictureGallery.title) }}
+    <button type="submit">ajouter</button>
+{{ form_end(formAddPictureGallery) }}
 
     
 {{ form_start(formPublishPageArtist) }}
@@ -85,6 +109,9 @@
     <button type="submit">Publish</button>
     {% endif %}
 {{ form_end(formPublishPageArtist) }}
+
+
+
 
 
 {% endblock %}

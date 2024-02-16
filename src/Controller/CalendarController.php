@@ -7,6 +7,7 @@ use App\Form\SearchCalendarType;
 use App\Repository\AreaRepository;
 use App\Repository\WorkshopRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CalendarController extends AbstractController
 {
     #[Route('/calendar', name: 'app_calendar')]
-    public function index(AreaRepository $areaRepository, WorkshopRepository $workshopRepository, Request $request): Response
+    public function index(AreaRepository $areaRepository, WorkshopRepository $workshopRepository, Request $request, Security $security): Response
     {
 
         $formattedEvents = []; // formater les events pour les rendre compatibles avec FullCalendar
@@ -80,6 +81,7 @@ class CalendarController extends AbstractController
         // ^ Search (type)
         $results = []; // Initialisation du tableau des résultats
         $noResultsFound = false;
+        $resultsByKeywords = [];
         // dd($discipline);
         if ($request->query->has('type')) {
             $type = $request->query->get('type'); 
@@ -115,9 +117,37 @@ class CalendarController extends AbstractController
                 'formattedEvents' => json_encode($formattedEvents),
                 'results' => $results,
                 'noResultsFound' => $noResultsFound,
+                'resultsByKeywords' => $resultsByKeywords,
             ]);
         
 
+        }
+
+        // ^ Search (keyword)
+        
+        if ($request->query->has('formSearchKeyword')) {
+
+            // $keyword = $request->query->get('keyword'); 
+
+             // Échapper les données soumises
+             $keyword = htmlspecialchars($request->query->get('keyword'), ENT_QUOTES, 'UTF-8');
+
+            $resultsForArea = $areaRepository->searchByKeyword($keyword);
+
+            $resultsForWorkshop = $workshopRepository->searchByKeyword($keyword);
+
+            // Fusionner les résultats des deux recherches
+            $resultsByKeywords = array_merge($resultsForArea, $resultsForWorkshop);
+
+            $noResultsFound = empty($results);
+
+            return $this->render('calendar/index.html.twig', [
+                'formattedEvents' => json_encode($formattedEvents),
+                'results' => $results, 
+                'noResultsFound' => $noResultsFound,
+                'resultsByKeywords' => $resultsByKeywords,
+    
+            ]);
         }
 
         // ^ Reset
@@ -126,14 +156,17 @@ class CalendarController extends AbstractController
                 'formattedEvents' => json_encode($formattedEvents),
                 'results' => $results, 
                 'noResultsFound' => $noResultsFound,
+                'resultsByKeywords' => $resultsByKeywords,
     
             ]);
         }
+
        
         return $this->render('calendar/index.html.twig', [
             'formattedEvents' => json_encode($formattedEvents),
             'results' => $results, 
             'noResultsFound' => $noResultsFound,
+            'resultsByKeywords' => $resultsByKeywords,
 
         ]);
     }

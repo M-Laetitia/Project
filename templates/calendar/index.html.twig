@@ -16,6 +16,12 @@
 {{ form_end(formSearchType)}} #}
 
 <form method="GET" action="{{ path('app_calendar') }}">
+    <label for="keyword">Search by keyword:</label>
+    <input type="text" id="keyword" name="keyword" placeholder="Search...">
+    <button type="submit" name="formSearchKeyword" value="keyword" >Search</button>
+</form>
+
+<form method="GET" action="{{ path('app_calendar') }}">
     <label for="type">Choose a type:</label>
     <select id="type" name="type">
             <option value="" >Choose a type</option>
@@ -27,13 +33,12 @@
 </form>
 
 
-<form method="GET" action="{{ path('app_calendar') }}">
-    <button type="submit" name="formResetType" value="reset">Reset</button>
-</form >
+
+
 
 
 <div class="results-search-calendar">
-    <p>Result of the search</p>
+    <p>Result of the search :</p>
 
     {% if results is not empty %}
         <ul>
@@ -45,14 +50,32 @@
     {% elseif noResultsFound %}
         <p>No result found</p>
     {% endif %}
+
+    {% if resultsByKeywords is not empty %}
+        <ul>
+            {% for result in resultsByKeywords %}
+            <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
+                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            {% endfor %}
+        </ul>
+    {% elseif noResultsFound %}
+        <p>No result found</p>
+    {% endif %}
+
+
 </div>
+
+<form method="GET" action="{{ path('app_calendar') }}">
+    <button type="submit" name="formResetType" value="reset">Reset</button>
+</form >
+
 
 {# barre de recherche : recherche par mot(s) clef(s) #}
 {# rechercher par date #}
 {# filtres : aujourd'hui / 7 / 30 / prochains jours  #}
 {# events passés  #}
 {# Réinitialiser #}
-{# filtre : par type d'event / par statut #}
+{#  par statut #}
 
 {# {{dump(formattedEvents)}} #}
 {# <div id="calendar" ></div> #}

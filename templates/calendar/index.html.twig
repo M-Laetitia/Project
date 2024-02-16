@@ -8,6 +8,17 @@
     
 <h1>Calendar</h1>
 
+{# barre de recherche : recherche par mot(s) clef(s) #}
+{# rechercher par date #}
+{# filtres : aujourd'hui / 7 / 30 / prochains jours  #}
+{# events passés #}
+{# Réinitialiser #}
+{# filtre : par type d'event #}
 
+{{dump(formattedEvents)}}
+{# <div id="calendar" ></div> #}
+<div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
+
+<h2>Results</h2>
 
 {% endblock %}

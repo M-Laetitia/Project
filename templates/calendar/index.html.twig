@@ -7,18 +7,56 @@
 
     
 <h1>Calendar</h1>
+<h2>search</h2>
+{# 
+{{ form_start(formSearchType, {'method': 'POST'}) }}
+    {{ form_errors(formSearchType)}}
+
+    {{ form_row(formSearchType.type)}}
+{{ form_end(formSearchType)}} #}
+
+<form method="GET" action="{{ path('app_calendar') }}">
+    <label for="type">Choose a type:</label>
+    <select id="type" name="type">
+            <option value="" >Choose a type</option>
+            <option value="event" >Event</option>
+            <option value="expo" >Exposition</option>
+            <option value="workshop" >Workshop</option>
+    </select>
+    <button type="submit" name="formSearchType" value="type" >Filter</button>
+</form>
+
+
+<form method="GET" action="{{ path('app_calendar') }}">
+    <button type="submit" name="formResetType" value="reset">Reset</button>
+</form >
+
+
+<div class="results-search-calendar">
+    <p>Result of the search</p>
+
+    {% if results is not empty %}
+        <ul>
+            {% for result in results %}
+                <li>{{ result.name }}</li>
+                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            {% endfor %}
+        </ul>
+    {% elseif noResultsFound %}
+        <p>No result found</p>
+    {% endif %}
+</div>
 
 {# barre de recherche : recherche par mot(s) clef(s) #}
 {# rechercher par date #}
 {# filtres : aujourd'hui / 7 / 30 / prochains jours  #}
-{# events passés #}
+{# events passés  #}
 {# Réinitialiser #}
-{# filtre : par type d'event #}
+{# filtre : par type d'event / par statut #}
 
-{{dump(formattedEvents)}}
+{# {{dump(formattedEvents)}} #}
 {# <div id="calendar" ></div> #}
 <div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
 
-<h2>Results</h2>
 
 {% endblock %}

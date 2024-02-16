@@ -32,6 +32,16 @@
     <button type="submit" name="formSearchType" value="type" >Filter</button>
 </form>
 
+<form method="GET" action="{{ path('app_calendar') }}">
+    <label for="status">Choose a status:</label>
+    <select id="status" name="status">
+            <option value="" >Choose a status</option>
+            <option value="event" >OPEN</option>
+            <option value="expo" >CLOSED</option>
+            <option value="workshop" >PENDING</option>
+    </select>
+    <button type="submit" name="formSearchStatus" value="status" >Filter</button>
+</form>
 
 
 

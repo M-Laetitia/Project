@@ -21,6 +21,19 @@ class WorkshopRepository extends ServiceEntityRepository
         parent::__construct($registry, Workshop::class);
     }
 
+        // ^ search (keyword)
+        public function searchByKeyword(string $keyword) { 
+
+            $qb = $this->createQueryBuilder('a')
+            ->where('a.name LIKE :keyword')
+            ->andWhere('a.status IN (:statuses)')
+            ->setParameter('keyword', '%'.$keyword.'%')
+            ->setParameter('statuses', ['OPEN', 'CLOSED', 'PENDING'])
+            ->getQuery();
+    
+            return $qb->getResult();
+        }
+
 //    /**
 //     * @return Workshop[] Returns an array of Workshop objects
 //     */

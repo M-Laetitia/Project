@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Area;
+use App\Form\SearchCalendarType;
 use App\Repository\AreaRepository;
 use App\Repository\WorkshopRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CalendarController extends AbstractController
 {
     #[Route('/calendar', name: 'app_calendar')]
-    public function index(AreaRepository $areaRepository,  WorkshopRepository $workshopRepository): Response
+    public function index(AreaRepository $areaRepository, WorkshopRepository $workshopRepository, Request $request): Response
     {
 
         $formattedEvents = []; // formater les events pour les rendre compatibles avec FullCalendar
@@ -74,10 +77,63 @@ class CalendarController extends AbstractController
             ];
         }
 
-        // dd($formattedEvents);
+        // ^ Search (type)
+        $results = []; // Initialisation du tableau des résultats
+        $noResultsFound = false;
+        // dd($discipline);
+        if ($request->query->has('type')) {
+            $type = $request->query->get('type'); 
+           
+
+            // Validation des données : Initialiser une liste pour autoriser uniquement les valeurs attendues
+            $allowedTypes = ['event', 'expo', 'workshop'];
+            
+            if (!in_array($type, $allowedTypes)) {
+                // Gérer le cas où la type n'est pas autorisée (>error 404);
+                throw $this->createNotFoundException('Invalid type');
+            }
+
+            switch ($type) {
+                case 'event':
+                    $results = $ongoingEvents;
+                    break;
+                case 'expo':
+                    $results = $ongoingExpo;
+                    break;
+                case 'workshop':
+                    $results = $ongoingWorkshop;
+                    break;
+                default:
+                    // 
+                    break;
+            }
         
+            // Vérifier si aucun résultat n'a été trouvé
+            $noResultsFound = empty($results);
+            
+            return $this->render('calendar/index.html.twig', [
+                'formattedEvents' => json_encode($formattedEvents),
+                'results' => $results,
+                'noResultsFound' => $noResultsFound,
+            ]);
+        
+
+        }
+
+        // ^ Reset
+        if ($request->query->has('reset')) {
+            return $this->render('calendar/index.html.twig', [
+                'formattedEvents' => json_encode($formattedEvents),
+                'results' => $results, 
+                'noResultsFound' => $noResultsFound,
+    
+            ]);
+        }
+       
         return $this->render('calendar/index.html.twig', [
             'formattedEvents' => json_encode($formattedEvents),
+            'results' => $results, 
+            'noResultsFound' => $noResultsFound,
 
         ]);
     }

@@ -36,14 +36,12 @@
     <label for="status">Choose a status:</label>
     <select id="status" name="status">
             <option value="" >Choose a status</option>
-            <option value="event" >OPEN</option>
-            <option value="expo" >CLOSED</option>
-            <option value="workshop" >PENDING</option>
+            <option value="open" >OPEN</option>
+            <option value="closed" >CLOSED</option>
+            <option value="pending" >PENDING</option>
     </select>
     <button type="submit" name="formSearchStatus" value="status" >Filter</button>
 </form>
-
-
 
 
 
@@ -64,6 +62,17 @@
     {% if resultsByKeywords is not empty %}
         <ul>
             {% for result in resultsByKeywords %}
+            <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
+                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            {% endfor %}
+        </ul>
+    {% elseif noResultsFound %}
+        <p>No result found</p>
+    {% endif %}
+
+    {% if resultsByStatus is not empty %}
+        <ul>
+            {% for result in resultsByStatus %}
             <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
                 <!-- Affichez d'autres détails du résultat selon votre besoin -->
             {% endfor %}

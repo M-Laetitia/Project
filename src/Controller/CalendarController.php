@@ -82,6 +82,7 @@ class CalendarController extends AbstractController
         $results = []; // Initialisation du tableau des résultats
         $noResultsFound = false;
         $resultsByKeywords = [];
+        $resultsByStatus = [];
         // dd($discipline);
         if ($request->query->has('type')) {
             $type = $request->query->get('type'); 
@@ -118,6 +119,7 @@ class CalendarController extends AbstractController
                 'results' => $results,
                 'noResultsFound' => $noResultsFound,
                 'resultsByKeywords' => $resultsByKeywords,
+                'resultsByStatus' => $resultsByStatus, 
             ]);
         
 
@@ -146,9 +148,87 @@ class CalendarController extends AbstractController
                 'results' => $results, 
                 'noResultsFound' => $noResultsFound,
                 'resultsByKeywords' => $resultsByKeywords,
+                'resultsByStatus' => $resultsByStatus, 
     
             ]);
         }
+
+        // ^ Search (status)
+
+        
+
+        if ($request->query->has('formSearchStatus')) {
+           
+            $status = $request->query->get('status'); 
+            // $keyword = htmlspecialchars($request->query->get('keyword'), ENT_QUOTES, 'UTF-8');
+        //   dd($status);
+            // Validation des données : Initialiser une liste pour autoriser uniquement les valeurs attendues
+            $allowedStatus = ['open', 'closed', 'pending'];
+            
+            if (!in_array($status, $allowedStatus)) {
+                // Gérer le cas où la type n'est pas autorisée (>error 404);
+                throw $this->createNotFoundException('Invalid type');
+            }
+
+            switch ($status) {
+                case 'open':
+                    $areasOpen = $areaRepository->findBy([
+                        'status' => ['OPEN'],
+                    ]);
+
+                    ;
+                    $workshopOpen  = $workshopRepository->findBy([
+                        'status' => ['OPEN'],
+                    ]);
+
+                    $resultsByStatus = array_merge($areasOpen, $workshopOpen);
+
+                    break;
+
+                case 'closed':
+                    $areasClosed = $areaRepository->findBy([
+                        'status' => ['CLOSED'],
+                    ]);
+                    $workshopClosed =  $workshopRepository->findBy([
+                        'status' => ['CLOSED'],
+                    ]);
+
+                    $resultsByStatus = array_merge($areasClosed, $workshopClosed);
+
+                    break;
+
+                case 'pending':
+
+                    $areasPending = $areaRepository->findBy([
+                        'status' => ['PENDING'],
+                    ]);
+                    $workshopPending =  $workshopRepository->findBy([
+                        'status' => ['PENDING'],
+                    ]);
+
+                    $resultsByStatus = array_merge($areasPending, $resultsByStatus);
+
+                    break;
+                default:
+                    // 
+                    break;
+            }
+        
+            // Vérifier si aucun résultat n'a été trouvé
+            $noResultsFound = empty($results);
+            // dd($resultsByStatus);
+            return $this->render('calendar/index.html.twig', [
+                'formattedEvents' => json_encode($formattedEvents),
+                'results' => $results,
+                'noResultsFound' => $noResultsFound,
+                'resultsByKeywords' => $resultsByKeywords,
+                'resultsByStatus' => $resultsByStatus, 
+            ]);
+        
+
+        }
+
+
 
         // ^ Reset
         if ($request->query->has('reset')) {
@@ -167,6 +247,7 @@ class CalendarController extends AbstractController
             'results' => $results, 
             'noResultsFound' => $noResultsFound,
             'resultsByKeywords' => $resultsByKeywords,
+            'resultsByStatus' => $resultsByStatus, 
 
         ]);
     }

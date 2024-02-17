@@ -83,11 +83,11 @@ class CalendarController extends AbstractController
         $noResultsFound = false;
         $resultsByKeywords = [];
         $resultsByStatus = [];
+        $resultsByPeriod = [];
         // dd($discipline);
         if ($request->query->has('type')) {
             $type = $request->query->get('type'); 
            
-
             // Validation des données : Initialiser une liste pour autoriser uniquement les valeurs attendues
             $allowedTypes = ['event', 'expo', 'workshop'];
             
@@ -120,6 +120,7 @@ class CalendarController extends AbstractController
                 'noResultsFound' => $noResultsFound,
                 'resultsByKeywords' => $resultsByKeywords,
                 'resultsByStatus' => $resultsByStatus, 
+                'resultsByPeriod' => $resultsByPeriod,
             ]);
         
 
@@ -149,18 +150,17 @@ class CalendarController extends AbstractController
                 'noResultsFound' => $noResultsFound,
                 'resultsByKeywords' => $resultsByKeywords,
                 'resultsByStatus' => $resultsByStatus, 
+                'resultsByPeriod' => $resultsByPeriod,
     
             ]);
         }
 
-        // ^ Search (status)
-
-        
+        // ^ Search (status)       
 
         if ($request->query->has('formSearchStatus')) {
            
-            $status = $request->query->get('status'); 
-            // $keyword = htmlspecialchars($request->query->get('keyword'), ENT_QUOTES, 'UTF-8');
+            // $status = $request->query->get('status'); 
+            $status = htmlspecialchars($request->query->get('status'), ENT_QUOTES, 'UTF-8');
         //   dd($status);
             // Validation des données : Initialiser une liste pour autoriser uniquement les valeurs attendues
             $allowedStatus = ['open', 'closed', 'pending'];
@@ -223,11 +223,63 @@ class CalendarController extends AbstractController
                 'noResultsFound' => $noResultsFound,
                 'resultsByKeywords' => $resultsByKeywords,
                 'resultsByStatus' => $resultsByStatus, 
+                'resultsByPeriod' => $resultsByPeriod,
             ]);
         
 
         }
 
+        // ^ Search (period)
+        if ($request->query->has('formSearchPeriod')) { 
+            $period = $request->query->get('period'); 
+            
+
+            $allowedPeriod = ['week', 'days', 'months'];
+            
+            if (!in_array($period, $allowedPeriod)) {
+                // Gérer le cas où la type n'est pas autorisée (>error 404);
+                throw $this->createNotFoundException('Invalid type');
+            }
+
+            switch ($period) {
+                case 'week':
+                    $areasPeriod = $areaRepository->searchByPeriod($period);
+                    $workshopPeriod = $workshopRepository->searchByPeriod($period);
+                    $resultsByPeriod = array_merge($areasPeriod, $workshopPeriod);
+                    break;
+
+                case 'days':
+                    $areasPeriod = $areaRepository->searchByPeriod($period);
+                    $workshopPeriod = $workshopRepository->searchByPeriod($period);
+                    $resultsByPeriod = array_merge($areasPeriod, $workshopPeriod);
+                    
+                    break;
+
+                case 'months':
+                    $areasPeriod = $areaRepository->searchByPeriod($period);
+                    $workshopPeriod = $workshopRepository->searchByPeriod($period);
+                    $resultsByPeriod = array_merge($areasPeriod, $workshopPeriod);
+                    break;
+
+                default:
+                    // 
+                    break;
+            }
+            // dd($resultsByPeriod);
+            // Vérifier si aucun résultat n'a été trouvé
+            $noResultsFound = empty($results);
+            // dd($resultsByStatus);
+            return $this->render('calendar/index.html.twig', [
+                'formattedEvents' => json_encode($formattedEvents),
+                'results' => $results,
+                'noResultsFound' => $noResultsFound,
+                'resultsByKeywords' => $resultsByKeywords,
+                'resultsByStatus' => $resultsByStatus, 
+                'resultsByPeriod' => $resultsByPeriod,
+            ]);
+
+
+        }
 
 
         // ^ Reset
@@ -248,6 +300,7 @@ class CalendarController extends AbstractController
             'noResultsFound' => $noResultsFound,
             'resultsByKeywords' => $resultsByKeywords,
             'resultsByStatus' => $resultsByStatus, 
+            'resultsByPeriod' => $resultsByPeriod,
 
         ]);
     }

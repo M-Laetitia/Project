@@ -78,7 +78,42 @@ class AreaRepository extends ServiceEntityRepository
 
         return $qb->getResult();
     }
+
+    // ^ search (period)
+
+    public function searchByPeriod(string $period)
+    {
+        $now = new \DateTime();
         
+        // Déterminer la date de fin en fonction de la période spécifiée
+        switch ($period) {
+            case 'week':
+                $endDate = clone $now;
+                $endDate->modify('+7 days');
+                break;
+            case 'days':
+                $endDate = clone $now;
+                $endDate->modify('+30 days');
+                break;
+            case 'months':
+                $endDate = clone $now;
+                $endDate->modify('+3 months');
+                break;
+            default:
+                throw new \InvalidArgumentException("Invalid period: $period");
+        }
+        
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.startDate BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $now)
+            ->setParameter('endDate', $endDate)
+            ->andWhere('e.status IN (:statuses)')
+            ->setParameter('statuses', ['OPEN', 'CLOSED', 'PENDING'])
+            ->orderBy('e.startDate', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
 
 //    /**
 //     * @return Area[] Returns an array of Area objects

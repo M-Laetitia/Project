@@ -43,6 +43,17 @@
     <button type="submit" name="formSearchStatus" value="status" >Filter</button>
 </form>
 
+<form method="GET" action="{{ path('app_calendar') }}">
+    <label for="period">Choose a period:</label>
+    <select id="period" name="period">
+            <option value="" >Choose a period</option>
+            <option value="week" > 1 week</option>
+            <option value="days" > 30 days</option>
+            <option value="months" >3 months</option>
+    </select>
+    <button type="submit" name="formSearchPeriod" value="period" >Filter</button>
+</form>
+
 
 
 <div class="results-search-calendar">
@@ -73,6 +84,17 @@
     {% if resultsByStatus is not empty %}
         <ul>
             {% for result in resultsByStatus %}
+            <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
+                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            {% endfor %}
+        </ul>
+    {% elseif noResultsFound %}
+        <p>No result found</p>
+    {% endif %}
+
+    {% if resultsByPeriod is not empty %}
+        <ul>
+            {% for result in resultsByPeriod %}
             <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
                 <!-- Affichez d'autres détails du résultat selon votre besoin -->
             {% endfor %}

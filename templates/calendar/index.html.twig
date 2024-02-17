@@ -17,7 +17,7 @@
 
 <form method="GET" action="{{ path('app_calendar') }}">
     <label for="keyword">Search by keyword:</label>
-    <input type="text" id="keyword" name="keyword" placeholder="Search...">
+    <input type="text" id="keyword" name="keyword" placeholder="Search..." minlength="4" required>
     <button type="submit" name="formSearchKeyword" value="keyword" >Search</button>
 </form>
 

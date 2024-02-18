@@ -4,17 +4,55 @@
 
 {% block body %}
 
-    <h1>Welcome to your profile : {{ user }}  </h1>
+    <div class="banner">
+        <div>
+            <h1>YOUR PROFIL</h1>
+            <p>Subtitle text<span class="underscore-static">_</span></p>
+        </div>
+    </div>
 
-   
 
-    <p>Username: {{ user}} </p>
+    <section class="content" id="profil-user">
 
-    <p>Mail: {{ user.email }}</p>
+        <div id="content-profil-user">
+            <div>______</div>
+            <div id="top">
+                <h2>{{ user }}<span>_</span> </h2>
+                <div id="avatar">
+                    <div>
+                        {% if user.avatar %}
+                            <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
+                        {% else %}
+                            <img src="{{ asset('images/default_profile.jpg') }}">
+                        {% endif %}
+                    </div>
 
-    <p>Registration date: {{ user.registrationDate|date("d.m.Y") }}</p>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="roles">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="middle">
+                <div id="left">
+                    <p>Info_</p>
+                    <div>
+                        <p>Username : {{user}}</p>
+                        <p>Email : {{ user.email }}</p>
+                        <p>Registration date : {{ user.registrationDate|date("d.m.Y") }}</p>
+                        <p>Member since: {{ user.durationSinceRegistration}}</p>
+                    </div>
+                </div>
+                <div id="right"></div>
+            </div>
+            <div id="bottom"></div>
+        </div>
+    </section>
 
-    <p>Member since: {{ user.durationSinceRegistration}} </p>
+
 
     <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
 
@@ -38,11 +76,7 @@
     
     <div id="avatar">
         <div id="avatar-profil">
-            {% if user.avatar %}
-                <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
-            {% else %}
-                <img src="{{ asset('images/default_profile.jpg') }}">
-            {% endif %}
+            
         </div>
         
         <div id="form">

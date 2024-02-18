@@ -1,8 +1,65 @@
+@import 'settings';
+
+$transition-bezier: 0.800, 1.000, 0.000, 1.000;
+$transition-len: 0.35s;
+
+/*  ---------------------------------- */
+//  ██████  ██    ██ ████████ ████████  ██████  ███    ██ 
+//  ██   ██ ██    ██    ██       ██    ██    ██ ████   ██ 
+//  ██████  ██    ██    ██       ██    ██    ██ ██ ██  ██ 
+//  ██   ██ ██    ██    ██       ██    ██    ██ ██  ██ ██ 
+//  ██████   ██████     ██       ██     ██████  ██   ████
+/*  ---------------------------------- */
+
+
+.btn4 {
+  border:1px solid $secondary-color; 
+  background-color: $main-black-color;
+  color: $secondary-color;
+  padding: .2rem 1.3rem;
+  height: 2.5rem;
+  display: inline-block;
+  line-height: 2.1rem;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  transition: all $transition-len cubic-bezier($transition-bezier);
+
+  &:hover {
+    border:1px solid $main-black-color;
+    background-color: $secondary-color;
+    color: $main-black-color;
+  }
+}
+
+/*  ---------------------------------- */
+//   █████  ███    ██ ██ ███    ███  █████  ████████ ██  ██████  ███    ██ 
+//  ██   ██ ████   ██ ██ ████  ████ ██   ██    ██    ██ ██    ██ ████   ██ 
+//  ███████ ██ ██  ██ ██ ██ ████ ██ ███████    ██    ██ ██    ██ ██ ██  ██ 
+//  ██   ██ ██  ██ ██ ██ ██  ██  ██ ██   ██    ██    ██ ██    ██ ██  ██ ██ 
+//  ██   ██ ██   ████ ██ ██      ██ ██   ██    ██    ██  ██████  ██   ████
+/*  ---------------------------------- */
+
+.underscore {
+  animation: blink 1s infinite;
+  // font-weight: bold;
+  color: $secondary-color; ;
+
+  @keyframes blink {
+    50% {
+        opacity: 0;
+    }
+  }
+}
+
+
+
 $color-yellow : rgb(240, 189, 47);
 $color-blue: #207E93;
 $color-red: #F44C4C;
 $color-black: #242424;
 $color-white: #F2F2F2;
+
 
 
 //1rem = 16px - 
@@ -18,8 +75,7 @@ $font-size-small: 0.9rem;
     }
 }
 
-$transition-bezier: 0.800, 1.000, 0.000, 1.000;
-$transition-len: 0.35s;
+
 .btn2 {
     // border-radius: 3px;
     text-decoration: none;
@@ -85,6 +141,26 @@ $transition-len: 0.35s;
         background-color: $color-black;
         color: $color-yellow;
     }
+
+}
+
+
+
+.btn5 {
+  border:1px solid $color-yellow; 
+  background-color: black;
+  display: inline-block;
+  padding: .2rem 1.3rem;
+  position: relative;
+  cursor: pointer;
+  color: $color-yellow;
+  transition: all $transition-len cubic-bezier($transition-bezier);
+
+  &:hover {
+    border:1px solid black;
+    background-color: yellow;
+    color: black;
+}
 
 }
 

@@ -279,6 +279,31 @@
     <script src="{{ asset('js/calendar.js') }}"></script>
 
     <script>
+        // aside modale
+        $(document).ready(function() {
+            var isClicked = false;
+        
+            $('.nav-menu a').click(function() {
+                if (!isClicked) {
+                    // 1° fois que l'élément est cliqué
+                    $('.nav-menu a div').css('background-color', '#E49E4B');
+                    $('.nav-menu a div:nth-child(1)').css('transform', 'translateY(0.55rem) rotate(-45deg)');
+                    $('.nav-menu a div:nth-child(2)').css('transform', 'rotate(45deg)');
+                    $('.nav-menu a div:nth-child(3)').css('transform', 'translateY(-0.5rem) rotate(-45deg)');
+                    $('aside').css('right', '0');
+                } else {
+                    // Deuxième fois que l'élément est cliqué (réinitialiser)
+                    $('.nav-menu a div').css('background-color', '');
+                    $('.nav-menu a div').css('transform', '');
+                    $('aside').css('right', '-28rem');
+                }
+        
+                // Inverser l'état de la variable isClicked
+                isClicked = !isClicked;
+            });
+
+            
+        });
 
 
     </script>

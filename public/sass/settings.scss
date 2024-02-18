@@ -24,10 +24,46 @@
     --fs-200: 0.9rem;
 
     /* font-families */
-    --ff-serif: "Bellefair", serif;
-    --ff-sans-cond: "Barlow Condensed", sans-serif;
-    --ff-sans-normal: "Barlow", sans-serif;
+    // --ff-serif: "Bellefair", serif;
+    // --ff-sans-cond: "Barlow Condensed", sans-serif;
+    // --ff-sans-normal: "Barlow", sans-serif;
 }
+
+$main-black-color: #151515;
+$main-white-color: #F9F9F9;
+// $secondary-color: #E49E4B;
+$secondary-color: #f0bd2f;
+
+
+$main-font: "Poppins", sans-serif;
+$secondary-font:  "Raleway", sans-serif;
+
+$letter-spacing-title : 0.3rem;
+$letter-spacing-medium : 0.25rem;
+$letter-spacing-text : 0.05rem;
+
+
+$extra-bold: 700;
+$bold: 600;
+$semi-bold: 500;
+$medium: 400;
+$regular: 300;
+
+$fs-big: 64px;
+$fs-text: 0.9rem;
+$line-height-text: 1.3rem;
+
+$transition-bezier: 0.800, 1.000, 0.000, 1.000;
+$transition-len: 0.35s;
+
+
+
+@mixin center-flexbox() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 @media (min-width: 35em) { /*560px*/
     :root {
@@ -78,10 +114,13 @@ figure, picture, blockquote, dl, dd {
 //margin-block-end: 0;
 }
 
-// h1,h2, h3, h4, h5, h6,
-// p {
-//     font-weight: 400;
-// }
+h1,h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+p {
+    font-weight: 200;
+}
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul[role='list'],
@@ -111,8 +150,18 @@ picture {
 input, button,
 textarea, select {
   font: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-weight: 200;
+  letter-spacing: $letter-spacing-text;
 }
 
+button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    
+}
 
 /* Make sure textareas without a rows attribute are not tiny */
 textarea:not([rows]) {
@@ -147,6 +196,24 @@ body {
       scroll-behavior: auto !important;
     }
 }
+
+/* Smooth scrolling on the whole document */
+ html {
+	scroll-behavior: smooth;
+}
+
+/* Custom text selection color */
+::selection {
+    background-color: $secondary-color; 
+    color: $main-black-color;
+}
+
+/* Reset selection color for elements other than text */
+::-moz-selection {
+    background-color: $secondary-color; 
+    color: $main-black-color; 
+}
+
 
 /*  ---------------------------------- */
 //  ██    ██ ████████ ██ ██      ██ ████████ ██    ██      ██████ ██       █████  ███████ ███████ ███████ ███████ 
@@ -280,3 +347,4 @@ body {
     font-weight: 700;
     padding-right: 0.5em;
 }
+

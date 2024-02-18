@@ -30,7 +30,7 @@
             </picture>
 
             <div class="slide-text">
-                <h2>Title <br> some words<span class="" style="color:#f0bd2f;">_</span></h2>
+                <h2>Title <br> some words<span class="underscore-static" style="visibility:hidden;">_</span></h2>
                 <p>Loddffrem ipsum doslor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
                 <div class="button btn6">DISCOVER</div>
             </div>
@@ -46,7 +46,7 @@
             </picture>
 
             <div class="slide-text">
-                <h2>Text <br> some text<span class="" style="color:#f0bd2f;">_</span></h2>
+                <h2>Text <br> some text<span class="underscore-static" style="visibility:hidden;">_</span></h2>
                 <p>Loddffrem ipsum doslor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
                 <div class="button btn6">DISCOVER</div>
             </div>
@@ -80,22 +80,65 @@
 
     <script>
         $(document).ready(function(){
-            gsap.from('#slide1 .slide-picture', 1.2, {opacity: 0, y: 200, delay: 1.1 });
-            gsap.from('#slide1 .slide-text h2', 1.2, {opacity: 0, y: 200, delay: 1.5 });
-            gsap.from('#slide1 .slide-text p', 1.2, {opacity: 0, y: -60, delay: 2 });
-            gsap.from('#slide1 .slide-text .btn6', 1.2, {opacity: 0, x: -80, delay: 2.1 });
-
-            $('.btn6').on('mouseenter', function() {
-                gsap.to(this, { backgroundColor: '#151515', color: '#f0bd2f',  borderColor : '#f0bd2f', duration: 0.3 });
-            });
-            $('.btn6').on('mouseleave', function() {
-                gsap.to(this, { backgroundColor: '#f9f9f9', color: '#151515', borderColor : '#f0bd2f', duration: 0.3 });
-            });
-
+            var currentSlide = 0;
+            var totalSlides = $('.slide').length;
+            var slideTransitionDelay = 800; // Delay before starting slide transitions
+            var slideTransitionInterval = 6000; // Interval between slide transitions
+        
+            // Function to animate slide elements
+            function animateSlideElements() {
+                gsap.from('.slide .slide-picture', 1.2, {opacity: 0, delay: 1.1 });
+                gsap.from('.slide .slide-text h2', 1.2, {opacity: 0, y: 200, delay: 1.5 });
+                gsap.from('.slide .slide-text p', 1.2, {opacity: 0, y: -60, delay: 2 });
+                gsap.from('.slide .slide-text .btn6', 1.2, {opacity: 0, x: -80, delay: 2.1 });
+        
+                $('.btn6').on('mouseenter', function() {
+                    gsap.to(this, { backgroundColor: '#151515', color: '#f0bd2f',  borderColor : '#f0bd2f', duration: 0.3 });
+                });
+                $('.btn6').on('mouseleave', function() {
+                    gsap.to(this, { backgroundColor: '#f9f9f9', color: '#151515', borderColor : '#f0bd2f', duration: 0.3 });
+                });
+            }
+        
+            // Function to transition to the next slide
+            function nextSlide() {
+                // Hide the current slide
+                $('.slide').eq(currentSlide).hide();
+                // Calculate the index of the next slide (cycling back to 0 if reaching the end)
+                currentSlide = (currentSlide + 1) % totalSlides;
+                // Show the next slide
+                $('.slide').eq(currentSlide).show();
+                // Animate slide elements
+                animateSlideElements();
+                // Reset underscore visibility
+                $('.underscore-static').css('visibility', 'hidden');
+                setTimeout(function() {
+                    $('.underscore-static').css('visibility', 'visible');
+                }, 3500);
+            }
+        
+            // Hide all slides initially
+            $('.slide').hide();
+        
+            // After a delay, show the first slide and start changing slides at intervals
             setTimeout(function() {
-                $('.underscore-static').css('visibility', 'visible');
-            }, 3000);
+                // Show the first slide
+                $('.slide').eq(0).show();
+                // Animate elements of the first slide
+                animateSlideElements();
+                // Set interval to call the nextSlide function
+                setInterval(nextSlide, slideTransitionInterval);
+                // Show underscore after a delay
+                setTimeout(function() {
+                    $('.underscore-static').css('visibility', 'visible');
+                }, slideTransitionDelay + 2000);
+            }, slideTransitionDelay);
+        });
+
+
+
+            
            
-        });  
+    
     </script>
 {% endblock %}

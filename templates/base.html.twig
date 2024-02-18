@@ -3,10 +3,10 @@
     <head>
         {# Tarte au citron #}
         {# <script src="/tarteaucitron/tarteaucitron.js"></script> #}
-        <script src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
+        {# <script src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script> #}
 
-        {# indique ce que l'on fait des données collectées, cb de temps on les converse et lister la totalité des cookies  qui potentiellement vont être écrits par le site si l'user les accepte#}
-        <script type="text/javascript">
+        {# indique ce que l'on fait des données collectées, cb de temps on les conserve et lister la totalité des cookies qui potentiellement vont être écrits par le site si l'user les accepte#}
+        {# <script type="text/javascript">
         tarteaucitron.init({
     	  "privacyUrl": "", /* Privacy policy url */
 
@@ -53,10 +53,7 @@
     
           //"customCloserId": "" /* Optional a11y: Custom element ID used to open the panel */
         });
-        </script>
-
-
-
+        </script> #}
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,9 +74,18 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+
+
         {% block stylesheets %}
             <link rel="stylesheet" href="{{asset('css/general.css')}}">
             <link rel="stylesheet" href="{{asset('css/component.css')}}">
+            <link rel="stylesheet" href="{{asset('css/settings.css')}}">
+            <link rel="stylesheet" href="{{asset('css/layout.css')}}">
 
         {% endblock %}
 
@@ -88,16 +94,35 @@
     </head>
     <body>
 
+        <aside id="aboutUs">
+            <div>
+                <h3>MOSAIC<span class="underscore">_</span></h3>
+                <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulpuelit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
+                <div class='btn4'>LEARN MORE</div>
+                <div class="socials">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </aside>
+
         <nav>
-            <div class="home">
+            <div class="name-app">
+                <p class="{% if app.request.attributes.get('_route') == 'app_homepage' %}active{% endif %}">
+                    <a href="{{ path('app_homepage') }}">MOSAIC</a>
+                </p>
+            </div>
+
+            {# <div class="home">
 
                 <p class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}">
                     <a href="{{ path('app_home') }}"><i class="ri-home-heart-fill"></i></a>
                 </p>
+                
+            </div> #}
 
-            </div>
-
-            <div class="links">
+            <div class="nav-links">
 
                 <p class="{% if app.request.attributes.get('_route') == 'app_artist' %}active{% endif %}">
                     <a href="{{ path('app_artist') }}">ARTISTS</a>
@@ -119,53 +144,60 @@
                     <a href="{{ path('app_studio') }}">ART STUDIOS</a>
                 </p>
 
-                <p class="{% if app.request.attributes.get('_route') == 'app_artist' %}active{% endif %}">
+                <p class="{% if app.request.attributes.get('_route') == 'app_calendar' %}active{% endif %}">
                     <a href="{{ path('app_calendar') }}">CALENDAR</a>
                 </p>
 
-                {% if is_granted('ROLE_ARTIST') %}
-                <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
-                {% endif %}
-            
             </div>
 
-
-
-
-            <div class="roles">
-                {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_dashboard')}}"><i class="ri-dashboard-fill"></i></a>
-                {% endif %}
-                
-                
-                {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
-                <a href="{{ path('studio_dashboard')}}"><i  class="ri-table-fill"></i></a>
-                {% endif %}
-                
-                
-                {% if is_granted('ROLE_ARTIST') %}
-                {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
-                <a href="{{ path('manage_profil', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette"></i></a>
-                {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
-                {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
-                <a href="{{ path('new_artist', {slug: app.user.slug }) }}">Join us (for artists)</a>
-                {% else %}
-                {# else, add something eventually or not #}
-                {% endif %}
-
-
-                {% if app.user %}
-                    <a href="{{ path('show_user', {slug: app.user.slug }) }}"><i class="fa-solid fa-circle-user"></i></a>
-                    <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a>
-                {% else %}
-                    <a href=" {{ path('app_register') }}">register</a>
-                    <a href="{{ path('app_login') }}">login</a>
-                {% endif %}
+            <div class="nav-menu">
+                <a href="#">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </a>
             </div>
-            
-            
+
         </nav>
 
+
+
+        <div class="roles">
+
+            {% if is_granted('ROLE_ARTIST') %}
+            <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
+            {% endif %}
+
+
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_dashboard')}}"><i class="ri-dashboard-fill"></i></a>
+            {% endif %}
+            
+            
+            {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
+            <a href="{{ path('studio_dashboard')}}"><i  class="ri-table-fill"></i></a>
+            {% endif %}
+            
+            
+            {% if is_granted('ROLE_ARTIST') %}
+            {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
+            <a href="{{ path('manage_profil', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette"></i></a>
+            {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
+            {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
+            <a href="{{ path('new_artist', {slug: app.user.slug }) }}">Join us (for artists)</a>
+            {% else %}
+            {# else, add something eventually or not #}
+            {% endif %}
+
+
+            {% if app.user %}
+                <a href="{{ path('show_user', {slug: app.user.slug }) }}"><i class="fa-solid fa-circle-user"></i></a>
+                <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a>
+            {% else %}
+                <a href=" {{ path('app_register') }}">register</a>
+                <a href="{{ path('app_login') }}">login</a>
+            {% endif %}
+        </div>
   
 
             {% for message in app.flashes('success') %}
@@ -185,13 +217,57 @@
             {% endblock %}
         </div>
 
+      
+
+{#   ---------------------------------- */
+//  ███████  ██████   ██████  ████████ ███████ ██████  
+//  ██      ██    ██ ██    ██    ██    ██      ██   ██ 
+//  █████   ██    ██ ██    ██    ██    █████   ██████  
+//  ██      ██    ██ ██    ██    ██    ██      ██   ██ 
+//  ██       ██████   ██████     ██    ███████ ██   ██
+/*  ---------------------------------- */#}
+
         <footer>
-            <a href="#">Terms of Use</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Contact</a>
+            <div id="footer-separator"></div>
+            <div id="footer-content">
+                <div>
+                    <p id="name-nav">MOSAIC</p>
+                </div>
+    
+                <div id="footer-links">
+                    <a href="#">HOME</a>
+                    <a href="#">ABOUT</a>
+                    <a href="#">CONTACT</a>
+                </div>
+    
+                {# <div>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Privacy Policy</a>
+                </div> #}
+    
+                <div id="footer-rights">
+                    <p> © <span id="footer-date"></span> MOSAIC. All Rights Reserved.</p>
+                </div>
+    
+                <div class="socials" id="footer-socials">
+                    <a href="#"><i class="fa-brands fa-facebook "></i></a>
+                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div> 
+            </div>
+            
         </footer>
+
+        
     </body>
 
+{#/*  ---------------------------------- */
+//  ███████  ██████ ██████  ██ ██████  ████████ 
+//  ██      ██      ██   ██ ██ ██   ██    ██    
+//  ███████ ██      ██████  ██ ██████     ██    
+//       ██ ██      ██   ██ ██ ██         ██    
+//  ███████  ██████ ██   ██ ██ ██         ██    
+/*  ---------------------------------- */#}
 
     {# Jquery #}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -201,6 +277,11 @@
     {# FullCalendar #}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script src="{{ asset('js/calendar.js') }}"></script>
+
+    <script>
+
+
+    </script>
     
     
 

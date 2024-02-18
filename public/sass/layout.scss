@@ -39,7 +39,50 @@ body {
     // margin-bottom: 500px;
 }
 
+#back-top-btn {
+    display: inline-block;
+    background-color: $secondary-color;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border-radius: 2px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+    @include center-flexbox();
 
+    &:hover {
+        cursor: pointer;
+        background-color: #333;        
+    }
+    &.active {
+        background-color: #555;
+    }
+    &.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    &:hover:after {
+        color: $secondary-color;
+    }
+    &:after {
+        content: "\f077";
+        font-family: FontAwesome;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 2em;
+        line-height: 50px;
+        color: $main-white-color;
+    }
+}
+
+
+  
 
 /*  ---------------------------------- */
 //  ███    ██  █████  ██    ██ ██████   █████  ██████  

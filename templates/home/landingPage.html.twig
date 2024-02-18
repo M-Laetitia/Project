@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home2{% endblock %}
+{% block meta %}Test home!2{% endblock %}
+
+{% block body %}
+    <section id="slides">
+
+        {# <div class="slides-arrow left"><<</div> #}
+        <div class="slide" id="slide1" >
+            <picture class="slide-picture">
+                <img src="" alt="">
+            </picture>
+
+            <div class="slide-text">
+                <h2>Unleash <br> the Art<span class="" style="color:#f0bd2f;">_</span></h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
+                <div class="button btn6">READ MORE</div>
+            </div>
+
+            {# <picture class="slide-picture">
+                <img src="" alt="">
+            </picture> #}
+        </div>
+
+        <div class="slide" id="slide2" >
+            <picture class="slide-picture">
+                <img src="" alt="">
+            </picture>
+
+            <div class="slide-text">
+                <h2>Title <br> some words<span class="" style="color:#f0bd2f;">_</span></h2>
+                <p>Loddffrem ipsum doslor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
+                <div class="button btn6">DISCOVER</div>
+            </div>
+
+            {# <picture class="slide-picture">
+                <img src="" alt="">
+            </picture> #}
+        </div>
+
+        <div class="slide" id="slide3">
+            <picture class="slide-picture">
+                <img src="" alt="">
+            </picture>
+
+            <div class="slide-text">
+                <h2>Text <br> some text<span class="" style="color:#f0bd2f;">_</span></h2>
+                <p>Loddffrem ipsum doslor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
+                <div class="button btn6">DISCOVER</div>
+            </div>
+
+            {# <picture class="slide-picture">
+                <img src="" alt="">
+            </picture> #}
+        </div>
+
+
+        {# <div class="slides-arrow right">>></div> #}
+
+
+    </section>
+
+    <section id="concept">
+
+    </section>
+
+    <section id="section-contact">
+
+    </section>
+
+     {# Jquery #}
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+     <script src="{{ asset('js/main.js') }}"></script>
+     <script src="{{ asset('js/gwl.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            // Initialize variables to keep track of current slide and total slides
+            var currentSlide = 0;
+            var totalSlides = $('.slide').length;
+        
+            // Hide all slides initially
+            $('.slide').hide();
+        
+            // After a delay of 1s, show the first slide and start changing slides every 3 seconds
+            setTimeout(function() {
+                // Show the first slide
+                $('.slide').eq(0).show();
+                // Set interval to call the nextSlide function every 3000 ms
+                setInterval(nextSlide, 3000);
+            }, 1000);
+        
+            // Function to transition to the next slide
+            function nextSlide() {
+                // Hide the current slide
+                $('.slide').eq(currentSlide).hide();
+                // Calculate the index of the next slide (cycling back to 0 if reaching the end)
+                currentSlide = (currentSlide + 1) % totalSlides;
+                // Show the next slide
+                $('.slide').eq(currentSlide).show();
+            }
+        });
+       
+    </script>
+{% endblock %}

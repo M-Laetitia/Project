@@ -15,20 +15,24 @@
     <section class="content" id="profil-user">
 
         <div id="content-profil-user">
-            <div>______</div>
+            <div id="separator-profil"></div>
             <div id="top">
-                <h2>{{ user }}<span>_</span> </h2>
+                <h2 class="text-n1">{{ user }}<span>_</span> </h2>
                 <div id="avatar">
                     <div>
-                        {% if user.avatar %}
+                        <picture>
+                            {% if user.avatar %}
                             <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
-                        {% else %}
-                            <img src="{{ asset('images/default_profile.jpg') }}">
-                        {% endif %}
+                            {% else %}
+                                <img src="{{ asset('images/default_profile.jpg') }}">
+                            {% endif %}
+                        </picture>
+                        
+                    </div>
+                    <div>
+                        <i class="fa-regular fa-pen-to-square fa-lg"></i>
                     </div>
 
-                    <div></div>
-                    <div></div>
                 </div>
                 <div id="roles">
                     <div></div>
@@ -38,15 +42,36 @@
             </div>
             <div id="middle">
                 <div id="left">
-                    <p>Info_</p>
-                    <div>
-                        <p>Username : {{user}}</p>
-                        <p>Email : {{ user.email }}</p>
-                        <p>Registration date : {{ user.registrationDate|date("d.m.Y") }}</p>
-                        <p>Member since: {{ user.durationSinceRegistration}}</p>
+                    <p class="text-n2" id="infos">Info<span>_</span></p>
+                    <div class="text-n3" id="info">
+                        <p><span>Username :</span> {{user}}</p>
+                        <p><span>Email :</span> {{ user.email }}</p>
+                        <p><span>Registration date :</span> {{ user.registrationDate|date("d.m.Y") }}</p>
+                        <p><span>Member since :</span> {{ user.durationSinceRegistration}}</p>
                     </div>
+
+                    <div class="logo-profile">
+                        <div><i class="fa-regular fa-pen-to-square"></i></div>
+                        <div><i class="fa-solid fa-x"></i></div>
+                    </div>
+
                 </div>
-                <div id="right"></div>
+             
+                <div id="right">
+                    <p class="text-n2" id="activities"><span>_</span>Activity</p>
+                    <div class="text-n3" id="activity">
+                        <p><span>Events</span></p>
+                        <p><span>Exhibitions</span></p>
+                        <p><span>Workshops</span></p>
+                        <p><span>Studios</span></p>
+                    </div>
+
+                    <div class="logo-profile">
+                        <div><i class="fa-regular fa-star"></i></div>
+                    </div>
+
+                </div>
+
             </div>
             <div id="bottom"></div>
         </div>

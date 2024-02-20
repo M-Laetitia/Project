@@ -11,11 +11,7 @@ $transition-len: 0.35s;
 //  ██████   ██████     ██       ██     ██████  ██   ████
 /*  ---------------------------------- */
 
-
-.btn4 {
-  border:1px solid $secondary-color; 
-  background-color: $main-black-color;
-  color: $secondary-color;
+.button {
   padding: .2rem 1.3rem;
   height: 2.5rem;
   display: inline-block;
@@ -23,12 +19,31 @@ $transition-len: 0.35s;
   position: relative;
   text-align: center;
   cursor: pointer;
-  transition: all $transition-len cubic-bezier($transition-bezier);
+  // transition: all $transition-len cubic-bezier($transition-bezier);
 
+}
+
+.btn4 {
+  border:1px solid $secondary-color; 
+  background-color: $main-black-color;
+  color: $secondary-color;
+  transition: all $transition-len cubic-bezier($transition-bezier);
   &:hover {
     border:1px solid $main-black-color;
     background-color: $secondary-color;
     color: $main-black-color;
+  }
+}
+
+.btn6 {
+  border:1px solid $main-white-color; 
+  background-color: $main-white-color;
+  color: $main-black-color;
+  // transition: ease-in-out 0.3s;
+  &:hover {
+    // border:1px solid $secondary-color;
+    // background-color: $main-black-color;
+    // color: $secondary-color;
   }
 }
 
@@ -52,7 +67,92 @@ $transition-len: 0.35s;
   }
 }
 
+.underscore-static {
+  color: $secondary-color; ;
+}
 
+
+/*  ---------------------------------- */
+//  ██   ██  ██████  ██    ██ ███████ ██████  
+//  ██   ██ ██    ██ ██    ██ ██      ██   ██ 
+//  ███████ ██    ██ ██    ██ █████   ██████  
+//  ██   ██ ██    ██  ██  ██  ██      ██   ██ 
+//  ██   ██  ██████    ████   ███████ ██   ██
+/*  ---------------------------------- */
+
+/* HOVER #2 --------------------------*/
+#hover2 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  
+  }
+}
+
+#hover2 img {
+  transition: all ease-in-out 0.3s;
+}
+
+#hover2:hover img {
+  opacity: 0.2;
+  transform: scale(1.1);
+}
+
+#hover2 #text2 {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s, top ease-in-out 0.5s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+#hover2:hover #text2 {
+  opacity: 1;
+  top: 50%;
+}
+
+#hover2 #text2 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: $secondary-color3;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+.categories {
+  display: flex;
+}
+
+.category {
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.category:hover {
+  background-color: #ddd;
+}
+
+/*________________________ */
 
 $color-yellow : rgb(240, 189, 47);
 $color-blue: #207E93;
@@ -216,49 +316,6 @@ $font-size-small: 0.9rem;
   }
 }
 
-#hover2 {
-  background-color: rgb(0, 0, 0);
-  position: relative;
-  cursor: pointer;
-  img {
-    transition: opacity ease-in-out 0.3s;
-    &:hover {
-      opacity: 0.2;
-    }
-  }
-
-    #text2 {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      transition: opacity ease-in-out 0.3s;
-      font-size: 20px;
-      font-weight: bold;
-      color: white;
-      margin: 0;
-      padding: 0;
-
-      span {
-        animation: blink 1s infinite;
-        font-weight: bold;
-        color: $color-blue;
-      }
-
-      @keyframes blink {
-        50% {
-            opacity: 0;
-        }
-    }
-    }
-
-    &:hover #text2 {
-      opacity: 100%;
-      transition: opacity ease-in-out 1s;
-    }
-
-}
 
 
 #hover3 {

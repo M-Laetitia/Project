@@ -4,7 +4,51 @@
 {% block meta %}Discover our artist community{% endblock %}
 
 {% block body %}
-    <h1>Artists</h1>
+
+    <div class="banner">
+        <div>
+            <h1>DISCOVER THE ARTISTS</h1>
+            <p>Be Inspired<span class="underscore-static">_</span></p>
+        </div>
+    </div>
+
+    </div>
+
+    <section class="content" id="artists-index">
+        <div id="artists-container">
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    {% if searchResults %}
+    <h2>Search results</h2>
+    {% else %}
+    <h2>All artists</h2>
+    {% endif %}
+
 
     <h2>Search 2</h2>
     {{ form_start(formArtistSearch, {'method': 'POST'}) }}
@@ -33,43 +77,81 @@
         </select>
         <button type="submit">Filter</button>
     </form>
+
+
+    <div class="categories">
+        <div class="category" data-category="all" onclick="showArtists('all')">Show All</div>
+        <div class="category" data-category="Illustration" onclick="showArtists('Illustration')">Illustration</div>
+        <div class="category" data-category="photography" onclick="showArtists('photography')">Photography</div>
+        <div class="category" data-category="design" onclick="showArtists('design')">Design</div>
+    </div>
+
     
     
     <h2>Last Artists added:</h2>
 
  
-    {% if searchResults %}
-        <h2>Search results</h2>
-    {% else %}
-        <h2>All artists</h2>
-    {% endif %}
-   
-    
 
-    <div class="artists-container">
+    <div id="artists-container2">
         {% for artist in artists %}    
-        <div class="artist-container">
-            <p>
+        <div class="artist {{ artist.artistInfos.category }}">
+             <div>
                 <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}">{{ artist.artistInfos.artistName }}</a>
-
-            </p>
+            </div>
             <p>{{ artist.artistInfos.discipline }}</p>
+            <p>{{ artist.artistInfos.category }}</p>
             <p id="{{artist.id}}">
                 <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><i class="ri-eye-close-fill"></i></a>
             </p>
-        
-            <div>
-                <img src="" alt="picture of the artist">
-            </div>
-    
         </div>
         {% endfor %}
     </div>
 
+
+    
+
     <div id="search-results"></div>
 
-    <script>
+    {# <div id="filter-category-artists">
+        <p>Show all</p>
+        <p>Illustration</p>
+        <p>Craft</p>
+        <p>Photography</p>
+        <p>Design</p>
+        <p>Textile</p>
+        <p>Other</p>
+    </div>
+   #}
 
+    <script>
+        function showArtists(category) {
+            // If the category is "all", display all artists and return
+            if (category === 'all') {
+                $('.artist').css('display', 'block');
+                return;
+            }
+        
+            // Flag to check if any artist is found for the selected category
+            var found = false;
+        
+            // Loop through each artist
+            $('.artist').each(function() {
+                // Check if the artist has the class corresponding to the selected category
+                if ($(this).hasClass(category)) {
+                    // If yes, display the artist
+                    $(this).css('display', 'block');
+                    found = true;
+                } else {
+                    // If no, hide the artist
+                    $(this).css('display', 'none');
+                }
+            });
+        
+            // If no artist is found for the selected category, display "No result found"
+            if (!found) {
+                $('#artists-container2').html('<div>No result found</div>');
+            }
+        }
     </script>
   
 {% endblock %}

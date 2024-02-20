@@ -23,20 +23,24 @@ body {
     // display: grid; /* help all the items here to stretch out*/
     // grid-template-rows: min-content 1fr;
     overflow-x: hidden;
+    height: 100%;
     // position: relative;
     // padding-bottom: 500px;
     // margin-bottom: 500px;
+    
 }
 
-.content {
+.main {
     // background-color: red;
-    height: 30%;
+    height: 100%;
+    width: 100%;
     // margin-top: 6rem;
     // margin-left: auto;
     // margin-right: auto;
     // margin-bottom: 7rem;
     // width: 70%;
     // margin-bottom: 500px;
+    position: relative;
 }
 
 #back-top-btn {
@@ -82,6 +86,82 @@ body {
 }
 
 
+.banner {
+    // background-color: rgb(167, 167, 167);
+    background-image: url('../images/banner.png'); 
+    background-size: cover;
+    background-position: center; 
+    width: 100%;
+    height: 12rem;
+    @include center-flexbox();
+    margin-bottom: 10rem;
+    // padding-left: $padding-border;
+
+    div {
+        width: $content-width;
+        // background-color: red;
+        margin: auto;
+    
+        h1, p {
+            font-size: 2.3rem;
+            font-weight: $bold;
+        }
+    
+        p {
+            color: $secondary-color3;
+        }
+    } 
+
+}
+
+    .banner-title {
+        opacity: 0;
+        transform: translateX(-80px); // Transformation initiale
+
+        transition: opacity 2s ease, transform 2s ease; 
+    }
+
+    .banner-text {
+        opacity: 0;
+        transition: opacity 2s ease 1s; // add 1s of delay
+    }
+
+    .banner-title.visible {
+        opacity: 1;
+        transform: translateX(0); // Transformation finale
+    }
+
+    .banner-text.visible {
+        opacity: 1;
+    }
+
+
+
+    .underscore-static {
+        font-size: 24px;
+        animation: blink 1s 5; 
+    }
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+.content {
+    // background-color: red;
+    width: $content-width;
+    margin: auto;
+}
+
   
 
 /*  ---------------------------------- */
@@ -92,11 +172,12 @@ body {
 //  ██   ████ ██   ██   ████   ██████  ██   ██ ██   ██ 
 /*  ---------------------------------- */
 
+
 nav {
     // position: absolute;
     // margin-bottom: 2rem;
     width: 100%;
-    height: 6rem;
+    height: $nav-size;
     background-color: $main-black-color;
     color: $main-white-color;
     padding: 0 1.8rem;
@@ -104,6 +185,7 @@ nav {
     align-items: center;
     grid-template-columns: 25% 45% 30%;
     letter-spacing: $letter-spacing-title;
+    z-index: 2000;
     
     // gap: 2rem;
     // padding: 0 2rem ;
@@ -113,10 +195,11 @@ nav {
     }
 
     .nav-links {
-        font-size: 0.7rem ;
+        font-size: $fs-text;
         // background-color: red;
         justify-content: space-between;
         display: flex;
+       
     }
 
     .nav-menu {
@@ -132,6 +215,7 @@ nav {
             justify-content: space-between;
             align-items: flex-end;
             position: relative;
+            font-size: 10px;
 
             div {
                 width: 1.8rem;
@@ -182,7 +266,7 @@ aside {
     // z-index: 1000;
     height: 100vh;
     width: 28rem;
-    z-index: 1;
+    z-index: 2;
     color: $main-white-color;
     text-align: justify;
     overflow: hidden;
@@ -249,16 +333,17 @@ aside {
 //  ██   ██ ██          ██  ██  ██ ██      ██   ██ ██   ██ ██      
 //  ██████  ███████     ██      ██ ███████ ██   ██ ██████  ███████                                                                                                                      
 /*  ---------------------------------- */
-$footer-size: 28rem;
+
 footer {
     background-color: $main-black-color;
     width: 100%;
     height: $footer-size;
     margin-top: 15rem;
-    bottom: 0;
-    left: 0;
+    // bottom: 0;
+    // left: 0;
     color: $main-white-color;
-    position: relative;
+    position: absolute;
+
     @include center-flexbox();
     
     #footer-separator {
@@ -275,13 +360,13 @@ footer {
         // background-color: red;
         @include center-flexbox();
         flex-direction: column;
-        padding-top: 5rem ;
+        padding-top: 1rem ;
     }
 
     #name-nav {
         letter-spacing: $letter-spacing-title;
-        font-size: $fs-big;
-        font-weight: $medium;
+        font-size: $fs-medium;
+        font-weight: $regular;
         margin-bottom: 1rem;
     }
 
@@ -290,6 +375,7 @@ footer {
         column-gap: 7rem;
         letter-spacing: $letter-spacing-title;
         font-weight: $regular;
+        font-size: $fs-text;
         margin-bottom: 6rem;
     }
 
@@ -312,5 +398,10 @@ footer {
             color:$secondary-color;
         }
     }
+
+    #name-rights {
+        color: $secondary-color;
+    }
+
 }
 

@@ -83,7 +83,7 @@
         <div class="category" data-category="all" onclick="showArtists('all')">Show All</div>
         <div class="category" data-category="Illustration" onclick="showArtists('Illustration')">Illustration</div>
         <div class="category" data-category="photography" onclick="showArtists('photography')">Photography</div>
-        <div class="category" data-category="design" onclick="showArtists('design')">Design</div>
+        <div class="category" data-category="Design" onclick="showArtists('Design')">Design</div>
     </div>
 
     
@@ -92,7 +92,7 @@
 
  
 
-    <div id="artists-container2">
+    <div id="artists-container2" class="artist-grid">
         {% for artist in artists %}    
         <div class="artist {{ artist.artistInfos.category }}">
              <div>
@@ -103,6 +103,8 @@
             <p id="{{artist.id}}">
                 <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><i class="ri-eye-close-fill"></i></a>
             </p>
+            <picture>
+            </picture>
         </div>
         {% endfor %}
     </div>
@@ -131,23 +133,19 @@
                 return;
             }
         
-            // Flag to check if any artist is found for the selected category
-            var found = false;
-        
-            // Loop through each artist
+            // Display artists corresponding to the selected category
             $('.artist').each(function() {
-                // Check if the artist has the class corresponding to the selected category
                 if ($(this).hasClass(category)) {
-                    // If yes, display the artist
-                    $(this).css('display', 'block');
-                    found = true;
+                    $(this).css('display', 'block'); // Show the artist
                 } else {
-                    // If no, hide the artist
-                    $(this).css('display', 'none');
+                    $(this).css('display', 'none'); // Hide the artist
                 }
             });
         
-            // If no artist is found for the selected category, display "No result found"
+            // Check if any artists are displayed for the selected category
+            var found = $('.artist.' + category + ':visible').length > 0;
+        
+            // If no artists are found, display "No result found"
             if (!found) {
                 $('#artists-container2').html('<div>No result found</div>');
             }

@@ -40,6 +40,82 @@
                     </div>
                 </figure>
             </div>
+             <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+             <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+             <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            
         </div>
     </section>
 
@@ -124,21 +200,40 @@
         <p>Other</p>
     </div>
    #}
+       {# Jquery #}
+       <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+       <script src="{{ asset('js/main.js') }}"></script>
+       <script src="{{ asset('js/gwl.js') }}"></script>
 
     <script>
+        $(document).ready(function() {
+            // Sélectionner les trois premières images et leur ajouter la classe "visible"
+            $('.artist-container:lt(3)').addClass('visible');
+        
+            // Déclencher l'animation pour les images restantes en fonction du scroll
+            $(window).scroll(function() {
+                $('.artist-container:not(.visible)').each(function() {
+                    if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                        $(this).addClass('visible');
+                    }
+                });
+            });
+        });
+
         function showArtists(category) {
             // If the category is "all", display all artists and return
             if (category === 'all') {
                 $('.artist').css('display', 'block');
                 return;
             }
+ 
         
             // Display artists corresponding to the selected category
             $('.artist').each(function() {
                 if ($(this).hasClass(category)) {
-                    $(this).css('display', 'block'); // Show the artist
+                    $(this).css('display', 'block'); 
                 } else {
-                    $(this).css('display', 'none'); // Hide the artist
+                    $(this).css('display', 'none'); 
                 }
             });
         
@@ -150,7 +245,10 @@
                 $('#artists-container2').html('<div>No result found</div>');
             }
         }
+        
     </script>
+
+    
   
 {% endblock %}
 

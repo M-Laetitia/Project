@@ -1,0 +1,196 @@
+@import 'settings';
+@import 'component';
+
+// ---------------------------------
+//  ██ ███    ██ ██████  ███████ ██   ██ 
+//  ██ ████   ██ ██   ██ ██       ██ ██  
+//  ██ ██ ██  ██ ██   ██ █████     ███   
+//  ██ ██  ██ ██ ██   ██ ██       ██ ██  
+//  ██ ██   ████ ██████  ███████ ██   ██
+// ---------------------------------
+
+#artists-index {
+    // background-color: grey;
+
+    .categories {
+        display: flex;
+        padding-bottom: 2.5rem;
+        justify-content: center;
+        column-gap: 3rem;
+        .category {
+            cursor: pointer;
+            transition: ease-in-out 0.3s;
+            &:hover {
+                color: $secondary-color3;
+                transform: translateY(-5px);
+            }
+        }
+        #all {
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+  
+    #artists-container {
+        // background-color: grey;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5rem; 
+        justify-items: center; 
+        justify-content: space-between; 
+        cursor: pointer;
+
+        #hover2{
+            width: 23.5rem;
+            height: 23.5rem;
+            background-color: black;
+
+            img {
+                object-fit: cover;
+                // width: 100%;
+            }
+        }
+    }
+}
+img {
+    object-fit: cover;
+}
+
+// ---------------------------------
+//   █████  ██████  ████████ ██ ███████ ████████     ██████   █████   ██████  ███████ 
+//  ██   ██ ██   ██    ██    ██ ██         ██        ██   ██ ██   ██ ██       ██      
+//  ███████ ██████     ██    ██ ███████    ██        ██████  ███████ ██   ███ █████   
+//  ██   ██ ██   ██    ██    ██      ██    ██        ██      ██   ██ ██    ██ ██      
+//  ██   ██ ██   ██    ██    ██ ███████    ██        ██      ██   ██  ██████  ███████
+// ---------------------------------
+
+#artist-show {
+    header {
+        position: relative;
+        margin-bottom: 6rem;
+        figure {
+            width: 100%;
+            height: 40rem;
+            background-color: grey;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+            }
+        }
+        #quote {
+            position: absolute;
+            width: 100%;
+            height: 2.5rem;
+            background-color: $secondary-color;
+            right: 0;
+            transform: translate(25rem, -20px);
+            padding-right: 12rem;
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            color : $main-white-color;
+
+            span {
+                color: $secondary-color3;
+                font-weight: $extra-bold;
+                font-size: 2rem;
+
+            }
+
+            p {
+                font-weight: $medium !important;
+                margin: 0 1rem;
+            }
+        }
+    }
+
+    #artist-detail {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        margin-bottom: 7rem;
+        #about {
+            // background-color: red;
+            padding-right: 5rem;
+            text-align: justify;
+            h3 {
+                margin-bottom: 1.5rem;
+            }
+            span {
+                color : $secondary-color3;
+            }
+        }
+
+        #info {
+            // background-color: pink;
+
+            .text-n2 {
+                span {
+                    color: $secondary-color;
+                }
+            }
+            #list-info {
+                span {
+                    font-weight: $medium;
+                }
+            }
+            #list-infos {
+                border-left: 4px solid $secondary-color3;
+                padding: 1.5rem 0rem 0rem 1rem;
+                line-height: 2.5rem;
+
+                #list-info {
+                    p {
+                        span {
+                            margin-right: 3rem;
+                        }
+                    }
+                }
+
+            }
+
+            #socials {
+                margin-top: 2rem;
+                color: $secondary-color3;
+                font-size: 2rem;
+                display: flex;
+                column-gap: 2rem;
+                cursor: pointer;
+            }
+        }
+    }
+
+    #gallery {
+        h3 {
+            margin-bottom: 3rem;
+            span {
+                color: $secondary-color3;
+            }
+        }
+        #images {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5rem;
+            background-color: red;
+             
+            picture {
+                
+                width: 23.5rem;
+                height: 23.5rem;
+                background-color: grey;
+                
+                img {
+                    width: 100px;
+                height: 100px;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+}

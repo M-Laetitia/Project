@@ -86,6 +86,9 @@
             <link rel="stylesheet" href="{{asset('css/component.css')}}">
             <link rel="stylesheet" href="{{asset('css/settings.css')}}">
             <link rel="stylesheet" href="{{asset('css/layout.css')}}">
+            <link rel="stylesheet" href="{{asset('css/homePage.css')}}">
+            <link rel="stylesheet" href="{{asset('css/user.css')}}">
+            <link rel="stylesheet" href="{{asset('css/artistPages.css')}}">
 
         {% endblock %}
 
@@ -105,7 +108,7 @@
             <div>
                 <h3>MOSAIC<span class="underscore">_</span></h3>
                 <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulpuelit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
-                <div class='btn4'>LEARN MORE</div>
+                <div class='button btn4'>LEARN MORE</div>
                 <div class="socials">
                     <a href="#"><i class="fa-brands fa-facebook"></i></a>
                     <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
@@ -183,7 +186,12 @@
         //   ██████  ██████  ██   ████    ██    ███████ ██   ████    ██
         /*  ---------------------------------- */#}
 
-        <div class="roles">
+        <div class="roles" style="display:none;">
+
+        
+            <a href="{{ path('app_langindPage') }}">landing page</a>
+      
+
 
             {% if is_granted('ROLE_ARTIST') %}
             <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
@@ -233,7 +241,7 @@
             </div>
             {% endfor %} 
         
-        <div class="content">
+        <div class="main">
             {% block body %}
             {% endblock %}
         </div>
@@ -268,7 +276,7 @@
                 </div> #}
     
                 <div id="footer-rights">
-                    <p> © <span id="footer-date"></span> MOSAIC. All Rights Reserved.</p>
+                    <p> © <span id="footer-date"></span> <span id="name-rights">MOSAIC</span>. All Rights Reserved.</p>
                 </div>
     
                 <div class="socials" id="footer-socials">
@@ -346,6 +354,16 @@
         });
                 
 
+        // animation text banner 
+         // Ajouter la classe "visible" au titre du header pour déclencher l'animation
+        $('.banner-title').addClass('visible');
+        $('.banner-text').addClass('visible');
+
+        // Clignotement de l'underscore
+        setInterval(function() {
+            $('.underscore-static').toggleClass('underscore-blink');
+        }, 1000);
+        
     </script>
     
     

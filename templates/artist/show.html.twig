@@ -12,17 +12,184 @@
 
 {% block body %}
 
-    {% for artistData in artist %}
-        <h1>{{ artistData.artistInfos.artistName }}</h1>
-        {# {{ dump(artist)}} #}
-        <h2>{{ artistData.artistInfos.discipline }}</h2>
-    {% endfor %}
+<div class="banner">
+    <div>
+        <h1 class="banner-title">
+            {% for artistData in artist %}
+                {{ artistData.artistInfos.artistName }}
+            {% endfor %}
+        </h1>
+        <p class="banner-text">
+            {% for artistData in artist %}
+                {{ artistData.artistInfos.discipline }}
+            {% endfor %}
+            <span class="underscore-static">_</span>
+        </p>
+    </div>
+</div>
+
+</div>
+
+<section class="content" id="artist-show">
+
+    <header>
+        <figure>
+            <img src="{{ asset('images/exemple_artist/banner2.jpg') }}" alt="">
+        </figure>
+        <div id="quote">
+            <span><</span>
+            <p> Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh </p>
+            <span>></span>
+        </div>
+    </header>
+
+    <section id="artist-detail">
+        <div id="about">
+            <h3 class="text-n1"> <span id="about-text">About the </span class="underscore">artist<span>_</span></h3>
+            <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
+        </div>
+
+        <div id="info">
+            <p class="text-n2">Info<span>_</span></p>
+            <div id="list-infos">
+                <div id="list-info">
+                    {% for artistData in artist %}
+                       
+                        <p><span>Category :</span>  {{ artistData.artistInfos.category }} </p>
+                        <p><span>Website :</span> </p>
+                        <p><span>Shop :</span> </p>
+                        <p><span>Contact :</span>  {{ artistData.artistInfos.emailPro }} </p>
+                    {% endfor %}
+
+                    
+                </div>
+                <div id="socials">
+                    <i class="fa-brands fa-square-behance"></i>
+                    <i class="fa-brands fa-square-instagram"></i>
+                    <i class="fa-brands fa-square-twitter"></i>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h3 class="text-n2">Dive into their art<span>_</span></h3>
+        <div id="images">
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+
+            <div class="artist-container">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{ asset('images/image.jpg') }}" alt="">
+                        <p id="text2">Some text <span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
 
 
-    <h2>Realisations: </h2>
-    {% for artistData in artist %}
-    {# {{ artistData|length }} 
-    {{ dump(artistData) }} #}
+            
+
+
+    
+        </div>
+
+        <i class="fa-solid fa-eye"></i>
+    </section>
+
+</section>
+
+
+ <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        // Déclencher l'affichage des images lors du défilement de la page
+        $(window).scroll(function() {
+            $('.artist-container:not(.visible)').each(function() {
+                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                    $(this).addClass('visible');
+                }
+            });
+        });
+    });
+</script>
+
+
+    {# <h2>Realisations: </h2> #}
+    {# {% for artistData in artist %}
     <div class="artist-works">
         {% for picture in artistData.pictures %}
             <div class="picture">
@@ -30,20 +197,27 @@
             </div>
         {% endfor %}
     </div>
-    {% endfor %}
+    {% endfor %} #}
 
-    
+{#     
     {% for artistData in artist %}
         <h3>Contact:</h3>
         <p>{{ artistData.artistInfos.emailPro }}</p>
-        
+         #}
         {# Test avec condition en fonction des données #}
         {# {% if artistData.artistInfos.discipline is not null %}
             <p>test: {{ artistData.artistInfos.discipline }}</p>
         {% endif %} #}
 
-    {% endfor %}
+    {# {% endfor %} #}
 
- 
+    
+    {# TODO:
+    mettre condition pour vérifier si y'a info 
+    clique > image gde taille
+    mettre condition pour vérifier ispusblished
+    oeil pour afficher plus de contenu (lazy loading?)
+
+     #}
    
 {% endblock %}

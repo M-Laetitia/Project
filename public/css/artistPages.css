@@ -1161,11 +1161,18 @@ img {
 }
 #artist-show #artist-detail #info #socials {
   margin-top: 2rem;
-  color: #207E93;
+  color: #151515;
   font-size: 2rem;
   display: flex;
   column-gap: 2rem;
   cursor: pointer;
+}
+#artist-show #artist-detail #info #socials i {
+  transition: 0.3s ease-in-out;
+}
+#artist-show #artist-detail #info #socials i:hover {
+  color: #207E93;
+  transform: translateY(-5px);
 }
 #artist-show #gallery h3 {
   margin-bottom: 3rem;
@@ -1178,17 +1185,30 @@ img {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5rem;
-  background-color: red;
 }
 #artist-show #gallery #images picture {
   width: 23.5rem;
   height: 23.5rem;
   background-color: grey;
+  overflow: hidden;
+  cursor: pointer;
 }
 #artist-show #gallery #images picture img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  transition: transform 1s ease;
+}
+
+.artist-container {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 2s ease, transform 2s ease;
+}
+
+.artist-container.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /*# sourceMappingURL=artistPages.css.map */

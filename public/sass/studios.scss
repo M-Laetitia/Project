@@ -1,0 +1,82 @@
+@import 'settings';
+@import 'component';
+
+// ---------------------------------
+//  ██ ███    ██ ██████  ███████ ██   ██ 
+//  ██ ████   ██ ██   ██ ██       ██ ██  
+//  ██ ██ ██  ██ ██   ██ █████     ███   
+//  ██ ██  ██ ██ ██   ██ ██       ██ ██  
+//  ██ ██   ████ ██████  ███████ ██   ██
+// ---------------------------------
+
+#studios-index {
+    #studio-links {
+    @include center-flexbox();
+    column-gap: 3rem;
+    margin-bottom: 3rem;
+    }
+
+    #studios-container {
+        
+        .studio-container {
+            background-color: $main-black-color;
+            padding: 5rem 0;
+            width: 100%;
+
+            .studio-content {
+                width: $content-width;
+                background-color: $main-black-color;
+                display: grid;
+                grid-template-columns: 45% 10% 45%;
+                margin: auto;
+                color: $main-white-color;
+                position: relative;
+
+                figure {
+                    width: 36rem;
+                    height: 23rem;
+    
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                .info-studio {
+                    .subtitle {
+                        margin-bottom: 3rem;
+                        display: grid;
+                        grid-template-columns: auto 1fr;
+                        
+
+                        .separator {
+                            width: 100%;
+                            height: 100%;
+                            background-color: transparent;
+                            border-bottom: 1px solid $main-white-color;
+                        }
+                    }
+                    .text-studio{
+                        text-align: justify;
+                        margin-bottom: 2rem;
+                    }
+
+                    h2 {
+                        margin-bottom: 2rem;
+                    }
+
+                    .btn3 {
+                        position: absolute;
+                        bottom: 0;
+                    }
+
+                    
+
+                }
+            }
+
+           
+        }
+    }
+}

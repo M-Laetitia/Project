@@ -1,0 +1,1117 @@
+/* ---------------------------------- */
+/* ---------------------------------- */
+:root {
+  /* colors */
+  --clr-dark: 230 35% 7%;
+  --clr-light: 231 77% 90%;
+  --clr-white: 0 0% 100%;
+  /* font-sizes */
+  --fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
+  --fs-800: 3.5rem;
+  --fs-700: 1.5rem;
+  --fs-600: 1rem;
+  --fs-500: 1.3rem;
+  --fs-400: 0.9375rem;
+  --fs-300: 1rem;
+  --fs-200: 0.9rem;
+  /* font-families */
+}
+
+.text-n1 {
+  font-weight: 700;
+  font-size: 1.85rem;
+  letter-spacing: 0.05rem;
+}
+
+.text-n2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.text-n3 {
+  font-size: 1.2rem;
+  font-weight: 300 !important;
+}
+
+@media (min-width: 35em) { /*560px*/
+  :root {
+    --fs-800: 5rem;
+    --fs-700: 2.5rem;
+    --fs-600: 1.5rem;
+    --fs-500: 1.5rem; /*20px*/
+    --fs-400: 1rem;
+  }
+}
+@media (min-width: 45em) { /*720*/
+  :root {
+    --fs-800: 6.25rem;
+    --fs-700: 3.5rem;
+    --fs-600: 2rem;
+    --fs-500: 1.75rem;
+    --fs-400: 1.125rem; /* base size = body text size */
+  }
+}
+/*  ---------------------------------- */
+/* ---------------------------------- */
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Reset margins */
+body, h1, h2, h3, h4, p,
+figure, picture, blockquote, dl, dd {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
+p {
+  font-weight: 300;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Balance text wrapping on headings */
+h1, h2, h3, h4 {
+  text-wrap: balance; /*  hand-authoring line breaks for balanced text blocks*/
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-weight: 200;
+  letter-spacing: 0.05rem;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* remove animations for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Smooth scrolling on the whole document */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom text selection color */
+::selection {
+  background-color: #f0bd2f;
+  color: #151515;
+}
+
+/* Reset selection color for elements other than text */
+::-moz-selection {
+  background-color: #f0bd2f;
+  color: #151515;
+}
+
+/*  ---------------------------------- */
+/* ---------------------------------- */
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+/* .flex.even-columns > * {
+    width: 100%;
+    outline: solid 2px green;
+} */
+.grid {
+  display: grid;
+  gap: var(--gap, 1rem);
+}
+
+.d-block {
+  display: block;
+}
+
+.flow > *:where(:not(:first-child)) { /*select every div that has a sibling before*/
+  margin-top: var(--flow-space, 1rem); /*undefined custom property so the 1rem become the default*/
+  /* outline: 1px solid red; */
+}
+
+.container {
+  padding-inline: 2em; /*logical property, modern css*/
+  margin-inline: auto;
+  max-width: 60rem;
+}
+
+.sr-only { /*screen reader only*/
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
+}
+
+.skip-to-content {
+  position: absolute;
+  z-index: 9999;
+  background: hsl(var(--clr-white));
+  color: hsl(var(--clr-dark));
+  padding: 0.5em 1em;
+  margin-inline: auto;
+  transform: translateY(-100%);
+  transition: transform 250ms ease-in;
+}
+
+.skip-to-content:focus {
+  transform: translateY(0%);
+}
+
+.box {
+  background-color: lightblue;
+  padding: 3rem;
+}
+
+/* .call-to-action {
+    --gap: 5rem;
+    background: pink;
+    padding: 2rem;
+    border-radius: 1rem;
+} */
+/* Colors*/
+.bg-dark {
+  background-color: hsl(var(--clr-dark));
+}
+
+.bg-accent {
+  background-color: hsl(var(--clr-light));
+}
+
+.bg-white {
+  background-color: hsl(var(--clr-white));
+}
+
+.text-dark {
+  color: hsl(var(--clr-dark));
+}
+
+.text-accent {
+  color: hsl(var(--clr-light));
+}
+
+.text-white {
+  color: hsl(var(--clr-white));
+}
+
+/* .example-component {
+    background-color: hsl( var(--clr-light) /.2);
+} */
+/* Typography */
+.ff-serif {
+  font-family: var(--ff-serif);
+}
+
+.ff-sans-cond {
+  font-family: var(--ff-sans-cond);
+}
+
+.ff-sans-normal {
+  font-family: var(--ff-sans-normal);
+}
+
+.letter-spacing-1 {
+  letter-spacing: 4.75px;
+}
+
+.letter-spacing-2 {
+  letter-spacing: 2.7px;
+}
+
+.letter-spacing-3 {
+  letter-spacing: 2.35px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.fs-900 {
+  font-size: var(--fs-900);
+}
+
+.fs-800 {
+  font-size: var(--fs-800);
+}
+
+.fs-700 {
+  font-size: var(--fs-700);
+}
+
+.fs-600 {
+  font-size: var(--fs-600);
+}
+
+.fs-500 {
+  font-size: var(--fs-500);
+}
+
+.fs-400 {
+  font-size: var(--fs-400);
+}
+
+.fs-300 {
+  font-size: var(--fs-300);
+}
+
+.fs-200 {
+  font-size: var(--fs-200);
+}
+
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+  line-height: 1.1;
+}
+
+.numbered-title {
+  font-family: var(--ff-sans-cond);
+  font-size: var(--fs-500);
+  color: hsl(var(--clr-white));
+  text-transform: uppercase;
+  letter-spacing: 4.72px;
+}
+
+.numbered-title span {
+  color: hsl(var(--clr-white)/0.25);
+  font-weight: 700;
+  padding-right: 0.5em;
+}
+
+/* ---------------------------------- */
+/* ---------------------------------- */
+:root {
+  /* colors */
+  --clr-dark: 230 35% 7%;
+  --clr-light: 231 77% 90%;
+  --clr-white: 0 0% 100%;
+  /* font-sizes */
+  --fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
+  --fs-800: 3.5rem;
+  --fs-700: 1.5rem;
+  --fs-600: 1rem;
+  --fs-500: 1.3rem;
+  --fs-400: 0.9375rem;
+  --fs-300: 1rem;
+  --fs-200: 0.9rem;
+  /* font-families */
+}
+
+.text-n1 {
+  font-weight: 700;
+  font-size: 1.85rem;
+  letter-spacing: 0.05rem;
+}
+
+.text-n2 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.text-n3 {
+  font-size: 1.2rem;
+  font-weight: 300 !important;
+}
+
+@media (min-width: 35em) { /*560px*/
+  :root {
+    --fs-800: 5rem;
+    --fs-700: 2.5rem;
+    --fs-600: 1.5rem;
+    --fs-500: 1.5rem; /*20px*/
+    --fs-400: 1rem;
+  }
+}
+@media (min-width: 45em) { /*720*/
+  :root {
+    --fs-800: 6.25rem;
+    --fs-700: 3.5rem;
+    --fs-600: 2rem;
+    --fs-500: 1.75rem;
+    --fs-400: 1.125rem; /* base size = body text size */
+  }
+}
+/*  ---------------------------------- */
+/* ---------------------------------- */
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Reset margins */
+body, h1, h2, h3, h4, p,
+figure, picture, blockquote, dl, dd {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+}
+
+p {
+  font-weight: 300;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role=list],
+ol[role=list] {
+  list-style: none;
+}
+
+/* Balance text wrapping on headings */
+h1, h2, h3, h4 {
+  text-wrap: balance; /*  hand-authoring line breaks for balanced text blocks*/
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font: inherit;
+  color: inherit;
+  font-size: inherit;
+  font-weight: 200;
+  letter-spacing: 0.05rem;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* remove animations for people who've turned them off */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Smooth scrolling on the whole document */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom text selection color */
+::selection {
+  background-color: #f0bd2f;
+  color: #151515;
+}
+
+/* Reset selection color for elements other than text */
+::-moz-selection {
+  background-color: #f0bd2f;
+  color: #151515;
+}
+
+/*  ---------------------------------- */
+/* ---------------------------------- */
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+/* .flex.even-columns > * {
+    width: 100%;
+    outline: solid 2px green;
+} */
+.grid {
+  display: grid;
+  gap: var(--gap, 1rem);
+}
+
+.d-block {
+  display: block;
+}
+
+.flow > *:where(:not(:first-child)) { /*select every div that has a sibling before*/
+  margin-top: var(--flow-space, 1rem); /*undefined custom property so the 1rem become the default*/
+  /* outline: 1px solid red; */
+}
+
+.container {
+  padding-inline: 2em; /*logical property, modern css*/
+  margin-inline: auto;
+  max-width: 60rem;
+}
+
+.sr-only { /*screen reader only*/
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap; /* added line */
+  border: 0;
+}
+
+.skip-to-content {
+  position: absolute;
+  z-index: 9999;
+  background: hsl(var(--clr-white));
+  color: hsl(var(--clr-dark));
+  padding: 0.5em 1em;
+  margin-inline: auto;
+  transform: translateY(-100%);
+  transition: transform 250ms ease-in;
+}
+
+.skip-to-content:focus {
+  transform: translateY(0%);
+}
+
+.box {
+  background-color: lightblue;
+  padding: 3rem;
+}
+
+/* .call-to-action {
+    --gap: 5rem;
+    background: pink;
+    padding: 2rem;
+    border-radius: 1rem;
+} */
+/* Colors*/
+.bg-dark {
+  background-color: hsl(var(--clr-dark));
+}
+
+.bg-accent {
+  background-color: hsl(var(--clr-light));
+}
+
+.bg-white {
+  background-color: hsl(var(--clr-white));
+}
+
+.text-dark {
+  color: hsl(var(--clr-dark));
+}
+
+.text-accent {
+  color: hsl(var(--clr-light));
+}
+
+.text-white {
+  color: hsl(var(--clr-white));
+}
+
+/* .example-component {
+    background-color: hsl( var(--clr-light) /.2);
+} */
+/* Typography */
+.ff-serif {
+  font-family: var(--ff-serif);
+}
+
+.ff-sans-cond {
+  font-family: var(--ff-sans-cond);
+}
+
+.ff-sans-normal {
+  font-family: var(--ff-sans-normal);
+}
+
+.letter-spacing-1 {
+  letter-spacing: 4.75px;
+}
+
+.letter-spacing-2 {
+  letter-spacing: 2.7px;
+}
+
+.letter-spacing-3 {
+  letter-spacing: 2.35px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.fs-900 {
+  font-size: var(--fs-900);
+}
+
+.fs-800 {
+  font-size: var(--fs-800);
+}
+
+.fs-700 {
+  font-size: var(--fs-700);
+}
+
+.fs-600 {
+  font-size: var(--fs-600);
+}
+
+.fs-500 {
+  font-size: var(--fs-500);
+}
+
+.fs-400 {
+  font-size: var(--fs-400);
+}
+
+.fs-300 {
+  font-size: var(--fs-300);
+}
+
+.fs-200 {
+  font-size: var(--fs-200);
+}
+
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+  line-height: 1.1;
+}
+
+.numbered-title {
+  font-family: var(--ff-sans-cond);
+  font-size: var(--fs-500);
+  color: hsl(var(--clr-white));
+  text-transform: uppercase;
+  letter-spacing: 4.72px;
+}
+
+.numbered-title span {
+  color: hsl(var(--clr-white)/0.25);
+  font-weight: 700;
+  padding-right: 0.5em;
+}
+
+/*  ---------------------------------- */
+/*  ---------------------------------- */
+.button {
+  padding: 0.2rem 1.3rem;
+  height: 2.5rem;
+  display: inline-block;
+  line-height: 2.1rem;
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn4 {
+  border: 1px solid #f0bd2f;
+  background-color: #151515;
+  color: #f0bd2f;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn4:hover {
+  border: 1px solid #151515;
+  background-color: #f0bd2f;
+  color: #151515;
+}
+
+.btn6 {
+  border: 1px solid #f0bd2f;
+  background-color: #f0bd2f;
+  color: #151515;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+  cursor: pointer;
+}
+.btn6:hover {
+  border: 1px solid #f0bd2f;
+  background-color: #151515;
+  color: #f0bd2f;
+}
+
+/*  ---------------------------------- */
+/*  ---------------------------------- */
+.underscore {
+  animation: blink 1s infinite;
+  color: #f0bd2f;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.underscore-static {
+  color: #f0bd2f;
+}
+
+/*  ---------------------------------- */
+/*  ---------------------------------- */
+/* HOVER #2 --------------------------*/
+#hover2 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+#hover2 img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+#hover2 img {
+  transition: all ease-in-out 0.3s;
+}
+
+#hover2:hover img {
+  opacity: 0.2;
+  transform: scale(1.1);
+}
+
+#hover2 #text2 {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s, top ease-in-out 0.5s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+#hover2:hover #text2 {
+  opacity: 1;
+  top: 50%;
+}
+
+#hover2 #text2 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: #207E93;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+/*________________________ */
+.component {
+  font-size: 0.9rem;
+}
+.component .space {
+  background-color: transparent;
+  height: 15px;
+  width: 100%;
+}
+
+.btn2 {
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.2rem 1.3rem;
+  border: 1px solid rgb(240, 189, 47);
+  z-index: 20;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+
+.btn2:hover {
+  color: rgb(240, 189, 47);
+  border: 1px solid #242424;
+}
+
+.btn-color {
+  border-color: rgb(240, 189, 47);
+  color: rgb(240, 189, 47);
+}
+.btn-color::before, .btn-color::after {
+  background: #242424;
+}
+
+.btn2::before,
+.btn2::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+
+.btn-l-r::after {
+  height: 100%;
+  width: 0;
+  top: 0;
+}
+
+.btn-l-r:hover::after {
+  width: 100%;
+}
+
+.btn-l-r::after {
+  left: 0;
+}
+
+.btn3 {
+  border: 1px solid rgb(240, 189, 47);
+  display: inline-block;
+  padding: 0.2rem 1.3rem;
+  position: relative;
+  cursor: pointer;
+  color: rgb(240, 189, 47);
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn3:hover {
+  border: 1px solid #242424;
+  background-color: #242424;
+  color: rgb(240, 189, 47);
+}
+
+.btn5 {
+  border: 1px solid rgb(240, 189, 47);
+  background-color: black;
+  display: inline-block;
+  padding: 0.2rem 1.3rem;
+  position: relative;
+  cursor: pointer;
+  color: rgb(240, 189, 47);
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn5:hover {
+  border: 1px solid black;
+  background-color: yellow;
+  color: black;
+}
+
+#hover1 {
+  background-color: rgb(0, 0, 0);
+}
+
+.component-hover {
+  display: flex;
+  column-gap: 50px;
+}
+.component-hover div {
+  height: 200px;
+  width: 200px;
+  cursor: pointer;
+}
+.component-hover div img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: opacity ease-in-out 0.3s;
+}
+.component-hover div img:hover {
+  opacity: 0.3;
+}
+.component-hover div p {
+  font-size: 20px;
+}
+.component-hover div #text:after {
+  content: " _";
+  font-weight: bold;
+  color: #F44C4C;
+  visibility: hidden;
+  animation: blink 1s infinite;
+}
+.component-hover div img:hover + #text::after {
+  visibility: visible;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+#hover3 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+  transition: opacity ease-in-out 0.8s;
+}
+#hover3:hover {
+  border: 1px #F44C4C solid;
+}
+#hover3 img {
+  transition: opacity ease-in-out 0.3s;
+}
+#hover3 img:hover {
+  opacity: 0.3;
+}
+#hover3 #text3 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+#hover3 #text3 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: #F44C4C;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover3:hover #text3 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
+#hover4 {
+  color: white;
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+  transition: border ease-in-out 0.8;
+}
+#hover4:hover {
+  border: 1px rgb(240, 189, 47) solid;
+}
+#hover4 img {
+  transition: opacity ease-in-out 0.5s;
+}
+#hover4 img:hover {
+  opacity: 0;
+}
+#hover4 #text4 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+#hover4 #text4 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: rgb(240, 189, 47);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover4:hover #text4 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
+#hover5 {
+  position: relative;
+  cursor: pointer;
+  border: 1px white solid;
+}
+#hover5 #text5 {
+  position: absolute;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  width: 100%;
+  height: 150px;
+  transition: opacity ease-in-out 0.3s;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+#hover5 #text5 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: rgb(240, 189, 47);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+#hover5:hover #text5 {
+  opacity: 100%;
+  transition: opacity ease-in-out 1s;
+}
+
+#studios-index #studio-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 3rem;
+  margin-bottom: 3rem;
+}
+#studios-index #studios-container .studio-container {
+  background-color: #151515;
+  padding: 5rem 0;
+  width: 100%;
+}
+#studios-index #studios-container .studio-container .studio-content {
+  width: 70%;
+  background-color: #151515;
+  display: grid;
+  grid-template-columns: 45% 10% 45%;
+  margin: auto;
+  color: #F9F9F9;
+  position: relative;
+}
+#studios-index #studios-container .studio-container .studio-content figure {
+  width: 36rem;
+  height: 23rem;
+}
+#studios-index #studios-container .studio-container .studio-content figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#studios-index #studios-container .studio-container .studio-content .info-studio .subtitle {
+  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+#studios-index #studios-container .studio-container .studio-content .info-studio .subtitle .separator {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-bottom: 1px solid #F9F9F9;
+}
+#studios-index #studios-container .studio-container .studio-content .info-studio .text-studio {
+  text-align: justify;
+  margin-bottom: 2rem;
+}
+#studios-index #studios-container .studio-container .studio-content .info-studio h2 {
+  margin-bottom: 2rem;
+}
+#studios-index #studios-container .studio-container .studio-content .info-studio .btn3 {
+  position: absolute;
+  bottom: 0;
+}
+
+/*# sourceMappingURL=studios.css.map */

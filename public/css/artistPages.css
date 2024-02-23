@@ -727,10 +727,18 @@ html {
 }
 
 .btn6 {
-  border: 1px solid #F9F9F9;
-  background-color: #F9F9F9;
+  border: 1px solid #f0bd2f;
+  background-color: #f0bd2f;
   color: #151515;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+  cursor: pointer;
 }
+.btn6:hover {
+  border: 1px solid #f0bd2f;
+  background-color: #151515;
+  color: #f0bd2f;
+}
+
 /*  ---------------------------------- */
 /*  ---------------------------------- */
 .underscore {

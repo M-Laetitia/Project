@@ -7,199 +7,188 @@
 
     <div class="banner">
         <div>
-            <h1>DISCOVER THE ARTISTS</h1>
-            <p>Be Inspired<span class="underscore-static">_</span></p>
+            <h1 class="banner-title">DISCOVER THE ARTISTS</h1>
+            <p class="banner-text">Be Inspired<span class="underscore-static">_</span></p>
         </div>
     </div>
 
     </div>
 
     <section class="content" id="artists-index">
-        <div id="artists-container">
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-             <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
 
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-             <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-             <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            
+        <div class="categories">
+            <div id="all" class="category" data-category="all" onclick="showArtists('all')">Show All</div>
+            <div class="category" data-category="Illustration" onclick="showArtists('Illustration')">Illustration</div>
+            <div class="category" data-category="photography" onclick="showArtists('photography')">Photography</div>
+            <div class="category" data-category="Design" onclick="showArtists('Design')">Design</div>
+            <div class="category" data-category="Craft" onclick="showArtists('Craft')">Craft</div>
+            <div class="category" data-category="Textile" onclick="showArtists('Textile')">Textile</div>
+            <div class="category" data-category="Other" onclick="showArtists('Other')">Other</div>
         </div>
-    </section>
+    
 
     {% if searchResults %}
-    <h2>Search results</h2>
+    <h2></h2>
     {% else %}
-    <h2>All artists</h2>
+    <h2></h2>
     {% endif %}
 
 
-    <h2>Search 2</h2>
-    {{ form_start(formArtistSearch, {'method': 'POST'}) }}
-    {{ form_errors(formArtistSearch)}}
+    <div style="display:none;" class="form-search-username-discipline">
+        {{ form_start(formArtistSearch, {'method': 'POST'}) }}
+            {{ form_errors(formArtistSearch)}}
+            {{ form_row(formArtistSearch.username, {
+                'attr': {'minlength': 3}
+            }) }}
+            {{ form_row(formArtistSearch.discipline, {
+                'attr': {'minlength': 3} 
+            }) }}
+            <button type="submit">Search</button>
+        {{ form_end(formArtistSearch) }}
+    </div>
     
-    {{ form_row(formArtistSearch.username, {
-        'attr': {'minlength': 3}
-    }) }}
-    
-
-    {{ form_row(formArtistSearch.discipline, {
-        'attr': {'minlength': 3} 
-    }) }}
-
-    <button type="submit">Search</button>
-    {{ form_end(formArtistSearch) }}
-
-
-
-    <form method="GET" action="{{ path('app_artist') }}">
-        <label for="discipline">Choose a discipline:</label>
-        <select id="discipline" name="discipline">
-            {% for discipline in disciplines %}
-                <option value="{{ discipline }}" >{{ discipline }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Filter</button>
-    </form>
-
-
-    <div class="categories">
-        <div class="category" data-category="all" onclick="showArtists('all')">Show All</div>
-        <div class="category" data-category="Illustration" onclick="showArtists('Illustration')">Illustration</div>
-        <div class="category" data-category="photography" onclick="showArtists('photography')">Photography</div>
-        <div class="category" data-category="Design" onclick="showArtists('Design')">Design</div>
+    <div style="display:none;"  class="form-select-discipline">
+        <form method="GET" action="{{ path('app_artist') }}">
+            <label for="discipline">Choose a discipline:</label>
+            <select id="discipline" name="discipline">
+                {% for discipline in disciplines %}
+                    <option value="{{ discipline }}" >{{ discipline }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+        </form>
     </div>
 
-    
-    
-    <h2>Last Artists added:</h2>
-
- 
-
-    <div id="artists-container2" class="artist-grid">
+    <section id="artists-container2" class="artist-grid">
         {% for artist in artists %}    
         <div class="artist {{ artist.artistInfos.category }}">
              <div>
                 <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}">{{ artist.artistInfos.artistName }}</a>
             </div>
+
             <p>{{ artist.artistInfos.discipline }}</p>
-            <p>{{ artist.artistInfos.category }}</p>
+
+            {# <p>{{ artist.artistInfos.category }}</p> #}
             <p id="{{artist.id}}">
                 <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><i class="ri-eye-close-fill"></i></a>
             </p>
-            <picture>
-            </picture>
+
+            <picture> </picture>
         </div>
         {% endfor %}
-    </div>
+    </section>
+
+    <section id="search-results"></section>
 
 
+   {# exemple affichage + animation image #}
     
+    <div id="artists-container">
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+         <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
 
-    <div id="search-results"></div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+         <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
 
-    {# <div id="filter-category-artists">
-        <p>Show all</p>
-        <p>Illustration</p>
-        <p>Craft</p>
-        <p>Photography</p>
-        <p>Design</p>
-        <p>Textile</p>
-        <p>Other</p>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+        <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+         <div class="artist-container">
+            <figure>
+                <div id="hover2">
+                    <img src="{{ asset('images/image.jpg') }}" alt="">
+                    <p id="text2">Some text <span>_</span> </p>
+                </div>
+            </figure>
+        </div>
+
+        
     </div>
-   #}
+    </section>
+
+
+
        {# Jquery #}
        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
        <script src="{{ asset('js/main.js') }}"></script>
@@ -207,10 +196,10 @@
 
     <script>
         $(document).ready(function() {
-            // Sélectionner les trois premières images et leur ajouter la classe "visible"
+            // Select the first three images and add the "visible" class to them
             $('.artist-container:lt(3)').addClass('visible');
         
-            // Déclencher l'animation pour les images restantes en fonction du scroll
+             // Trigger animation for the remaining images based on scroll
             $(window).scroll(function() {
                 $('.artist-container:not(.visible)').each(function() {
                     if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {

@@ -20,6 +20,7 @@
 .text-n1 {
   font-weight: 700;
   font-size: 1.85rem;
+  letter-spacing: 0.05rem;
 }
 
 .text-n2 {
@@ -371,6 +372,7 @@ html {
 .text-n1 {
   font-weight: 700;
   font-size: 1.85rem;
+  letter-spacing: 0.05rem;
 }
 
 .text-n2 {
@@ -725,10 +727,18 @@ html {
 }
 
 .btn6 {
-  border: 1px solid #F9F9F9;
-  background-color: #F9F9F9;
+  border: 1px solid #f0bd2f;
+  background-color: #f0bd2f;
   color: #151515;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+  cursor: pointer;
 }
+.btn6:hover {
+  border: 1px solid #f0bd2f;
+  background-color: #151515;
+  color: #f0bd2f;
+}
+
 /*  ---------------------------------- */
 /*  ---------------------------------- */
 .underscore {
@@ -1118,7 +1128,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10rem;
+  margin-bottom: 9rem;
 }
 .banner div {
   width: 70%;

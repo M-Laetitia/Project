@@ -79,6 +79,13 @@ class ArtistType extends AbstractType
                 
             ])
 
+            ->add('facebook', UrlType::class, [
+                'label' => 'Facebook',
+                'mapped' => false,
+                'required' => false, 
+                
+            ])
+
             // ->add('contacts', CollectionType::class, [
             //     'entry_type' => TextType::class,
             //     'entry_options' => [

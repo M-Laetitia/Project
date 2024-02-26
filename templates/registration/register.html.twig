@@ -3,32 +3,79 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+
+    <style>
+        body {
+            background-color: #151515;
+        }
+    </style>
+
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+
+        <div class="banner">
+            <div>
+                <h1>SIGN UP</h1>
+                <p>Be a member<span class="underscore-static">_</span></p>
+            </div>
+        </div>
+
+    
+        <section class="content" id="register-user">
+        
+            <div id="register-container">
+                <div id="separator">
+
+                </div>
+                <div id="left-register">
+                   
+                </div>
+    
+                <div id="right-register">
+                    <div id="title-register">
+                        <h2>SIGN UP<span class="underscore">_</span></h2>
+                        <p>to become a fragment of Mosaic</p>
+                    </div>
+    
+                    <div id="form-register">
+                        {{ form_start(registrationForm) }}
+                        {{ form_errors(registrationForm) }}
+                        
+                            
+                            {{ form_row(registrationForm.email) }} 
+                            {{ form_row(registrationForm.information) }}
+                            {{ form_row(registrationForm.username) }}
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Password'
+                            }) }}
+                    
+                        <div>
+                            {{ form_label(registrationForm.agreeTerms) }}
+                            <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
+                            {{ form_errors(registrationForm.agreeTerms) }}
+                            {{ form_widget(registrationForm.agreeTerms) }}
+                        </div>
+
+                        
+                    
+                            <button type="submit" class="btn" id="btn-register">Register</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+    
+       </section>
+       
+  <script>
+
+  </script>
+
+
+    
+
+    
 
    
-
-    {{ form_start(registrationForm) }}
-    {{ form_errors(registrationForm) }}
-    
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }} 
-        {{ form_row(registrationForm.information) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-
-       {# Personnalisez le rendu du champ "agreeTerms" #}
-    <div>
-        {{ form_label(registrationForm.agreeTerms) }}
-        <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
-        {{ form_errors(registrationForm.agreeTerms) }}
-        {{ form_widget(registrationForm.agreeTerms) }}
-    </div>
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}

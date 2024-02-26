@@ -51,11 +51,14 @@
                                 label: 'Password'
                             }) }}
                     
-                        <div>
+                        <div id="terms-register">
                             {{ form_label(registrationForm.agreeTerms) }}
-                            <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
-                            {{ form_errors(registrationForm.agreeTerms) }}
-                            {{ form_widget(registrationForm.agreeTerms) }}
+                            <p>
+                                <a href="#">Terms of use</a> | <a href="#">Privacy Policy</a>
+                                {{ form_errors(registrationForm.agreeTerms) }}
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                            </div>
+                            
                         </div>
 
                         
@@ -69,7 +72,24 @@
        </section>
        
   <script>
-
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('#form-register input');
+        
+        inputs.forEach(function(input) {
+            if (!input.matches('#terms-register input')) {
+                 input.addEventListener('focus', function() {
+                     this.style.borderColor = '#f0bd2f'; 
+                     this.previousElementSibling.style.color = '#f0bd2f'; 
+                 });
+         
+                 //blur event is triggered when the input field loses focus
+                 input.addEventListener('blur', function() {
+                     this.style.borderColor = '#939393'; 
+                     this.previousElementSibling.style.color = ''; 
+                 });
+             }
+        });
+    });
   </script>
 
 

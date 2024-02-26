@@ -232,3 +232,84 @@
             }
         }
     }
+
+
+// ---------------------------------
+//  ██████  ███████  ██████  ██ ███████ ████████ ███████ ██████  
+//  ██   ██ ██      ██       ██ ██         ██    ██      ██   ██ 
+//  ██████  █████   ██   ███ ██ ███████    ██    █████   ██████  
+//  ██   ██ ██      ██    ██ ██      ██    ██    ██      ██   ██ 
+//  ██   ██ ███████  ██████  ██ ███████    ██    ███████ ██   ██
+// ---------------------------------
+
+
+#register-user {
+    background-color: red;
+    
+    
+    #register-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        color: $main-white-color;
+        position: relative;
+        
+
+        #separator {
+            background-color: $secondary-color;
+            width: 80%;
+            height: 5px;
+            position: absolute;
+            left: 50%; 
+            top: 1px; 
+            transform: translate(-50%, -50%);
+            z-index: 1 !important;
+        }
+
+            #left-register {
+                background-color: black;
+            }
+        
+            #right-register {
+                background-color: #272727;
+                padding: 5rem;
+
+                #title-register {
+                    p {
+                        color: $secondary-color;
+                        padding-top: 0.2rem;
+                        padding-bottom: 3rem;
+                    }
+                }
+            }
+
+            #form-register {
+                padding-right: 12rem;
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    padding-bottom: 1.8rem;
+                    
+                }
+                label {
+                    text-transform: uppercase;
+                    padding-bottom: 1rem;
+                }
+                input {
+                    background-color: transparent;
+                    border-bottom: 1px solid #939393;
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                    outline: none;
+                }
+
+                #btn-register {
+                    width: 100%;
+                    // margin-right: 12rem;
+                }
+            }
+    }
+
+    
+}
+

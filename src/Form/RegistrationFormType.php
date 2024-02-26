@@ -28,13 +28,16 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add(self::EMAIL_FIELD_NAME, EmailType::class, [
-                'label' =>'Email',
+                'label' =>'e-mail',
                 'required' => true,
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank(),
                     new Email(['mode' => 'strict'])
                 ],
+                'attr' => [
+                    'placeholder' => 'Enter your e-mail address'
+                ]
             ])
             ->add(self::HONEYPOT_FIELD_NAME, TextType::class, [
                 'required' => false,
@@ -42,7 +45,14 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['hidden' => true], // Makes the field invisible
             ])
 
-            ->add('username' , TextType::class)
+            ->add('username' , TextType::class, [
+                'label' =>'usermane',
+                'attr' => [
+                    'placeholder' => 'Enter your username'
+                ]
+            ])
+
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -61,7 +71,7 @@ class RegistrationFormType extends AbstractType
                 // 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
+                'second_options' => ['label' => 'Confirmation'],
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password'],

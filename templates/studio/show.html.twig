@@ -5,8 +5,53 @@
 
 {% block body %}
 
-    <h1>{{ studio.name}}</h1>
-    <p>Capacity:  {{ studio.nbRooms}}</p>
+
+    <div class="banner">
+        <div>
+            <h1 class="banner-title">{{ studio.name}}</h1>
+            <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+        </div>
+    </div>
+
+    <section class="" id="studio-show">
+        <header>
+            <figure>
+                <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt=""
+            </figure>
+        </header>
+
+        <div id="details-studio">
+            <div id="about-studio">
+                <h3 class="text-n1"><span id="subtitle" > About the </span>{{ studio.name}}<span>_</span></h3>
+                <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
+            </div>
+
+            <div id="info">
+                <p class="text-n2">Info<span>_</span></p>
+                <div id="list-infos">
+                    <div id="list-info">
+                            <div><span>Capacity :</span> <span></span> <p>{{ studio.nbRooms}}  </p> </div>
+                            <div><span>Equipment :</span> <span></span><p>Laser cut</p> </div>
+                            
+
+                            <div><span style="visibility:hidden;">Equipment :</span> <span></span><p>3D printer</p> </div>
+
+                            <div><span style="visibility:hidden;">Equipment :</span> <span></span><p>Laser printer</p> </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="btn-studio">
+                <div class="button btn6">SEE PLANNING</div>
+                <div class="button btn6">PARTICIPATE</div>
+            </div>
+        </div>
+        
+    </section>
+
+  
+
 
     {# <p>test:  {{ studio.nbRegistrationMade}}</p> #}
 
@@ -59,7 +104,6 @@
                     {% for subscription in user.subscriptions %}
                         {% if subscription.isActive %}
                             {% set hasActiveSubscription = true %}
-                            {# Additional content for active subscription if needed #}
                         {% endif %}
                     {% endfor %}
             

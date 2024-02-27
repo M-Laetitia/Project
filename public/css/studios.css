@@ -24,7 +24,7 @@
 }
 
 .text-n2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
 }
 
@@ -376,7 +376,7 @@ html {
 }
 
 .text-n2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
 }
 
@@ -1112,6 +1112,57 @@ html {
 #studios-index #studios-container .studio-container .studio-content .info-studio .btn3 {
   position: absolute;
   bottom: 0;
+}
+
+#studio-show header {
+  background-color: #151515;
+  height: 40rem;
+  padding: 3rem 0rem 6rem 0rem;
+}
+#studio-show header figure {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+}
+#studio-show header figure img {
+  width: 65%;
+  height: 100%;
+  background-color: grey;
+}
+#studio-show #details-studio {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  width: 70%;
+  margin: auto;
+  margin-top: 5rem;
+}
+#studio-show #details-studio #about-studio {
+  text-align: justify;
+}
+#studio-show #details-studio #about-studio h3 {
+  margin-bottom: 2.5rem;
+}
+#studio-show #details-studio #info {
+  margin-left: 6rem;
+}
+#studio-show #details-studio #info #list-infos {
+  border-left: 4px solid #207E93;
+  padding: 1.5rem 0rem 0rem 1rem;
+  line-height: 2.5rem;
+  height: 100%;
+}
+#studio-show #details-studio #info #list-infos #list-info div {
+  display: grid;
+  grid-template-columns: 40% 10% 50%;
+  justify-content: space-between;
+  width: 70%;
+}
+#studio-show #details-studio #btn-studio {
+  margin-top: 3rem;
+}
+#studio-show #details-studio #btn-studio div {
+  margin-right: 2rem;
+  color: #F9F9F9;
 }
 
 /*# sourceMappingURL=studios.css.map */

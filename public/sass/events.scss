@@ -1,0 +1,68 @@
+@import 'settings';
+@import 'component';
+
+// ---------------------------------
+//  ███████ ██    ██ ███████ ███    ██ ████████       ██ ███    ██ ██████  ███████ ██   ██ 
+//  ██      ██    ██ ██      ████   ██    ██          ██ ████   ██ ██   ██ ██       ██ ██  
+//  █████   ██    ██ █████   ██ ██  ██    ██    █████ ██ ██ ██  ██ ██   ██ █████     ███   
+//  ██       ██  ██  ██      ██  ██ ██    ██          ██ ██  ██ ██ ██   ██ ██       ██ ██  
+//  ███████   ████   ███████ ██   ████    ██          ██ ██   ████ ██████  ███████ ██   ██
+// ---------------------------------
+
+#events-index {
+    // background-color: red;
+    
+
+    #container-event {
+        display: grid;
+        grid-template-columns: 55% 45%;
+        height: 26rem;
+        position: relative;
+        
+        #picture-event {
+                padding-right: 3rem;
+                width: 100%;
+                height: 100%;
+            figure {
+                background-color: pink;
+                width: 100%;
+                height: 100%;
+                
+                div {
+    
+                }
+            }
+        }
+
+        #infos-event {
+            h2 {
+                color: $secondary-color;
+                text-transform: uppercase;
+                padding-bottom: 2rem;
+
+                span {
+                    color: $secondary-color3;
+                }
+            }
+
+            #resume-event {
+                padding-bottom: 2rem;
+            }
+
+            #details-event {
+                display: grid;
+                row-gap: 1rem;
+                span {
+                    font-weight: $bold;
+                }
+            }
+
+            #btn-event {
+                bottom: 0;
+                position: absolute;
+            }
+        }
+    }
+
+    
+}

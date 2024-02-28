@@ -128,12 +128,21 @@
     
         // Function to check and show visible events
         function checkAndShowEvents() {
+            // Remove the "underscore" class from all spans
+        document.querySelectorAll('.container-event span').forEach(function(span) {
+            span.classList.remove('underscore');
+        });
+
+
             // Select all elements with class 'container-event' and loop through them
             document.querySelectorAll('.container-event').forEach(function(container) {
                 // Check if the current container is in the viewport
                 if (isElementInViewport(container)) {
                     // change the opacity and make the container visible
                     container.style.opacity = '1';
+
+                    // Add the "underscore" class to the span within the current container
+                container.querySelector('span').classList.add('underscore');
                 }
             });
         }
@@ -145,7 +154,7 @@
         // checkAndShowEvents();
 
         // Delay the initial check and display of events
-        setTimeout(checkAndShowEvents, 1000);
+        setTimeout(checkAndShowEvents, 1200);
     });
 </script>
 

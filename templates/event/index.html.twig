@@ -1,10 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}List Events!{% endblock %}
+{% block meta %}list of events {% endblock %}
 
 {% block body %}
 
-    <h1>Events :</h1>
+<div class="banner">
+    <div>
+        <h1 class="banner-title">OUR EVENTS</h1>
+        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+    </div>
+</div>
+
+<section class="content" id="events-index">
+
+    <div id="container-event">
+        <div id="picture-event">
+            <figure>
+                <div></div>
+            </figure>
+        </div>
+        <div id="infos-event">
+            <h2 class="text-n1">Event Name<span class="">_</span></h2>
+            <p id="resume-event">Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet</p>
+            <div id="details-event">
+                <p><span>Date : </span> 02.03.2024</p>
+                <p><span>Statut : </span> Open</p>
+                <p><span>Capacity : </span> 3/10</p>
+
+            </div>
+            <div id="btn-event">
+                <div class="button btn6">SEE MORE</div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
 
 
     <div class="ongoing-events">
@@ -71,9 +104,9 @@
         {% endfor %}
     </div>
 
-    <h1>Calendrier des événements</h1>
+    {# <h1>Calendrier des événements</h1>
 
-    <div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
+    <div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div> #}
 {#     
 {{ dump(formattedEvents)}} #}
 

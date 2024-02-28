@@ -132,8 +132,8 @@
             document.querySelectorAll('.container-event').forEach(function(container) {
                 // Check if the current container is in the viewport
                 if (isElementInViewport(container)) {
-                    // If it is, set its visibility style to 'visible'
-                    container.style.visibility = 'visible';
+                    // change the opacity and make the container visible
+                    container.style.opacity = '1';
                 }
             });
         }
@@ -142,7 +142,10 @@
         window.addEventListener('scroll', checkAndShowEvents);
     
         // Check and show visible events when the page initially loads
-        checkAndShowEvents();
+        // checkAndShowEvents();
+
+        // Delay the initial check and display of events
+        setTimeout(checkAndShowEvents, 1000);
     });
 </script>
 

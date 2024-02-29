@@ -13,6 +13,15 @@
         </div>
     </div>
 
+
+
+<div class="test">
+    <p>test récupération couleur </p>
+</div>
+
+
+
+
     <section class="" id="studio-show">
         <header>
             <figure>
@@ -132,7 +141,18 @@
     {% endif %}
 
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Retrieve the color from sessionStorage
+        const selectedEventColor = sessionStorage.getItem('selectedEventColor');
+    
+    if (selectedEventColor !== null) {
+        const paragraph = document.querySelector('.test p');
 
+        paragraph.style.color = selectedEventColor;
+    }
+    });
+</script>
 
 
 {% endblock %}

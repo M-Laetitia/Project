@@ -90,13 +90,14 @@
 
         {% for studio in studios %}
             <div>
+                
                 <p>
                     <span class="name">{{studio.name}}</span> 
                 </p>
                  
                 <p>{{studio.description}}</p>                
     
-                <a href="{{ path('show_studio', {slug : studio.slug }) }}">See details <i class="fa-solid fa-plus"></i></a>
+                <a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">See details <i class="fa-solid fa-plus"></i></a>
                 <hr>
             </div>
             {% endfor %}
@@ -109,14 +110,30 @@
             // Define an array 'colors' containing color codes.
             const colors = ['#F04C4B', '#242424', '#207E93']; 
             const eventItems = document.querySelectorAll('.ongoing-events div');
+            const eventLinks = document.querySelectorAll('.event-link');
       
             eventItems.forEach((item, index) => {
-            //The modulo operator '%' is used with
-            // the length of the 'colors' array to ensure that if the 'index' exceeds the
-            // number of available colors, it starts again from the beginning of the array
+            //The modulo operator '%' is used with the length of the 'colors' array to ensure that if the 'index' exceeds the number of available colors, it starts again from the beginning of the array
             item.style.backgroundColor = colors[index % colors.length];
+
+            eventLinks.forEach((link, index) => {
+                link.addEventListener('click', function(event) {
+                    // Get the index of the clicked event
+                    const indexClicked = Array.from(eventLinks).indexOf(this);
+        
+                    // Get the color associated with the index
+                    const color = sessionStorage.getItem('eventColor-' + indexClicked);
+        
+                     // Store the color for use in the details page
+                    sessionStorage.setItem('selectedEventColor', color);
+                });
+            });
           });
         });
+
+       
+
+
     </script>
 
 

@@ -18,15 +18,15 @@
 <section  id="studios-index">
 
     <div id="studio-links">
-        <p><a href="#studio01">Studio Calliope</a></p>
-        <p><a href="#studio02">Studio Thalie</a></p>
+        <p><a href="#studio11">Studio Calliope</a></p>
+        <p><a href="#studio10">Studio Thalie</a></p>
         <p><a href="#studio03">Studio 03</a></p>
         <p><a href="#studio0">Studio 04</a></p>
   
     </div>
 
     <div id="studios-container">
-        <div id="studio01" class="studio-container">
+        <div id="studio11" class="studio-container">
             <div class="studio-content">
 
                 <figure>
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div id="studio02" class="studio-container">
+        <div id="studio10" class="studio-container">
             <div class="studio-content">
                 
                 <div class="info-studio">
@@ -86,13 +86,24 @@
 
     <h1>List of Art Studios</h1>
 
+   
+<div id="studio-links">
+    {% for studio in studios %}
+         <p><a href="#{{studio.slug}}">{{studio.name}}</a></p>
+    {% endfor %}
+           
+</div>
+
+
     <div class="ongoing-events">
 
         {% for studio in studios %}
+
+        
             <div>
                 
                 <p>
-                    <span class="name">{{studio.name}}</span> 
+                    <span class="name" id="{{studio.slug}}">{{studio.name}}</span> 
                 </p>
                  
                 <p>{{studio.description}}</p>                
@@ -103,6 +114,32 @@
             {% endfor %}
 
     </div>
+
+    <div class="ongoing-events">
+        {% for studio in studios %}
+            <div class="studio {% if loop.index is even %}even{% else %}odd{% endif %}">
+                {% if loop.index is even %}
+                    <div class="text-left">
+                        <p>{{ studio.name }}</p>
+                    </div>
+                    <div class="image-right">
+                        <p>{{studio.description}}</p>  
+                    </div>
+                {% else %}
+                    <div class="image-left">
+                        <p>{{studio.description}}</p>  
+                    </div>
+                    <div class="text-right">
+                        <p>{{ studio.name }}</p>
+                    </div>
+                {% endif %}
+                <a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">See details <i class="fa-solid fa-plus"></i></a>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+
+
 
 
     <script>

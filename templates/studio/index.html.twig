@@ -103,13 +103,21 @@
 
     </div>
 
-    <div class="studios-container">
-        <div class="studio">
-            <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
-        </div>
-    </div>
 
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Define an array 'colors' containing color codes.
+            const colors = ['#F04C4B', '#242424', '#207E93']; 
+            const eventItems = document.querySelectorAll('.ongoing-events div');
+      
+            eventItems.forEach((item, index) => {
+            //The modulo operator '%' is used with
+            // the length of the 'colors' array to ensure that if the 'index' exceeds the
+            // number of available colors, it starts again from the beginning of the array
+            item.style.backgroundColor = colors[index % colors.length];
+          });
+        });
+    </script>
 
 
 {% endblock %}

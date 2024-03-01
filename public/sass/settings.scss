@@ -29,10 +29,13 @@
     // --ff-sans-normal: "Barlow", sans-serif;
 }
 
-$main-black-color: #151515;
+$main-black-color: #151515; 
 $main-white-color: #F9F9F9;
-// $secondary-color: #E49E4B;
+
 $secondary-color: #f0bd2f;
+$secondary-color2: #E49E4B;
+
+$secondary-color3: #207E93;
 
 
 $main-font: "Poppins", sans-serif;
@@ -49,14 +52,40 @@ $semi-bold: 500;
 $medium: 400;
 $regular: 300;
 
-$fs-big: 64px;
+$fs-text: 0.9rem;
+// $fs-small: 1rem;
+$fs-regular: 1.5rem;
+$fs-medium: 3rem;
+$fs-big: 4rem;
 $fs-text: 0.9rem;
 $line-height-text: 1.3rem;
 
 $transition-bezier: 0.800, 1.000, 0.000, 1.000;
 $transition-len: 0.35s;
 
+$nav-size: 6rem ; 
+$footer-size: 28rem;
 
+// $padding-border: 3rem;
+$content-width: 70%;
+
+
+// utility class
+.text-n1 {
+    font-weight: $extra-bold;
+    font-size: 1.85rem;
+    letter-spacing: $letter-spacing-text;
+}
+
+.text-n2 {
+    font-weight: $extra-bold;
+    font-size: 1.5rem;        
+}
+
+.text-n3 {
+    font-size: 1.2rem;
+    font-weight: 300 !important;
+}
 
 @mixin center-flexbox() {
     display: flex;
@@ -119,7 +148,7 @@ h1,h2, h3, h4, h5, h6 {
 }
 
 p {
-    font-weight: 200;
+    font-weight: 300;
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -284,6 +313,8 @@ body {
     background-color: lightblue;
     padding: 3rem;
 }
+
+
 
 /* .call-to-action {
     --gap: 5rem;

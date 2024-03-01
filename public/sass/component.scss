@@ -36,14 +36,16 @@ $transition-len: 0.35s;
 }
 
 .btn6 {
-  border:1px solid $main-white-color; 
-  background-color: $main-white-color;
+  border:1px solid $secondary-color; 
+  background-color: $secondary-color;
   color: $main-black-color;
-  // transition: ease-in-out 0.3s;
+
+  transition: all $transition-len cubic-bezier($transition-bezier);
+  cursor: pointer;
   &:hover {
-    // border:1px solid $secondary-color;
-    // background-color: $main-black-color;
-    // color: $secondary-color;
+    border:1px solid $secondary-color;
+    background-color: $main-black-color;
+    color: $secondary-color;
   }
 }
 
@@ -106,7 +108,7 @@ $transition-len: 0.35s;
 
 #hover2 #text2 {
   position: absolute;
-  top: 30%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
@@ -136,21 +138,7 @@ $transition-len: 0.35s;
 }
 
 
-.categories {
-  display: flex;
-}
 
-.category {
-  padding: 10px;
-  margin-right: 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.category:hover {
-  background-color: #ddd;
-}
 
 /*________________________ */
 

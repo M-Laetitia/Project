@@ -179,11 +179,7 @@ class StudioController extends AbstractController
 
             // dd($studioId, $dayDate, $selectedTimeSlotAvailabilityId );
             // Vérifier si un créneau horaire existe déjà pour le même studio, la même date et la même heure
-            // $existingTimeslot = $tsr->findBy([]);
-            // dd($existingTimeslot);
-            // dd($studioId,$dayDate, $selectedTimeSlotAvailabilityId );
 
-   
             $existingTimeslot = $tsr->findBy([
                 'studio' => $studioId,
                 'date' => $dayDate,  

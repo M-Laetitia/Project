@@ -2,11 +2,11 @@
 
 namespace App\Form;
 
-use Assert\Image;
-use Assert\Length;
 use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,12 +25,12 @@ class PictureFormType extends AbstractType
                 'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
                 'constraints' => [
                     new Image([
-                        'maxSize' => '2M', 
-                        'maxWidth' => 1800, 
-                        'maxHeight' => 1000, 
+                        // 'maxSize' => '2M', 
+                        // 'maxWidth' => 1800, 
+                        // 'maxHeight' => 1000, 
 
-                        'minWidth' => 1200, 
-                        'minHeight' => 600, 
+                        // 'minWidth' => 1200, 
+                        // 'minHeight' => 600, 
 
                         'mimeTypes' => [
                             'image/jpeg',

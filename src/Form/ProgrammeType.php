@@ -19,7 +19,7 @@ class ProgrammeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('workshop', HiddenType::class)
+        // ->add('workshop', HiddenType::class)
         // ->add('workshop', EntityType::class, [
         //     'class' => Workshop::class,
         //     'choice_label' => 'name',

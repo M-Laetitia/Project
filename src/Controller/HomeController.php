@@ -127,6 +127,26 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/homepage', name: 'app_homepage')]
+    public function homePage(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
+    {
+
+        $user = $security->getUser();
+        return $this->render('home/homePage.html.twig', [
+
+        ]);
+    }
+
+    #[Route('/landingpage', name: 'app_langindPage')]
+    public function landingPage(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
+    {
+
+        $user = $security->getUser();
+        return $this->render('home/landingPage.html.twig', [
+
+        ]);
+    }
+
       // ^ test stripe
       #[Route('/home/test_stripe', name: 'test_stripe')]
       public function index_stripe(): Response

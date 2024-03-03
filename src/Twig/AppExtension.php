@@ -13,7 +13,7 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function formatDate(\DateTimeInterface $dateTime, string $format = 'd-m-Y'): string
+    public function formatDate(\DateTimeInterface $dateTime, string $format = 'd.m.Y'): string
     {
         return $dateTime->format($format);
     }

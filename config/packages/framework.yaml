@@ -23,7 +23,7 @@ framework:
     # Configuration for the custom error controller.
     # When an error occurs, Symfony uses the specified controller
     # to handle and display custom error pages.
-    error_controller: 'App\Controller\ErrorController::show'
+    # error_controller: 'App\Controller\ErrorController::show'
 
 
 when@test:

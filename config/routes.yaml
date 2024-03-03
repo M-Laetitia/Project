@@ -4,8 +4,12 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+# events_json:
+#     path: '/studio'
+#     controller: 'App\Controller\EventController::getEventsCalendar'
 
-    app_payment:
-    path: '/payment'
-    controller: 'App\Controller\PaymentController::processPayment'
-    methods: ['POST']
+    # app_payment:
+    # path: '/payment'
+    # controller: 'App\Controller\PaymentController::processPayment'
+    # methods: ['POST']
+

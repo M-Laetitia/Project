@@ -1061,41 +1061,44 @@ html {
   transition: opacity ease-in-out 1s;
 }
 
-#events-index #container-event {
+#events-index .container-event {
   display: grid;
   grid-template-columns: 55% 45%;
   height: 26rem;
   position: relative;
+  margin-bottom: 7rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
-#events-index #container-event #picture-event {
+#events-index .container-event #picture-event {
   padding-right: 3rem;
   width: 100%;
   height: 100%;
 }
-#events-index #container-event #picture-event figure {
-  background-color: pink;
+#events-index .container-event #picture-event figure {
+  background-color: grey;
   width: 100%;
   height: 100%;
 }
-#events-index #container-event #infos-event h2 {
+#events-index .container-event #infos-event h2 {
   color: #f0bd2f;
   text-transform: uppercase;
   padding-bottom: 2rem;
 }
-#events-index #container-event #infos-event h2 span {
+#events-index .container-event #infos-event h2 span {
   color: #207E93;
 }
-#events-index #container-event #infos-event #resume-event {
+#events-index .container-event #infos-event #resume-event {
   padding-bottom: 2rem;
 }
-#events-index #container-event #infos-event #details-event {
+#events-index .container-event #infos-event #details-event {
   display: grid;
   row-gap: 1rem;
 }
-#events-index #container-event #infos-event #details-event span {
+#events-index .container-event #infos-event #details-event span {
   font-weight: 600;
 }
-#events-index #container-event #infos-event #btn-event {
+#events-index .container-event #infos-event #btn-event {
   bottom: 0;
   position: absolute;
 }

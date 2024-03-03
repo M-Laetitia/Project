@@ -24,7 +24,7 @@
 }
 
 .text-n2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
 }
 
@@ -376,7 +376,7 @@ html {
 }
 
 .text-n2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
 }
 
@@ -1296,6 +1296,7 @@ html {
 #register-user #register-container #form-register label {
   text-transform: uppercase;
   padding-bottom: 1rem;
+  transition: ease-in-out 0.6s;
 }
 #register-user #register-container #form-register input {
   background-color: transparent;
@@ -1304,9 +1305,21 @@ html {
   border-left: none;
   border-right: none;
   outline: none;
+  transition: ease-in-out 0.6s;
 }
-#register-user #register-container #form-register #btn-register {
-  width: 100%;
+#register-user #register-container #form-register #terms-register {
+  display: flex;
+}
+#register-user #register-container #form-register #terms-register a {
+  transition: ease-in-out 0.6s;
+}
+
+#btn-register {
+  width: 61% !important;
+}
+
+#terms-register a:hover {
+  color: #f0bd2f !important;
 }
 
 /*# sourceMappingURL=user.css.map */

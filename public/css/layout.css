@@ -24,7 +24,7 @@
 }
 
 .text-n2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
 }
 
@@ -376,7 +376,7 @@ html {
 }
 
 .text-n2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.5rem;
 }
 
@@ -1146,6 +1146,7 @@ body {
   opacity: 0;
   transform: translateX(-80px);
   transition: opacity 2s ease, transform 2s ease;
+  text-transform: uppercase;
 }
 
 .banner-text {

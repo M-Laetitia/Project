@@ -19,7 +19,7 @@ class Picture
     private ?string $path = null;
 
     #[ORM\Column(length: 150)]
-    #[Assert\Length(max:150, message:'The alt description cannot be longer than {{ limit }} characters.')]
+    #[Assert\Length(max:150, maxMessage:'The alt description cannot be longer than {{ limit }} characters.')]
     private ?string $altDescription = null;
 
 

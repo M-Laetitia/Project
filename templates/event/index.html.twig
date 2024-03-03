@@ -40,7 +40,8 @@
 
                 </div>
                 <div id="btn-event">
-                    <div class="button btn6">SEE MORE</div>
+                    <div class="button btn6"><a href="{{ path('show_event', { slug : event.slug  }) }}">SEE MORE</a></div>
+                    
                 </div>
             </div>
         </div>
@@ -154,7 +155,7 @@
         // checkAndShowEvents();
 
         // Delay the initial check and display of events
-        setTimeout(checkAndShowEvents, 1200);
+        setTimeout(checkAndShowEvents, 1000);
     });
 </script>
 

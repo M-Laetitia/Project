@@ -30,8 +30,6 @@
                         <div id="list-infos">
                                 <div id="list-info">
 
-                                        {# <div><span>Date :</span> <span></span> <p>{{ area.nbRooms}}  </p> </div> #}
-
                                         <div>
                                                 <span>Date : </span>  <span></span> <p>{{area.startDate|formatDate}} <span> - </span> {{area.startDate|date('H:i')}}</p>
                                         </div>
@@ -39,8 +37,9 @@
                                         <div>
                                                 <span style="visibility:hidden;">Date : </span>  <span></span> <p>{{area.endDate|formatDate}} <span> - </span> {{area.endDate|date('H:i')}}</p>
                                         </div>
-                                       
 
+                                        <div><span>Capacity :</span> <span></span> <p>{{area.nbReversationMade}}  / {{ area.nbRooms}}  </p> </div>
+       
                                         <div><span>Status :</span> <span></span> 
                                                 <div>
                                                         <span class="status {{ area.status == 'OPEN' ? 'open' : 
@@ -52,8 +51,6 @@
                                                 </div> 
                                         </div>
                                         
-                                        <div><span>Capacity :</span> <span></span> <p>{{ area.nbRooms}}  </p> </div>
-
                                         {% for artist in area.expositionProposals %}
                                                 {% if loop.first %}
                                                         <a href="{{ path('show_artist', {slug: artist.user.slug, id: artist.user.id}) }}"><div><span style="visibility:visible;">Artists :</span> <span></span><p>{{ artist.user.artistInfos.artistName }}</p> </div></a>
@@ -82,8 +79,6 @@
                                 </div>
                                 <p>No more space available for this exhibition.</p>
                         </div>
-
-
                                 
                 {% elseif area.status == 'OPEN' %}
                         <div id="expo-participate">
@@ -95,8 +90,13 @@
                         {% endif %}
                 {% endif %}
         </div>       
-                
     </section>
 
+    <script>
+        // display header with a delay  (1s) 
+        setTimeout(function() {
+        $('#header').css('opacity','1');}, 600);
+                
+    </script>
 
 {% endblock %}

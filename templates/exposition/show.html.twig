@@ -17,6 +17,11 @@
                 <figure>
                         <img src="{{ asset('images/expo_img.jpg') }}" alt="">
                 </figure>
+                <div id="quote">
+                        <span><</span>
+                        <p> Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh </p>
+                        <span>></span>
+                    </div>
             </div>
         
         <div id="details-event">
@@ -84,7 +89,7 @@
                         <div id="expo-participate">
                                 {# <a href="{{ path('new_exposition_participation', {'id': area.id }) }}"></a> #}
                                 <div id="btn-event">
-                                        <div class="button btn6">PARTICIPATE</div>
+                                        <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
                                 </div>
                         </div>
                         {% endif %}
@@ -92,11 +97,28 @@
         </div>       
     </section>
 
+    <section id="participate-expo">
+        <div id="form">
+                {{ form_start(formSendParticipation)}}
+                        {{ form_errors(formSendParticipation)}}
+
+                        {{ form_row(formSendParticipation.firstname)}}
+                        {{ form_row(formSendParticipation.lastname)}}
+                        {{ form_row(formSendParticipation.submit)}}
+
+                {{ form_end(formSendParticipation)}}
+        </div>
+        <div id="btn-participate">
+
+        </div>
+    </section>
+
     <script>
         // display the header with a delay (1s) 
         setTimeout(function() {
-        $('#header').css('opacity','1');}, 400);
+        $('#header').css('opacity','1');}, 200);
 
+        // display detail expo on scroll
         document.addEventListener('DOMContentLoaded', function() {
                 // Function to check if an element is visible in the viewport
                 function isElementInViewport(el) {
@@ -108,8 +130,6 @@
             
                 // Function to check and show visible events
                 function checkAndShowEvents() {
-
-        
         
                     // Select all elements with class 'details-event' and loop through them
                     document.querySelectorAll('#details-event').forEach(function(container) {
@@ -130,7 +150,15 @@
                 // Delay the initial check and display of events
                 setTimeout(checkAndShowEvents, 1000);
             });
-                
+                    /* $(document).ready(function() {
+        $(window).scroll(function() {
+            $('.artist-container:not(.visible)').each(function() {
+                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                    $(this).addClass('visible');
+                }
+            });
+        });
+    });*/ 
     </script>
 
 {% endblock %}

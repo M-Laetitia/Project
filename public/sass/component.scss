@@ -19,6 +19,7 @@ $transition-len: 0.35s;
   position: relative;
   text-align: center;
   cursor: pointer;
+  // border-radius: 0.3rem;
   // transition: all $transition-len cubic-bezier($transition-bezier);
 
 }
@@ -38,7 +39,7 @@ $transition-len: 0.35s;
 .btn6 {
   border:1px solid $secondary-color; 
   background-color: $secondary-color;
-  color: $main-black-color;
+  color: $main-white-color;
 
   transition: all $transition-len cubic-bezier($transition-bezier);
   cursor: pointer;
@@ -47,6 +48,16 @@ $transition-len: 0.35s;
     background-color: $main-black-color;
     color: $secondary-color;
   }
+}
+
+.btn-off {
+  border:1px solid $secondary-color; 
+  background-color: $grey-light;
+  color: $main-black-color;
+  transition: all $transition-len cubic-bezier($transition-bezier);
+  cursor: default;
+  
+
 }
 
 /*  ---------------------------------- */

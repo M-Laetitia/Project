@@ -12,9 +12,6 @@
         <p class="banner-text">Text text<span class="underscore-static">_</span></p>
     </div>
 </div>
-
-
-
 <section class="content" id="events-index">
     {% for expo in ongoingExpos %}
 
@@ -23,6 +20,7 @@
                 <figure>
                     <div></div>
                 </figure>
+                
             </div>
             <div id="infos-event">
                 <h2 class="text-n1">{{expo.name}}<span class="">_</span></h2>
@@ -50,11 +48,7 @@
         </div>
     {% endfor %}
 
-    
-
 </section>
-
-
 
 <div class="ongoing-events">
 
@@ -185,6 +179,8 @@
         // Delay the initial check and display of events
         setTimeout(checkAndShowEvents, 1000);
     });
+
+
 </script>
 
 {% endblock %}

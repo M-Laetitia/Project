@@ -30,20 +30,23 @@ CREATE TABLE IF NOT EXISTS `area` (
   `nb_rooms` int NOT NULL,
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area : ~9 rows (environ)
-REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`) VALUES
-	(1, 'Expo 01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, '2023-12-06 15:54:00', '2023-12-08 18:54:00', 4, 'EXPO', 'OPEN'),
-	(2, 'Expo 02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', NULL, '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'PENDING'),
-	(3, 'Event 001', 'Praesent vitae fermentum felis. Vivamus venenatis, leo quis tincidunt consectetur, felis urna consectetur eros, ut faucibus eros sem vitae mauris. Aliquam a scelerisque urna.', NULL, '2023-12-06 16:09:00', '2023-12-06 18:09:00', 6, 'EVENT', 'OPEN'),
-	(4, 'Event 02', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', NULL, '2023-12-06 16:10:05', '2023-12-06 16:10:06', 12, 'EVENT', 'OPEN'),
-	(8, 'Event 03', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum turpis sed efficitur blandit. Phasellus aliquet sem at euismod dignissim.', NULL, '2022-12-16 10:49:00', '2022-12-18 10:25:00', 10, 'EVENT', 'ARCHIVED'),
-	(10, 'Event 05', 'Quisque dapibus arcu facilisis, vulputate ex non, faucibus purus. Vestibulum efficitur nunc nec ipsum volutpat interdum. Donec ultricies, nisl quis ornare sollicitudin,', NULL, '2024-12-16 17:26:09', '2024-12-16 17:26:10', 15, 'EVENT', 'PENDING'),
-	(11, 'Event 03', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, '2023-12-16 19:10:00', '2023-12-23 19:10:00', 10, 'EVENT', 'CLOSED'),
-	(12, 'Event10', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, '2023-12-13 19:15:00', '2023-12-21 19:15:00', 12, 'EVENT', 'ARCHIVED'),
-	(13, 'expo 10', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, '2023-12-18 00:06:00', '2023-12-30 00:06:00', 15, 'EXPO', 'ARCHIVED');
+-- Listage des données de la table project.area : ~10 rows (environ)
+REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`, `slug`) VALUES
+	(1, 'Expo 01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, '2024-03-15 15:54:00', '2024-03-15 18:54:00', 4, 'EXPO', 'OPEN', 'expo01'),
+	(2, 'Expo 02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', NULL, '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'CLOSED', 'expo02'),
+	(3, 'Event 001', 'Praesent vitae fermentum felis. Vivamus venenatis, leo quis tincidunt consectetur, felis urna consectetur eros, ut faucibus eros sem vitae mauris. Aliquam a scelerisque urna.', NULL, '2024-02-22 20:09:00', '2024-02-22 20:09:00', 6, 'EVENT', 'OPEN', 'event-001'),
+	(4, 'Event 02', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', NULL, '2024-02-06 16:10:05', '2024-02-07 16:10:06', 12, 'EVENT', 'ARCHIVED', 'event-02'),
+	(8, 'Event 03', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum turpis sed efficitur blandit. Phasellus aliquet sem at euismod dignissim.', NULL, '2024-03-20 10:49:00', '2024-03-20 10:25:00', 10, 'EVENT', 'CLOSED', 'event-03'),
+	(10, 'Event 05', 'Quisque dapibus arcu facilisis, vulputate ex non, faucibus purus. Vestibulum efficitur nunc nec ipsum volutpat interdum. Donec ultricies, nisl quis ornare sollicitudin,', NULL, '2024-12-16 17:26:09', '2024-12-16 17:26:10', 15, 'EVENT', 'PENDING', 'event-05'),
+	(11, 'Event 03', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, '2023-12-16 19:10:00', '2023-12-23 19:10:00', 10, 'EVENT', 'ARCHIVED', 'event-03'),
+	(12, 'Event10', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, '2023-12-13 19:15:00', '2023-12-21 19:15:00', 12, 'EVENT', 'ARCHIVED', 'event10'),
+	(13, 'expo 10', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, '2023-12-18 00:06:00', '2023-12-30 00:06:00', 15, 'EXPO', 'ARCHIVED', 'expo03'),
+	(15, 'teSstslug 02', 'errrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrr', NULL, '2023-12-24 12:15:00', '2023-12-28 12:15:00', 3, 'EVENT', 'ARCHIVED', 'tesstslug-02'),
+	(16, 'event 30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, '2023-12-23 23:15:17', '2023-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'event30');
 
 -- Listage de la structure de table project. area_area_category
 CREATE TABLE IF NOT EXISTS `area_area_category` (
@@ -56,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `area_area_category` (
   CONSTRAINT `FK_DC7F5F32BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area_area_category : ~8 rows (environ)
+-- Listage des données de la table project.area_area_category : ~9 rows (environ)
 REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(3, 1),
 	(4, 2),
@@ -65,14 +68,15 @@ REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(11, 3),
 	(12, 1),
 	(13, 1),
-	(13, 2);
+	(13, 2),
+	(15, 2);
 
 -- Listage de la structure de table project. area_category
 CREATE TABLE IF NOT EXISTS `area_category` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.area_category : ~3 rows (environ)
 REPLACE INTO `area_category` (`id`, `name`) VALUES
@@ -97,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `area_participation` (
   CONSTRAINT `FK_B269FA74BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area_participation : ~6 rows (environ)
+-- Listage des données de la table project.area_participation : ~4 rows (environ)
 REPLACE INTO `area_participation` (`id`, `firstname`, `lastname`, `start_date`, `end_date`, `inscription_date`, `area_id`, `user_id`) VALUES
 	(1, 'test', 'test', NULL, NULL, '2023-12-08 08:25:31', 1, 9),
 	(4, '0202', '3023', NULL, NULL, '2023-12-09 16:13:37', 4, 8),
@@ -116,9 +120,13 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id`),
   KEY `IDX_4C62E638A76ED395` (`user_id`),
   CONSTRAINT `FK_4C62E638A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.contact : ~0 rows (environ)
+-- Listage des données de la table project.contact : ~3 rows (environ)
+REPLACE INTO `contact` (`id`, `name`, `icon`, `url`, `user_id`) VALUES
+	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'audraAuclair@instagram.com', 19),
+	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'audraAuclair@behance.com', 19),
+	(3, 'Facebook', '<i class="fa-brands fa-facebook"></i>', 'http://33223', 19);
 
 -- Listage de la structure de table project. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
@@ -230,6 +238,7 @@ REPLACE INTO `messenger_messages` (`id`, `body`, `headers`, `queue_name`, `creat
 -- Listage de la structure de table project. picture
 CREATE TABLE IF NOT EXISTS `picture` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `alt_description` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -237,18 +246,21 @@ CREATE TABLE IF NOT EXISTS `picture` (
   PRIMARY KEY (`id`),
   KEY `IDX_16DB4F89A76ED395` (`user_id`),
   CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.picture : ~8 rows (environ)
-REPLACE INTO `picture` (`id`, `path`, `alt_description`, `type`, `user_id`) VALUES
-	(14, '4e93894773ea018dcd546cebfbfd0197.png', 'Triangular decoration pot for wooden walls', 'work', 8),
-	(15, '7527f55545d728e2373f81ccf3556f01.png', 'small wooden storage unit for walls, wood and metal', 'work', 8),
-	(16, '5f1078ae34c2b2848a3f16482d0e0739.png', 'Wood single-flower vase wall decoration', 'work', 8),
-	(17, '1d3588c11527f835902897db4be16632.png', 'wooden plant display tray', 'work', 8),
-	(18, 'f4b1beba14c7ce6f1b88f0b2ae1af1cd.png', 'hexagonal wooden frame for wall decoration', 'work', 8),
-	(19, '5f99531fe94af2ce265f38046fcc01ba.png', 'minimalist wooden ceiling lamp', 'work', 8),
-	(20, 'ccea1f05bc5e00df999837e90b47c829.png', 'wooden cutting board', 'work', 8),
-	(31, '1471b612a89cfb817e0198e579547c78.png', 'wood cutting board', 'work', 8);
+-- Listage des données de la table project.picture : ~11 rows (environ)
+REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `user_id`) VALUES
+	(14, NULL, '4e93894773ea018dcd546cebfbfd0197.png', 'Triangular decoration pot for wooden walls', 'work', 8),
+	(15, NULL, '7527f55545d728e2373f81ccf3556f01.png', 'small wooden storage unit for walls, wood and metal', 'work', 8),
+	(16, NULL, '5f1078ae34c2b2848a3f16482d0e0739.png', 'Wood single-flower vase wall decoration', 'work', 8),
+	(17, NULL, '1d3588c11527f835902897db4be16632.png', 'wooden plant display tray', 'work', 8),
+	(18, NULL, 'f4b1beba14c7ce6f1b88f0b2ae1af1cd.png', 'hexagonal wooden frame for wall decoration', 'work', 8),
+	(19, NULL, '5f99531fe94af2ce265f38046fcc01ba.png', 'minimalist wooden ceiling lamp', 'work', 8),
+	(20, NULL, 'ccea1f05bc5e00df999837e90b47c829.png', 'wooden cutting board', 'work', 8),
+	(31, NULL, '1471b612a89cfb817e0198e579547c78.png', 'wood cutting board', 'work', 8),
+	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', 19),
+	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', 19),
+	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', 19);
 
 -- Listage de la structure de table project. programme
 CREATE TABLE IF NOT EXISTS `programme` (
@@ -279,7 +291,7 @@ CREATE TABLE IF NOT EXISTS `reset_password_request` (
   CONSTRAINT `FK_7CE748AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.reset_password_request : ~1 rows (environ)
+-- Listage des données de la table project.reset_password_request : ~0 rows (environ)
 REPLACE INTO `reset_password_request` (`id`, `user_id`, `selector`, `hashed_token`, `requested_at`, `expires_at`) VALUES
 	(7, 8, 'PJKIPDSiGdlcolQAgRIN', '+zHao2AFBpPjpWvSOwRna5UUyumUuPF2EOdzqvLBPvA=', '2023-12-06 12:58:36', '2023-12-06 13:58:36');
 
@@ -291,14 +303,16 @@ CREATE TABLE IF NOT EXISTS `studio` (
   `detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `picture` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nb_rooms` int NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.studio : ~3 rows (environ)
-REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`) VALUES
-	(1, 'Studio 01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2),
-	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8),
-	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10);
+REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`) VALUES
+	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio01'),
+	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02'),
+	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03'),
+	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie');
 
 -- Listage de la structure de table project. subscription
 CREATE TABLE IF NOT EXISTS `subscription` (
@@ -309,64 +323,18 @@ CREATE TABLE IF NOT EXISTS `subscription` (
   `infos_user` json NOT NULL,
   `infos_subscription` json NOT NULL,
   `total` decimal(5,2) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_A3C664D3A76ED395` (`user_id`),
   KEY `IDX_A3C664D3B6596C08` (`subscription_type_id`),
   CONSTRAINT `FK_A3C664D3A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_A3C664D3B6596C08` FOREIGN KEY (`subscription_type_id`) REFERENCES `subscription_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.subscription : ~49 rows (environ)
-REPLACE INTO `subscription` (`id`, `user_id`, `subscription_type_id`, `payment_date`, `infos_user`, `infos_subscription`, `total`) VALUES
-	(1, 8, 1, '2023-12-19 18:17:06', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(2, 8, 2, '2023-12-19 18:19:19', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 02", "price": "75.00", "duration": 90}', 75.00),
-	(3, 8, 1, '2023-12-19 18:29:49', '{"address": "ezez", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(4, 8, 1, '2023-12-19 18:29:58', '{"address": "ezez", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(5, 8, 1, '2023-12-19 18:37:42', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(6, 8, 1, '2023-12-19 20:28:08', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(7, 8, 1, '2023-12-19 20:31:28', '{"address": "322323", "lastname": "232323", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(8, 8, 1, '2023-12-19 20:49:35', '{"address": "322323", "lastname": "322323", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(9, 8, 1, '2023-12-19 21:00:20', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(10, 8, 1, '2023-12-19 21:16:02', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(11, 8, 1, '2023-12-19 21:39:32', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(12, 8, 1, '2023-12-19 22:01:33', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(13, 8, 1, '2023-12-19 22:03:33', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(14, 8, 1, '2023-12-19 22:06:53', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(15, 8, 1, '2023-12-19 22:14:29', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(16, 8, 1, '2023-12-19 22:31:46', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(17, 8, 1, '2023-12-19 22:33:42', '{"address": "322323", "lastname": "test", "firstname": "test"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(18, 8, 1, '2023-12-19 23:22:18', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(19, 8, 1, '2023-12-19 23:22:24', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(20, 8, 1, '2023-12-19 23:22:43', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(21, 8, 1, '2023-12-19 23:22:51', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(22, 8, 1, '2023-12-19 23:23:33', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(23, 8, 1, '2023-12-19 23:25:06', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(24, 8, 1, '2023-12-19 23:25:23', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(25, 8, 1, '2023-12-19 23:26:50', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(26, 8, 1, '2023-12-19 23:27:04', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(27, 8, 1, '2023-12-19 23:28:53', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(28, 8, 1, '2023-12-19 23:29:14', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(29, 8, 1, '2023-12-19 23:30:06', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(30, 8, 1, '2023-12-19 23:30:11', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(31, 8, 1, '2023-12-19 23:30:21', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(32, 8, 1, '2023-12-19 23:31:22', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(33, 8, 1, '2023-12-19 23:31:33', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(34, 8, 1, '2023-12-19 23:32:08', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(35, 8, 1, '2023-12-19 23:34:17', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(36, 8, 1, '2023-12-19 23:34:25', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(37, 8, 1, '2023-12-19 23:35:59', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(38, 8, 1, '2023-12-19 23:37:28', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(39, 8, 1, '2023-12-19 23:37:40', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(40, 8, 1, '2023-12-19 23:39:34', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(41, 8, 1, '2023-12-19 23:40:08', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(42, 8, 1, '2023-12-19 23:41:42', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(43, 8, 1, '2023-12-19 23:42:43', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(44, 8, 1, '2023-12-19 23:44:10', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(45, 8, 1, '2023-12-19 23:45:19', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(46, 8, 1, '2023-12-19 23:47:38', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(47, 8, 1, '2023-12-19 23:48:50', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(48, 8, 1, '2023-12-19 23:49:16', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00),
-	(49, 8, 1, '2023-12-19 23:57:28', '{"address": null, "lastname": null, "firstname": null}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00);
+-- Listage des données de la table project.subscription : ~2 rows (environ)
+REPLACE INTO `subscription` (`id`, `user_id`, `subscription_type_id`, `payment_date`, `infos_user`, `infos_subscription`, `total`, `is_active`) VALUES
+	(1, 8, 1, '2023-12-19 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
+	(3, 8, 1, '2021-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0);
 
 -- Listage de la structure de table project. subscription_type
 CREATE TABLE IF NOT EXISTS `subscription_type` (
@@ -377,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `subscription_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.subscription_type : ~3 rows (environ)
+-- Listage des données de la table project.subscription_type : ~2 rows (environ)
 REPLACE INTO `subscription_type` (`id`, `name`, `price`, `duration`) VALUES
 	(1, 'Type 01', 30.00, 30),
 	(2, 'Type 02', 75.00, 90),
@@ -386,27 +354,55 @@ REPLACE INTO `subscription_type` (`id`, `name`, `price`, `duration`) VALUES
 -- Listage de la structure de table project. timeslot
 CREATE TABLE IF NOT EXISTS `timeslot` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `studio_id` int NOT NULL,
+  `date` date DEFAULT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `studio_id` int DEFAULT NULL,
   `user_id` int NOT NULL,
+  `time_slot_availability_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_3BE452F7446F285F` (`studio_id`),
   KEY `IDX_3BE452F7A76ED395` (`user_id`),
+  KEY `IDX_3BE452F7B18451A5` (`time_slot_availability_id`),
   CONSTRAINT `FK_3BE452F7446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`),
-  CONSTRAINT `FK_3BE452F7A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `FK_3BE452F7A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_3BE452F7B18451A5` FOREIGN KEY (`time_slot_availability_id`) REFERENCES `time_slot_availability` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.timeslot : ~2 rows (environ)
-REPLACE INTO `timeslot` (`id`, `start_date`, `end_date`, `studio_id`, `user_id`) VALUES
-	(1, '2023-12-13 10:00:00', '2023-12-17 11:00:00', 1, 8),
-	(3, '2023-12-12 09:00:35', '2023-12-12 10:00:36', 1, 7);
+-- Listage des données de la table project.timeslot : ~9 rows (environ)
+REPLACE INTO `timeslot` (`id`, `date`, `start_date`, `end_date`, `studio_id`, `user_id`, `time_slot_availability_id`) VALUES
+	(1, '2024-02-15', '2024-02-12 10:00:00', '2024-02-12 11:00:00', 2, 8, 1),
+	(3, '2023-12-12', '2023-12-12 09:00:35', '2023-12-12 10:00:36', 1, 7, 2),
+	(5, '2024-02-14', '2024-02-14 14:39:32', '2024-02-14 15:39:40', 3, 12, 1),
+	(6, '2024-02-15', '2024-02-15 10:00:00', '2024-02-15 11:00:00', 2, 11, 3),
+	(7, '2024-02-15', '2024-02-15 16:00:00', '2024-02-15 17:00:00', 2, 10, 3),
+	(8, '2024-03-13', '2024-03-13 09:00:00', '2024-03-13 10:00:00', 3, 8, 2),
+	(9, '2024-01-30', '2024-01-30 09:00:00', '2024-01-30 10:00:00', 2, 8, 2),
+	(10, '2024-04-04', '2024-04-04 09:00:00', '2024-04-04 10:00:00', 1, 8, 2),
+	(11, '2024-05-28', '2024-05-28 10:00:00', '2024-05-28 11:00:00', 1, 8, 3);
+
+-- Listage de la structure de table project. time_slot_availability
+CREATE TABLE IF NOT EXISTS `time_slot_availability` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Listage des données de la table project.time_slot_availability : ~4 rows (environ)
+REPLACE INTO `time_slot_availability` (`id`, `start_time`, `end_time`) VALUES
+	(1, '08:00:00', '09:00:00'),
+	(2, '09:00:00', '10:00:00'),
+	(3, '10:00:00', '11:00:00'),
+	(4, '11:00:00', '12:00:00'),
+	(5, '12:00:00', '13:00:00');
 
 -- Listage de la structure de table project. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
   `is_verified` tinyint(1) NOT NULL,
@@ -415,19 +411,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_login_date` datetime DEFAULT NULL,
   `last_profil_edit_date` datetime DEFAULT NULL,
   `artist_infos` json DEFAULT NULL,
+  `is_published` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.user : ~7 rows (environ)
-REPLACE INTO `user` (`id`, `email`, `username`, `password`, `roles`, `is_verified`, `avatar`, `registration_date`, `last_login_date`, `last_profil_edit_date`, `artist_infos`) VALUES
-	(7, '05@exemple.com', 'test05', '$2y$13$JLmhaHe/j7US1RkvTZUi0uK9UUHnvl81GhrIBUsftIp7fwzPc3IE.', '["ROLE_USER"]', 0, NULL, '2023-11-29 00:28:28', '2023-12-06 17:52:56', NULL, NULL),
-	(8, 'cath@exemple.com', 'Cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2023-12-17 09:21:04', NULL, '{"address": {"city": "Strasbourg", "street": "56 Bd Clemenceau", "country": "France", "postalCode": "67000"}, "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Handcrafted Wood Artisan"}'),
-	(9, '02@exemple.com', 'Hannah', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-12-18 09:29:52', '2023-12-16 16:11:33', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Handcrafted Wood Artisan"}'),
-	(10, '04@exemple.com', 'Mark', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-11-28 23:35:55', '2023-12-15 13:04:12', NULL, '{"address": {"city": "Strasbourg", "street": "14 rue Paul Janet", "country": "France", "postalCode": "67000"}, "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Handcrafted Wood Artisan"}'),
-	(11, '01@exemple.com', 'test', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER"]', 0, NULL, '2023-11-29 09:26:35', NULL, NULL, NULL),
-	(12, '10@exemple.com', 'test10', '$2y$13$om0bc3.EBPL04LSaeH8CYOkeEpeGvjp/HeK8vIs3rJhRfi/nY8iyC', '["ROLE_USER"]', 0, NULL, '2023-11-29 10:45:48', NULL, NULL, NULL),
-	(13, 'john@exemple.com', 'john', '$2y$13$YPpkZAQQhMN5TcoJOqTWyeztWa1Np1CsHdx60Mq/71g5d61FFw6Sm', '["ROLE_USER"]', 1, NULL, '2023-11-29 10:58:30', '2023-11-29 13:12:46', NULL, NULL);
+-- Listage des données de la table project.user : ~10 rows (environ)
+REPLACE INTO `user` (`id`, `email`, `username`, `slug`, `password`, `roles`, `is_verified`, `avatar`, `registration_date`, `last_login_date`, `last_profil_edit_date`, `artist_infos`, `is_published`) VALUES
+	(7, '05@exemple.com', 'test05', 'test05', '$2y$13$JLmhaHe/j7US1RkvTZUi0uK9UUHnvl81GhrIBUsftIp7fwzPc3IE.', '["ROLE_USER"]', 0, NULL, '2023-11-29 00:28:28', '2023-12-06 17:52:56', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Illustration", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Handcrafted Wood Artisan"}', NULL),
+	(8, 'cath@exemple.com', 'Cath', 'cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-02-09 22:34:00', NULL, '{"address": {"city": "Strasbourg", "street": "56 Bd Clemenceau", "country": "France", "postalCode": "67000"}, "category": "Illustration", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Illustrator"}', NULL),
+	(9, '02@exemple.com', 'Hannah', 'hannah', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-12-18 09:29:52', '2023-12-16 16:11:33', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Design", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Illustrator"}', NULL),
+	(10, '04@exemple.com', 'Mark', 'mark', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-11-28 23:35:55', '2023-12-15 13:04:12', NULL, '{"address": {"city": "Strasbourg", "street": "14 rue Paul Janet", "country": "France", "postalCode": "67000"}, "category": "Design", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Handcrafted Wood Artisan"}', NULL),
+	(11, '01@exemple.com', 'test', 'test', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER"]', 0, NULL, '2023-11-29 09:26:35', NULL, NULL, NULL, NULL),
+	(12, '10@exemple.com', 'test10', 'test10', '$2y$13$om0bc3.EBPL04LSaeH8CYOkeEpeGvjp/HeK8vIs3rJhRfi/nY8iyC', '["ROLE_USER"]', 0, NULL, '2023-11-29 10:45:48', NULL, NULL, NULL, NULL),
+	(13, 'john@exemple.com', 'john', 'john', '$2y$13$YPpkZAQQhMN5TcoJOqTWyeztWa1Np1CsHdx60Mq/71g5d61FFw6Sm', '["ROLE_USER"]', 1, NULL, '2023-11-29 10:58:30', '2023-11-29 13:12:46', NULL, NULL, NULL),
+	(14, 'test@gmal.com', 'test', 'test', '$2y$13$Wx42D/YpHmrLgu1xJpEmh.WUyo44805AnSmsutKxEZo0v8Uq0Sf4m', '["ROLE_USER"]', 0, NULL, '2023-12-20 21:38:46', NULL, NULL, NULL, NULL),
+	(18, 'celeste@exemple.com', 'Céleste2', 'celeste2', '$2y$13$uafPhat5ZOa0ymd7YaFrbOuIy4QzFWWn/YwGi0CE2gSp295jSIp1q', '["ROLE_USER"]', 0, NULL, '2024-02-13 00:13:00', NULL, NULL, NULL, 0),
+	(19, 'audra@gmail.com', 'Audra Auclair', 'audra', '$2y$13$Ug3sz4ttKQy7hnouNHxnJ.SveE4prtH2qK98H0qu0O3fmNZ3iP5De', '["ROLE_USER", "ROLE_ARTIST"]', 0, '65cd0d0f1910b.jpg', '2024-02-13 00:14:24', '2024-02-29 20:51:20', NULL, '{"category": "Illustration", "emailPro": "audraAuclair@example.com", "artistName": "Audra Auclair", "discipline": "Illustrator"}', 0);
 
 -- Listage de la structure de table project. workshop
 CREATE TABLE IF NOT EXISTS `workshop` (
@@ -441,18 +441,19 @@ CREATE TABLE IF NOT EXISTS `workshop` (
   `picture` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_9B6F02C4A76ED395` (`user_id`),
   CONSTRAINT `FK_9B6F02C4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.workshop : ~5 rows (environ)
-REPLACE INTO `workshop` (`id`, `name`, `description`, `detail`, `start_date`, `end_date`, `nb_rooms`, `picture`, `status`, `user_id`) VALUES
-	(1, 'Workshop01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-12-05 10:06:39', '2023-12-15 10:06:42', 10, NULL, 'OPEN', 8),
-	(2, 'Workshop02', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-12-20 10:07:44', '2023-12-25 10:07:45', 8, NULL, 'PENDING', 8),
-	(3, 'workshop 002', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-11-30 00:00:00', '2023-12-29 00:00:00', 3, NULL, 'CLOSED', 8),
-	(4, 'workshop10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-11-29 00:00:00', '2023-12-29 00:00:00', 4, NULL, 'ARCHIVED', 8),
-	(5, 'workshop 20', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-12-01 00:00:00', '2023-12-21 00:00:00', 2, NULL, 'OPEN', 8);
+REPLACE INTO `workshop` (`id`, `name`, `description`, `detail`, `start_date`, `end_date`, `nb_rooms`, `picture`, `status`, `user_id`, `slug`) VALUES
+	(1, 'Workshop01 event', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2024-02-25 10:06:39', '2024-02-28 10:06:42', 10, NULL, 'OPEN', 8, 'workshop01'),
+	(2, 'Workshop02', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-12-20 10:07:44', '2023-12-25 10:07:45', 8, NULL, 'PENDING', 8, 'workshop02'),
+	(3, 'workshop 002', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-11-30 00:00:00', '2023-12-29 00:00:00', 3, NULL, 'CLOSED', 8, 'workshop002'),
+	(4, 'workshop10', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-11-29 00:00:00', '2023-12-29 00:00:00', 4, NULL, 'ARCHIVED', 8, 'workshop10'),
+	(5, 'workshop 20', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', '2023-12-01 00:00:00', '2023-12-21 00:00:00', 2, NULL, 'OPEN', 8, 'workshop20');
 
 -- Listage de la structure de table project. workshop_registration
 CREATE TABLE IF NOT EXISTS `workshop_registration` (
@@ -470,17 +471,18 @@ CREATE TABLE IF NOT EXISTS `workshop_registration` (
   CONSTRAINT `FK_F3F1945B1FDCE57C` FOREIGN KEY (`workshop_id`) REFERENCES `workshop` (`id`),
   CONSTRAINT `FK_F3F1945BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_F3F1945BF920B9E9` FOREIGN KEY (`timeslot_id`) REFERENCES `timeslot` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.workshop_registration : ~7 rows (environ)
 REPLACE INTO `workshop_registration` (`id`, `firstname`, `lastname`, `registration_date`, `user_id`, `workshop_id`, `timeslot_id`) VALUES
-	(6, 'test', 'test', '2023-12-11 10:48:08', 8, 1, NULL),
+	(6, 'test', 'test', '2023-12-11 10:48:08', 9, 1, NULL),
 	(7, '4242', '424242', '2023-12-11 10:54:25', 8, 5, NULL),
 	(11, 'Machin', 'truc', '2023-12-13 22:35:17', 11, NULL, 1),
 	(14, 'Paul', 'Paul', '2023-12-17 12:42:42', 10, 3, NULL),
 	(15, 'Machin', 'Truc', '2023-12-17 12:43:05', 9, 3, NULL),
-	(16, 'Cath', 'Laurier', '2023-12-17 11:47:16', 8, 3, NULL),
-	(17, 'Cath', 'Laurier', '2023-12-17 14:31:26', 8, NULL, 3);
+	(16, 'Cath', 'Laurier', '2023-12-17 11:47:16', 8, 2, NULL),
+	(17, 'Cath', 'Laurier', '2023-12-17 14:31:26', 8, NULL, 3),
+	(22, 'Cath', 'Laurier', '2023-12-22 08:24:45', 8, NULL, 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

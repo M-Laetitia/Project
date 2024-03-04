@@ -106,7 +106,7 @@ class ExpositionController extends AbstractController
     }
 
     // ^ Show detail expo (user)
-    #[Route('/exposition/{id}', name: 'show_exposition')]
+    #[Route('/exposition/{slug}', name: 'show_exposition')]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
 

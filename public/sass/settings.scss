@@ -37,6 +37,12 @@ $secondary-color2: #E49E4B;
 
 $secondary-color3: #207E93;
 
+// $secondary-color4: #ED1313;
+$secondary-color4: #F14D4C;
+
+$grey-medium: #4c4545;
+$grey-light: #c3b5b5;
+
 
 $main-font: "Poppins", sans-serif;
 $secondary-font:  "Raleway", sans-serif;
@@ -112,6 +118,26 @@ $content-width: 70%;
         --fs-500: 1.75rem;
         --fs-400: 1.125rem;/* base size = body text size */
     }
+}
+
+
+// MEDIA QUERIES
+
+@media (min-width: 45em) { 
+    
+}
+
+@media screen and (max-width: 767px) {
+
+}
+  
+  
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+    
+}
+
+@media screen and (min-width: 990px) and (max-width: 1170px) {
+   
 }
 
 /*  ---------------------------------- */

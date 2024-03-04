@@ -126,7 +126,6 @@
                 margin-bottom: 2.5rem;
             }
         }
-
         #info {
             margin-left: 6rem;
 
@@ -137,29 +136,15 @@
                 height: 100%;
 
                 #list-info {
-                    
-
                     div {
                         display: grid;
                         grid-template-columns: 40% 10% 50%;
                         justify-content: space-between;
                         width: 70%;
-
-                        span {
-                            // margin-right: 3rem;
-                            
-                        }
-                        
-                        p {
-    
-                       
-                        }
                     }
                 }
-
             }
         }
-
         #btn-studio {
             margin-top: 3rem;
             div {

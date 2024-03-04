@@ -377,7 +377,7 @@ html {
 .btn6 {
   border: 1px solid #f0bd2f;
   background-color: #f0bd2f;
-  color: #151515;
+  color: #F9F9F9;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
   cursor: pointer;
 }
@@ -385,6 +385,14 @@ html {
   border: 1px solid #f0bd2f;
   background-color: #151515;
   color: #f0bd2f;
+}
+
+.btn-off {
+  border: 1px solid #f0bd2f;
+  background-color: #c3b5b5;
+  color: #151515;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+  cursor: default;
 }
 
 /*  ---------------------------------- */

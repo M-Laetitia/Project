@@ -140,7 +140,7 @@
     <div id="modules-workshop">
         <p class="text-n2">Modules<span id="info-underscore">_</span></p>
         <div id="modules-list">
-        
+            {% set counter = 1 %}
             {% for programme in workshop.programmes %}
             
             <div class="module-details">
@@ -149,7 +149,7 @@
                     <p></p>
                     <p>{{ programme.lesson.name }} - </p>
                 </div>
-
+                {% set counter = counter + 1 %}
                 {# Calculating the duration of this lesson in minutes #}
                 {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
                 {# Calculating hours and minutes for this lesson #}

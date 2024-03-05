@@ -94,6 +94,9 @@ class Workshop
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $quote = null;
+
 
 
     public function __construct()
@@ -180,6 +183,7 @@ class Workshop
     public function getNbRegistrationRemaining() {
         return $this->nbRooms - count($this->workshopRegistrations);
     }
+
 
     public function getPicture(): ?string
     {
@@ -305,6 +309,18 @@ class Workshop
     {
         $slugify = new Slugify();
         return $slugify->slugify($this->getName());
+    }
+
+    public function getQuote(): ?string
+    {
+        return $this->quote;
+    }
+
+    public function setQuote(?string $quote): static
+    {
+        $this->quote = $quote;
+
+        return $this;
     }
 
 }

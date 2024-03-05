@@ -257,6 +257,7 @@
     margin: auto;
     margin-top: 3rem;
     font-size: 1.1rem;
+    opacity: 0;
 
     p span {
         color: $secondary-color;
@@ -293,9 +294,28 @@
                     
                 }
             }
-
-            
         }
     }
 }
 
+#link-subscription {
+    background: linear-gradient(to right, $secondary-color,#d78a3b, $secondary-color);
+    background-size: 200% 200%;
+    animation: rainbow 2s ease-in-out infinite;
+    background-clip: text;
+    -webkit-background-clip:text;
+    color:$secondary-color;
+    transition: color .6s ease-in-out;
+
+}
+
+
+
+#link-subscription:hover {
+    color:rgba(0,0,0,0);
+}
+@keyframes rainbow { 
+    0%{background-position:left}
+    50%{background-position:right}
+    100%{background-position:left}
+  }

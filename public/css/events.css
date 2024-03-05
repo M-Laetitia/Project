@@ -1114,8 +1114,7 @@ html {
 #event-show #header {
   background-color: #151515;
   height: 40rem;
-  opacity: 0;
-  transition: opacity ease-in-out 0.6s;
+  opacity: 1;
 }
 #event-show #header figure {
   height: 100%;
@@ -1128,7 +1127,6 @@ html {
 }
 #event-show #header #quote {
   position: absolute;
-  width: 100%;
   height: 2.5rem;
   background-color: #F14D4C;
   right: 0;
@@ -1138,8 +1136,9 @@ html {
   display: flex;
   align-items: center;
   color: #F9F9F9;
+  opacity: 0;
 }
-#event-show #header #quote span {
+#event-show #header #quote #quote-style {
   color: #207E93;
   font-weight: 700;
   font-size: 2rem;
@@ -1155,7 +1154,6 @@ html {
   margin: auto;
   margin-top: 5rem;
   opacity: 0;
-  transition: opacity ease-in-out 0.5s;
 }
 #event-show #details-event #about-event {
   text-align: justify;
@@ -1193,11 +1191,11 @@ html {
   padding: 0 2rem;
 }
 #event-show #details-event #info #list-infos a p {
-  transition: all ease-in-out 0.2s;
+  transition: all ease-in-out 0.3s;
 }
 #event-show #details-event #info #list-infos a p:hover {
   color: #207E93;
-  font-weight: 600;
+  font-weight: 400;
 }
 #event-show #details-event #btn-event {
   margin-top: 3rem;
@@ -1212,6 +1210,77 @@ html {
 }
 #event-show #details-event #expo-participate p {
   color: #4c4545;
+}
+
+#list-info-workshop div {
+  display: grid;
+  grid-template-columns: 40% 10% 80%;
+  justify-content: space-between;
+  width: 70%;
+  align-items: center;
+}
+#list-info-workshop .status {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+#modules-workshop {
+  width: 70%;
+  margin: auto;
+  margin-top: 3rem;
+  font-size: 1.1rem;
+  opacity: 0;
+}
+#modules-workshop p span {
+  color: #f0bd2f;
+}
+#modules-workshop #modules-list {
+  margin-top: 1rem;
+}
+#modules-workshop #modules-list .module-details {
+  display: grid;
+  grid-template-columns: 18% minmax(auto, 1fr) 74%;
+  align-items: end;
+  margin-bottom: 0.8rem;
+}
+#modules-workshop #modules-list .module-details div p:nth-child(1) {
+  color: #f0bd2f;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+#modules-workshop #modules-list .module-details div p:nth-child(3) {
+  color: #207E93;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+#link-subscription {
+  background: linear-gradient(to right, #f0bd2f, #d78a3b, #f0bd2f);
+  background-size: 200% 200%;
+  animation: rainbow 2s ease-in-out infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #f0bd2f;
+  transition: color 0.6s ease-in-out;
+}
+
+#link-subscription:hover {
+  color: rgba(0, 0, 0, 0);
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: left;
+  }
+  50% {
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
 }
 
 /*# sourceMappingURL=events.css.map */

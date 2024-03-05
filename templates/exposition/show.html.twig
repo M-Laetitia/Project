@@ -5,50 +5,160 @@
 
 {% block body %}
 
-<h1>Expositions detail</h1>
+<div class="banner">
+        <div>
+            <h1 class="banner-title">{{area.name}}</h1>
+            <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+        </div>
+    </div>
+    
+    <section class="" id="event-show">
+        <div id="header">
+                <figure>
+                        <img src="{{ asset('images/expo_img.jpg') }}" alt="">
+                </figure>
+                <div id="quote">
+                        <span><</span>
+                        <p> Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh </p>
+                        <span>></span>
+                    </div>
+            </div>
+        
+        <div id="details-event">
+                <div id="about-event">
+                        <h3 class="text-n1">About the <span id="subtitle">{{area.name}}</span><span class="underscore">_</span></h2>
+                        <p>{{area.detail}}</p>
+                </div>
 
-<h2>Infos</h2> <br>
-<p>Name: {{area.name}}</p>
-<p>Description: {{area.description}}</p>
-<h2>Artists:</h2> <br>
+                <div id="info">
+                        <p class="text-n2">Info<span id="info-underscore">_</span></p>
+                        <div id="list-infos">
+                                <div id="list-info">
 
-<ul>
-{% for artist in area.expositionProposals %}
-        <li>{{ artist.user.artistInfos.artistName }}  | <a href="{{ path('show_artist', {slug: artist.user.slug }) }}">See more</a> </li>  
-        {% endfor %}
-        </ul>
+                                        <div>
+                                                <span>Date : </span>  <span></span> <p>{{area.startDate|formatDate}} <span> - </span> {{area.startDate|date('H:i')}}</p>
+                                        </div>
 
-{# {{ dump(area.expositionProposals) }} #}
-{# force l'initialisation de la collection #}
-{# {{ area.expositionProposals|length }}  #}
-{# {{ dump(area.expositionProposals) }} #}
+                                        <div>
+                                                <span style="visibility:hidden;">Date : </span>  <span></span> <p>{{area.endDate|formatDate}} <span> - </span> {{area.endDate|date('H:i')}}</p>
+                                        </div>
 
+                                        <div><span>Capacity :</span> <span></span> <p>{{area.nbReversationMade}}  / {{ area.nbRooms}}  </p> </div>
+       
+                                        <div><span>Status :</span> <span></span> 
+                                                <div>
+                                                        <span class="status {{ area.status == 'OPEN' ? 'open' : 
+                                                        (area.status == 'CLOSED' ? 'closed' : 
+                                                        (area.status == 'PENDING' ? 'pending' : 
+                                                        (area.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                                        {{ area.status }}
+                                                        </span>
+                                                </div> 
+                                        </div>
+                                        
+                                        {% for artist in area.expositionProposals %}
+                                                {% if loop.first %}
+                                                        <a href="{{ path('show_artist', {slug: artist.user.slug, id: artist.user.id}) }}"><div><span style="visibility:visible;">Artists :</span> <span></span><p>{{ artist.user.artistInfos.artistName }}</p> </div></a>
+                                                {% else %}
+                                                        <a href="{{ path('show_artist', {slug: artist.user.slug, id: artist.user.id}) }}"><div><span style="visibility:hidden;">Artists :</span> <span></span><p>{{ artist.user.artistInfos.artistName }}</p> </div></a>
+                                                {% endif %}
+                                        {% endfor %}
+                                </div>
+                        </div>
+                </div>
 
+                {% if existingParticipation %}
+                        <div id="expo-participate">
+                                <div id="btn-event">
+                                        <div class="button btn-off">PARTICIPATE</div>
+                                </div>
+                                <p>You are already participating in this exhibition.</p>
+                        </div>
+                        
+                {% else %}  
+                        {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
 
-<h3>Participate</h3> <br>
-<p>Want to participate ? <br>
+                        <div id="expo-participate">
+                                <div id="btn-event">
+                                        <div class="button btn-off">PARTICIPATE</div>
+                                </div>
+                                <p>No more space available for this exhibition.</p>
+                        </div>
+                                
+                {% elseif area.status == 'OPEN' %}
+                        <div id="expo-participate">
+                                {# <a href="{{ path('new_exposition_participation', {'id': area.id }) }}"></a> #}
+                                <div id="btn-event">
+                                        <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
+                                </div>
+                        </div>
+                        {% endif %}
+                {% endif %}
+        </div>       
+    </section>
 
+    <section id="participate-expo">
+        <div id="form">
+                {{ form_start(formSendParticipation)}}
+                        {{ form_errors(formSendParticipation)}}
 
+                        {{ form_row(formSendParticipation.firstname)}}
+                        {{ form_row(formSendParticipation.lastname)}}
+                        {{ form_row(formSendParticipation.submit)}}
 
-{% if existingParticipation %}
-        <p>You are already participating in this exhibition</p>
-{% else %}  
-        {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
-                <p>No more space available for this exhibition</p>
-        {% elseif area.status == 'OPEN' %}
-                <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">Participate</a></p>
-        {% else %}
-                <p>not open yet</p>
-        {% endif %}
-{% endif %}
+                {{ form_end(formSendParticipation)}}
+        </div>
+        <div id="btn-participate">
 
+        </div>
+    </section>
 
+    <script>
+        // display the header with a delay (1s) 
+        setTimeout(function() {
+        $('#header').css('opacity','1');}, 200);
 
-
-
-{# {% for artist in area %}
-    <p>Name: {{area.user.username}}</p>
-{% endfor %} #}
-
+        // display detail expo on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+                // Function to check if an element is visible in the viewport
+                function isElementInViewport(el) {
+                    // Retrieve the bounding rectangle of the element
+                    var rect = el.getBoundingClientRect();
+                    // Check if the element's top, left, bottom, and right coordinates are within the viewport
+                    return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+                }
+            
+                // Function to check and show visible events
+                function checkAndShowEvents() {
+        
+                    // Select all elements with class 'details-event' and loop through them
+                    document.querySelectorAll('#details-event').forEach(function(container) {
+                        // Check if the current container is in the viewport
+                        if (isElementInViewport(container)) {
+                            // change the opacity and make the container visible
+                            container.style.opacity = '1';
+                        }
+                    });
+                }
+            
+                // Event listener to detect user scrolling
+                window.addEventListener('scroll', checkAndShowEvents);
+            
+                // Check and show visible events when the page initially loads
+                // checkAndShowEvents();
+        
+                // Delay the initial check and display of events
+                setTimeout(checkAndShowEvents, 1000);
+            });
+                    /* $(document).ready(function() {
+        $(window).scroll(function() {
+            $('.artist-container:not(.visible)').each(function() {
+                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                    $(this).addClass('visible');
+                }
+            });
+        });
+    });*/ 
+    </script>
 
 {% endblock %}

@@ -54,13 +54,8 @@ a {
   display: inline-block;
   padding: 0.5rem;
   color: white;
-  border-radius: 0.3rem;
   cursor: pointer;
   transition: ease-in-out 0.3s;
-}
-.btn:hover {
-  color: rgb(240, 189, 47);
-  background-color: rgb(25, 24, 27);
 }
 
 #edit_artist_submit button {

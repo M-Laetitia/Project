@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Area;
 use App\Entity\User;
 use App\Form\ExpositionType;
+use App\Form\AreaParticipationType;
 use App\Service\MailerService;
 use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
@@ -106,13 +107,15 @@ class ExpositionController extends AbstractController
     }
 
     // ^ Show detail expo (user)
-    #[Route('/exposition/{id}', name: 'show_exposition')]
-    public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    #[Route('/exposition/{slug}', name: 'show_exposition')]
+    public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService ): Response 
     {
 
         $user = $security->getUser();
         $userId = $user->getId();
         $areaId = $area->getId();
+        $areaSlug = $area->getSlug();
+        // dd($areaSlug);
 
         $existingParticipation = [];
         // ! voir pour utiliser dql
@@ -125,9 +128,74 @@ class ExpositionController extends AbstractController
         // $existingParticipation = $hasExistingParticipation !== null ?? false;
 
     
+        // ^ FORM
+
+        $form = $this->createForm(AreaParticipationType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            // Check if the maximum number of participants has been reached
+            $maxParticipants = $area->getNbRooms();
+            $currentParticipants = $area->getNbReversationMade();
+
+            if ($currentParticipants < $maxParticipants) {
+
+                $expoParticipation = $form->getData();
+                $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
+                $expoParticipation->setUser($user);
+                $expoParticipation->setArea($area);
+    
+                $entityManager->persist($expoParticipation);
+                $entityManager->flush();
+    
+                //send the email
+                $userEmail = $user->getEmail();
+                $expositionDetails = sprintf(
+                    "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                    $area->getName(),
+                    $area->getStartDate()->format('Y-m-d H:i:s'),
+                    $area->getEndDate()->format('Y-m-d H:i:s'),
+                    $area->getDescription()
+                );
+                $mailerService->sendExpositionParticipationConfirmation($userEmail, $expositionDetails);
+    
+                // Check if the maximum number of participants has been reached after the new registration
+                $nbReversationRemaining = $area->getNbReversationRemaining();
+                
+                if ( $currentParticipants +1 >= $maxParticipants && $area->getStatus() !== 'CLOSED') {
+                    // Update the status to "closed"
+                    $area->setStatus('CLOSED');
+                    $entityManager->flush();
+                } elseif ($currentParticipants < $maxParticipants && $area->getStatus() !== 'OPEN') {
+                    $area->setStatus('OPEN');
+                    $entityManager->flush();
+                }
+    
+                // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+                $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
+
+                
+                return $this->redirectToRoute('show_exposition', ['slug' => $areaSlug]);
+
+            } else {
+                // Redirect / display a message indicating that the maximum number of participants has been reached
+                // return $this->render('exposition/maxParticipantsReached.html.twig');
+                //! redirection ver detail expo ou liste expo?
+                return $this->redirectToRoute('show_exposition', ['slug' => $areaSlug]);
+                // ('show_event_admin', ['id' => $areaId]);
+            }
+
+        
+        }
+
+
+
         return $this->render('exposition/show.html.twig', [
             'area' => $area,
-            'existingParticipation' => $existingParticipation
+            'existingParticipation' => $existingParticipation,
+            'formSendParticipation' => $form,
+            'user' => $user,
         ]);
     }
 
@@ -141,7 +209,6 @@ class ExpositionController extends AbstractController
 
         ]);
     }
-
 
 
     // ^create new expo (admin)

@@ -53,6 +53,9 @@ class Area
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $quote = null;
+
 
 
     public function __construct()
@@ -279,6 +282,18 @@ class Area
     {
         $slugify = new Slugify();
         return $slugify->slugify($this->getName());
+    }
+
+    public function getQuote(): ?string
+    {
+        return $this->quote;
+    }
+
+    public function setQuote(?string $quote): static
+    {
+        $this->quote = $quote;
+
+        return $this;
     }
 
    

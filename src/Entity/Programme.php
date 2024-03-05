@@ -82,4 +82,24 @@ class Programme
 
         return $this;
     }
+
+    // public function getTotalDuration(): string
+    // {
+    //     $totalMinutes = 0;
+    //     foreach ($this->lessons as $lesson) {
+    //         $startDate = $lesson->getStartDate();
+    //         $endDate = $lesson->getEndDate();
+    //         $diff = $endDate->getTimestamp() - $startDate->getTimestamp();
+    //         $totalMinutes += $diff / 60; // Convertit la différence en minutes
+    //     }
+        
+    //     // Convertir le total de minutes en heures et minutes
+    //     $hours = floor($totalMinutes / 60);
+    //     $minutes = $totalMinutes % 60;
+
+    //     // Retourner le temps total au format heures:minutes
+    //     return sprintf("%02d:%02d", $hours, $minutes);
+    // }
+  
+
 }

@@ -114,51 +114,36 @@
     </section>
 
     <script>
-        // display the header with a delay (1s) 
+        // display the header with a delay 
         setTimeout(function() {
-        $('#header').css('opacity','1');}, 200);
+        $('#header').css('opacity','1');}, 400);
 
-        // display detail expo on scroll
+        // display #details-event on scroll
         document.addEventListener('DOMContentLoaded', function() {
                 // Function to check if an element is visible in the viewport
                 function isElementInViewport(el) {
-                    // Retrieve the bounding rectangle of the element
-                    var rect = el.getBoundingClientRect();
-                    // Check if the element's top, left, bottom, and right coordinates are within the viewport
+                    const rect = el.getBoundingClientRect();
+                     // Check if the element is within the viewport boundaries
                     return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
                 }
             
-                // Function to check and show visible events
-                function checkAndShowEvents() {
-        
-                    // Select all elements with class 'details-event' and loop through them
-                    document.querySelectorAll('#details-event').forEach(function(container) {
-                        // Check if the current container is in the viewport
-                        if (isElementInViewport(container)) {
-                            // change the opacity and make the container visible
-                            container.style.opacity = '1';
+                const detailsEvent = document.getElementById('details-event');
+
+                 // Function to check and show 'details-event' when it becomes visible in the viewport
+                function checkAndShowEvent() {
+                        // Check if 'details-event' is within the viewport
+                        if (isElementInViewport(detailsEvent)) {
+                        // Set the opacity of 'details-event' to 1 to make it visible
+                        detailsEvent.style.opacity = '1';
                         }
-                    });
                 }
-            
-                // Event listener to detect user scrolling
-                window.addEventListener('scroll', checkAndShowEvents);
-            
-                // Check and show visible events when the page initially loads
-                // checkAndShowEvents();
-        
-                // Delay the initial check and display of events
-                setTimeout(checkAndShowEvents, 1000);
-            });
-                    /* $(document).ready(function() {
-        $(window).scroll(function() {
-            $('.artist-container:not(.visible)').each(function() {
-                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
-                    $(this).addClass('visible');
-                }
-            });
+               // Add event listener to detect scrolling
+                window.addEventListener('scroll', checkAndShowEvent);
+
+                // Wait for a delay of 1 second after page load to check if 'details-event' is in the viewport
+                setTimeout(checkAndShowEvent, 1000);
         });
-    });*/ 
+                    
     </script>
 
 {% endblock %}

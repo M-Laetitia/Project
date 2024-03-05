@@ -1,5 +1,9 @@
  gsap.from('#header', { opacity: 0, duration: 1.2, delay: 0.6 });  
 
+ if (document.getElementById('modules-workshop')) {
+    var modules = document.getElementById('modules-workshop');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const detailsEvent = document.getElementById('details-event');
     const quote = document.getElementById('quote');
@@ -17,6 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isElementInViewport(detailsEvent)) {
             // Use GSAP to animate the appearance of 'details-event' with sliding up and fading in
             gsap.fromTo(detailsEvent, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1 });
+
+            // Use GSAP to animate the appearance of 'modules' with sliding up and fading in
+            if (modules) {
+                gsap.fromTo(modules, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5 });
+            }
+            
+
             // Animation of the quote appearing with a slide-in from the right
             gsap.fromTo(quote, { x: window.innerWidth, opacity: 1 }, { x: 0, opacity: 1, duration: 1 });
             

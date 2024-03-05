@@ -12,47 +12,93 @@
     </div>
 </div>
 
-<section class="content" id="events-show">
+<section class="" id="event-show">
     <div id="header">
         <figure>
-            <img></img>
+            <img src="{{ asset('images/event_img.jpg') }}" alt="">
         </figure>
+        <div id="quote">
+            <span id="quote-style"><</span>
+            <p id="quote-text">{{area.quote}}</p>
+            <span id="quote-style">></span>
+        </div>
     </div>
 
     <div id="details-event">
-        <h2>LALALALALA</h2>
-        <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
+        <div id="about-event">
+            <h3 class="text-n1">About the <span id="subtitle">{{area.name}}</span><span class="underscore">_</span></h2>
+            <p>{{area.detail}}</p>
+        </div>
+    
+
+        <div id="info">
+            <p class="text-n2">Info<span id="info-underscore">_</span></p>
+            <div id="list-infos">
+                <div id="list-info">
+
+                    <div>
+                        <span>Date : </span>  <span></span> <p>{{area.startDate|formatDate}} <span> - </span> {{area.startDate|date('H:i')}}</p>
+                    </div>
+
+                    <div>
+                        <span style="visibility:hidden;">Date : </span>  <span></span> <p>{{area.endDate|formatDate}} <span> - </span> {{area.endDate|date('H:i')}}</p>
+                    </div>
+
+                    <div><span>Capacity :</span> <span></span> <p>{{area.nbReversationMade}}  / {{ area.nbRooms}}  </p> </div>
+
+                    <div><span>Status :</span> <span></span> 
+                            <div>
+                                    <span class="status {{ area.status == 'OPEN' ? 'open' : 
+                                    (area.status == 'CLOSED' ? 'closed' : 
+                                    (area.status == 'PENDING' ? 'pending' : 
+                                    (area.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                    {{ area.status }}
+                                    </span>
+                            </div> 
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {% if existingParticipation %}
+                        <div id="expo-participate">
+                                <div id="btn-event">
+                                        <div class="button btn-off">PARTICIPATE</div>
+                                </div>
+                                <p>You are already participating in this exhibition.</p>
+                        </div>
+                        
+                {% else %}  
+                        {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
+
+                        <div id="expo-participate">
+                                <div id="btn-event">
+                                        <div class="button btn-off">PARTICIPATE</div>
+                                </div>
+                                <p>No more space available for this exhibition.</p>
+                        </div>
+                                
+                {% elseif area.status == 'OPEN' %}
+                        <div id="expo-participate">
+                                {# <a href="{{ path('new_event_participation', {'id': area.id }) }}"></a> #}
+                                <div id="btn-event">
+                                        <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
+                                </div>
+                        </div>
+                        {% endif %}
+    
+                        {% endif %}
     </div>
 
 </section>
 
 
-
-    <div class="ongoing-events">
-        <div>
-            <p>
-                <span class="name">{{area.name}}</span> 
-                <span class="status {{ area.status == 'OPEN' ? 'open' : 
-                                    (area.status == 'CLOSED' ? 'closed' : 
-                                    (area.status == 'PENDING' ? 'pending' : 
-                                    (area.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                    {{ area.status }}
-                </span>
-            
-            </p>
-            <p>{{area.startDate|formatDate}} - {{area.endDate|formatDate}} </p>
-            <p>{{area.startDate|date('H:i')}} - {{area.endDate|date('H:i')}}</p>
-    
-            <p>{{area.description}}</p>
-    
-            <p>Capacity : {{area.nbReversationMade}}  /  {{area.nbRooms}} - Remaining : {{area.nbReversationRemaining}}</p>
-
-        </div>
-   
-    </div>
-
-
-    {% if area.status != 'ARCHIVED' %}
+    {# {% if area.status != 'ARCHIVED' %}
         {% if area.status == 'PENDING' %}
             <p>Registration will open soon</p>
         {% else %}
@@ -67,11 +113,9 @@
             
             </p>
         {% endif %}
-    {% endif %}
+    {% endif %} #}
 
-        
-        <script>
+    <script src= "{{ asset('js/gsap.min.js') }}"></script>
+    <script src= "{{ asset('js/pagesShow.js') }}"></script>
 
-        </script>
-        
 {% endblock %}

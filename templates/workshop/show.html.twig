@@ -26,200 +26,206 @@
     </div>
     
     <div id="details-event">
-            <div id="about-event">
-                    <h3 class="text-n1">About the <span id="subtitle">{{workshop.name}}</span><span class="underscore">_</span></h2>
-                    <p>{{workshop.detail}}</p>
-            </div>
+        <div id="about-event">
+                <h3 class="text-n1">About the <span id="subtitle">{{workshop.name}}</span><span class="underscore">_</span></h2>
+                <p>{{workshop.detail}}</p>
+        </div>
 
-            <div id="info">
-                    <p class="text-n2">Info<span id="info-underscore">_</span></p>
-                    <div id="list-infos">
-                            <div id="list-info-workshop">
+        <div id="info">
+            <p class="text-n2">Info<span id="info-underscore">_</span></p>
+            <div id="list-infos">
+                <div id="list-info-workshop">
 
-                                    <div >
-                                            <span>Date : </span>  <span></span> <p>{{workshop.startDate|formatDate}} - {{workshop.endDate|formatDate}}</p>
-                                    </div>
-
-                                    {# <div>
-                                            <span style="visibility:hidden;">Date : </span>  <span></span> <p>{{workshop.endDate|formatDate}} <span> - </span> {{workshop.endDate|date('H:i')}}</p>
-                                    </div> #}
-
-                                    <div><span>Capacity :</span> <span></span> <p> {{workshop.nbRegistrationMade}} / {{ workshop.nbRooms}}  </p> </div>
-
-                                    <div><span>Modules :</span> <span></span>
-                                         <p> 
-                                            {% set counter = 0 %}
-                                            {% for programme in workshop.programmes %}
-                                            {% set counter = counter + 1 %}
-                                            {% endfor %}
-                                            {{ counter}}
-                                        </p> 
-                                    </div>
-                                    
-                                    <div><span>Duration :</span> <span></span> 
-                                        <p>  
-                                            
-                                        {% set totalDurationMinutes = 0 %}
-                            
-                                        {% for programme in workshop.programmes %}
-                                        
-                                            {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
-                                            {% set totalDurationMinutes = totalDurationMinutes + lessonDurationMinutes %}
-                           
-                                        {% endfor %}
-                                       {% set totalHours = totalDurationMinutes // 60 %}
-                                       {% set remainingMinutes = totalDurationMinutes % 60 %}
-                                       
-                                       {% if totalHours > 0 %}
-                                           {% if remainingMinutes > 0 %}
-                                               {{ totalHours }}hrs {{ remainingMinutes }}min
-                                           {% else %}
-                                               {{ totalHours }}hrs
-                                           {% endif %}
-                                       {% else %}
-                                           {{ remainingMinutes }}min
-                                       {% endif %}
-                                        </p> 
-                                    </div>
-
-            
-                                    {# {% for programme in workshop.programmes %}
-    Temps total pour ce programme : {{ programme.totalDuration }}
-{% endfor %} #}
-                                    {# <div><span>nb modules :</span> <span></span> <p> {{ workshop.programmes.NbLessons}} </p> </div> #}
-
-                                    
-                                    
-                                    <div><span>Status :</span> <span></span> 
-                                            <div>
-                                                <span class="status {{ workshop.status == 'OPEN' ? 'open' : 
-                                                (workshop.status == 'CLOSED' ? 'closed' : 
-                                                (workshop.status == 'PENDING' ? 'pending' : 
-                                                (workshop.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                                                {{ workshop.status }}
-                                                </span>
-                                            </div> 
-                                    </div>
-                                    
-                                    
-                            </div>
+                    <div >
+                            <span>Date : </span>  <span></span> <p>{{workshop.startDate|formatDate}} - {{workshop.endDate|formatDate}}</p>
                     </div>
-            </div>
 
-            {# {% if existingParticipation %}
-                    <div id="expo-participate">
-                            <div id="btn-event">
-                                    <div class="button btn-off">PARTICIPATE</div>
-                            </div>
-                            <p>You are already participating in this exhibition.</p>
+                    <div><span>Capacity :</span> <span></span> <p> {{workshop.nbRegistrationMade}} / {{ workshop.nbRooms}}  </p> </div>
+
+                    <div><span>Modules :</span> <span></span>
+                            <p> 
+                            {% set counter = 0 %}
+                            {% for programme in workshop.programmes %}
+                            {% set counter = counter + 1 %}
+                            {% endfor %}
+                            {{ counter}}
+                        </p> 
                     </div>
                     
-            {% else %}  
-                    {% if workshop.nbReversationRemaining == 0 and workshop.status == 'CLOSED' %}
-
-                    <div id="expo-participate">
-                            <div id="btn-event">
-                                    <div class="button btn-off">PARTICIPATE</div>
-                            </div>
-                            <p>No more space available for this exhibition.</p>
-                    </div>
+                    <div><span>Duration :</span> <span></span> 
+                        <p>  
                             
-            {% elseif workshop.status == 'OPEN' %}
-                    <div id="expo-participate"> #}
-                            {# <a href="{{ path('new_exposition_participation', {'id': workshop.id }) }}"></a> #}
-                            {# <div id="btn-event">
-                                    <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
-                            </div>
+                        {% set totalDurationMinutes = 0 %}
+            
+                        {% for programme in workshop.programmes %}
+                        
+                            {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
+                            {% set totalDurationMinutes = totalDurationMinutes + lessonDurationMinutes %}
+            
+                        {% endfor %}
+                        {% set totalHours = totalDurationMinutes // 60 %}
+                        {% set remainingMinutes = totalDurationMinutes % 60 %}
+                        
+                        {% if totalHours > 0 %}
+                            {% if remainingMinutes > 0 %}
+                                {{ totalHours }}hrs {{ remainingMinutes }}min
+                            {% else %}
+                                {{ totalHours }}hrs
+                            {% endif %}
+                        {% else %}
+                            {{ remainingMinutes }}min
+                        {% endif %}
+                        </p> 
                     </div>
+                    
+                    <div><span>Status :</span> <span></span> 
+                            <div>
+                                <span class="status {{ workshop.status == 'OPEN' ? 'open' : 
+                                (workshop.status == 'CLOSED' ? 'closed' : 
+                                (workshop.status == 'PENDING' ? 'pending' : 
+                                (workshop.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                {{ workshop.status }}
+                                </span>
+                            </div> 
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+
+ 
+        
+
+        {% if app.user %}
+            {% if user.subscriptions is not empty %}
+                {% set hasActiveSubscription = false %}
+                {% for subscription in user.subscriptions %}
+                    {% if subscription.isActive %}
+                        {% set hasActiveSubscription = true %}
                     {% endif %}
-            {% endif %} #}
+                {% endfor %}
+                
+                {% if hasActiveSubscription %}
+                    {% if workshop.status != 'ARCHIVED' %}
+                        {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
+                        <div id="expo-participate">
+                                <div id="btn-event">
+                                        <div class="button btn-off">PARTICIPATE</div>
+                                </div>
+                                <p>Registration will open soon</p>
+                        </div>
+                            
+                        {% else %}
+                            {% if existingRegistration %}
+                            <div id="expo-participate">
+                                    <div id="btn-event">
+                                            <div class="button btn-off">PARTICIPATE</div>
+                                    </div>
+                                    <p>You are already participating</p>
+                            </div>
+                                
+                            {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
+                            <div id="expo-participate">
+                                    <div id="btn-event">
+                                            <div class="button btn-off">PARTICIPATE</div>
+                                    </div>
+                                    <p>No more space available for this workshop</p>
+                            </div>
+                                
+                            {% elseif workshop.status == 'OPEN' %}
+
+                            <div id="expo-participate">
+                                <div id="btn-event">
+                                        <div class="button btn6">PARTICIPATE</div>
+                                </div>
+                            </div>
+                                {# <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p> #}
+                            {% endif %}
+                            </p>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {# Content for user without an active subscription #}
+                    <div id="expo-participate">
+                        <div id="btn-event">
+                                <div class="button btn-off">PARTICIPATE</div>
+                        </div>
+                        <p>You must have a valid subscription to benefit from this service.<a href="{{ path('app_subscription') }}">Check here!</a></p>
+                        
+                    </div>
+
+                    
+                {% endif %}
+            {% else %}
+                {# Content for user without any subscriptions #}
+                <div id="expo-participate">
+                    <div id="btn-event">
+                            <div class="button btn-off">PARTICIPATE</div>
+                    </div>
+                    <p>You must have signed up for a subscription to benefit from this service. 
+                        {# <span id="link-subscription" ><a href="{{ path('app_subscription') }}">Check our subscription plans here <i class="ri-sparkling-2-line"></i> </a></span></p> #}
+
+                        <span id="link-subscription" ><a href="{{ path('app_subscription') }}">Check our subscription plans here <i class="ri-sparkling-2-line"></i> </a></span></p>
+                    
+                </div>
+                
+            {% endif %}
+        {% endif %}
+
 
         
     </div>  
 
-    <div id="modules-workshop">
-        <p class="text-n2">Modules<span id="info-underscore">_</span></p>
-        <div id="modules-list">
-            {% set counter = 1 %}
-            {% for programme in workshop.programmes %}
-            
-            <div class="module-details">
-                <div>
-                    <p>0{{ counter }}.</p> 
-                    <p></p>
-                    <p>{{ programme.lesson.name }} - </p>
-                </div>
-                {% set counter = counter + 1 %}
-                {# Calculating the duration of this lesson in minutes #}
-                {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
-                {# Calculating hours and minutes for this lesson #}
-                {% set lessonHours = lessonDurationMinutes // 60 %}
-                {% set lessonRemainingMinutes = lessonDurationMinutes % 60 %}
-                
-                <p>{{programme.startDate|formatDate}}<span> | </span></p>  
-                <p>{{programme.startDate|date('H:i')}} - {{programme.endDate|date('H:i')}} 
-                    
-                    {% if lessonRemainingMinutes == 0 %}
-                    ({{ lessonHours }}hrs)
-                {% else %}
-                    ({{ lessonHours }}hrs {{ lessonRemainingMinutes }}min)
-                {% endif %}
-                
-                </p>
-            </div>
-            {% endfor %}
-
-            
-        </div>
-    </div>
-
     
-
 </section>
 
-
-
-    {% if app.user %}
-    {% if user.subscriptions is not empty %}
-        {% set hasActiveSubscription = false %}
-        {% for subscription in user.subscriptions %}
-            {% if subscription.isActive %}
-                {% set hasActiveSubscription = true %}
-            {% endif %}
-        {% endfor %}
+<div id="modules-workshop" >
+    <p class="text-n2">Modules<span id="info-underscore">_</span></p>
+    <div id="modules-list">
+        {% set counter = 1 %}
+        {% for programme in workshop.programmes %}
         
-        {% if hasActiveSubscription %}
-            {% if workshop.status != 'ARCHIVED' %}
-                {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
-                    <p>Registration will open soon</p>
-                {% else %}
-                    <p>Do you want to participate?<br>
-                    {% if existingRegistration %}
-                        <p>You are already participating</p>
-                    {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
-                        <p>No more space available for this workshop</p>
-                    {% elseif workshop.status == 'OPEN' %}
-                    <p>valid subscription</p>
-                        <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p>
-                    {% endif %}
-                    </p>
-                {% endif %}
+        <div class="module-details">
+            <div>
+                <p>0{{ counter }}.</p> 
+                <p></p>
+                <p>{{ programme.lesson.name }} - </p>
+            </div>
+            {% set counter = counter + 1 %}
+            {# Calculating the duration of this lesson in minutes #}
+            {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
+            {# Calculating hours and minutes for this lesson #}
+            {% set lessonHours = lessonDurationMinutes // 60 %}
+            {% set lessonRemainingMinutes = lessonDurationMinutes % 60 %}
+            
+            <p>{{programme.startDate|formatDate}}<span> | </span></p>  
+            <p>{{programme.startDate|date('H:i')}} - {{programme.endDate|date('H:i')}} 
+                
+                {% if lessonRemainingMinutes == 0 %}
+                ({{ lessonHours }}hrs)
+            {% else %}
+                ({{ lessonHours }}hrs {{ lessonRemainingMinutes }}min)
             {% endif %}
-        {% else %}
-            {# Content for user without an active subscription #}
-            <p>You must have a valid subscription to benefit from this service.</p>
-            <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
-        {% endif %}
-    {% else %}
-        {# Content for user without any subscriptions #}
-        <p>You must have signed up for a subscription to benefit from this service.</p>
-        <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
-    {% endif %}
-{% endif %}
+            
+            </p>
+        </div>
+        {% endfor %}
+
+        
+    </div>
+    
+    
+
+</div>
+
 
 
 
 <script src= "{{ asset('js/gsap.min.js') }}"></script>
 <script src= "{{ asset('js/pagesShow.js') }}"></script>
 
+
 {% endblock %}
+
+

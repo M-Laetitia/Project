@@ -5,7 +5,45 @@
 
 {% block body %}
 
-<h1>Subscription</h1>
+<style>
+    body {
+        background-color: #151515;
+    }
+</style>
+
+
+
+<div class="banner">
+    <div>
+        <h1>SUBSCRIPTIONS</h1>
+        <p>Text text<span class="underscore-static">_</span></p>
+    </div>
+</div>
+
+<section class="content" id="subscription-page">
+    {% for subscription in subscriptions %}
+        <div class="subscription-card" id="{{ subscription.id }}">
+            <h2 class="text-n2">{{ subscription.name }}</h2>
+
+            <div class="image">
+            </div>
+
+            <p class="">{{ subscription.price}} €</p>
+            <p>per {{ subscription.dueDate}}</p>
+
+            <div class="subscription-btn">
+                <div class="btn btn6">SUBSCRIBE</div>
+            </div>
+
+        </div>
+    {% endfor %}
+
+    
+
+
+</section>
+
+
 
 <p>Choose your subscription</p>
 
@@ -45,7 +83,7 @@
 
   {# {% if user.subscriptions is not empty %} #}
    
-<hr>
+
     
 
 

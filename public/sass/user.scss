@@ -330,3 +330,115 @@
 #terms-register a:hover {
     color: $secondary-color !important;
 }
+
+
+// ---------------------------------
+//  ███████ ██    ██ ██████  ███████  ██████ ██████  ██ ██████  ████████ ██  ██████  ███    ██ ███████ 
+//  ██      ██    ██ ██   ██ ██      ██      ██   ██ ██ ██   ██    ██    ██ ██    ██ ████   ██ ██      
+//  ███████ ██    ██ ██████  ███████ ██      ██████  ██ ██████     ██    ██ ██    ██ ██ ██  ██ ███████ 
+//       ██ ██    ██ ██   ██      ██ ██      ██   ██ ██ ██         ██    ██ ██    ██ ██  ██ ██      ██ 
+//  ███████  ██████  ██████  ███████  ██████ ██   ██ ██ ██         ██    ██  ██████  ██   ████ ███████
+// ---------------------------------
+
+$transition: ease-in-out 0.3s;
+$grey-color: #272727; 
+
+#subscription-page {
+    // background-color: red;
+    width: $content-width;
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+    
+
+    .subscription-card {
+        background-color: $grey-color;
+        width: 21rem;
+        // height: 31rem;
+        border-left: 1px solid $grey-color;
+        border-right: 1px solid $grey-color;
+        border-top: 1px solid $grey-color;
+        border-bottom: 1px solid $secondary-color;
+        padding-bottom: 2rem;
+        cursor: pointer;
+        transition: $transition;
+
+        &:hover {
+            background-color: $secondary-color;
+            transform: scale(1.05);
+            border-color: $secondary-color;
+
+            h2,p {
+                color: $main-black-color;
+            }
+
+            .btn {
+                background-color: $grey-color;
+                color: $secondary-color;
+                border-color: $grey-color;
+            }
+        }
+
+        h2 {
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 1.8rem;
+            margin-bottom: 2rem;
+            color: $main-white-color;
+            letter-spacing: 0.2rem;
+            transition: $transition;
+        }
+
+        .image {
+            border: 1px solid grey;
+            width: 50%;
+            height: 14rem;
+            margin: auto;
+            margin-bottom: 2rem;
+            
+
+        }
+
+        p {
+            color: $secondary-color;
+            text-align: center;
+            letter-spacing: 0.2rem;
+        }
+
+        p:nth-child(3) {
+            font-weight: $extra-bold;
+            font-size: 1.2rem;
+        }
+
+        p:nth-child(4) {
+            font-size: 1rem;
+        }
+
+        .subscription-btn {
+            margin-top: 1.3rem;
+            // margin: 1.3rem 0rem;
+            display: flex;
+            justify-content: center;
+            
+
+           
+
+            div {
+                // display: inline-block;
+                width: 50%;
+                text-align: center;
+                background-color: $grey-color;
+                color: $grey-color;
+                border-color: $grey-color;
+                transition: $transition;
+                
+                &:hover {
+                    transform: scale((1.1));
+                }
+                
+            }
+            
+        }
+    }
+}
+

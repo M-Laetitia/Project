@@ -299,17 +299,15 @@
 }
 
 #link-subscription {
-    background: linear-gradient(to right, $secondary-color,#d78a3b, $secondary-color);
+    background: linear-gradient(to right, $secondary-color,rgb(238, 132, 34), $secondary-color);
     background-size: 200% 200%;
     animation: rainbow 2s ease-in-out infinite;
     background-clip: text;
     -webkit-background-clip:text;
     color:$secondary-color;
-    transition: color .6s ease-in-out;
+    transition: color .2s ease-in-out;
 
 }
-
-
 
 #link-subscription:hover {
     color:rgba(0,0,0,0);

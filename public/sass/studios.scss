@@ -10,6 +10,8 @@
 // ---------------------------------
 
 #studios-index {
+    margin-bottom: 10rem;
+
     #studio-links {
     @include center-flexbox();
     column-gap: 3rem;
@@ -17,24 +19,30 @@
     }
 
     #studios-container {
+
+        .studio {
+            opacity: 0;
+            transition: ease-in-out 0.3s;
+        }
         
         .studio-container {
-            background-color: $main-black-color;
+            // background-color: $main-black-color;
             padding: 5rem 0;
             width: 100%;
 
             .studio-content {
                 width: $content-width;
-                background-color: $main-black-color;
+                // background-color: $main-black-color;
                 display: grid;
                 grid-template-columns: 45% 10% 45%;
                 margin: auto;
                 color: $main-white-color;
                 position: relative;
+                // height: 20rem;
 
                 figure {
                     width: 36rem;
-                    height: 23rem;
+                    height: 27rem;
     
                     img {
                         width: 100%;
@@ -48,6 +56,7 @@
                         margin-bottom: 3rem;
                         display: grid;
                         grid-template-columns: auto 1fr;
+                        position: relative;
                         
 
                         .separator {
@@ -64,19 +73,18 @@
 
                     h2 {
                         margin-bottom: 2rem;
+
+                        span {
+                            color: $secondary-color;
+                        }
                     }
 
-                    .btn3 {
+                    .btn6 {
                         position: absolute;
                         bottom: 0;
                     }
-
-                    
-
                 }
             }
-
-           
         }
     }
 }

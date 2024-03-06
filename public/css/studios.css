@@ -98,6 +98,10 @@ a:not([class]) {
   color: currentColor;
 }
 
+a {
+  color: inherit;
+}
+
 /* Make images easier to work with */
 img,
 picture {
@@ -448,6 +452,10 @@ h1, h2, h3, h4 {
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentColor;
+}
+
+a {
+  color: inherit;
 }
 
 /* Make images easier to work with */
@@ -1069,6 +1077,9 @@ html {
   transition: opacity ease-in-out 1s;
 }
 
+#studios-index {
+  margin-bottom: 10rem;
+}
 #studios-index #studio-links {
   display: flex;
   align-items: center;
@@ -1076,14 +1087,16 @@ html {
   column-gap: 3rem;
   margin-bottom: 3rem;
 }
+#studios-index #studios-container .studio {
+  opacity: 0;
+  transition: ease-in-out 0.3s;
+}
 #studios-index #studios-container .studio-container {
-  background-color: #151515;
   padding: 5rem 0;
   width: 100%;
 }
 #studios-index #studios-container .studio-container .studio-content {
   width: 70%;
-  background-color: #151515;
   display: grid;
   grid-template-columns: 45% 10% 45%;
   margin: auto;
@@ -1092,7 +1105,7 @@ html {
 }
 #studios-index #studios-container .studio-container .studio-content figure {
   width: 36rem;
-  height: 23rem;
+  height: 27rem;
 }
 #studios-index #studios-container .studio-container .studio-content figure img {
   width: 100%;
@@ -1103,6 +1116,7 @@ html {
   margin-bottom: 3rem;
   display: grid;
   grid-template-columns: auto 1fr;
+  position: relative;
 }
 #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle .separator {
   width: 100%;
@@ -1117,7 +1131,10 @@ html {
 #studios-index #studios-container .studio-container .studio-content .info-studio h2 {
   margin-bottom: 2rem;
 }
-#studios-index #studios-container .studio-container .studio-content .info-studio .btn3 {
+#studios-index #studios-container .studio-container .studio-content .info-studio h2 span {
+  color: #f0bd2f;
+}
+#studios-index #studios-container .studio-container .studio-content .info-studio .btn6 {
   position: absolute;
   bottom: 0;
 }

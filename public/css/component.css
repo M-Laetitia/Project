@@ -98,6 +98,10 @@ a:not([class]) {
   color: currentColor;
 }
 
+a {
+  color: inherit;
+}
+
 /* Make images easier to work with */
 img,
 picture {

@@ -98,6 +98,10 @@ a:not([class]) {
   color: currentColor;
 }
 
+a {
+  color: inherit;
+}
+
 /* Make images easier to work with */
 img,
 picture {
@@ -448,6 +452,10 @@ h1, h2, h3, h4 {
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentColor;
+}
+
+a {
+  color: inherit;
 }
 
 /* Make images easier to work with */
@@ -1258,13 +1266,13 @@ html {
 }
 
 #link-subscription {
-  background: linear-gradient(to right, #f0bd2f, #d78a3b, #f0bd2f);
+  background: linear-gradient(to right, #f0bd2f, rgb(238, 132, 34), #f0bd2f);
   background-size: 200% 200%;
   animation: rainbow 2s ease-in-out infinite;
   background-clip: text;
   -webkit-background-clip: text;
   color: #f0bd2f;
-  transition: color 0.6s ease-in-out;
+  transition: color 0.2s ease-in-out;
 }
 
 #link-subscription:hover {

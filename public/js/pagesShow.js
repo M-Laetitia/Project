@@ -3,10 +3,9 @@
 console.log("hello test")
 if (document.getElementById('event-show')) {
     
-   
     gsap.from('#header', { opacity: 0, duration: 1.2, delay: 0.6 });  
     
-     if (document.getElementById('modules-workshop')) {
+    if (document.getElementById('modules-workshop')) {
         var modules = document.getElementById('modules-workshop');
     }
     
@@ -32,11 +31,9 @@ if (document.getElementById('event-show')) {
                 if (modules) {
                     gsap.fromTo(modules, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5 });
                 }
-                
     
                 // Animation of the quote appearing with a slide-in from the right
                 gsap.fromTo(quote, { x: window.innerWidth, opacity: 1 }, { x: 0, opacity: 1, duration: 1 });
-                
                 
                 // Replace each letter of the text with a span element
                 quoteText.innerHTML = quoteText.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
@@ -65,9 +62,7 @@ if (document.getElementById('event-show')) {
 }
 
 
-
 // ^ ANIMATION FOR LIST (INDEX) PAGE
-
 
 if (document.getElementById('events-index')) {
     var eventsIndex = document.getElementById('events-index');
@@ -88,7 +83,6 @@ if (document.getElementById('events-index')) {
             span.classList.remove('underscore');
         });
 
-
             // Select all elements with class 'container-event' and loop through them
             document.querySelectorAll('.container-event').forEach(function(container) {
                 // Check if the current container is in the viewport
@@ -105,13 +99,9 @@ if (document.getElementById('events-index')) {
         // Event listener to detect user scrolling
         window.addEventListener('scroll', checkAndShowEvents);
 
-        // Check and show visible events when the page initially loads
-        // checkAndShowEvents();
-
         // Delay the initial check and display of events
         setTimeout(checkAndShowEvents, 1000);
     });
-
 }
 
 // display the header with a delay 

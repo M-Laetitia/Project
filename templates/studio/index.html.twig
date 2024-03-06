@@ -95,69 +95,38 @@
     <script src= "{{ asset('js/gsap.min.js') }}"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        
+    document.addEventListener("DOMContentLoaded", function() {
 
         gsap.from('#studio-links', { opacity: 0, duration: 1.2, delay: 0.6 });
+        gsap.from('#studios-container', { opacity: 0, duration: 1.2, delay: 0.6 });
 
-        function isElementInViewport(el) {
-            // Retrieve the bounding rectangle of the element
-            var rect = el.getBoundingClientRect();
-            // Check if the element's top, left, bottom, and right coordinates are within the viewport
-            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
-        }
+       
 
-        // Function to check and show visible events
-        function checkAndShowEvents() {
-            // Remove the "underscore" class from all spans
-        document.querySelectorAll('.studio span').forEach(function(span) {
-            span.classList.remove('underscore');
-        });
+        // Define an array 'colors' containing color codes.
+        const colors = ['#242424', '#207E93', '#F04C4B']; 
+        const eventItems = document.querySelectorAll('.studio-container');
+        const eventLinks = document.querySelectorAll('.event-link');
+    
+        eventItems.forEach((item, index) => {
+        //The modulo operator '%' is used with the length of the 'colors' array to ensure that if the 'index' exceeds the number of available colors, it starts again from the beginning of the array
+        item.style.backgroundColor = colors[index % colors.length];
+        
 
-            // Select all elements with class 'container-event' and loop through them
-            document.querySelectorAll('.studio').forEach(function(container) {
-                // Check if the current container is in the viewport
-                if (isElementInViewport(container)) {
-                    // change the opacity and make the container visible
-                    container.style.opacity = '1';
-
-                    // Add the "underscore" class to the span within the current container
-                container.querySelector('span').classList.add('underscore');
-                }
+        eventLinks.forEach((link, index) => {
+            link.addEventListener('click', function(event) {
+                // Get the index of the clicked event
+                const indexClicked = Array.from(eventLinks).indexOf(this);
+                console.log(indexClicked)
+                // Get the color associated with the index
+                //const color = sessionStorage.getItem('eventColor-' + indexClicked);
+                const color = colors[indexClicked];
+                    // Store the color for use in the details page
+                sessionStorage.setItem('selectedEventColor', color);
             });
-        }
-
-        // Event listener to detect user scrolling
-        window.addEventListener('scroll', checkAndShowEvents);
-
-        // Delay the initial check and display of events
-        setTimeout(checkAndShowEvents, 1000);
-   
-
-
-            // Define an array 'colors' containing color codes.
-            const colors = ['#242424', '#207E93', '#F04C4B']; 
-            const eventItems = document.querySelectorAll('.studio-container');
-            const eventLinks = document.querySelectorAll('.event-link');
-      
-            eventItems.forEach((item, index) => {
-            //The modulo operator '%' is used with the length of the 'colors' array to ensure that if the 'index' exceeds the number of available colors, it starts again from the beginning of the array
-            item.style.backgroundColor = colors[index % colors.length];
-            
-
-            eventLinks.forEach((link, index) => {
-                link.addEventListener('click', function(event) {
-                    // Get the index of the clicked event
-                    const indexClicked = Array.from(eventLinks).indexOf(this);
-                    console.log(indexClicked)
-                    // Get the color associated with the index
-                    //const color = sessionStorage.getItem('eventColor-' + indexClicked);
-                    const color = colors[indexClicked];
-                     // Store the color for use in the details page
-                    sessionStorage.setItem('selectedEventColor', color);
-                });
-            });
-          });
         });
+        });
+    });
 
         
     </script>

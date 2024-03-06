@@ -18,149 +18,140 @@
 <section  id="studios-index">
 
     <div id="studio-links">
-        <p><a href="#studio11">Studio Calliope</a></p>
+        {# <p><a href="#studio11">Studio Calliope</a></p>
         <p><a href="#studio10">Studio Thalie</a></p>
         <p><a href="#studio03">Studio 03</a></p>
-        <p><a href="#studio0">Studio 04</a></p>
-  
+        <p><a href="#studio0">Studio 04</a></p> #}
+        {% for studio in studios %}
+         <p><a href="#{{studio.slug}}">{{studio.name}}</a></p>
+        {% endfor %}
     </div>
 
+    
     <div id="studios-container">
-        <div id="studio11" class="studio-container">
-            <div class="studio-content">
-
-                <figure>
-                    <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
-                </figure>
-
-                <div></div>
+        {% for studio in studios %}
+        <div class="studio {% if loop.index is even %}even{% else %}odd{% endif %}">
+            {% if loop.index is even %}
+                <div id="{{studio.slug}}" class="studio-container">
+                    <div class="studio-content">
     
-                <div class="info-studio">
-                    <div class="subtitle">
-                        <p>SOME TEXT TEXTTEXT TEXT</p>
-                        <div class="separator"></div>
+                        <figure>
+                            <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
+                        </figure>
+    
+                        <div></div>
+            
+                        <div class="info-studio">
+                            <div class="subtitle">
+                                <p>SOME TEXT TEXTTEXT TEXT</p>
+                                <div class="separator"></div>
+                            </div>
+                            
+                            <h2 class="text-n1">{{studio}}<span class="underscore">_</span></h2>
+                            <p class="text-studio">{{studio.detail}} </p>
+                            <div class="button btn6"><a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">SEE MORE</a></div>
+                            
+            
+                        </div>
+    
                     </div>
-                    
-                    <h2>Studio Calliope<span>_</span></h2>
-                    <p class="text-studio">Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh </p>
-    
-                    <div class="button btn6">SEE MORE</div>
-    
                 </div>
 
-            </div>
-        </div>
-
-        <div id="studio10" class="studio-container">
-            <div class="studio-content">
-                
-                <div class="info-studio">
-                    <div class="subtitle">
-                        <p>SOME TEXT TEXTTEXT TEXT</p>
-                        <div class="separator"></div>
+            {% else %}
+                <div id="{{studio.slug}}" class="studio-container">
+                    <div class="studio-content">
+    
+                        <div class="info-studio">
+                            <div class="subtitle">
+                                <p>SOME TEXT TEXTTEXT TEXT</p>
+                                <div class="separator"></div>
+                            </div>
+                            
+                            <h2 class="text-n1">{{studio}}<span class="underscore">_</span></h2>
+                            <p class="text-studio">{{studio.detail}} </p>
+                            <div class="button btn6"><a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">SEE MORE</a></div>
+                            
+                        </div>
+    
+                        <div></div>
+            
+                        <figure>
+                            <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
+                        </figure>
+    
                     </div>
-                    
-                    <h2>Studio Thalie<span>_</span></h2>
-                    <p class="text-studio">Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh </p>
-    
-                    <div class="button btn6">SEE MORE</div>
-    
                 </div>
                 
-                <div></div>
-                
-                <figure>
-                    <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
-                </figure>
-
-    
-
-            </div>
+            {% endif %}
+            
         </div>
+        {% endfor %}
 
-        
     </div>
 
 
 </section>
 
-    <h1>List of Art Studios</h1>
-
-   
-<div id="studio-links">
-    {% for studio in studios %}
-         <p><a href="#{{studio.slug}}">{{studio.name}}</a></p>
-    {% endfor %}
-           
-</div>
-
-
-    <div class="ongoing-events">
-
-        {% for studio in studios %}
-
-        
-            <div>
-                
-                <p>
-                    <span class="name" id="{{studio.slug}}">{{studio.name}}</span> 
-                </p>
-                 
-                <p>{{studio.description}}</p>                
-    
-                <a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">See details <i class="fa-solid fa-plus"></i></a>
-                <hr>
-            </div>
-            {% endfor %}
-
-    </div>
-
-    <div class="ongoing-events">
-        {% for studio in studios %}
-            <div class="studio {% if loop.index is even %}even{% else %}odd{% endif %}">
-                {% if loop.index is even %}
-                    <div class="text-left">
-                        <p>{{ studio.name }}</p>
-                    </div>
-                    <div class="image-right">
-                        <p>{{studio.description}}</p>  
-                    </div>
-                {% else %}
-                    <div class="image-left">
-                        <p>{{studio.description}}</p>  
-                    </div>
-                    <div class="text-right">
-                        <p>{{ studio.name }}</p>
-                    </div>
-                {% endif %}
-                <a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">See details <i class="fa-solid fa-plus"></i></a>
-                <hr>
-            </div>
-        {% endfor %}
-    </div>
-
-
-
+    <script src= "{{ asset('js/gsap.min.js') }}"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+
+        gsap.from('#studio-links', { opacity: 0, duration: 1.2, delay: 0.6 });
+
+        function isElementInViewport(el) {
+            // Retrieve the bounding rectangle of the element
+            var rect = el.getBoundingClientRect();
+            // Check if the element's top, left, bottom, and right coordinates are within the viewport
+            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+        }
+
+        // Function to check and show visible events
+        function checkAndShowEvents() {
+            // Remove the "underscore" class from all spans
+        document.querySelectorAll('.studio span').forEach(function(span) {
+            span.classList.remove('underscore');
+        });
+
+            // Select all elements with class 'container-event' and loop through them
+            document.querySelectorAll('.studio').forEach(function(container) {
+                // Check if the current container is in the viewport
+                if (isElementInViewport(container)) {
+                    // change the opacity and make the container visible
+                    container.style.opacity = '1';
+
+                    // Add the "underscore" class to the span within the current container
+                container.querySelector('span').classList.add('underscore');
+                }
+            });
+        }
+
+        // Event listener to detect user scrolling
+        window.addEventListener('scroll', checkAndShowEvents);
+
+        // Delay the initial check and display of events
+        setTimeout(checkAndShowEvents, 1000);
+   
+
+
             // Define an array 'colors' containing color codes.
-            const colors = ['#F04C4B', '#242424', '#207E93']; 
-            const eventItems = document.querySelectorAll('.ongoing-events div');
+            const colors = ['#242424', '#207E93', '#F04C4B']; 
+            const eventItems = document.querySelectorAll('.studio-container');
             const eventLinks = document.querySelectorAll('.event-link');
       
             eventItems.forEach((item, index) => {
             //The modulo operator '%' is used with the length of the 'colors' array to ensure that if the 'index' exceeds the number of available colors, it starts again from the beginning of the array
             item.style.backgroundColor = colors[index % colors.length];
+            
 
             eventLinks.forEach((link, index) => {
                 link.addEventListener('click', function(event) {
                     // Get the index of the clicked event
                     const indexClicked = Array.from(eventLinks).indexOf(this);
-        
+                    console.log(indexClicked)
                     // Get the color associated with the index
-                    const color = sessionStorage.getItem('eventColor-' + indexClicked);
-        
+                    //const color = sessionStorage.getItem('eventColor-' + indexClicked);
+                    const color = colors[indexClicked];
                      // Store the color for use in the details page
                     sessionStorage.setItem('selectedEventColor', color);
                 });
@@ -168,10 +159,9 @@
           });
         });
 
-       
-
-
+        
     </script>
 
 
 {% endblock %}
+

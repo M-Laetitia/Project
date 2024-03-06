@@ -15,15 +15,9 @@
 
 
 
-<div class="test">
-    <p>test récupération couleur </p>
-</div>
-
-
-
 
     <section class="" id="studio-show">
-        <header>
+        <header id="background-studio">
             <figure>
                 <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt=""
             </figure>
@@ -147,9 +141,8 @@
         const selectedEventColor = sessionStorage.getItem('selectedEventColor');
     
     if (selectedEventColor !== null) {
-        const paragraph = document.querySelector('.test p');
-
-        paragraph.style.color = selectedEventColor;
+        const backgroundStudio= document.getElementById('background-studio');
+        backgroundStudio.style.background = selectedEventColor;
     }
     });
 </script>

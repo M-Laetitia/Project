@@ -28,6 +28,9 @@ class SubscriptionType
     #[ORM\OneToMany(mappedBy: 'subscriptionType', targetEntity: Subscription::class)]
     private Collection $subscription;
 
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $dueDate = null;
+
     public function __construct()
     {
         $this->subscription = new ArrayCollection();
@@ -105,6 +108,18 @@ class SubscriptionType
                 $subscription->setSubscriptionType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDueDate(): ?string
+    {
+        return $this->dueDate;
+    }
+
+    public function setDueDate(?string $dueDate): static
+    {
+        $this->dueDate = $dueDate;
 
         return $this;
     }

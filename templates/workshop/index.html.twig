@@ -6,10 +6,54 @@
 
 {% block body %}
 
-    <h1>workshops:</h1>
+<div class="banner">
+    <div>
+        <h1 class="banner-title">OUR WORKSHOPS</h1>
+        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+    </div>
+</div>
 
-    <div class="ongoing-events">
-        {% for workshop in ongoingWorkshop %}
+<section class="content" id="events-index">
+    {% for workshop in ongoingWorkshop %}
+
+        <div class="container-event">
+            <div id="picture-event">
+                <figure>
+                    <div></div>
+                </figure>
+            </div>
+            <div id="infos-event">
+                <h2 class="text-n1">{{workshop.name}}<span class="">_</span></h2>
+                <p id="resume-event">{{workshop.description}}</p>
+                <div id="details-event">
+                    <p><span>Date : </span> {{workshop.startDate|formatDate}} <span>|</span> {{workshop.startDate|date('H:i')}} - {{workshop.endDate|date('H:i')}}</p> 
+                    <p><span>Statut : </span>
+                    
+                        <span class="status {{ workshop.status == 'OPEN' ? 'open' : 
+                        (workshop.status == 'CLOSED' ? 'closed' : 
+                        (workshop.status == 'PENDING' ? 'pending' : 
+                        (workshop.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                        {{ workshop.status }}
+                        </span>
+
+                    </p>
+                    <p><span>Capacity : </span> {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}}</p>
+
+                </div>
+                <div id="btn-event">
+                    <div class="button btn6"><a href="{{ path('show_event', { slug : workshop.slug  }) }}">SEE MORE</a></div>
+                    
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+</section>
+
+
+
+{#     
+        
         <div>
             <p>
                 <span class="name">{{workshop.name}}</span> 
@@ -33,10 +77,10 @@
             <p><a href="{{ path('show_workshop', {slug: workshop.slug }) }}">See details <i class="fa-solid fa-plus"></i></a></p>
     
             <hr>
-        </div>
-        {% endfor %}
+        </div> #}
+ 
 
-    </div>
+    
 
     <div class="past-event-title">
         <h2>See past events </h2> 
@@ -69,6 +113,48 @@
         {% endfor %}
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to check if an element is visible in the viewport
+            function isElementInViewport(el) {
+                // Retrieve the bounding rectangle of the element
+                var rect = el.getBoundingClientRect();
+                // Check if the element's top, left, bottom, and right coordinates are within the viewport
+                return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+            }
+        
+            // Function to check and show visible events
+            function checkAndShowEvents() {
+                // Remove the "underscore" class from all spans
+            document.querySelectorAll('.container-event span').forEach(function(span) {
+                span.classList.remove('underscore');
+            });
     
+    
+                // Select all elements with class 'container-event' and loop through them
+                document.querySelectorAll('.container-event').forEach(function(container) {
+                    // Check if the current container is in the viewport
+                    if (isElementInViewport(container)) {
+                        // change the opacity and make the container visible
+                        container.style.opacity = '1';
+    
+                        // Add the "underscore" class to the span within the current container
+                    container.querySelector('span').classList.add('underscore');
+                    }
+                });
+            }
+        
+            // Event listener to detect user scrolling
+            window.addEventListener('scroll', checkAndShowEvents);
+        
+            // Check and show visible events when the page initially loads
+            // checkAndShowEvents();
+    
+            // Delay the initial check and display of events
+            setTimeout(checkAndShowEvents, 1000);
+        });
+    
+    
+    </script>
 
 {% endblock %}

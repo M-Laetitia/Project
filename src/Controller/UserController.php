@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -181,6 +183,79 @@ class UserController extends AbstractController
         ]);
     }
 
-    
+    // ^ Delete User
 
+    #[Route('/user/{id}/delete', name: 'delete_user')]
+    public function delete(User $user, EntityManagerInterface $entityManager, Security $security, SessionInterface $session) : Response {
+
+        $user = $security->getUser();
+
+        // Anonymisation for subscriptions 
+        $subscriptions = $user->getSubscriptions();
+        foreach ($subscriptions as $subscription) {
+            $subscription->setUser(null); 
+            $entityManager->persist($subscription);
+        }
+
+        // Anonymisation for participations (areaParticipation)
+        $participations = $user->getAreaParticipations();
+        foreach ($participations as $participation) {
+            $participation->setUser(null); 
+            $entityManager->persist($participation);
+        }
+
+        // Anonymisation for registration (workshopRegistration)
+        $registrations = $user->getWorkshopRegistrations();
+        foreach ($registrations as $registration) {
+            $registration->setUser(null); 
+            $entityManager->persist($registration);
+        }
+
+        // Anonymisation for exposition proposals (role artist) (expositionProposals)
+        $proposals = $user->getExpositionProposals();
+        foreach ($proposals as $proposal) {
+            $proposal->setUser(null); 
+            $entityManager->persist($proposal);
+        }
+
+        // Anonymisation for workshops (role supervisor) (workshop)
+        $workshops = $user->getWorkshops();
+        foreach ($workshops as $workshop) {
+            $workshop->setUser(null); 
+            $entityManager->persist($workshop);
+        }
+
+        // Anonymisation for timeslots (role supervisor) (timeslots)
+        $timeslots = $user->getTimeslots();
+        foreach ($timeslots as $timeslot) {
+            $timeslot->setUser(null); 
+            $entityManager->persist($timeslot);
+        }
+
+        // Deletion of user images (role artist) (picture)
+        $images = $user->getPictures();
+        foreach ($images as $image) {
+            $entityManager->remove($image);
+        }
+
+        // Deletion of user contacts (role artist) (contact)
+        $contacts = $user->getContacts();
+        foreach ($contacts as $contact) {
+            $entityManager->remove($contact);
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        // logout
+        $security->invalidateSession();
+
+        // $session = $request->getSession();
+        // $session = new Session();
+        // $session->invalidate();
+
+        return $this->redirectToRoute('app_home');
+    }
 }
+
+

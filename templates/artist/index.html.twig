@@ -26,8 +26,7 @@
             <div class="category" data-category="Other" onclick="showArtists('Other')">Other</div>
 
             <div class="" id="more-filters-btn"> <span id="cross-filters"></span>filters</div>
-{# 
-            <div class="" id="more-filters-btn"> <span><i class="ri-add-fill"></i></span>filters</div> #}
+        {# <div class="" id="more-filters-btn"> <span><i class="ri-add-fill"></i></span>filters</div> #}
 
         </div>
     
@@ -74,23 +73,25 @@
     {# DISPLAY ARTIST #}
     <section id="artists-container" class="artist-grid">
         {% for artist in artists %}  
+            {% if artist.isPublished == 1 %}
+                <div class="artist {{ artist.artistInfos.category }} artist-container">
 
-            <div class="artist {{ artist.artistInfos.category }} artist-container">
+                    <figure>
+                        <div id="hover2">
+                            <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><img src="{{ asset('images/image.jpg') }}" alt=""></a>
 
-                <figure>
-                    <div id="hover2">
-                        <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><img src="{{ asset('images/image.jpg') }}" alt=""></a>
+                            <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><p id="text2">{{artist}} <span>_</span> </p></a>
 
-                        <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><p id="text2">{{artist}} <span>_</span> </p></a>
+                        {# <p id="text2">{{artist.artistInfos.discipline}}</p> #}
+                            
+                        </div>
+                
+                    </figure>
 
-                       {# <p id="text2">{{artist.artistInfos.discipline}}</p> #}
-                        
-                    </div>
-               
-                </figure>
-
-            </div>
-        {% endfor %}
+                </div>
+            {% endif %}
+                
+            {% endfor %}
     </section>
 
     <section id="search-results"></section>
@@ -137,11 +138,14 @@
         
             // Check if any artists are displayed for the selected category
             var found = $('.artist.' + category + ':visible').length > 0;
+
         
             // If no artists are found, display "No result found"
             if (!found) {
                 $('#artists-container2').html('<div>No result found</div>');
             }
+
+            
         }
 
         // show / hide more filters

@@ -343,6 +343,7 @@
 $transition: ease-in-out 0.3s;
 $grey-color: #272727; 
 
+
 #subscription-page {
     // background-color: red;
     width: $content-width;
@@ -350,22 +351,23 @@ $grey-color: #272727;
     display: flex;
     justify-content: space-evenly;
     
+    
 
     .subscription-card {
         background-color: $grey-color;
         width: 21rem;
-        // height: 31rem;
         border-left: 1px solid $grey-color;
         border-right: 1px solid $grey-color;
         border-top: 1px solid $grey-color;
         border-bottom: 1px solid $secondary-color;
         padding-bottom: 2rem;
         cursor: pointer;
-        transition: $transition;
+        transition: scale ease-in-out 0.3;
+        opacity: 0;
 
         &:hover {
             background-color: $secondary-color;
-            transform: scale(1.05);
+
             border-color: $secondary-color;
 
             h2,p {

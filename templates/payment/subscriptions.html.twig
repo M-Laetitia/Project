@@ -13,12 +13,16 @@
 
 
 
+
+
 <div class="banner">
     <div>
-        <h1>SUBSCRIPTIONS</h1>
-        <p>Text text<span class="underscore-static">_</span></p>
+        <h1 class="banner-title">SUBSCRIPTIONS</h1>
+        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
     </div>
 </div>
+
+
 
 <section class="content" id="subscription-page">
     {% for subscription in subscriptions %}
@@ -82,9 +86,29 @@
 
 
   {# {% if user.subscriptions is not empty %} #}
+  <script src= "{{ asset('js/gsap.min.js') }}"></script>
    
+<script>
+    const subscriptionCards = document.querySelectorAll('.subscription-card');
 
-    
+    function animateSubscriptionCards() {
+        subscriptionCards.forEach((card, index) => {
+            
+            gsap.to(card, {
+                opacity: 1, 
+                y: 0, 
+                duration: 1, 
+                ease: "power2.out", 
+                delay: index * 0.2, 
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        animateSubscriptionCards();
+    });
+
+</script>
 
 
 

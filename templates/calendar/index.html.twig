@@ -5,9 +5,30 @@
 
 {% block body %}
 
+<div class="banner">
+    <div>
+        <h1 class="banner-title">OUR CALENDAR</h1>
+        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+    </div>
+</div>
     
-<h1>Calendar</h1>
-<h2>search</h2>
+<section class="content" id="calendar-page">
+    <div id="calendar-container">
+        <div id="calendar-content">
+            <div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
+        </div>
+        <div id="aside">
+            <div id="top-aside">
+
+            </div>
+            <div id="bottom-aside">
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
 {# 
 {{ form_start(formSearchType, {'method': 'POST'}) }}
     {{ form_errors(formSearchType)}}
@@ -111,16 +132,6 @@
 </form >
 
 
-{# barre de recherche : recherche par mot(s) clef(s) #}
-{# rechercher par date #}
-{# filtres : aujourd'hui / 7 / 30 / prochains jours  #}
-{# events passés  #}
-{# Réinitialiser #}
-{#  par statut #}
-
-{# {{dump(formattedEvents)}} #}
-{# <div id="calendar" ></div> #}
-<div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
 
 
 {% endblock %}

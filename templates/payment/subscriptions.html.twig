@@ -93,7 +93,6 @@
 
     function animateSubscriptionCards() {
         subscriptionCards.forEach((card, index) => {
-            
             gsap.to(card, {
                 opacity: 1, 
                 y: 0, 
@@ -101,12 +100,28 @@
                 ease: "power2.out", 
                 delay: index * 0.2, 
             });
+    
+            
+            card.addEventListener('mouseenter', () => {
+                gsap.to(card, {
+                    scale: 1.05, 
+                    duration: 0.3, 
+                });
+            });
+    
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    scale: 1, 
+                    duration: 0.3, 
+                });
+            });
         });
     }
-
+    
     document.addEventListener("DOMContentLoaded", function() {
         animateSubscriptionCards();
     });
+
 
 </script>
 

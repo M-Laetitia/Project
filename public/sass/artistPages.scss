@@ -10,15 +10,16 @@
 // ---------------------------------
 
 #artists-index {
-    // background-color: grey;
 
     .categories {
-        display: flex;
+        @include center-flexbox();
         padding-bottom: 2.5rem;
-        justify-content: center;
         column-gap: 3rem;
+       
+
         .category {
             cursor: pointer;
+            text-transform: uppercase;
             transition: ease-in-out 0.3s;
             &:hover {
                 color: $secondary-color3;
@@ -30,10 +31,25 @@
                 color: $secondary-color;
             }
         }
+
+        #more-filters-btn {
+            cursor: pointer;
+            text-transform: uppercase;
+            @include center-flexbox();
+
+            &:hover {
+                color:  $secondary-color3;
+
+                span {
+                    color:  $secondary-color3;
+                }
+            }
+            
+        
+        }
     }
   
     #artists-container {
-        // background-color: grey;
         width: 100%;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -49,13 +65,76 @@
 
             img {
                 object-fit: cover;
-                // width: 100%;
             }
         }
     }
 }
+
 img {
     object-fit: cover;
+}
+
+#cross-filters {
+    background-color: $secondary-color;
+    height: 15px;
+    width: 2px;
+    position: relative;
+    margin-right: 0.7rem;
+    transition: ease-in-out 0.3s;
+
+    &:hover {
+        background-color: $secondary-color3;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        background-color: inherit;
+        height: inherit;
+        width: inherit;
+        transform: rotate(90deg);
+    }
+
+}
+
+#more-filters {
+
+    margin-bottom: 3rem;
+    .form-search-username-discipline {
+    
+        form {
+            @include center-flexbox();
+        }
+    }
+
+    p {
+        font-weight: $semi-bold;
+        margin-right: 2rem;
+    }
+
+    input {
+        border: none;
+        background-color: transparent;
+        border-bottom: 2px solid $secondary-color;
+        width: 16rem;
+        margin-right: 4rem;
+        outline: none;
+    }
+
+    button {
+        background-color: transparent;
+        text-transform: uppercase;
+        padding: 0.3rem 1.7rem;
+        border: 1px solid $secondary-color;
+        color: $secondary-color;
+        font-weight: $bold;
+        transition: ease-in-out 0.6s;
+
+        &:hover {
+            background-color: $main-black-color;
+            
+        }
+    }
 }
 
 // ---------------------------------

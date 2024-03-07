@@ -15,7 +15,7 @@ class SearchArtistType extends AbstractType
     {
         $builder
         ->add('username', TextType::class, [
-            'label' => 'Search by username',
+            'label' => false,
             'required' => false,
             'constraints' => [
                 new Length([
@@ -23,11 +23,14 @@ class SearchArtistType extends AbstractType
                     'minMessage' => 'You must enter a search of at least 3 characters.',
                 ]),
             ],
+            'attr' => [
+                'placeholder' => 'artist name'
+            ],
             
         ])
 
         ->add('discipline', TextType::class, [
-            'label' => 'Search by Discipline',
+            'label' => false,
             'required' => false,
             'mapped' => false,
             'constraints' => [
@@ -35,6 +38,9 @@ class SearchArtistType extends AbstractType
                     'min' => 3,
                     'minMessage' => 'You must enter a search of at least 3 characters.',
                 ]),
+            ],
+            'attr' => [
+                'placeholder' => 'discipline'
             ],
         ]);
     }

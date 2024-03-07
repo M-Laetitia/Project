@@ -213,3 +213,38 @@ if ($form->isSubmitted() && $form->isValid() )
 {# force l'initialisation de la collection #}
 {# {{ area.expositionProposals|length }}  #}
 {# {{ dump(area.expositionProposals) }} #}
+
+
+
+// Sélection des éléments .subscription-card
+const subscriptionCards = document.querySelectorAll('.subscription-card');
+
+// Fonction pour animer l'apparition des éléments
+function animateSubscriptionCards() {
+    subscriptionCards.forEach((card, index) => {
+        // Utiliser GSAP pour animer l'opacité et la position verticale de chaque carte
+        gsap.fromTo(card, {
+            opacity: 0, // Opacité initiale à 0 pour que les cartes ne soient pas visibles au début
+            y: 350 // Position initiale des cartes 50px en dessous de leur position finale
+        }, {
+            opacity: 1, // Opacité finale à 1 pour que les cartes soient entièrement visibles à la fin de l'animation
+            y: 0, // Position finale des cartes (leur emplacement d'origine)
+            duration: 1, // Durée de l'animation en secondes
+            
+            // delay: index * 0.2,
+        });
+    });
+}
+
+// Appeler la fonction pour animer l'apparition des cartes lorsque la page est chargée
+document.addEventListener("DOMContentLoaded", function() {
+    animateSubscriptionCards();
+});
+
+gsap.from(card, {
+            y: -50, // Position initiale des cartes 50px au-dessus de leur position finale
+            opacity: 0, // Opacité initiale à 0 pour que les cartes ne soient pas visibles au début
+            duration: 1, // Durée de l'animation en secondes
+            ease: "power2.out", // Type d'animation
+            delay: delay // Délai pour cette carte
+        });

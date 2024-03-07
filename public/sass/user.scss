@@ -246,7 +246,6 @@
 #register-user {
     background-color: red;
     
-    
     #register-container {
         display: grid;
         grid-template-columns: 50% 50%;
@@ -305,27 +304,21 @@
                     transition: ease-in-out 0.6s;
                 }
 
-
                 #terms-register {
                     display: flex;
 
                     a {
                         transition: ease-in-out 0.6s;
                     }
-                    
-                   
                 }
             }
     }
-
-    
 }
 
 #btn-register {
     width: 61% !important;
     // margin-right: 12rem;
 }
-
 
 #terms-register a:hover {
     color: $secondary-color !important;
@@ -343,7 +336,6 @@
 $transition: ease-in-out 0.3s;
 $grey-color: #272727; 
 
-
 #subscription-page {
     // background-color: red;
     width: $content-width;
@@ -351,8 +343,6 @@ $grey-color: #272727;
     display: flex;
     justify-content: space-evenly;
     
-    
-
     .subscription-card {
         background-color: $grey-color;
         width: 21rem;
@@ -397,8 +387,6 @@ $grey-color: #272727;
             height: 14rem;
             margin: auto;
             margin-bottom: 2rem;
-            
-
         }
 
         p {
@@ -418,15 +406,10 @@ $grey-color: #272727;
 
         .subscription-btn {
             margin-top: 1.3rem;
-            // margin: 1.3rem 0rem;
             display: flex;
             justify-content: center;
-            
-
-           
 
             div {
-                // display: inline-block;
                 width: 50%;
                 text-align: center;
                 background-color: $grey-color;
@@ -437,10 +420,46 @@ $grey-color: #272727;
                 &:hover {
                     transform: scale((1.1));
                 }
-                
             }
-            
         }
+    }
+}
+
+// ---------------------------------
+//  ██       ██████   ██████  ██ ███    ██ 
+//  ██      ██    ██ ██       ██ ████   ██ 
+//  ██      ██    ██ ██   ███ ██ ██ ██  ██ 
+//  ██      ██    ██ ██    ██ ██ ██  ██ ██ 
+//  ███████  ██████   ██████  ██ ██   ████
+// ---------------------------------
+
+
+.login-user {
+    #new-password {
+        text-align: right;
+        margin-bottom: 2rem;
+        color: $grey-light;
+        transition: ease-in-out 0.3s;
+
+        &:hover {
+            color: $secondary-color; 
+        }
+    }
+
+    #create-account {
+        a {
+            color: $grey-light;
+            transition: ease-in-out 0.3s;
+
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 3rem;
     }
 }
 

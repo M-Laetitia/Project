@@ -14,7 +14,6 @@
   --fs-400: 0.9375rem;
   --fs-300: 1rem;
   --fs-200: 0.9rem;
-  /* font-families */
 }
 
 .text-n1 {
@@ -370,7 +369,6 @@ html {
   --fs-400: 0.9375rem;
   --fs-300: 1rem;
   --fs-200: 0.9rem;
-  /* font-families */
 }
 
 .text-n1 {
@@ -1079,12 +1077,14 @@ html {
 
 #artists-index .categories {
   display: flex;
-  padding-bottom: 2.5rem;
+  align-items: center;
   justify-content: center;
+  padding-bottom: 2.5rem;
   column-gap: 3rem;
 }
 #artists-index .categories .category {
   cursor: pointer;
+  text-transform: uppercase;
   transition: ease-in-out 0.3s;
 }
 #artists-index .categories .category:hover {
@@ -1093,6 +1093,19 @@ html {
 }
 #artists-index .categories #all:hover {
   color: #eeaf42;
+}
+#artists-index .categories #more-filters-btn {
+  cursor: pointer;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#artists-index .categories #more-filters-btn:hover {
+  color: #207E93;
+}
+#artists-index .categories #more-filters-btn:hover span {
+  color: #207E93;
 }
 #artists-index #artists-container {
   width: 100%;
@@ -1114,6 +1127,59 @@ html {
 
 img {
   object-fit: cover;
+}
+
+#cross-filters {
+  background-color: #eeaf42;
+  height: 15px;
+  width: 2px;
+  position: relative;
+  margin-right: 0.7rem;
+  transition: ease-in-out 0.3s;
+}
+#cross-filters:hover {
+  background-color: #207E93;
+}
+#cross-filters:before {
+  content: "";
+  position: absolute;
+  background-color: inherit;
+  height: inherit;
+  width: inherit;
+  transform: rotate(90deg);
+}
+
+#more-filters {
+  margin-bottom: 3rem;
+}
+#more-filters .form-search-username-discipline form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#more-filters p {
+  font-weight: 500;
+  margin-right: 2rem;
+}
+#more-filters input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #eeaf42;
+  width: 16rem;
+  margin-right: 4rem;
+  outline: none;
+}
+#more-filters button {
+  background-color: transparent;
+  text-transform: uppercase;
+  padding: 0.3rem 1.7rem;
+  border: 1px solid #eeaf42;
+  color: #eeaf42;
+  font-weight: 600;
+  transition: ease-in-out 0.6s;
+}
+#more-filters button:hover {
+  background-color: #151515;
 }
 
 #artist-show header {

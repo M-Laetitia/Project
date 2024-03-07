@@ -4,31 +4,81 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    
-    {% if app.user %}
-    <div class="mb-3">
-        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+
+<style>
+    body {
+        background-color: #151515;
+    }
+</style>
+
+<div class="banner">
+    <div>
+        <h1>LOGIN</h1>
+        <p>Subtitle text<span class="underscore-static">_</span></p>
     </div>
-    {% endif %}
-    
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    
-    <input type="hidden" name="_csrf_token"
-    value="{{ csrf_token('authenticate') }}"
-    >
-    
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+</div>
+
+<section class="content login-user" id="register-user">
+    <div id="register-container">
+        <div id="separator">
+
+        </div>
+        <div id="left-register">
+           
+        </div>
+
+        <div id="right-register">
+            <div id="title-register">
+                <h2>LOGIN<span class="underscore">_</span></h2>
+                <p>Welcome back, happy to see you again! </p>
+            </div>
+
+            <div id="form-register">
+                <form method="post">
+                    {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    
+                    {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                    {% endif %}
+                    
+                    {# <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1> #}
+                    <div></div>
+                    <div>
+                        <label for="inputEmail">E-mail</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    </div>
+                    
+                    <div>
+                        <label for="inputPassword">Password</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                    </div>
+                    
+                    
+                    <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                    >
+
+                    <a href="{{ path('app_forgot_password_request') }}"><p id="new-password">Forgotten password?</p></a>
+                    
+                    <button class="btn btn6 " type="submit">
+                        Sign in
+                    </button>
+                </form>
+                
+     
+            </div>
+
+            <p id="create-account">New here? <a href="{{ path('app_register') }}">Create an account ! </a></p>
+        </div>
+    </div>
+
+</section>
+
+
 
 
 
@@ -47,4 +97,27 @@ https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redi
 
  {# client_id=client_id"> #}
 <p>password forgotten? Reset it here : <a href="{{ path('app_forgot_password_request') }}">reset</a></p>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('#form-register input');
+        
+        inputs.forEach(function(input) {
+            if (!input.matches('#terms-register input')) {
+                 input.addEventListener('focus', function() {
+                     this.style.borderColor = '#f0bd2f'; 
+                     this.previousElementSibling.style.color = '#f0bd2f'; 
+                 });
+         
+                 //blur event is triggered when the input field loses focus
+                 input.addEventListener('blur', function() {
+                     this.style.borderColor = '#939393'; 
+                     this.previousElementSibling.style.color = ''; 
+                 });
+             }
+        });
+    });
+  </script>
+
+
 {% endblock %}

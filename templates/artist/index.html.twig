@@ -95,6 +95,7 @@
     </section>
 
     <section id="search-results"></section>
+    <div id="no-result-message" style="display: none;">No result found</div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/main.js') }}"></script>
@@ -109,8 +110,7 @@
         $(document).ready(function() {
             // Select the first three images and add the "visible" class to them
             $('.artist-container:lt(3)').addClass('visible');
-        
-             // Trigger animation for the remaining images based on scroll
+            // Trigger animation for the remaining images based on scroll
             $(window).scroll(function() {
                 $('.artist-container:not(.visible)').each(function() {
                     if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
@@ -121,12 +121,13 @@
         });
 
         function showArtists(category) {
+            // hide the no result message
+            $('#no-result-message').hide();
             // If the category is "all", display all artists and return
             if (category === 'all') {
                 $('.artist').css('display', 'block');
                 return;
             }
-        
             // Display artists corresponding to the selected category
             $('.artist').each(function() {
                 if ($(this).hasClass(category)) {
@@ -135,23 +136,16 @@
                     $(this).css('display', 'none'); 
                 }
             });
-        
             // Check if any artists are displayed for the selected category
             var found = $('.artist.' + category + ':visible').length > 0;
-
-        
             // If no artists are found, display "No result found"
             if (!found) {
-                $('#artists-container2').html('<div>No result found</div>');
+                $('#no-result-message').show().text('No result found');
             }
-
-            
         }
 
         // show / hide more filters
-
         var isClicked = false;
-
         $('#more-filters-btn').click(function(){
             $("#more-filters").slideToggle();
            
@@ -161,13 +155,8 @@
             } else {
                 $('#cross-filters ').css('transform', 'rotate(0deg)');
             }
-    
             isClicked = !isClicked;
         });
-
-
-
-
 
     </script>
 

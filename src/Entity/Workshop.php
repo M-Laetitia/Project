@@ -76,7 +76,7 @@ class Workshop
 
 
     #[ORM\ManyToOne(inversedBy: 'workshops')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     // ajouter cascade persist + orphanRemovalTrue

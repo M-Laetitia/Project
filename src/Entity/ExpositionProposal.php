@@ -21,7 +21,7 @@ class ExpositionProposal
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'expositionProposals')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'expositionProposals')]

@@ -34,7 +34,7 @@ class AreaParticipation
     private ?Area $area = null;
 
     #[ORM\ManyToOne(inversedBy: 'areaParticipations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     public function getId(): ?int

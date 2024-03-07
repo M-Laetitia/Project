@@ -27,7 +27,7 @@ class WorkshopRegistration
     private ?Workshop $workshop = null;
 
     #[ORM\ManyToOne(inversedBy: 'workshopRegistrations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'workshopRegistrations')]

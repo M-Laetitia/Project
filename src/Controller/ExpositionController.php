@@ -26,8 +26,88 @@ class ExpositionController extends AbstractController
     #[Route('/exposition', name: 'app_exposition')]
     public function index(AreaRepository $areaRepository, ExpositionProposalRepository $expoProposalRepository, MailerService $mailerService, Security $security): Response
     {
-        $user = $security->getUser();    
 
+        if ($user = $security->getUser()){
+         
+
+            // Fetch all expo from the AreaRepository
+            $expos = $areaRepository->findBy(['type' => 'EXPO']);
+
+            $ongoingExpos = $areaRepository->findBy([
+                'type' => 'EXPO',
+                'status' => ['OPEN', 'PENDING', 'CLOSED'],
+            ]);
+            $pastExpos = $areaRepository->findBy([
+                'type' => 'EXPO',
+                'status' => ['ARCHIVED'],
+            ]);
+
+            //^recup nb de réservation - initialisation tableau vide
+            // ! indiquer nb restant
+            $reservationCounts = [];
+
+            // Initialize arrays to store existing proposals and proposal counts
+            $existingProposals = [];
+            $proposalCounts = [];
+
+            // ! vérifier si nécessaire !!
+            // Iterate through each expo
+            foreach ($expos as $expo) {
+                // get 'id' in the Area entity
+                $expositionId = $expo->getId();
+                // Check if the user has an existing proposal for this exposition
+                $hasExistingRequest = $expoProposalRepository->findOneBy(['user' => $user->getId(), 'area' => $expositionId]);
+                $existingProposals[$expositionId] = $hasExistingRequest !== null;
+
+                // Store the count of proposals for this exposition
+                $proposalCounts[$expositionId] = $areaRepository->countProposalsPerExpo($expositionId);
+            
+                // Get the proposals associated with this exposition
+                $expositionProposals = $expo->getExpositionProposals();
+
+                // ^ get the reservation count
+                $reservationCounts[$expositionId] = $areaRepository->countParticipationPerExpo($expositionId);
+
+                // Initialize an array to store associated users
+                $usersToNotify = [];
+
+                // Iterate through proposals and add users to the array
+                foreach ($expositionProposals as $expositionProposal) {
+                    $usersToNotify[] = $expositionProposal->getUser()->getEmail();
+                }
+
+                // Check if the proposal count threshold (3 proposals) is reached
+                if ($proposalCounts[$expositionId] >= 3) {
+                    // Get the proposals associated with this exposition
+                    $expositionProposals = $expo->getExpositionProposals();
+            
+                    // Initialize an array to store associated users
+                    $usersToNotify = [];
+            
+                    // Iterate through proposals and add users to the array
+                    foreach ($expositionProposals as $expositionProposal) {
+                        $usersToNotify[] = $expositionProposal->getUser()->getEmail();
+                    }
+            
+                    // Send email
+                    // $mailerService->sendExpositionConfirmationEmail($expo, $usersToNotify);
+                }
+            }
+            
+            return $this->render('exposition/index.html.twig', [
+                'expos' => $expos, 
+
+                'ongoingExpos' => $ongoingExpos,
+                'pastExpos' => $pastExpos,
+
+                'existingProposals' => $existingProposals,
+                'proposalCounts' => $proposalCounts,
+                'reservationCounts' => $reservationCounts,
+            ]);
+        }
+
+
+        
         // Fetch all expo from the AreaRepository
         $expos = $areaRepository->findBy(['type' => 'EXPO']);
 
@@ -54,9 +134,7 @@ class ExpositionController extends AbstractController
             // get 'id' in the Area entity
             $expositionId = $expo->getId();
             // Check if the user has an existing proposal for this exposition
-            $hasExistingRequest = $expoProposalRepository->findOneBy(['user' => $user->getId(), 'area' => $expositionId]);
-            $existingProposals[$expositionId] = $hasExistingRequest !== null;
-
+            
             // Store the count of proposals for this exposition
             $proposalCounts[$expositionId] = $areaRepository->countProposalsPerExpo($expositionId);
            
@@ -69,29 +147,9 @@ class ExpositionController extends AbstractController
             // Initialize an array to store associated users
             $usersToNotify = [];
 
-            // Iterate through proposals and add users to the array
-            foreach ($expositionProposals as $expositionProposal) {
-                $usersToNotify[] = $expositionProposal->getUser()->getEmail();
-            }
-
-            // dump($usersToNotify);die;
-
+            
             // Check if the proposal count threshold (3 proposals) is reached
-            if ($proposalCounts[$expositionId] >= 3) {
-                // Get the proposals associated with this exposition
-                $expositionProposals = $expo->getExpositionProposals();
-        
-                // Initialize an array to store associated users
-                $usersToNotify = [];
-        
-                // Iterate through proposals and add users to the array
-                foreach ($expositionProposals as $expositionProposal) {
-                    $usersToNotify[] = $expositionProposal->getUser()->getEmail();
-                }
-        
-                // Send email
-                // $mailerService->sendExpositionConfirmationEmail($expo, $usersToNotify);
-            }
+           
         }
         
         return $this->render('exposition/index.html.twig', [
@@ -100,7 +158,7 @@ class ExpositionController extends AbstractController
             'ongoingExpos' => $ongoingExpos,
             'pastExpos' => $pastExpos,
 
-            'existingProposals' => $existingProposals,
+        
             'proposalCounts' => $proposalCounts,
             'reservationCounts' => $reservationCounts,
         ]);
@@ -111,91 +169,94 @@ class ExpositionController extends AbstractController
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService ): Response 
     {
 
-        $user = $security->getUser();
-        $userId = $user->getId();
-        $areaId = $area->getId();
-        $areaSlug = $area->getSlug();
-        // dd($areaSlug);
 
-        $existingParticipation = [];
-        // ! voir pour utiliser dql
-        // $existingParticipation = $areaParticipationRepository->checkIfUserHasExistingParticipation($userId, $areaId);
-
-        $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
-        $existingParticipation = $hasExistingParticipation !== null;
-
-        // sets $existingParticipation to true if $hasExistingParticipation is not null, and to false otherwise.
-        // $existingParticipation = $hasExistingParticipation !== null ?? false;
-
+        if($user = $security->getUser()) {
+            $userId = $user->getId();
+            $areaId = $area->getId();
+            $areaSlug = $area->getSlug();
     
-        // ^ FORM
-
-        $form = $this->createForm(AreaParticipationType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() ) {
-
-            // Check if the maximum number of participants has been reached
-            $maxParticipants = $area->getNbRooms();
-            $currentParticipants = $area->getNbReversationMade();
-
-            if ($currentParticipants < $maxParticipants) {
-
-                $expoParticipation = $form->getData();
-                $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
-                $expoParticipation->setUser($user);
-                $expoParticipation->setArea($area);
+            $existingParticipation = [];
+            // ! voir pour utiliser dql
+            // $existingParticipation = $areaParticipationRepository->checkIfUserHasExistingParticipation($userId, $areaId);
     
-                $entityManager->persist($expoParticipation);
-                $entityManager->flush();
+            $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
+            $existingParticipation = $hasExistingParticipation !== null;
     
-                //send the email
-                $userEmail = $user->getEmail();
-                $expositionDetails = sprintf(
-                    "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
-                    $area->getName(),
-                    $area->getStartDate()->format('Y-m-d H:i:s'),
-                    $area->getEndDate()->format('Y-m-d H:i:s'),
-                    $area->getDescription()
-                );
-                $mailerService->sendExpositionParticipationConfirmation($userEmail, $expositionDetails);
+            // ^ FORM
     
-                // Check if the maximum number of participants has been reached after the new registration
-                $nbReversationRemaining = $area->getNbReversationRemaining();
-                
-                if ( $currentParticipants +1 >= $maxParticipants && $area->getStatus() !== 'CLOSED') {
-                    // Update the status to "closed"
-                    $area->setStatus('CLOSED');
+            $form = $this->createForm(AreaParticipationType::class);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid() ) {
+    
+                // Check if the maximum number of participants has been reached
+                $maxParticipants = $area->getNbRooms();
+                $currentParticipants = $area->getNbReversationMade();
+    
+                if ($currentParticipants < $maxParticipants) {
+    
+                    $expoParticipation = $form->getData();
+                    $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
+                    $expoParticipation->setUser($user);
+                    $expoParticipation->setArea($area);
+        
+                    $entityManager->persist($expoParticipation);
                     $entityManager->flush();
-                } elseif ($currentParticipants < $maxParticipants && $area->getStatus() !== 'OPEN') {
-                    $area->setStatus('OPEN');
-                    $entityManager->flush();
+        
+                    //send the email
+                    $userEmail = $user->getEmail();
+                    $expositionDetails = sprintf(
+                        "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                        $area->getName(),
+                        $area->getStartDate()->format('Y-m-d H:i:s'),
+                        $area->getEndDate()->format('Y-m-d H:i:s'),
+                        $area->getDescription()
+                    );
+                    $mailerService->sendExpositionParticipationConfirmation($userEmail, $expositionDetails);
+        
+                    // Check if the maximum number of participants has been reached after the new registration
+                    $nbReversationRemaining = $area->getNbReversationRemaining();
+                    
+                    if ( $currentParticipants +1 >= $maxParticipants && $area->getStatus() !== 'CLOSED') {
+                        // Update the status to "closed"
+                        $area->setStatus('CLOSED');
+                        $entityManager->flush();
+                    } elseif ($currentParticipants < $maxParticipants && $area->getStatus() !== 'OPEN') {
+                        $area->setStatus('OPEN');
+                        $entityManager->flush();
+                    }
+        
+                    // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+                    $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
+    
+                    
+                    return $this->redirectToRoute('show_exposition', ['slug' => $areaSlug]);
+    
+                } else {
+                    // Redirect / display a message indicating that the maximum number of participants has been reached
+                    // return $this->render('exposition/maxParticipantsReached.html.twig');
+                    //! redirection ver detail expo ou liste expo?
+                    return $this->redirectToRoute('show_exposition', ['slug' => $areaSlug]);
+                    // ('show_event_admin', ['id' => $areaId]);
                 }
     
-                // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
-                $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
-
-                
-                return $this->redirectToRoute('show_exposition', ['slug' => $areaSlug]);
-
-            } else {
-                // Redirect / display a message indicating that the maximum number of participants has been reached
-                // return $this->render('exposition/maxParticipantsReached.html.twig');
-                //! redirection ver detail expo ou liste expo?
-                return $this->redirectToRoute('show_exposition', ['slug' => $areaSlug]);
-                // ('show_event_admin', ['id' => $areaId]);
+            
             }
+    
 
-        
+            return $this->render('exposition/show.html.twig', [
+                'area' => $area,
+                'existingParticipation' => $existingParticipation,
+                'formSendParticipation' => $form,
+                'user' => $user,
+            ]);
         }
-
-
+        
+        
+        $areaSlug = $area->getSlug();
 
         return $this->render('exposition/show.html.twig', [
             'area' => $area,
-            'existingParticipation' => $existingParticipation,
-            'formSendParticipation' => $form,
-            'user' => $user,
         ]);
     }
 

@@ -77,7 +77,7 @@ class EventController extends AbstractController
         $jsonResponse = new JsonResponse($formattedEvents);
         dump($jsonResponse); die; 
 
-        // Pour déboguer, vous pouvez envoyer le contenu de la réponse directement dans le corps de la réponse HTTP
+        // Pour déboguer,  envoyer le contenu de la réponse directement dans le corps de la réponse HTTP
         // Cela peut être consulté dans l'onglet "Réseau" des outils de développement de votre navigateur
         // $jsonResponse->setContent(json_encode($formattedEvents));
 
@@ -98,19 +98,28 @@ class EventController extends AbstractController
     // ^ show event (user)
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
     #[Route('/event/{slug}', name: 'show_event')]
-    public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    public function show(Area $area = null, User $user = null,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
-        $user = $security->getUser();
-        $userId = $user->getId();
+
+   
         $areaId = $area->getId();
 
-        $existingParticipation = [];
-        $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
-        $existingParticipation = $hasExistingParticipation !== null;
+        if($user = $security->getUser()) {
+            $userId = $user->getId();
+            $existingParticipation = [];
+            $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
+            $existingParticipation = $hasExistingParticipation !== null;
 
+            return $this->render('event/show.html.twig', [
+                'area' => $area,
+                'existingParticipation' => $existingParticipation
+            ]);
+
+        }
+        
         return $this->render('event/show.html.twig', [
             'area' => $area,
-            'existingParticipation' => $existingParticipation
+
         ]);
     }
 

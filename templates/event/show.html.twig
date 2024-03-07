@@ -65,34 +65,42 @@
 
 
 
+        {% if app.user %}
         {% if existingParticipation %}
-                        <div id="expo-participate">
-                                <div id="btn-event">
-                                        <div class="button btn-off">PARTICIPATE</div>
-                                </div>
-                                <p>You are already participating in this exhibition.</p>
+                <div id="expo-participate">
+                        <div id="btn-event">
+                                <div class="button btn-off">PARTICIPATE</div>
                         </div>
-                        
-                {% else %}  
-                        {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
+                        <p>You are already participating in this exhibition.</p>
+                </div>
+                
+        {% else %}  
+                {% if area.nbReversationRemaining == 0 and area.status == 'CLOSED' %}
 
-                        <div id="expo-participate">
-                                <div id="btn-event">
-                                        <div class="button btn-off">PARTICIPATE</div>
-                                </div>
-                                <p>No more space available for this exhibition.</p>
+                <div id="expo-participate">
+                        <div id="btn-event">
+                                <div class="button btn-off">PARTICIPATE</div>
                         </div>
-                                
-                {% elseif area.status == 'OPEN' %}
-                        <div id="expo-participate">
-                                {# <a href="{{ path('new_event_participation', {'id': area.id }) }}"></a> #}
-                                <div id="btn-event">
-                                        <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
-                                </div>
+                        <p>No more space available for this exhibition.</p>
+                </div>
+                        
+        {% elseif area.status == 'OPEN' %}
+                <div id="expo-participate">
+                        {# <a href="{{ path('new_event_participation', {'id': area.id }) }}"></a> #}
+                        <div id="btn-event">
+                                <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
                         </div>
-                        {% endif %}
-    
-                        {% endif %}
+                </div>
+                {% endif %}
+
+        {% endif %}
+
+        {% else %}
+            <p>You must register to be able to participate</p>
+        {% endif %}
+
+
+       
     </div>
 
 </section>

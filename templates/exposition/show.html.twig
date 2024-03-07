@@ -68,6 +68,8 @@
                         </div>
                 </div>
 
+
+                {% if app.user %}
                 {% if existingParticipation %}
                         <div id="expo-participate">
                                 <div id="btn-event">
@@ -95,24 +97,34 @@
                         </div>
                         {% endif %}
                 {% endif %}
+                {% else %}
+                        <p>you must register to be able to participate</p>
+                {% endif %}
+
+                
         </div>       
     </section>
 
-    <section id="participate-expo">
-        <div id="form">
-                {{ form_start(formSendParticipation)}}
-                        {{ form_errors(formSendParticipation)}}
+    {% if app.user %}
+        <section id="participate-expo">
+                <div id="form">
+                        {{ form_start(formSendParticipation)}}
+                                {{ form_errors(formSendParticipation)}}
 
-                        {{ form_row(formSendParticipation.firstname)}}
-                        {{ form_row(formSendParticipation.lastname)}}
-                        {{ form_row(formSendParticipation.submit)}}
+                                {{ form_row(formSendParticipation.firstname)}}
+                                {{ form_row(formSendParticipation.lastname)}}
+                                {{ form_row(formSendParticipation.submit)}}
 
-                {{ form_end(formSendParticipation)}}
-        </div>
-        <div id="btn-participate">
+                        {{ form_end(formSendParticipation)}}
+                </div>
+                <div id="btn-participate">
 
-        </div>
-    </section>
+                </div>
+        </section>
+    {% else %}
+        <p>you must register to be able to participate</p>
+    {% endif %}
+    
 
     <script src= "{{ asset('js/gsap.min.js') }}"></script>
     <script src= "{{ asset('js/pagesShow.js') }}"></script>

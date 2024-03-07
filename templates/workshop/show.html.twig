@@ -95,83 +95,85 @@
         </div>
 
  
-        
-
         {% if app.user %}
-            {% if user.subscriptions is not empty %}
-                {% set hasActiveSubscription = false %}
-                {% for subscription in user.subscriptions %}
-                    {% if subscription.isActive %}
-                        {% set hasActiveSubscription = true %}
-                    {% endif %}
-                {% endfor %}
-                
-                {% if hasActiveSubscription %}
-                    {% if workshop.status != 'ARCHIVED' %}
-                        {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
-                        <div id="expo-participate">
-                                <div id="btn-event">
-                                        <div class="button btn-off">PARTICIPATE</div>
-                                </div>
-                                <p>Registration will open soon</p>
-                        </div>
-                            
-                        {% else %}
-                            {% if existingRegistration %}
-                            <div id="expo-participate">
-                                    <div id="btn-event">
-                                            <div class="button btn-off">PARTICIPATE</div>
-                                    </div>
-                                    <p>You are already participating</p>
-                            </div>
-                                
-                            {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
-                            <div id="expo-participate">
-                                    <div id="btn-event">
-                                            <div class="button btn-off">PARTICIPATE</div>
-                                    </div>
-                                    <p>No more space available for this workshop</p>
-                            </div>
-                                
-                            {% elseif workshop.status == 'OPEN' %}
-
-                            <div id="expo-participate">
-                                <div id="btn-event">
-                                        <div class="button btn6">PARTICIPATE</div>
-                                </div>
-                            </div>
-                                {# <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p> #}
-                            {% endif %}
-                            </p>
-                        {% endif %}
-                    {% endif %}
-                {% else %}
-                    {# Content for user without an active subscription #}
-                    <div id="expo-participate">
+        {% if user.subscriptions is not empty %}
+        {% set hasActiveSubscription = false %}
+        {% for subscription in user.subscriptions %}
+            {% if subscription.isActive %}
+                {% set hasActiveSubscription = true %}
+            {% endif %}
+        {% endfor %}
+        
+        {% if hasActiveSubscription %}
+            {% if workshop.status != 'ARCHIVED' %}
+                {% if workshop.status == 'PENDING' or workshop.status == 'CLOSED'  %}
+                <div id="expo-participate">
                         <div id="btn-event">
                                 <div class="button btn-off">PARTICIPATE</div>
                         </div>
-                        <p>You must have a valid subscription to benefit from this service.<a href="{{ path('app_subscription') }}">Check here!</a></p>
-                        
-                    </div>
-
-                    
-                {% endif %}
-            {% else %}
-                {# Content for user without any subscriptions #}
-                <div id="expo-participate">
-                    <div id="btn-event">
-                            <div class="button btn-off">PARTICIPATE</div>
-                    </div>
-                    <p>You must have signed up for a subscription to benefit from this service. 
-                        {# <span id="link-subscription" ><a href="{{ path('app_subscription') }}">Check our subscription plans here <i class="ri-sparkling-2-line"></i> </a></span></p> #}
-
-                        <span id="link-subscription" ><a href="{{ path('app_subscription') }}">Check our subscription plans here <i class="ri-sparkling-2-line"></i> </a></span></p>
-                    
+                        <p>Registration will open soon</p>
                 </div>
-                
+                    
+                {% else %}
+                    {% if existingRegistration %}
+                    <div id="expo-participate">
+                            <div id="btn-event">
+                                    <div class="button btn-off">PARTICIPATE</div>
+                            </div>
+                            <p>You are already participating</p>
+                    </div>
+                        
+                    {% elseif workshop.nbRegistrationRemaining == 0 and workshop.status == 'CLOSED' %}
+                    <div id="expo-participate">
+                            <div id="btn-event">
+                                    <div class="button btn-off">PARTICIPATE</div>
+                            </div>
+                            <p>No more space available for this workshop</p>
+                    </div>
+                        
+                    {% elseif workshop.status == 'OPEN' %}
+
+                    <div id="expo-participate">
+                        <div id="btn-event">
+                                <div class="button btn6">PARTICIPATE</div>
+                        </div>
+                    </div>
+                        {# <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p> #}
+                    {% endif %}
+                    </p>
+                {% endif %}
             {% endif %}
+        {% else %}
+            {# Content for user without an active subscription #}
+            <div id="expo-participate">
+                <div id="btn-event">
+                        <div class="button btn-off">PARTICIPATE</div>
+                </div>
+                <p>You must have a valid subscription to benefit from this service.<a href="{{ path('app_subscription') }}">Check here!</a></p>
+                
+            </div>
+
+            
         {% endif %}
+    {% else %}
+        {# Content for user without any subscriptions #}
+        <div id="expo-participate">
+            <div id="btn-event">
+                    <div class="button btn-off">PARTICIPATE</div>
+            </div>
+            <p>You must have signed up for a subscription to benefit from this service. 
+                {# <span id="link-subscription" ><a href="{{ path('app_subscription') }}">Check our subscription plans here <i class="ri-sparkling-2-line"></i> </a></span></p> #}
+
+                <span id="link-subscription" ><a href="{{ path('app_subscription') }}">Check our subscription plans here <i class="ri-sparkling-2-line"></i> </a></span></p>
+            
+        </div>
+        
+    {% endif %}
+        {% else %}
+            <p>You must register to be able to participate</p>
+        {% endif %}
+
+
 
 
         

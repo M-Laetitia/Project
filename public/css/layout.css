@@ -165,13 +165,13 @@ html {
 
 /* Custom text selection color */
 ::selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 /* Reset selection color for elements other than text */
 ::-moz-selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
@@ -521,13 +521,13 @@ html {
 
 /* Custom text selection color */
 ::selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 /* Reset selection color for elements other than text */
 ::-moz-selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
@@ -723,32 +723,32 @@ html {
 }
 
 .btn4 {
-  border: 1px solid #f0bd2f;
+  border: 1px solid #eeaf42;
   background-color: #151515;
-  color: #f0bd2f;
+  color: #eeaf42;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
 }
 .btn4:hover {
   border: 1px solid #151515;
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 .btn6 {
-  border: 1px solid #f0bd2f;
-  background-color: #f0bd2f;
+  border: 1px solid #eeaf42;
+  background-color: #eeaf42;
   color: #F9F9F9;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
   cursor: pointer;
 }
 .btn6:hover {
-  border: 1px solid #f0bd2f;
+  border: 1px solid #eeaf42;
   background-color: #151515;
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 
 .btn-off {
-  border: 1px solid #f0bd2f;
+  border: 1px solid #eeaf42;
   background-color: #c3b5b5;
   color: #151515;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
@@ -759,7 +759,7 @@ html {
 /*  ---------------------------------- */
 .underscore {
   animation: blink 1s infinite;
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 @keyframes blink {
   50% {
@@ -768,7 +768,7 @@ html {
 }
 
 .underscore-static {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 
 /*  ---------------------------------- */
@@ -1095,7 +1095,7 @@ body {
 
 #back-top-btn {
   display: inline-block;
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   width: 40px;
   height: 40px;
   text-align: center;
@@ -1123,7 +1123,7 @@ body {
   visibility: visible;
 }
 #back-top-btn:hover:after {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 #back-top-btn:after {
   content: "\f077";
@@ -1245,15 +1245,15 @@ nav .nav-menu a div {
   transition: transform ease-in-out 0.2s;
 }
 nav .nav-menu a:hover div:nth-child(2) {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   transform: rotate(90deg);
 }
 nav .nav-menu a:hover div:nth-child(1) {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   transform: translateY(0.55rem);
 }
 nav .nav-menu a:hover div:nth-child(3) {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   transform: translateY(-0.5rem);
 }
 
@@ -1285,7 +1285,7 @@ aside div h3 {
 aside div h3 span {
   font-weight: 400;
   font-size: 50px;
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 aside div p {
   font-size: 0.9rem;
@@ -1307,7 +1307,7 @@ aside div p {
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
 }
 .socials i:hover {
-  color: #f0bd2f;
+  color: #eeaf42;
   transform: translateY(-5px);
 }
 
@@ -1368,10 +1368,10 @@ footer a {
   color: #F9F9F9;
 }
 footer a:hover {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 footer #name-rights {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 
 /*# sourceMappingURL=layout.css.map */

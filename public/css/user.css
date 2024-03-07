@@ -165,13 +165,13 @@ html {
 
 /* Custom text selection color */
 ::selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 /* Reset selection color for elements other than text */
 ::-moz-selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
@@ -521,13 +521,13 @@ html {
 
 /* Custom text selection color */
 ::selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 /* Reset selection color for elements other than text */
 ::-moz-selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
@@ -723,32 +723,32 @@ html {
 }
 
 .btn4 {
-  border: 1px solid #f0bd2f;
+  border: 1px solid #eeaf42;
   background-color: #151515;
-  color: #f0bd2f;
+  color: #eeaf42;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
 }
 .btn4:hover {
   border: 1px solid #151515;
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 .btn6 {
-  border: 1px solid #f0bd2f;
-  background-color: #f0bd2f;
+  border: 1px solid #eeaf42;
+  background-color: #eeaf42;
   color: #F9F9F9;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
   cursor: pointer;
 }
 .btn6:hover {
-  border: 1px solid #f0bd2f;
+  border: 1px solid #eeaf42;
   background-color: #151515;
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 
 .btn-off {
-  border: 1px solid #f0bd2f;
+  border: 1px solid #eeaf42;
   background-color: #c3b5b5;
   color: #151515;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
@@ -759,7 +759,7 @@ html {
 /*  ---------------------------------- */
 .underscore {
   animation: blink 1s infinite;
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 @keyframes blink {
   50% {
@@ -768,7 +768,7 @@ html {
 }
 
 .underscore-static {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 
 /*  ---------------------------------- */
@@ -1083,7 +1083,7 @@ html {
   position: relative;
 }
 #profil-user #separator-profil {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   width: 80%;
   height: 5px;
   position: absolute;
@@ -1125,7 +1125,7 @@ html {
   width: 18rem;
   height: 9rem;
   border-radius: 0 0 140px 140px;
-  border: 4px #f0bd2f solid;
+  border: 4px #eeaf42 solid;
   z-index: -20 !important;
 }
 #profil-user #top #avatar div:first-child picture {
@@ -1143,7 +1143,7 @@ html {
   z-index: 500;
   position: absolute;
   transform: translate(120px, -20px);
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
@@ -1176,7 +1176,7 @@ html {
   width: 3rem;
   aspect-ratio: 1;
   border-radius: inherit;
-  border: 2px #f0bd2f solid;
+  border: 2px #eeaf42 solid;
   z-index: -1;
 }
 #profil-user #middle {
@@ -1190,7 +1190,7 @@ html {
   margin-bottom: 0.3rem;
 }
 #profil-user #middle #left #infos span {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 #profil-user #middle #left #info {
   width: 450px;
@@ -1233,7 +1233,7 @@ html {
   text-align: right;
 }
 #profil-user #middle #right #activities span {
-  color: #f0bd2f;
+  color: #eeaf42;
 }
 #profil-user #middle #right #activity {
   width: 450px;
@@ -1267,7 +1267,7 @@ html {
   cursor: pointer;
 }
 #profil-user #middle #right .logo-profile .fa-star {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
 }
 
 #register-user {
@@ -1280,7 +1280,7 @@ html {
   position: relative;
 }
 #register-user #register-container #separator {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   width: 80%;
   height: 5px;
   position: absolute;
@@ -1297,7 +1297,7 @@ html {
   padding: 5rem;
 }
 #register-user #register-container #right-register #title-register p {
-  color: #f0bd2f;
+  color: #eeaf42;
   padding-top: 0.2rem;
   padding-bottom: 3rem;
 }
@@ -1335,7 +1335,82 @@ html {
 }
 
 #terms-register a:hover {
-  color: #f0bd2f !important;
+  color: #eeaf42 !important;
+}
+
+#subscription-page {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+#subscription-page .subscription-card {
+  background-color: #272727;
+  width: 21rem;
+  border-left: 1px solid #272727;
+  border-right: 1px solid #272727;
+  border-top: 1px solid #272727;
+  border-bottom: 1px solid #eeaf42;
+  padding-bottom: 2rem;
+  cursor: pointer;
+  transition: scale ease-in-out 0.3;
+  opacity: 0;
+}
+#subscription-page .subscription-card:hover {
+  background-color: #eeaf42;
+  border-color: #eeaf42;
+}
+#subscription-page .subscription-card:hover h2, #subscription-page .subscription-card:hover p {
+  color: #151515;
+}
+#subscription-page .subscription-card:hover .btn {
+  background-color: #272727;
+  color: #eeaf42;
+  border-color: #272727;
+}
+#subscription-page .subscription-card h2 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1.8rem;
+  margin-bottom: 2rem;
+  color: #F9F9F9;
+  letter-spacing: 0.2rem;
+  transition: ease-in-out 0.3s;
+}
+#subscription-page .subscription-card .image {
+  border: 1px solid grey;
+  width: 50%;
+  height: 14rem;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+#subscription-page .subscription-card p {
+  color: #eeaf42;
+  text-align: center;
+  letter-spacing: 0.2rem;
+}
+#subscription-page .subscription-card p:nth-child(3) {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+#subscription-page .subscription-card p:nth-child(4) {
+  font-size: 1rem;
+}
+#subscription-page .subscription-card .subscription-btn {
+  margin-top: 1.3rem;
+  display: flex;
+  justify-content: center;
+}
+#subscription-page .subscription-card .subscription-btn div {
+  width: 50%;
+  text-align: center;
+  background-color: #272727;
+  color: #272727;
+  border-color: #272727;
+  transition: ease-in-out 0.3s;
+}
+#subscription-page .subscription-card .subscription-btn div:hover {
+  transform: scale(1.1);
 }
 
 /*# sourceMappingURL=user.css.map */

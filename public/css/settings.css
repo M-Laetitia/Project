@@ -165,13 +165,13 @@ html {
 
 /* Custom text selection color */
 ::selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 
 /* Reset selection color for elements other than text */
 ::-moz-selection {
-  background-color: #f0bd2f;
+  background-color: #eeaf42;
   color: #151515;
 }
 

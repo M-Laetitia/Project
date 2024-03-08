@@ -18,11 +18,14 @@ class UserEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'Email :'
+            ])
         
             
-            ->add('username', TextType::class)
-
+            ->add('username', TextType::class, [
+                'label' => 'Username :'
+            ])
   
             
             // ->add('avatar',FileType::class, [
@@ -53,7 +56,7 @@ class UserEditType extends AbstractType
 
             ->add('Validate', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn-submit'
+                    'class' => 'btn btn6'
                 ]
             ])
         ;

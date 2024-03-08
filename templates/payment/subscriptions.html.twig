@@ -12,9 +12,6 @@
 </style>
 
 
-
-
-
 <div class="banner">
     <div>
         <h1 class="banner-title">SUBSCRIPTIONS</h1>
@@ -22,9 +19,91 @@
     </div>
 </div>
 
+{% if app.user %}
+    {% if user.subscriptions is not empty %}
+        {% set hasActiveSubscription = false %}
+        {% for subscription in user.subscriptions %}
+            {% if subscription.isActive == true %}
+                {% set hasActiveSubscription = true %}
+                {# The user has an active subscription #}
+
+                <section class="content" id="subscription-page">
+                    <p id="text-subscription" class="text-n2">You already have an ongoing subscription.</p>
+                    <div class="subscription-cards ongoing-subscription">
+                        {% for subscription in subscriptions %}
+                            <div class="subscription-card" id="{{ subscription.id }}">
+                                <h2 class="text-n2">{{ subscription.name }}</h2>
+                    
+                                <div class="image">
+                                </div>
+                    
+                                <p class="">{{ subscription.price}} €</p>
+                                <p>per {{ subscription.dueDate}}</p>
+                    
+                                <div class="subscription-btn">
+                                </div>
+                    
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+            {% endif %}
+        {% endfor %}
+        
+        {% if not hasActiveSubscription %}
+            {# The user doesn't have any active subscriptions  #}  
+                <section class="content" id="subscription-page">
+                    <div class="subscription-cards">
+                        {% for subscription in subscriptions %}
+                            <div class="subscription-card" id="{{ subscription.id }}">
+                                <h2 class="text-n2">{{ subscription.name }}</h2>
+                    
+                                <div class="image">
+                                </div>
+                    
+                                <p class="">{{ subscription.price}} €</p>
+                                <p>per {{ subscription.dueDate}}</p>
+                    
+                                <div class="subscription-btn">
+                                    <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><div class="btn btn6">SUBSCRIBE</div></a> 
+                                </div>
+                    
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+        {% endif %}
+    {% else %}
+        {# The user doesn't have any subscriptions  #}
+            <section class="content" id="subscription-page">
+                <div class="subscription-cards">
+                    {% for subscription in subscriptions %}
+                        <div class="subscription-card" id="{{ subscription.id }}">
+                            <h2 class="text-n2">{{ subscription.name }}</h2>
+                
+                            <div class="image">
+                            </div>
+                
+                            <p class="">{{ subscription.price}} €</p>
+                            <p>per {{ subscription.dueDate}}</p>
+                
+                            <div class="subscription-btn">
+                                <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><div class="btn btn6">SUBSCRIBE</div></a> 
+                            </div>
+                
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+    {% endif %}
+{% endif %}
 
 
-<section class="content" id="subscription-page">
+
+
+
+{# <section class="content" id="subscription-page">
     {% for subscription in subscriptions %}
         <div class="subscription-card" id="{{ subscription.id }}">
             <h2 class="text-n2">{{ subscription.name }}</h2>
@@ -41,48 +120,11 @@
 
         </div>
     {% endfor %}
-
-    
-
-
-</section>
+</section> #}
 
 
 
-<p>Choose your subscription</p>
 
-{% if app.user %}
-    {% if user.subscriptions is not empty %}
-        {% set hasActiveSubscription = false %}
-        {% for subscription in user.subscriptions %}
-            {% if subscription.isActive == true %}
-                {% set hasActiveSubscription = true %}
-                {# The user has an active subscription #}
-                <p>You already have an ongoing subscription.</p>
-            {% endif %}
-        {% endfor %}
-        
-        {% if not hasActiveSubscription %}
-            {# The user doesn't have any active subscriptions  #}
-            {% for subscription in subscriptions %}
-                <p>{{ subscription.name }}</p>
-                <p>{{ subscription.price }} EUR</p>
-                <p>{{ subscription.duration }} days</p>
-
-                <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><button>Subscribe!</button></a> 
-            {% endfor %}
-        {% endif %}
-    {% else %}
-        {# The user doesn't have any subscriptions  #}
-        {% for subscription in subscriptions %}
-            <p>{{ subscription.name }}</p>
-            <p>{{ subscription.price }} EUR</p>
-            <p>{{ subscription.duration }} days</p>
-
-            <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><button>Subscribe!</button></a> 
-        {% endfor %}
-    {% endif %}
-{% endif %}
 
 
   {# {% if user.subscriptions is not empty %} #}
@@ -90,7 +132,10 @@
    
 <script>
     const subscriptionCards = document.querySelectorAll('.subscription-card');
+    //text-subscription
 
+    gsap.from('#text-subscription', 1.2, {opacity: 0, delay: 0.6 });
+    
     function animateSubscriptionCards() {
         subscriptionCards.forEach((card, index) => {
             gsap.to(card, {

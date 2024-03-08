@@ -97,7 +97,9 @@
 
 
     
-    <p><a href="{{ path('edit_user', {slug: app.user.slug }) }}">EDIT info</a></p>
+    <p><a href="{{ path('edit_user', {'id': app.user.id }) }}">EDIT info</a></p>
+
+    
     
     <div id="avatar">
         <div id="avatar-profil">
@@ -115,7 +117,9 @@
 
     <div>
         <a href=" {{ path('app_logout') }}">logout</a> - 
-        <a href="">delete account</a> - 
+
+        {# <a href=" {{ path('delete_user', {'id': app.user.id }) }}">delete account</a> -  #}
+
         <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}">change password</a>
 
 

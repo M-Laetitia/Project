@@ -30,6 +30,7 @@ class UserController extends AbstractController
         ]);
     }
 
+    // ^ SHOW USER
     #[Route('/user/{slug}', name: 'show_user')]
     public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
 
@@ -44,7 +45,7 @@ class UserController extends AbstractController
     //     return $this->redirectToRoute('app_home');
     // }
 
- 
+    // ^ edit avatar
     $form = $this->createForm(AvatarType::class, $user);
     $form->handleRequest($request);
 
@@ -79,17 +80,32 @@ class UserController extends AbstractController
             return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
         }
 
-        // dd($user);
+
+        // ^ edit infos
+        $formInfos = $this->createForm(UserEditType::class, $user);
+        $formInfos->handleRequest($request);
+        if ($formInfos->isSubmitted() && $formInfos->isValid()) {
+
+            $user = $formInfos->getData();
+            // $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Your profile has been updated.');
+            return $this->redirectToRoute('show_user', ['slug' => $user->getSlug()]);
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'formEditUser' => $formInfos, 
         ]);
     }
 
+
+    // ^ EDIT USER
     #[Route('/user/{id}/edit', name: 'edit_user')]
     public function new_edit(User $user = null, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher) : Response
     {
-
 
         // Check if the user is connected
         $user = $this->getUser();
@@ -147,6 +163,7 @@ class UserController extends AbstractController
 
     }
 
+    // ^ EDIT PASSWORD USER
     #[Route('/user/{id}/editPassword', name: 'editPassword_user')]
     public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -183,8 +200,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    // ^ Delete User
-
+    // ^ DELETE USER
     #[Route('/user/{id}/delete', name: 'delete_user')]
     public function delete(User $user, EntityManagerInterface $entityManager, Security $security, SessionInterface $session) : Response {
 

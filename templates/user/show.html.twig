@@ -4,8 +4,6 @@
 
 {% block body %}
 
-
-
     <div class="banner">
         <div>
             <h1 class="banner-title">YOUR PROFIL</h1>
@@ -13,7 +11,6 @@
         </div>
     </div>
     
-
     <section class="content" id="profil-user">
 
         <div id="content-profil-user">
@@ -62,7 +59,7 @@
                             <p>Change password</p>
                         </div>
                         <div>
-                            <i class="fa-solid fa-x"></i>
+                            <i id="delete-account-btn" class="fa-solid fa-x"></i>
                             <p>Delete account</p>
                         </div>
                     </div>
@@ -114,8 +111,15 @@
                     <div id="delete-account">
                         <p>Are you sure you want to delete your account? This action can't be undone.</p>
                         <div>
-                            <p>Confirm</p>
-                            <p>Cancel</p>
+                            <div>
+                                <a href=""><i class="fa-regular fa-circle-check"></i>
+                                <p>Confirm</p></a>
+                                
+                            </div>
+                            <div>
+                                <a href=""><i class="fa-regular fa-circle-xmark"></i><p>Cancel</p></a>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,11 +175,19 @@
             });
         });
 
-            $(document).ready(function() {
-                $('#edit-infos-btn').click(function(){
-                    $("#edit-form").slideToggle();
-                });
-            })
+        $(document).ready(function() {
+            $('#edit-infos-btn').click(function(){
+                $("#edit-form").slideToggle();
+            });
+
+            $('#delete-account-btn').click(function(){
+                $("#delete-account").slideToggle();
+            });
+
+        })
+
+
+            
  
     </script>
 

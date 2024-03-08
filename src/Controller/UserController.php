@@ -86,7 +86,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/user/{slug}/edit', name: 'edit_user')]
+    #[Route('/user/{id}/edit', name: 'edit_user')]
     public function new_edit(User $user = null, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher) : Response
     {
 

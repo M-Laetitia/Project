@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ---------------------------------- */
 /* ---------------------------------- */
 :root {
@@ -1321,6 +1322,16 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+footer:after {
+  content: "";
+  width: 100%;
+  background-size: 100% auto; /* Adapter la largeur de l'image à 100% de la largeur du pied de page */
+  background-repeat: no-repeat; /* Ne pas répéter l'image */
+  background-position: center; /* Centrer l'image */
+  position: absolute;
+  transform: translate(0px, -240px);
+  opacity: 0.3;
 }
 footer #footer-separator {
   background-color: #E49E4B;

@@ -269,8 +269,6 @@
                     .field {
 
                         div {
-                            
-
                             input, label {
                                 transition: ease-in-out 0.3s; 
                             }
@@ -283,7 +281,26 @@
                 }
 
                 #delete-account {
-                    background-color: red;
+                    display: none;
+                    
+                    div {
+                        a {
+                            display: flex;
+                            align-items: center;
+
+                            i {
+                                margin-right: .6rem;
+                            }
+
+                            .fa-circle-check {
+                                color: $secondary-color3;
+                            }
+
+                            .fa-circle-xmark {
+                                color: $secondary-color4;
+                            }
+                        }
+                    }
                 }
             }
 

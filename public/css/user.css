@@ -1312,7 +1312,20 @@ html {
   background-color: pink;
 }
 #profil-user #bottom #content #delete-account {
-  background-color: red;
+  display: none;
+}
+#profil-user #bottom #content #delete-account div a {
+  display: flex;
+  align-items: center;
+}
+#profil-user #bottom #content #delete-account div a i {
+  margin-right: 0.6rem;
+}
+#profil-user #bottom #content #delete-account div a .fa-circle-check {
+  color: #207E93;
+}
+#profil-user #bottom #content #delete-account div a .fa-circle-xmark {
+  color: #F14D4C;
 }
 #profil-user #bottom input {
   border: none;

@@ -16,7 +16,6 @@
         padding-bottom: 2.5rem;
         column-gap: 3rem;
        
-
         .category {
             cursor: pointer;
             text-transform: uppercase;
@@ -31,7 +30,6 @@
                 color: $secondary-color;
             }
         }
-
         #more-filters-btn {
             cursor: pointer;
             text-transform: uppercase;
@@ -44,11 +42,8 @@
                     color:  $secondary-color3;
                 }
             }
-            
-        
         }
     }
-  
     #artists-container {
         width: 100%;
         display: grid;
@@ -85,7 +80,6 @@ img {
     &:hover {
         background-color: $secondary-color3;
     }
-
     &:before {
         content: "";
         position: absolute;
@@ -94,7 +88,6 @@ img {
         width: inherit;
         transform: rotate(90deg);
     }
-
 }
 
 #more-filters {

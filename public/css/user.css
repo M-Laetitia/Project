@@ -1178,11 +1178,10 @@ html {
   z-index: -1;
 }
 #profil-user #middle {
-  height: 30rem;
   color: #151515;
   display: flex;
   justify-content: space-between;
-  margin: 8rem 4rem 0rem 4rem;
+  margin: 8rem 4rem 6rem 4rem;
 }
 #profil-user #middle #left #infos {
   margin-bottom: 0.3rem;
@@ -1222,6 +1221,10 @@ html {
 }
 #profil-user #middle #left .logo-profile .fa-pen-to-square {
   background-color: #207E93;
+  transition: ease-in-out 0.3;
+}
+#profil-user #middle #left .logo-profile .fa-pen-to-square:hover {
+  background-color: #eeaf42;
 }
 #profil-user #middle #left .logo-profile .fa-x {
   background-color: #151515;
@@ -1266,6 +1269,23 @@ html {
 }
 #profil-user #middle #right .logo-profile .fa-star {
   background-color: #eeaf42;
+}
+#profil-user #bottom {
+  width: 100%;
+  height: 12rem;
+  padding: 0 4rem;
+  background-color: grey;
+}
+#profil-user #bottom #content {
+  background-color: red;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+#profil-user #bottom #content #left {
+  background-color: green;
+}
+#profil-user #bottom #content #right {
+  background-color: pink;
 }
 
 #register-user {

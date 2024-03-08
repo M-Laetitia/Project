@@ -126,12 +126,10 @@
         }
 
         #middle {
-            height: 30rem;
             color: $main-black-color;
-            
             display: flex;
             justify-content: space-between;
-            margin: 8rem 4rem 0rem 4rem;
+            margin: 8rem 4rem 6rem 4rem;
 
             #left {
                 #infos {
@@ -174,6 +172,11 @@
 
                     .fa-pen-to-square {
                         background-color: $secondary-color3;
+                        transition: ease-in-out 0.3;
+
+                        &:hover {
+                            background-color: $secondary-color;
+                        }
                     }
 
                     .fa-x  {
@@ -228,6 +231,27 @@
                     .fa-star {
                         background-color: $secondary-color;
                     }
+                }
+            }
+        }
+
+        #bottom {
+            width: 100%;
+            height: 12rem;
+            padding: 0 4rem;
+            background-color: grey;
+
+            #content {
+                background-color: red;
+                display: grid;
+                grid-template-columns: 50% 50%;
+
+                #left {
+                    background-color: green;
+                }
+
+                #right {
+                    background-color: pink;
                 }
             }
         }

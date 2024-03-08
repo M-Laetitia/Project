@@ -4,12 +4,15 @@
 
 {% block body %}
 
+
+
     <div class="banner">
         <div>
-            <h1>YOUR PROFIL</h1>
-            <p>Subtitle text<span class="underscore-static">_</span></p>
+            <h1 class="banner-title">YOUR PROFIL</h1>
+            <p class="banner-text">Text text<span class="underscore-static">_</span></p>
         </div>
     </div>
+    
 
 
     <section class="content" id="profil-user">
@@ -56,6 +59,8 @@
                     </div>
 
                 </div>
+
+
              
                 <div id="right">
                     <p class="text-n2" id="activities"><span>_</span>Activity</p>
@@ -67,13 +72,34 @@
                     </div>
 
                     <div class="logo-profile">
+
+                       
+
+
                         <div><i class="fa-regular fa-star"></i></div>
+
+                        
+
+                    
+
+
                     </div>
 
                 </div>
 
+
             </div>
-            <div id="bottom"></div>
+
+            <div id="bottom">
+                <div id="content">
+                    <div id="left">
+                        <p>test</p>
+                    </div>
+                    <div id="right">
+                        <p>test</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -82,6 +108,25 @@
     <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
 
     <p>SUBSCRIPTION</p>
+
+
+    {% if  user.subscriptions is empty %}
+        <p>pas d'abonnement </p>
+        {% else %}
+            {% for subscription in user.subscriptions %}
+                {% set daysRemaining = subscription.daysRemaining %}
+                {% if daysRemaining.remaining > 0 %}
+                    <p>Name: {{ subscription.subscriptionType.name }}</p>
+                    <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
+                    <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
+                    <p>End date: {{ daysRemaining.endDate }}</p>
+                    <p>Remaining days: {{ daysRemaining.remaining }}</p>
+                {% endif %}
+            {% endfor %}
+
+    {% endif %}
+
+
 
     {# show only the current subscription #}
     {% for subscription in user.subscriptions %}

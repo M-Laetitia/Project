@@ -14,7 +14,6 @@
     </div>
     
 
-
     <section class="content" id="profil-user">
 
         <div id="content-profil-user">
@@ -53,15 +52,23 @@
                         <p><span>Member since :</span> {{ user.durationSinceRegistration}}</p>
                     </div>
 
-                    <div class="logo-profile">
-                        <div><i class="fa-regular fa-pen-to-square"></i></div>
-                        <div><i class="fa-solid fa-x"></i></div>
+                    <div id="actions" class="logo-profile">
+                        <div>
+                            <i id="edit-infos-btn" class="fa-regular fa-pen-to-square"></i>
+                            <p>Edit informations</p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-unlock-keyhole"></i>
+                            <p>Change password</p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-x"></i>
+                            <p>Delete account</p>
+                        </div>
                     </div>
 
                 </div>
 
-
-             
                 <div id="right">
                     <p class="text-n2" id="activities"><span>_</span>Activity</p>
                     <div class="text-n3" id="activity">
@@ -72,79 +79,56 @@
                     </div>
 
                     <div class="logo-profile">
-
-                       
-
-
-                        <div><i class="fa-regular fa-star"></i></div>
-
                         
-
-                    
-
-
+                        {% if  user.subscriptions is empty %}
+                            <p>No subscriptions</p>
+                            <a href="{{ path('app_subscription')}}"><div><i id="subscription-inactive"class="fa-regular fa-star"></i></div></a>
+                            
+                            {% else %}
+                                {% for subscription in user.subscriptions %}
+                                    {% set daysRemaining = subscription.daysRemaining %}
+                                    {% if daysRemaining.remaining > 0 and (subscription.isActive == 1) %}
+                                    <p>{{ subscription.subscriptionType.name }}</p>
+                                    {# <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
+                                    <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
+                                    <p>End date: {{ daysRemaining.endDate }}</p> #}
+                                    <p>Remaining days: {{ daysRemaining.remaining }}</p>
+                                    <div><i id="subscription-active" class="fa-regular fa-star"></i></div>
+                                    {% endif %}
+                                {% endfor %}
+                        {% endif %}
                     </div>
-
                 </div>
-
-
             </div>
 
             <div id="bottom">
                 <div id="content">
-                    <div id="left">
-                        <p>test</p>
+                    <div id="edit-form">
+                        {{ form_start(formEditUser) }}
+                        <div class="field">{{ form_row(formEditUser.username) }}</div>
+                        <div class="field"> {{ form_row(formEditUser.email) }}</div>
+                        <div class="field">{{ form_row(formEditUser.Validate) }}</div>
+                        {{ form_end(formEditUser) }}
                     </div>
-                    <div id="right">
-                        <p>test</p>
+
+                    <div id="delete-account">
+                        <p>Are you sure you want to delete your account? This action can't be undone.</p>
+                        <div>
+                            <p>Confirm</p>
+                            <p>Cancel</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-
-
     <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
 
-    <p>SUBSCRIPTION</p>
 
-
-    {% if  user.subscriptions is empty %}
-        <p>pas d'abonnement </p>
-        {% else %}
-            {% for subscription in user.subscriptions %}
-                {% set daysRemaining = subscription.daysRemaining %}
-                {% if daysRemaining.remaining > 0 %}
-                    <p>Name: {{ subscription.subscriptionType.name }}</p>
-                    <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
-                    <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
-                    <p>End date: {{ daysRemaining.endDate }}</p>
-                    <p>Remaining days: {{ daysRemaining.remaining }}</p>
-                {% endif %}
-            {% endfor %}
-
-    {% endif %}
-
-
-
-    {# show only the current subscription #}
-    {% for subscription in user.subscriptions %}
-        {% set daysRemaining = subscription.daysRemaining %}
-        {% if daysRemaining.remaining > 0 %}
-            <p>Name: {{ subscription.subscriptionType.name }}</p>
-            <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
-            <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
-            <p>End date: {{ daysRemaining.endDate }}</p>
-            <p>Remaining days: {{ daysRemaining.remaining }}</p>
-        {% endif %}
-    {% endfor %}
-
-
-    
     <p><a href="{{ path('edit_user', {'id': app.user.id }) }}">EDIT info</a></p>
 
-    
     
     <div id="avatar">
         <div id="avatar-profil">
@@ -159,7 +143,6 @@
     </div>
 
 
-
     <div>
         <a href=" {{ path('app_logout') }}">logout</a> - 
 
@@ -167,10 +150,33 @@
 
         <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}">change password</a>
 
-
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('#edit-form input');
+           
+            inputs.forEach(function(input) {
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#207E93'; 
+                    this.previousElementSibling.style.color = '#207E93'; 
+                });
+                //blur event is triggered when the input field loses focus
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#939393'; 
+                    this.previousElementSibling.style.color = ''; 
+                });
+            });
+        });
 
+            $(document).ready(function() {
+                $('#edit-infos-btn').click(function(){
+                    $("#edit-form").slideToggle();
+                });
+            })
+ 
+    </script>
 
 {% endblock %}

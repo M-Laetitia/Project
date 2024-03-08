@@ -1209,25 +1209,38 @@ html {
   column-gap: 1rem;
   padding-top: 1.5rem;
 }
-#profil-user #middle #left .logo-profile i {
+#profil-user #middle #left .logo-profile div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#profil-user #middle #left .logo-profile div i {
   color: #F9F9F9;
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  margin-right: 0.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
-#profil-user #middle #left .logo-profile .fa-pen-to-square {
+#profil-user #middle #left .logo-profile div .fa-pen-to-square {
   background-color: #207E93;
   transition: ease-in-out 0.3;
 }
-#profil-user #middle #left .logo-profile .fa-pen-to-square:hover {
+#profil-user #middle #left .logo-profile div .fa-pen-to-square:hover {
   background-color: #eeaf42;
 }
-#profil-user #middle #left .logo-profile .fa-x {
+#profil-user #middle #left .logo-profile div .fa-x {
   background-color: #151515;
+}
+#profil-user #middle #left .logo-profile div .fa-unlock-keyhole {
+  background-color: #207E93;
+  transition: ease-in-out 0.3;
+}
+#profil-user #middle #left .logo-profile div .fa-unlock-keyhole:hover {
+  background-color: #eeaf42;
 }
 #profil-user #middle #right #activities {
   margin-bottom: 0.3rem;
@@ -1254,6 +1267,7 @@ html {
 #profil-user #middle #right .logo-profile {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   column-gap: 1rem;
   padding-top: 1.5rem;
 }
@@ -1267,25 +1281,61 @@ html {
   justify-content: center;
   cursor: pointer;
 }
-#profil-user #middle #right .logo-profile .fa-star {
-  background-color: #eeaf42;
+#profil-user #middle #right .logo-profile p {
+  font-size: 1.1rem;
+  color: #4c4545;
 }
 #profil-user #bottom {
   width: 100%;
   height: 12rem;
   padding: 0 4rem;
-  background-color: grey;
 }
 #profil-user #bottom #content {
-  background-color: red;
   display: grid;
   grid-template-columns: 50% 50%;
+  color: #151515;
+  font-size: 1.1rem;
 }
-#profil-user #bottom #content #left {
-  background-color: green;
+#profil-user #bottom #content #edit-form {
+  display: none;
+}
+#profil-user #bottom #content #edit-form div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.6rem;
+  column-gap: 0.6rem;
+}
+#profil-user #bottom #content #edit-form .field div input, #profil-user #bottom #content #edit-form .field div label {
+  transition: ease-in-out 0.3s;
 }
 #profil-user #bottom #content #right {
   background-color: pink;
+}
+#profil-user #bottom #content #delete-account {
+  background-color: red;
+}
+#profil-user #bottom input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid #4c4545;
+}
+
+#subscription-inactive {
+  background-color: #c3b5b5 !important;
+  transition: ease-in-out 0.2s;
+}
+#subscription-inactive:hover {
+  background-color: #eeaf42 !important;
+  transform: scale(1.1);
+}
+
+#subscription-active {
+  background-color: #eeaf42 !important;
+}
+
+#actions {
+  row-gap: 0.9rem;
 }
 
 #register-user {

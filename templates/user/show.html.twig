@@ -75,22 +75,22 @@
                     <div class="text-n3" id="activity">
                         <div class="activity-list">
                             <i class="fa-regular fa-eye"></i>
-                            <p id="event-btn">Events</p>
+                            <p class="toggle-btn" data-target=".events">Events</p>
                         </div>
 
                         <div class="activity-list">
                             <i class="fa-regular fa-eye"></i>
-                            <p id="expo-btn">Expositions</p>
+                            <p class="toggle-btn" data-target=".expos">Expositions</p>
                         </div>
 
                         <div class="activity-list">
                             <i class="fa-regular fa-eye"></i>
-                            <p id="workshop-btn">Workshops</p>
+                            <p class="toggle-btn" data-target=".workshops">Workshops</p>
                         </div>
 
                         <div class="activity-list">
                             <i class="fa-regular fa-eye"></i>
-                            <p id="studio-btn">Studios</p>
+                            <p class="toggle-btn" data-target=".studios">Studios</p>
                         </div>
                     </div>
 
@@ -409,30 +409,10 @@
                 $(this).prev('i').css('opacity', '0');
             });
 
-            // show / hide activities
-            $('#event-btn').click(function() {
+            $('.toggle-btn').click(function(event) {
                 event.preventDefault(); 
-                $('.events').slideToggle();
-            });
-
-            $('#expo-btn').click(function() {
-                event.preventDefault(); 
-                $('.expos').slideToggle();
-            });
-
-            $('#worokshop-btn').click(function() {
-                event.preventDefault(); 
-                $('.workshop').slideToggle();
-            });
-
-            $('#workshop-btn').click(function() {
-                event.preventDefault(); 
-                $('.workshops').slideToggle();
-            });
-
-            $('#studio-btn').click(function() {
-                event.preventDefault(); 
-                $('.studios').slideToggle();
+                var target = $(this).data('target');
+                $(target).slideToggle();
             });
             
         })

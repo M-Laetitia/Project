@@ -259,7 +259,10 @@
         //  ██       ██████   ██████     ██    ███████ ██   ██
         /*  ---------------------------------- */#}
 
-        <footer>
+        <div id="top-footer">
+
+        </div>
+        <footer >
             <div id="footer-separator"></div>
             <div id="footer-content">
                 <div>
@@ -287,6 +290,9 @@
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                 </div> 
             </div>
+
+            <div id="image">
+            </div>
             
         </footer>
 
@@ -308,12 +314,51 @@
     {# FullCalendar #}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script src="{{ asset('js/calendar.js') }}"></script>
+    <script src="https://unpkg.com/scrollama"></script>
 
+    {# Gsap #}
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    
 
 
 
     <script>
+        // footer animation
+        /*gsap.from('#top-footer', {
+        duration: 1.2,
+        opacity: 0,
+        ease: "power4.out",
+        delay: 1.1
+        }); */
+
+        // animation background footer on scroll
+        document.addEventListener("DOMContentLoaded", function() {
+            gsap.set("#top-footer", {opacity: 0}); 
+            gsap.set("#image", {opacity: 0}); 
+            const footerAnimation = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#top-footer",
+                start: "top 60%",
+                end: "bottom 40%",
+                //markers: true
+            }
+            });
+    
+            footerAnimation.to("#top-footer", {
+            opacity: 1,
+            ease: "power4.out",
+            delay: 0.6,
+            onComplete: function() {
+                gsap.to("#image", {
+                opacity: 1,
+                ease: "power4.out",
+                delay: 0.1,
+                });
+            }
+            });
+        });
+            
         // aside modale
         $(document).ready(function() {
             var isClicked = false;
@@ -369,6 +414,9 @@
         setInterval(function() {
             $('.underscore-static').toggleClass('underscore-blink');
         }, 1000);
+
+
+        
         
     </script>
     

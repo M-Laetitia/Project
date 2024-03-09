@@ -212,16 +212,32 @@
                     flex-direction: column;
                     border-right: 4px solid $secondary-color3;
                     padding: 1.5rem 1rem 1.5rem 0rem;
-                    p {
+
+                    div {
                         line-height: 2.5rem;
                         display: flex;
                         justify-content: flex-end;
-                        span {
+                        align-items: center;
+                        
+                        p {
                             font-weight: 500;
+                            cursor: pointer;
+                            transition: ease-in-out 0.3s;
+
+                            &:hover {
+                                color: red;
+
+                            }
+                        }
+
+                        i {
+                            margin-right: 0.6rem;
+                            opacity: 0;
+                            transition: ease-in-out 0.3s;
                         }
                     }
                 }
-
+               
                 .logo-profile {
                     display: flex;
                     justify-content: flex-end;
@@ -371,6 +387,49 @@
             background-color: $secondary-color4 !important;
         }
     }
+    .fa-right-from-bracket {
+        transition: ease-in-out 0.3s;
+        background-color: $secondary-color;
+
+        &:hover {
+            background-color: $grey-medium !important;
+        }
+    }
+}
+
+#activity-recap {
+    // background-color: red;
+
+        .recap {
+            p {
+                span {
+                    color: $secondary-color;
+                    
+                }
+            }
+
+            .text-n2 {
+                margin-bottom: 0.5rem;
+            }
+            div {
+                
+
+                p:nth-child(1) {
+                    color: $secondary-color;
+                    font-weight: 400;
+                    font-size: 1.2rem;
+                }
+
+                p:nth-child(2) {
+                    color: $secondary-color3;
+                    font-weight: 400;
+                    font-size: 1.2rem;
+                }
+
+
+            }
+        }
+
 }
 
 

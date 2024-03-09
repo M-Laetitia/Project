@@ -1256,13 +1256,24 @@ html {
   border-right: 4px solid #207E93;
   padding: 1.5rem 1rem 1.5rem 0rem;
 }
-#profil-user #middle #right #activity p {
+#profil-user #middle #right #activity div {
   line-height: 2.5rem;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
-#profil-user #middle #right #activity p span {
+#profil-user #middle #right #activity div p {
   font-weight: 500;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+#profil-user #middle #right #activity div p:hover {
+  color: red;
+}
+#profil-user #middle #right #activity div i {
+  margin-right: 0.6rem;
+  opacity: 0;
+  transition: ease-in-out 0.3s;
 }
 #profil-user #middle #right .logo-profile {
   display: flex;
@@ -1314,6 +1325,18 @@ html {
 #profil-user #bottom #content #delete-account {
   display: none;
 }
+#profil-user #bottom #content #delete-account .confirm a:hover {
+  color: #207E93;
+}
+#profil-user #bottom #content #delete-account .confirm a:hover i, #profil-user #bottom #content #delete-account .confirm a:hover p {
+  color: inherit;
+}
+#profil-user #bottom #content #delete-account .cancel a:hover {
+  color: #F14D4C;
+}
+#profil-user #bottom #content #delete-account .cancel a:hover i, #profil-user #bottom #content #delete-account .cancel a:hover p {
+  color: inherit;
+}
 #profil-user #bottom #content #delete-account div a {
   display: flex;
   align-items: center;
@@ -1322,10 +1345,10 @@ html {
   margin-right: 0.6rem;
 }
 #profil-user #bottom #content #delete-account div a .fa-circle-check {
-  color: #207E93;
+  color: #4c4545;
 }
 #profil-user #bottom #content #delete-account div a .fa-circle-xmark {
-  color: #F14D4C;
+  color: #4c4545;
 }
 #profil-user #bottom input {
   border: none;
@@ -1348,7 +1371,41 @@ html {
 }
 
 #actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   row-gap: 0.9rem;
+}
+
+#actions .fa-x {
+  transition: ease-in-out 0.3s;
+}
+#actions .fa-x:hover {
+  background-color: #F14D4C !important;
+}
+#actions .fa-right-from-bracket {
+  transition: ease-in-out 0.3s;
+  background-color: #eeaf42;
+}
+#actions .fa-right-from-bracket:hover {
+  background-color: #4c4545 !important;
+}
+
+#activity-recap .recap p span {
+  color: #eeaf42;
+}
+#activity-recap .recap .text-n2 {
+  margin-bottom: 0.5rem;
+}
+#activity-recap .recap div p:nth-child(1) {
+  color: #eeaf42;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+#activity-recap .recap div p:nth-child(2) {
+  color: #207E93;
+  font-weight: 400;
+  font-size: 1.2rem;
 }
 
 #register-user {

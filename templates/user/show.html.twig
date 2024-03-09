@@ -62,6 +62,10 @@
                             <i id="delete-account-btn" class="fa-solid fa-x"></i>
                             <p>Delete account</p>
                         </div>
+                        <div>
+                            <a href=" {{ path('app_logout') }}"><i id="logout-btn" class="fa-solid fa-right-from-bracket"></i></a>
+                            <p>Logout</p>
+                        </div>
                     </div>
 
                 </div>
@@ -69,10 +73,25 @@
                 <div id="right">
                     <p class="text-n2" id="activities"><span>_</span>Activity</p>
                     <div class="text-n3" id="activity">
-                        <p><span>Events</span></p>
-                        <p><span>Exhibitions</span></p>
-                        <p><span>Workshops</span></p>
-                        <p><span>Studios</span></p>
+                        <div class="activity-list">
+                            <i class="fa-regular fa-eye"></i>
+                            <p id="event-btn">Events</p>
+                        </div>
+
+                        <div class="activity-list">
+                            <i class="fa-regular fa-eye"></i>
+                            <p id="expo-btn">Expositions</p>
+                        </div>
+
+                        <div class="activity-list">
+                            <i class="fa-regular fa-eye"></i>
+                            <p id="workshop-btn">Workshops</p>
+                        </div>
+
+                        <div class="activity-list">
+                            <i class="fa-regular fa-eye"></i>
+                            <p id="studio-btn">Studios</p>
+                        </div>
                     </div>
 
                     <div class="logo-profile">
@@ -123,6 +142,117 @@
                             </div>
                         </div>
                     </div>
+
+                    {% set has_event_participation = false %}
+
+                    {% for participation in user.areaParticipations %}
+                        {% if participation.area.type == "EVENT" %}
+                            {% set has_event_participation = true %}
+                            {% if participation.area.status in ["OPEN", "CLOSED", "PENDING"]  %}
+                                <p>Ongoing event</p>
+                                {{ participation.area.name }}
+                            {% elseif participation.area.status == "ARCHIVED"  %}
+                                <p>Archived event</p>
+                                {{ participation.area.name }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not has_event_participation %}
+                        <p>No events</p>
+                    {% endif %}
+
+                    {# ----------------- #}
+
+                    {% set has_expo_participation = false %}
+
+                    {% for participation in user.areaParticipations %}
+                        {% if participation.area.type == "EXPO" %}
+                            {% set has_expo_participation = true %}
+                            {% if participation.area.status in ["OPEN", "CLOSED", "PENDING"]  %}
+                                <p>Ongoing expo</p>
+                                {{ participation.area.name }}
+                            {% elseif participation.area.status == "ARCHIVED"  %}
+                                <p>Archived expo</p>
+                                {{ participation.area.name }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not has_expo_participation %}
+                        <p>No expo</p>
+                    {% endif %}
+
+
+                    {# ------------------- #}
+
+                    {% set has_workshop_participation = false %}
+
+                    {% for participation in user.workshopRegistrations %}
+                        {% if participation.workshop is not null %}
+                            {% set has_workshop_participation = true %}
+                            {% if participation.workshop.status in ["OPEN", "CLOSED", "PENDING"]  %}
+                                <p>Ongoing workshop</p>
+                                {{ participation.workshop.name }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not has_workshop_participation %}
+                        <p>No workshop</p>
+                    {% endif %}
+
+
+                    {% for participation in user.workshopRegistrations %}
+                        {% if participation.workshop is not null %}
+                            {% if participation.workshop.status == "ARCHIVED"  %}
+                                <p>Archived workshop</p>
+                                {{ participation.workshop.name }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    
+
+                    {# ------------------- #}
+
+                    {% set has_timeslot_participation = false %}
+
+                    {% for participation in user.workshopRegistrations %}
+                        {% if participation.timeslot is not null %}
+                            {% set has_timeslot_participation = true %}
+
+                            {% if participation.timeslot.date > date() %}
+                                <p>future timeslot</p>
+                                {{ participation.timeslot.studio.name }}
+
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if not has_timeslot_participation %}
+                        <p>No timeslot</p>
+                    {% endif %}
+
+                    {# ------------------- #}
+
+
+
+                    {% for participation in user.workshopRegistrations %}
+                        {% if participation.timeslot is not null %}
+                            
+                            {% if participation.timeslot.date < date() %}
+                                <p>past timeslot</p>
+                                {{ participation.timeslot.studio.name }}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <div id="activity-recap">
+                        <div id="events">
+                            <h3></h3>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -130,9 +260,6 @@
     </section>
 
     <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
-
-
-    <p><a href="{{ path('edit_user', {'id': app.user.id }) }}">EDIT info</a></p>
 
     
     <div id="avatar">
@@ -149,10 +276,7 @@
 
 
     <div>
-        <a href=" {{ path('app_logout') }}">logout</a> - 
-
         
-
         <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}">change password</a>
 
     </div>
@@ -174,29 +298,22 @@
                     this.previousElementSibling.style.color = ''; 
                 });
             });
-
-
-
         });
 
         $(document).ready(function() {
-
             // show / hide edit account div
             $('#edit-infos-btn').click(function(){
                 $("#edit-form").slideToggle();
             });
-
             // show / hide delete account div
             $('#delete-account-btn').click(function(){
                 $("#delete-account").slideToggle();
             });
-
             // hide delete account on cancel
             $('.cancel').click(function() {
                 event.preventDefault(); 
                 $('#delete-account').slideToggle();
             });
-
             // change logo on hovering (confirm)
             $('.confirm').hover(
                 function() {
@@ -217,10 +334,14 @@
                 }
             );
 
-        })
-
-
+            // show / hide eye icon on activities hover
+            $('.activity-list p').hover(function() {
+                $(this).prev('i').css('opacity', '1');
+            }, function() {
+                $(this).prev('i').css('opacity', '0');
+            });
             
+        })
  
     </script>
 

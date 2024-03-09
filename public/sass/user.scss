@@ -259,6 +259,7 @@
 
                 #edit-form {
                     display: none;
+
                     div {
                         display: flex;
                         align-items: center;
@@ -282,7 +283,33 @@
 
                 #delete-account {
                     display: none;
-                    
+
+                    .confirm {
+                        a {    
+                                       
+                            &:hover {
+                                color: $secondary-color3; 
+                                i, p {
+                                    color: inherit; 
+                                }
+                            }
+                        }
+                    }
+
+                    .cancel {
+                        a {    
+                                       
+                      
+                            &:hover {
+                                color: $secondary-color4; 
+                                i, p {
+                                    color: inherit; 
+                                }
+                            }
+                        }
+                    }
+
+
                     div {
                         a {
                             display: flex;
@@ -290,14 +317,16 @@
 
                             i {
                                 margin-right: .6rem;
+
                             }
 
+
                             .fa-circle-check {
-                                color: $secondary-color3;
+                                color: $grey-medium;
                             }
 
                             .fa-circle-xmark {
-                                color: $secondary-color4;
+                                color: $grey-medium;
                             }
                         }
                     }
@@ -329,11 +358,20 @@
 
                     
     #actions {
-        // display: flex;
-        // flex-direction: column;
-        // align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
         row-gap: .9rem;
     }
+
+ #actions {
+    .fa-x {
+        transition: ease-in-out 0.3s;
+        &:hover {
+            background-color: $secondary-color4 !important;
+        }
+    }
+}
 
 
 // ---------------------------------

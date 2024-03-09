@@ -111,13 +111,14 @@
                     <div id="delete-account">
                         <p>Are you sure you want to delete your account? This action can't be undone.</p>
                         <div>
-                            <div>
-                                <a href=""><i class="fa-regular fa-circle-check"></i>
+                            <div class="confirm">
+                                <a href=" {{ path('delete_user', {'id': app.user.id }) }}"><i class=" icon-confirm fa-regular fa-circle-check"></i>
                                 <p>Confirm</p></a>
-                                
+
                             </div>
-                            <div>
-                                <a href=""><i class="fa-regular fa-circle-xmark"></i><p>Cancel</p></a>
+                            <div class="cancel">
+                                <a href="#"><i class=" icon-cancel fa-regular fa-circle-xmark"></i>
+                                    <p>Cancel</p></a>
                                 
                             </div>
                         </div>
@@ -150,7 +151,7 @@
     <div>
         <a href=" {{ path('app_logout') }}">logout</a> - 
 
-        {# <a href=" {{ path('delete_user', {'id': app.user.id }) }}">delete account</a> -  #}
+        
 
         <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}">change password</a>
 
@@ -173,16 +174,48 @@
                     this.previousElementSibling.style.color = ''; 
                 });
             });
+
+
+
         });
 
         $(document).ready(function() {
+
+            // show / hide edit account div
             $('#edit-infos-btn').click(function(){
                 $("#edit-form").slideToggle();
             });
 
+            // show / hide delete account div
             $('#delete-account-btn').click(function(){
                 $("#delete-account").slideToggle();
             });
+
+            // hide delete account on cancel
+            $('.cancel').click(function() {
+                event.preventDefault(); 
+                $('#delete-account').slideToggle();
+            });
+
+            // change logo on hovering (confirm)
+            $('.confirm').hover(
+                function() {
+                    $('.icon-confirm').removeClass('fa-regular').addClass('fa-solid');
+                },
+                function() {
+                    $(this).find('.icon-confirm').removeClass('fa-solid').addClass('fa-regular');
+                }
+            );
+            // change logo on hovering (cancel)
+            $('.cancel').hover(
+                function() {
+                    $('.icon-cancel').removeClass('fa-regular').addClass('fa-solid');
+                },
+                function() {
+
+                    $(this).find('.icon-cancel').removeClass('fa-solid').addClass('fa-regular');
+                }
+            );
 
         })
 

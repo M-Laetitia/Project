@@ -27,15 +27,14 @@ body {
 #back-top-btn {
     display: inline-block;
     background-color: $secondary-color;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     text-align: center;
-    border-radius: 2px;
+    // border-radius: 2px;
     position: fixed;
     bottom: 30px;
     right: 30px;
     transition: background-color .3s, 
-
     opacity .5s, visibility .5s;
     opacity: 0;
     visibility: hidden;
@@ -61,7 +60,7 @@ body {
         font-family: FontAwesome;
         font-weight: normal;
         font-style: normal;
-        font-size: 2em;
+        font-size: 1.6em;
         line-height: 50px;
         color: $main-white-color;
     }
@@ -193,13 +192,84 @@ nav {
     .name-app {
         font-size: 2rem;
         letter-spacing: $letter-spacing-title;
+        position: relative;
+        background-image: linear-gradient(
+            to right,
+            $secondary-color,
+            $secondary-color 50%,
+            $main-white-color 50%
+        );
+        background-size: 200% 100%;
+        background-position: -100%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        
+        animation: colorChange 2s forwards;
+        animation-delay: 2s;
+
+        a {
+            transition: 5s ease-in-out;
+            
+            &:hover {
+                background-image: linear-gradient(
+                to right,
+                $secondary-color,
+                $secondary-color 50%,
+                $secondary-color 50%
+                );
+                background-size: 200% 100%;
+                background-position: -100%;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+        }
+
+       
+
+    }
+
+    @keyframes colorChange {
+        0% {
+            background-position: 100%; /* Position initiale du dégradé */
+        }
+        50% {
+            background-position: 0%; /* Position intermédiaire du dégradé */
+        }
+        100% {
+            background-position: 100%; /* Position finale du dégradé */
+        }
     }
 
     .nav-links {
         font-size: $fs-text;
-        // background-color: red;
         justify-content: space-between;
         display: flex;
+
+        a {
+            transition: ease-in-out 0.3s;
+            position: relative;
+
+            &:hover {
+                color: $secondary-color;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: -3px; 
+                left: 0;
+                width: 0; 
+                height: 1px; 
+                background-color: $secondary-color; 
+                transition: width 0.3s ease; 
+            }
+
+            &:hover:before {
+                color: $secondary-color;
+                width: 97%;
+            }
+        }
+        
        
     }
 

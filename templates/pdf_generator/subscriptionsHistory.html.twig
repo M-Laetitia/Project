@@ -1,0 +1,84 @@
+<html>
+   
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Subscription history{% endblock %}</title>
+    
+        
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    
+        {# Google fonts #}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+        {# Font awesome #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+        {# Remix Icon #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" integrity="sha512-HXXR0l2yMwHDrDyxJbrMD9eLvPe3z3qL3PPeozNTsiHJEENxx8DH2CxmV05iwG0dwoz5n4gQZQyYLUNt1Wdgfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+       
+        {% block stylesheets %}
+           
+        {% endblock %}
+    
+        {% block javascripts %}
+        {% endblock %}
+
+
+    </head>
+
+   <class id="pdf-content">
+        <h1>SUBSCRIPTION HISTORY</h1>
+        
+        <h2>Active subscription</h2>
+
+            {% for subscription in user.subscriptions %}
+            {% if subscription.isActive == 1 %}
+                <div>
+                    <p>Type: {{ subscription.subscriptionType.name }}</p>
+                    <p>Remaining days: {{ subscription.daysRemaining.remaining }}</p>
+                    <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
+                    <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
+                    {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.subscriptionType.duration ~ ' days') %}
+                    <p>End date: {{ endDate|formatDate }}</p>
+                </div>
+
+                <div>
+                    <p>details user: 
+                        {{ subscription.infosUser.firstname }}
+                        {{ subscription.infosUser.lastname }}
+                        {{ subscription.infosUser.address }}
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}    
+
+        <h2>Previous subscriptions</h2>
+
+        {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
+            {% if subscription.isActive == 0 %}
+            <div>
+                <p>Type: {{ subscription.subscriptionType.name }}</p>
+                <p>Remaining days: {{ subscription.daysRemaining.remaining }}</p>
+                <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
+                <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
+                {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.subscriptionType.duration ~ ' days') %}
+                <p>End date: {{ endDate|formatDate }}</p>
+            </div>
+
+            <p>details user: 
+                {{ subscription.infosUser.firstname }}
+                {{ subscription.infosUser.lastname }}
+                {{ subscription.infosUser.address }}
+            </p>
+            {% endif %}
+        {% endfor %}
+
+
+   </class>
+
+</html>
+
+

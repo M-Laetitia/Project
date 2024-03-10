@@ -44,13 +44,13 @@ class WorkshopController extends AbstractController
     public function show(Workshop $workshop = null, Security $security, WorkshopRegistrationRepository $workshopRegistrationRepository ): Response
     {
 
+        $workshopId = $workshop->getId();
         if($user = $security->getUser()) {
             $user = $security->getUser();
             $userId = $user->getId();
             $existingRegistration = [];
             $hasExistingRegistration = $workshopRegistrationRepository->findOneBy(['user' => $user->getId(), 'workshop' => $workshopId]);
             $existingRegistration = $hasExistingRegistration !== null;
-            // dump($existingRegistration);die;
 
             return $this->render('workshop/show.html.twig', [
                 'workshop' => $workshop,
@@ -59,9 +59,6 @@ class WorkshopController extends AbstractController
             ]);
         }
        
-        $workshopId = $workshop->getId();
-
-    
 
         return $this->render('workshop/show.html.twig', [
             'workshop' => $workshop,

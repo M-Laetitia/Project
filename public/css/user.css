@@ -1099,9 +1099,31 @@ html {
   align-items: end;
   position: relative;
 }
+#profil-user #top #pattern {
+  position: absolute;
+  background-image: url("../images/patternProfile.png");
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background-repeat: repeat;
+  animation: moveLeftRight 5s linear infinite;
+  background-size: auto 100%;
+  background-position: 0 0;
+  /*adjust s value for speed*/
+}
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  /*use negative width if you want it to flow right to left else and positive for left to right*/
+  to {
+    background-position: -10000px 0;
+  }
+}
 #profil-user #top h2 {
   text-transform: uppercase;
   margin-bottom: 0.5rem;
+  z-index: 1;
 }
 #profil-user #top h2 span {
   color: #207E93;
@@ -1142,12 +1164,20 @@ html {
   position: absolute;
   transform: translate(120px, -20px);
   background-color: #eeaf42;
+  border: 2px solid #eeaf42;
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+}
+#profil-user #top #avatar div:nth-child(2):hover {
+  color: #eeaf42;
+  border: 2px solid #eeaf42;
+  background-color: #F9F9F9 !important;
 }
 #profil-user #top #roles {
   display: flex;
@@ -1165,6 +1195,10 @@ html {
   aspect-ratio: 1;
   border-radius: 50%;
   position: relative;
+  color: #151515;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #profil-user #top #roles div:before {
   content: "";
@@ -1176,6 +1210,33 @@ html {
   border-radius: inherit;
   border: 2px #eeaf42 solid;
   z-index: -1;
+}
+#profil-user #top #roles div i {
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+}
+#profil-user #top #roles div i:hover {
+  color: #eeaf42;
+}
+#profil-user #top #roles #not-artist i {
+  color: #4c4545;
+  transition: ease-in-out 0.3s;
+}
+#profil-user #top #roles #not-artist i:hover {
+  color: #eeaf42;
+}
+#profil-user #upload-avatar {
+  color: black;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4rem;
+  margin-right: 4rem;
+}
+#profil-user #upload-avatar #form-avatar {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  padding: 1rem;
+  width: 26rem;
+  display: none;
 }
 #profil-user #middle {
   color: #151515;
@@ -1268,12 +1329,13 @@ html {
   transition: ease-in-out 0.3s;
 }
 #profil-user #middle #right #activity div p:hover {
-  color: red;
+  color: #207E93;
 }
 #profil-user #middle #right #activity div i {
   margin-right: 0.6rem;
   opacity: 0;
   transition: ease-in-out 0.3s;
+  color: #207E93;
 }
 #profil-user #middle #right .logo-profile {
   display: flex;
@@ -1298,7 +1360,6 @@ html {
 }
 #profil-user #bottom {
   width: 100%;
-  height: 12rem;
   padding: 0 4rem;
 }
 #profil-user #bottom #content {
@@ -1318,9 +1379,6 @@ html {
 }
 #profil-user #bottom #content #edit-form .field div input, #profil-user #bottom #content #edit-form .field div label {
   transition: ease-in-out 0.3s;
-}
-#profil-user #bottom #content #right {
-  background-color: pink;
 }
 #profil-user #bottom #content #delete-account {
   display: none;
@@ -1391,6 +1449,9 @@ html {
   background-color: #4c4545 !important;
 }
 
+#activity-recap .recap {
+  margin-bottom: 3rem;
+}
 #activity-recap .recap p span {
   color: #eeaf42;
 }
@@ -1407,9 +1468,101 @@ html {
   font-weight: 400;
   font-size: 1.2rem;
 }
+#activity-recap .recap .fa-x {
+  margin-top: 2rem;
+  width: 25px;
+  height: 25px;
+  background-color: #151515;
+  border: 2px solid #151515;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F9F9F9;
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+}
+#activity-recap .recap .fa-x:hover {
+  background-color: #F9F9F9;
+  color: #151515;
+  border: 2px solid #151515;
+}
+
+.subscriptions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end !important;
+  row-gap: 0.9rem;
+}
+.subscriptions div {
+  display: flex;
+  align-items: center;
+}
+.subscriptions div p {
+  margin-right: 0.3rem;
+}
+.subscriptions div .fa-magnifying-glass {
+  background-color: #207E93;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+.subscriptions div .fa-magnifying-glass:hover {
+  background-color: #eeaf42;
+}
+
+#subscription-recap .text-n2 {
+  margin-bottom: 0.5rem;
+}
+#subscription-recap .text-n2 span {
+  color: #eeaf42;
+}
+#subscription-recap #active span, #subscription-recap #inactive span {
+  color: #207E93;
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+#subscription-recap #active div, #subscription-recap #inactive div {
+  border-bottom: 1px solid #eeaf42;
+  width: 200px;
+  margin: 0.6rem 0;
+}
+#subscription-recap #btn-subscription {
+  margin: 2rem 0;
+  display: flex;
+  column-gap: 2rem;
+}
+#subscription-recap #btn-subscription div i {
+  color: #207E93;
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+}
+#subscription-recap #btn-subscription div i:hover {
+  color: #eeaf42;
+}
+#subscription-recap #btn-subscription .fa-x {
+  width: 25px;
+  height: 25px;
+  background-color: #151515;
+  border: 2px solid #151515;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F9F9F9;
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+}
+#subscription-recap #btn-subscription .fa-x:hover {
+  background-color: #F9F9F9;
+  color: #151515;
+  border: 2px solid #151515;
+}
 
 #register-user {
-  background-color: red;
+  background-color: #272727;
 }
 #register-user #register-container {
   display: grid;
@@ -1427,17 +1580,36 @@ html {
   transform: translate(-50%, -50%);
   z-index: 1 !important;
 }
-#register-user #register-container #left-register {
+#register-user #register-container .left-register {
   background-color: black;
+  width: 100%;
+  height: 100%;
 }
-#register-user #register-container #right-register {
+#register-user #register-container #l-register {
+  background-image: url("../images/register.png");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+}
+#register-user #register-container .right-register {
   background-color: #272727;
-  padding: 5rem;
+  width: 100%;
+  height: 100%;
+  padding: 5rem 5rem 3rem 5rem;
 }
-#register-user #register-container #right-register #title-register p {
+#register-user #register-container .right-register #title-register p {
   color: #eeaf42;
   padding-top: 0.2rem;
   padding-bottom: 3rem;
+}
+#register-user #register-container #r-register {
+  background-image: url("../images/register2.png");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+  padding: 5rem 5rem 3rem 5rem;
 }
 #register-user #register-container #form-register {
   padding-right: 12rem;
@@ -1464,12 +1636,44 @@ html {
 #register-user #register-container #form-register #terms-register {
   display: flex;
 }
-#register-user #register-container #form-register #terms-register a {
+#register-user #register-container #form-register #terms-register p {
+  display: flex;
+  align-items: center;
+}
+#register-user #register-container #form-register #terms-register p a {
   transition: ease-in-out 0.6s;
+}
+#register-user #register-container #form-register #terms-register p span {
+  margin: 0rem 0.4rem;
+  color: #eeaf42;
+}
+#register-user #register-container #login {
+  margin-top: 1rem;
+}
+#register-user #register-container #login a {
+  color: #eeaf42;
+  position: relative;
+  text-decoration: none;
+}
+#register-user #register-container #login a:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #eeaf42;
+  transition: width 0.3s ease;
+}
+#register-user #register-container #login a:hover:before {
+  width: 100%;
 }
 
 #btn-register {
   width: 61% !important;
+}
+#btn-register:hover {
+  background-color: #272727;
 }
 
 #terms-register a:hover {
@@ -1582,13 +1786,48 @@ html {
 .login-user #create-account a {
   color: #c3b5b5;
   transition: ease-in-out 0.3s;
+  position: relative;
 }
 .login-user #create-account a:hover {
   color: #eeaf42;
 }
+.login-user #create-account a:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #eeaf42;
+  transition: width 0.3s ease;
+}
+.login-user #create-account a:hover:before {
+  color: #eeaf42;
+  width: 100%;
+}
 .login-user button {
   width: 100%;
   margin-bottom: 3rem;
+}
+.login-user button:hover {
+  background-color: #272727;
+}
+
+#l-login {
+  background-image: url("../images/login.png");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+}
+
+#r-login {
+  background-image: url("../images/login2.png");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+  padding: 5rem 5rem 3rem 5rem;
 }
 
 /*# sourceMappingURL=user.css.map */

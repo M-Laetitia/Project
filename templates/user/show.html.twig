@@ -16,7 +16,7 @@
         <div id="content-profil-user">
             <div id="separator-profil"></div>
             <div id="top">
-                <h2 class="text-n1">{{ user }}<span>_</span> </h2>
+                <h2 class="text-n1">{{ user }}<span class="underscore">_</span> </h2>
                 <div id="avatar">
                     <div>
                         <picture>
@@ -125,7 +125,8 @@
                                     </div>
                                     <div>
                                         <p>Subscription history</p>
-                                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                                        <i class="history-btn fa-solid fa-magnifying-glass" data-target=".subscription-recap"></i>
+                                        
                                     </div>
                                 {% endfor %}
                             {% else %}
@@ -138,7 +139,7 @@
                                     <!-- Case 3bis: no active subscription + history-->
                                     <div>
                                         <p>Subscription history</p>
-                                        <a href=""><i class="fa-solid fa-magnifying-glass"></i></a>
+                                        <i class="history-btn fa-solid fa-magnifying-glass" data-target=".subscription-recap"></i>
                                     </div>
                                 {% endif %}
                             {% endif %}
@@ -218,7 +219,7 @@
                                     {% endfor %}
                             {% endif %}
 
-                            <p class="close-btn" data-target=".events"><i class="fa-regular fa-circle-xmark"></i></p>
+                            <p class="close-btn" data-target=".events"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
                         </div>
 
 
@@ -265,7 +266,7 @@
                                         {% endif %}
                                     {% endfor %}
                             {% endif %}
-                            <p class="close-btn" data-target=".expos"><i class="fa-regular fa-circle-xmark"></i></p>
+                            <p class="close-btn" data-target=".expos"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
                         </div>
 
 
@@ -310,7 +311,7 @@
                                         {% endif %}
                                     {% endfor %}
                             {% endif %}
-                            <p class="close-btn" data-target=".workshops"><i class="fa-regular fa-circle-xmark"></i></p>
+                            <p class="close-btn" data-target=".workshops"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
                         </div>
 
                         {# STUDIO ----------------- #}
@@ -351,52 +352,60 @@
                                         {% endif %}
                                     {% endfor %}
                             {% endif %}
-                            <p class="close-btn" data-target=".studios"><i class="fa-regular fa-circle-xmark"></i></p>
+                            <p class="close-history-btn" data-target=".subscription-recap"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
                         </div>
 
-                    </div>
-
-                    {# SUBSCRIPTIONS ----------------- #}
-
-                    <div id="subscription-recap">
-                        {% if  user.subscriptions is not empty %}
-
-                        <p>active:</p>
-                            {% for subscription in user.subscriptions %}
-                                {% if subscription.isActive == 1 %}
-                                    <div>
-                                        <p>Type: {{ subscription.infosSubscription.name }}</p>
-                                        <p>Price: {{ subscription.infosSubscription.price }} €</p>
-                                        <p>Remaining days: {{ subscription.daysRemaining.remaining }}</p>
-                                        <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
-                                        <p>Duration: {{ subscription.infosSubscription.duration }} days</p>
+                        {# SUBSCRIPTIONS ----------------- #}
+                        <div id="subscription-recap" style="display: none;">
+                            {% if  user.subscriptions is not empty %}
+    
+                            <p class="text-n2">Active<span>_</span></p>
+                                {% for subscription in user.subscriptions %}
+                                    {% if subscription.isActive == 1 %}
+                                        <div id="active">
+                                            <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
+    
+    
+                                            {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+    
+                                            <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
+    
+                                            <p><span>Remaining days :</span> {{ subscription.daysRemaining.remaining }}</p>
+                                        </div>
+                                    {% endif %}
+                                 {% endfor %}    
+                                
+                                 <p class="text-n2" style="margin-top: 1.2rem;" >History<span>_</span></p>
+                                {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
+                                    {% if subscription.isActive == 0 %}
+                                    <div id="inactive">
+    
+                                        <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
+    
+    
                                         {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
-                                        <p>End date: {{ endDate|formatDate }}</p>
+    
+                                        <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
+                                        
+                                        <div></div>
+                                        
                                     </div>
-                                {% endif %}
-                             {% endfor %}    
-                            
-                             <p>inactive:</p>
-                            {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
-                                {% if subscription.isActive == 0 %}
+                                    {% endif %}
+                                {% endfor %}
+    
+                            {% endif %}
+    
+                            <div id="btn-subscription">
+                                <p class="close-history-btn" data-target=".subscription-recap"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
                                 <div>
-                                    <p>Type: {{ subscription.infosSubscription.name }}</p>
-                                    <p>Price: {{ subscription.infosSubscription.price }} €</p>
-                                    <p>Remaining days: {{ subscription.daysRemaining.remaining }}</p>
-                                    <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
-                                    <p>Duration: {{ subscription.infosSubscription.duration }} days</p>
-                                    {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
-                                    <p>End date: {{ endDate|formatDate }}</p>
+                                    <a href=" {{ path('subscriptions_history', {'id': user.id}) }}" target="_blank"><i class="fa-solid fa-file-pdf fa-xl"></i></a>
+                                    {# <p>Get PDF</p> #}
                                 </div>
-                                {% endif %}
-                            {% endfor %}
-
-                        {% endif %}
-
-                        <div>
-                            <p>pdf facture</p>
+                            </div>
+    
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -424,10 +433,7 @@
 
     </div>
 
-    <div>
-        <p>test pdf</p>
-        <a href=" {{ path('subscriptions_history', {'id': user.id}) }}">test</a>
-    </div>
+    
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -501,8 +507,34 @@
             $('html, body').animate({
                 scrollTop: offset
             }, 'slow');
-
             });
+
+            // show / hide subscription recap
+            $('.history-btn').click(function(event) {
+                event.preventDefault(); 
+                $('#subscription-recap').slideToggle();
+
+            // Once the content is open, move the window to the top of this content
+            var offset = $('#logout-btn').offset().top;
+            $('html, body').animate({
+                scrollTop: offset
+            }, 'slow');
+            });
+
+            
+            // close history recap and scroll up
+            $('.close-history-btn').click(function(event) {
+                event.preventDefault(); 
+                $('#subscription-recap').slideToggle();
+
+                // Once the content is closed, move the window to the top of the page
+                var offset = $('picture').offset().top;
+                $('html, body').animate({
+                    scrollTop: offset
+                }, 'slow');
+            });
+
+
 
             // close activities recap and scroll up
             $('.close-btn').click(function(event) {

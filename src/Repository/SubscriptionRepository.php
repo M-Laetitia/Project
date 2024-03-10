@@ -21,6 +21,24 @@ class SubscriptionRepository extends ServiceEntityRepository
         parent::__construct($registry, Subscription::class);
     }
 
+    // ^ get total amount paid for all subscriptions
+
+    public function getTotalSubscriptions($userId) {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+
+        $qb ->select('s')
+            ->from('App\Entity\Subscription', 's')
+            ->select('SUM(s.total) as total')
+            ->where('s.isActive = 0')
+            ->andWhere('s.user = :userId')
+            ->setParameter('userId', $userId);
+
+        $query = $qb->getQuery();
+        return $query->getSingleScalarResult(); 
+    }
+
 //    /**
 //     * @return Subscription[] Returns an array of Subscription objects
 //     */

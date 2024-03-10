@@ -16,6 +16,7 @@
         <div id="content-profil-user">
             <div id="separator-profil"></div>
             <div id="top">
+                <div id="pattern"></div>
                 <h2 class="text-n1">{{ user }}<span class="underscore">_</span> </h2>
                 <div id="avatar">
                     <div>
@@ -33,11 +34,17 @@
                     </div>
 
                 </div>
+
+                
+
                 <div id="roles">
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
+
+
+
             </div>
             <div id="middle">
                 <div id="left">
@@ -329,8 +336,9 @@
                                             <div>
                                                 <p>0{{ counter }}.</p>
                                                 <p>{{ participation.timeslot.studio.name }} <span>|</span> {{ participation.timeslot.startDate|formatDate }} . {{ participation.timeslot.startDate|date('H:i') }}  - {{ participation.timeslot.endDate|date('H:i') }}</p>
-                                                {% set counter = counter + 1 %}
                                             </div>
+                                                {% set counter = counter + 1 %}
+                                            
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -352,7 +360,7 @@
                                         {% endif %}
                                     {% endfor %}
                             {% endif %}
-                            <p class="close-history-btn" data-target=".subscription-recap"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
+                            <p class="close-btn" data-target=".studios"><i class="fa-regular fa-solid fa-x fa-sm"></i></p>
                         </div>
 
                         {# SUBSCRIPTIONS ----------------- #}
@@ -411,7 +419,7 @@
         </div>
     </section>
 
-    <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
+    
 
     
     <div id="avatar">
@@ -434,10 +442,53 @@
     </div>
 
     
+    <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
+    {% set roles = user.getSimpleRoles %}
+
+
+
+    {% set hasArtistRole = 'artist' in user.getSimpleRoles %}
+
+    <div id="roles">
+        {% if roles is not empty %}
+            {# loop for   admin and supervisor role  #}
+            {% for role in roles %}
+                {% if role != 'artist' %}
+                    <div>
+                        {% if role == 'admin' %}
+                            <i class="fa-solid fa-user-tie"></i>
+                        {% elseif role == 'supervisor' %}
+                            <i class="fas fa-user-shield"></i>
+                        {% endif %}
+                        {{ role }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            {# loop for artist role #}
+            {% if hasArtistRole %}
+                <div>
+                    <i class="fa-solid fa-palette"></i>
+                    Artist
+                </div>
+            {% else %}
+                <div>
+                    <i class="fas fa-paint-brush"></i>
+                    Brush
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src= "{{ asset('js/gsap.min.js') }}"></script>
 
     <script>
+      
+        
+
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('#edit-form input');
            

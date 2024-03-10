@@ -29,55 +29,93 @@
 
     </head>
 
-   <class id="pdf-content">
+   <div id="pdf-content">
         <h1>SUBSCRIPTION HISTORY</h1>
         
         <h2>Active subscription</h2>
 
-            {% for subscription in user.subscriptions %}
-            {% if subscription.isActive == 1 %}
-                <div>
-                    <p>Type: {{ subscription.subscriptionType.name }}</p>
-                    <p>Remaining days: {{ subscription.daysRemaining.remaining }}</p>
-                    <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
-                    <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
-                    {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.subscriptionType.duration ~ ' days') %}
-                    <p>End date: {{ endDate|formatDate }}</p>
-                </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Address</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Payment Date</th>
+                    <th>Duration</th>
+                    <th>End Date</th>
+                    <th>Remaining days</th>
+                </tr>
+            </thead>
+            <tbody>
 
-                <div>
-                    <p>details user: 
-                        {{ subscription.infosUser.firstname }}
-                        {{ subscription.infosUser.lastname }}
-                        {{ subscription.infosUser.address }}
-                    </p>
-                </div>
-            {% endif %}
-        {% endfor %}    
+                {% for subscription in user.subscriptions %}
+                {% if subscription.isActive == 1 %}
+
+     
+                    <tr>
+                        <td>{{ subscription.infosUser.firstname }} {{ subscription.infosUser.lastname }}</td>
+                        <td>{{ subscription.infosUser.address }}</td>
+                        <td>{{ subscription.infosSubscription.name }}</td>
+                        <td>{{ subscription.infosSubscription.price }} €</td>
+                        <td>{{ subscription.paymentDate|formatDate }}</td> 
+                        <td>{{ subscription.infosSubscription.duration }} days</td>
+                        {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+                        <td>{{ endDate|formatDate }}</td>
+                        <td>{{ subscription.daysRemaining.remaining }}</td>
+                    </tr>
+
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
 
         <h2>Previous subscriptions</h2>
 
-        {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
-            {% if subscription.isActive == 0 %}
-            <div>
-                <p>Type: {{ subscription.subscriptionType.name }}</p>
-                <p>Remaining days: {{ subscription.daysRemaining.remaining }}</p>
-                <p>Payment date: {{ subscription.paymentDate|formatDate }}</p>
-                <p>Duration: {{ subscription.subscriptionType.duration }} days</p>
-                {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.subscriptionType.duration ~ ' days') %}
-                <p>End date: {{ endDate|formatDate }}</p>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Address</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Payment Date</th>
+                    <th>Duration</th>
+                    <th>End Date</th>
+                    <th>Remaining days</th>
+                </tr>
+            </thead>
+            <tbody>
 
-            <p>details user: 
-                {{ subscription.infosUser.firstname }}
-                {{ subscription.infosUser.lastname }}
-                {{ subscription.infosUser.address }}
-            </p>
-            {% endif %}
-        {% endfor %}
+                {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
+                    {% if subscription.isActive == 0 %}
 
+     
+                    <tr>
+                        <td>{{ subscription.infosUser.firstname }} {{ subscription.infosUser.lastname }}</td>
+                        <td>{{ subscription.infosUser.address }}</td>
+                        <td>{{ subscription.infosSubscription.name }}</td>
+                        <td>{{ subscription.infosSubscription.price }} €</td>
+                        <td>{{ subscription.paymentDate|formatDate }}</td> 
+                        <td>{{ subscription.infosSubscription.duration }} days</td>
+                        {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+                        <td>{{ endDate|formatDate }}</td>
+                        <td>/ </td>
+                    </tr>
 
-   </class>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6" style="text-align: right;">Total:</td>
+                    <td>{{ totalSubscriptions }} €</td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
 
 </html>
 

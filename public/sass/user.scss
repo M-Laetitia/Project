@@ -10,7 +10,6 @@
 // ---------------------------------
 
 #profil-user {
-
         color: $main-white-color;
         box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
         position: relative;
@@ -34,10 +33,37 @@
             justify-items: center;
             align-items: end;
             position: relative;
+            // overflow: hidden;
             
+
+            #pattern {
+                position: absolute;
+                background-image: url('../images/profil2.png'); 
+                width:100%;
+                height: 100%;
+                z-index: 0;
+                background-repeat: repeat;
+                animation: moveLeftRight 5s linear infinite;
+                background-size: auto 100%;
+                background-position: 0 0;
+                /*adjust s value for speed*/
+                // animation: animatedBackground 100s linear infinite;
+            }
+
+            @keyframes animatedBackground {
+                from {
+                  background-position: 0 0;
+                }
+                /*use negative width if you want it to flow right to left else and positive for left to right*/
+                to {
+                  background-position: -10000px 0;
+                }
+            }
+                        
             h2 {
                 text-transform: uppercase;
                 margin-bottom: 0.5rem;
+                z-index: 1;
                 span {
                     color: $secondary-color3;
                     font-size: 45px;
@@ -225,7 +251,7 @@
                             transition: ease-in-out 0.3s;
 
                             &:hover {
-                                color: red;
+                                color: $secondary-color3;
 
                             }
                         }
@@ -234,6 +260,7 @@
                             margin-right: 0.6rem;
                             opacity: 0;
                             transition: ease-in-out 0.3s;
+                            color: $secondary-color3;
                         }
                     }
                 }
@@ -421,6 +448,26 @@
                 font-size: 1.2rem;
             }
         }
+    
+        .fa-x {
+            margin-top: 2rem;
+            width: 25px;
+            height: 25px;
+            background-color: $main-black-color;
+            border: 2px solid $main-black-color;
+            border-radius: 50%;
+            @include center-flexbox();
+            color: $main-white-color;
+            transition: ease-in-out 0.3s;
+            cursor: pointer;
+            
+    
+            &:hover {
+                background-color: $main-white-color ;
+                color: $main-black-color;
+                border: 2px solid $main-black-color;
+            }
+        }
     }
 }
 
@@ -432,6 +479,7 @@
 
     div {
         display: flex;
+        align-items: center;
 
         p {
             margin-right: 0.3rem;
@@ -448,6 +496,66 @@
             }
         }
     }
+}
+
+#subscription-recap {
+    .text-n2 {
+        margin-bottom: 0.5rem;
+        span {
+            color: $secondary-color;
+        }
+    }
+
+    #active, #inactive {
+        span {
+            color: $secondary-color3;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
+        div {
+            border-bottom: 1px solid $secondary-color;
+            width: 200px;
+            margin: 0.6rem 0;
+        }
+    }
+
+    #btn-subscription {
+        margin: 2rem 0 ;
+        display: flex;
+        column-gap: 2rem;
+
+        div {
+            i {
+                color: $secondary-color3;
+                transition: ease-in-out 0.3s;
+                cursor: pointer;
+                &:hover {
+                    color: $secondary-color;
+                }
+            }
+        }
+        .fa-x {
+            width: 25px;
+            height: 25px;
+            background-color: $main-black-color;
+            border: 2px solid $main-black-color;
+            border-radius: 50%;
+            @include center-flexbox();
+            color: $main-white-color;
+            transition: ease-in-out 0.3s;
+            cursor: pointer;
+            
+    
+            &:hover {
+                background-color: $main-white-color ;
+                color: $main-black-color;
+                border: 2px solid $main-black-color;
+            }
+        }
+    }
+    
+    
 }
 
 

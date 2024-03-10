@@ -17,11 +17,8 @@ class AvatarType extends AbstractType
         $builder
             ->add('avatar',FileType::class, [
                 'required' => false,
-                'label' => 'Profile picture :',
+                'label' => 'Upload a profile picture :',
                 'data_class' => null,
-
-                // make it optional so you don't have to re-upload the PDF file
-                // every time you edit the Product details
                 'required' => false,
 
                 // unmapped fields can't define their validation using annotations

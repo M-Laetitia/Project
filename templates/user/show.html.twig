@@ -5,9 +5,12 @@
 {% block body %}
 
     <div class="banner">
-        <div>
+        <div class="content">
             <h1 class="banner-title">YOUR PROFIL</h1>
-            <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
         </div>
     </div>
     
@@ -30,22 +33,59 @@
                         
                     </div>
                     <div>
-                        <i class="fa-regular fa-pen-to-square fa-lg"></i>
+                        <i id="upload-avatar-btn" class="fa-regular fa-pen-to-square fa-lg"></i>
                     </div>
-
                 </div>
 
-                
+                {# <p>Role: {{ user.getSimpleRoles|join(', ')}} </p> #}
+                {% set roles = user.getSimpleRoles %}
+                {% set hasArtistRole = 'artist' in user.getSimpleRoles %}
 
                 <div id="roles">
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                   {% if roles is not empty %}
+                    {# loop for  admin and supervisor role  #}
+                    {% for role in roles %}
+                        {% if role != 'artist' %}
+                            <div>
+                                {% if role == 'admin' %}
+                                    <a href="{{ path('app_dashboard')}}"><i class="fa-solid fa-user-tie fa-xl"></i></a>
+                                {% elseif role == 'supervisor' %}
+                                    <a href={{ path('studio_dashboard')}}><i class="fa-solid fa-graduation-cap fa-xl"></i></a>
+                                {% endif %}
+                                
+                                
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {# loop for artist role #}
+                    {% if hasArtistRole %}
+                        <div id="role-artist">
+                            <a href="{{ path('manage_profil', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette fa-xl"></i></a>
+                            
+                        </div>
+                    {% else %}
+                        <div id="not-artist">
+                            <i class="fa-solid fa-palette fa-xl"></i>
+                        </div>
+                    {% endif %}
+                {% endif %}
                 </div>
 
-
-
             </div>
+
+            <div id="upload-avatar">
+                <div id="form-avatar">
+                    {{ form_start(form) }}
+                    {{ form_errors(form)}}
+                    {{ form_row(form.avatar) }} 
+                    <div class="btn btn6">
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+
+
             <div id="middle">
                 <div id="left">
                     <p class="text-n2" id="infos">Info<span>_</span></p>
@@ -427,11 +467,7 @@
             
         </div>
         
-        <div id="form">
-            {{ form_start(form) }}
-            {{ form_row(form.avatar) }} 
-            {{ form_end(form) }}
-        </div>
+       
     </div>
 
 
@@ -442,44 +478,6 @@
     </div>
 
     
-    <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
-    {% set roles = user.getSimpleRoles %}
-
-
-
-    {% set hasArtistRole = 'artist' in user.getSimpleRoles %}
-
-    <div id="roles">
-        {% if roles is not empty %}
-            {# loop for   admin and supervisor role  #}
-            {% for role in roles %}
-                {% if role != 'artist' %}
-                    <div>
-                        {% if role == 'admin' %}
-                            <i class="fa-solid fa-user-tie"></i>
-                        {% elseif role == 'supervisor' %}
-                            <i class="fas fa-user-shield"></i>
-                        {% endif %}
-                        {{ role }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-
-            {# loop for artist role #}
-            {% if hasArtistRole %}
-                <div>
-                    <i class="fa-solid fa-palette"></i>
-                    Artist
-                </div>
-            {% else %}
-                <div>
-                    <i class="fas fa-paint-brush"></i>
-                    Brush
-                </div>
-            {% endif %}
-        {% endif %}
-    </div>
-
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -487,13 +485,30 @@
 
     <script>
         gsap.to("#pattern", {
-            backgroundPosition: "-10000px 0", // Background position destination
-            duration: 100, // Animation duration
-            ease: "linear", // Easing function (linear for uniform motion)
-            repeat: -1 // Repeat indefinitely
+            // Background position destination
+            // Animation duration
+            // Easing function (linear for uniform motion)
+            // Repeat indefinitely
+            /*backgroundPosition: "-10000px 0", 
+            duration: 100, 
+            ease: "linear", 
+            repeat: -1 */
         });
 
-        
+        gsap.from("#pattern", {
+            opacity: 0,
+            duration: 4,
+            ease: "easeInOut", 
+            delay: 1.1 
+        });
+
+
+        gsap.from("#profil-user", {
+            opacity: 0, 
+            duration: 1.2, 
+            ease: "easeInOut", 
+            delay: 0.8
+        });
 
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('#edit-form input');
@@ -512,6 +527,12 @@
         });
 
         $(document).ready(function() {
+
+            // upload avatar picture
+            $('#upload-avatar-btn').click(function(){
+                $("#form-avatar").slideToggle();
+            });
+
             // show / hide edit account div
             $('#edit-infos-btn').click(function(){
                 $("#edit-form").slideToggle();

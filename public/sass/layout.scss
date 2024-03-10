@@ -80,9 +80,8 @@ body {
     // padding-left: $padding-border;
     
 
-    div {
+    .content {
         width: $content-width;
-        // background-color: red;
         margin: auto;
     
         h1, p {
@@ -93,6 +92,11 @@ body {
         p {
             color: $secondary-color3;
         }
+
+        .subtitle {
+            
+            display: flex;
+        }
     } 
 
 }
@@ -100,14 +104,16 @@ body {
     .banner-title {
         opacity: 0;
         transform: translateX(-80px); 
-
         transition: opacity 2s ease, transform 2s ease; 
         text-transform: uppercase;
+        // letter-spacing: 0.2rem;
+       
     }
 
     .banner-text {
         opacity: 0;
         transition: opacity 2s ease 1s; 
+        // letter-spacing: 0.2rem;
     }
 
     .banner-title.visible {
@@ -120,24 +126,35 @@ body {
     }
 
 
-
-    .underscore-static {
-        font-size: 24px;
-        animation: blink 1s 5; 
-    }
-
-@keyframes blink {
-    0% {
-        opacity: 1;
-    }
-    50% {
+    .underscore-blink {
+        margin-left: 0.3rem;
+        width: 1.7rem;
+        height: 45px;
+        border-bottom: 6px solid $secondary-color;
         opacity: 0;
+        transition: ease 0.3s;
     }
-    100% {
+
+
+    .underscore-blink.visible {
         opacity: 1;
     }
-}
 
+    .underscore-blink.animate {
+        animation: blink 1s 5;
+    }
+
+    @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 
 
 .content {

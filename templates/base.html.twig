@@ -78,7 +78,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-
+        {# Google icon: #}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
 
         {% block stylesheets %}
@@ -91,7 +92,6 @@
             <link rel="stylesheet" href="{{asset('css/artistPages.css')}}">
             <link rel="stylesheet" href="{{asset('css/studios.css')}}">
             <link rel="stylesheet" href="{{asset('css/events.css')}}">
-
         {% endblock %}
 
         {% block javascripts %}
@@ -180,6 +180,8 @@
 
         </nav>
 
+
+
         {#   ---------------------------------- */
         //   ██████  ██████  ███    ██ ████████ ███████ ███    ██ ████████ 
         //  ██      ██    ██ ████   ██    ██    ██      ████   ██    ██    
@@ -189,11 +191,9 @@
         /*  ---------------------------------- */#}
 
         <div class="roles" style="display:none;">
-
         
             <a href="{{ path('app_langindPage') }}">landing page</a>
       
-
 
             {% if is_granted('ROLE_ARTIST') %}
             <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
@@ -410,11 +410,22 @@
         $('.banner-title').addClass('visible');
         $('.banner-text').addClass('visible');
 
-        // Clignotement de l'underscore
-        setInterval(function() {
-            $('.underscore-static').toggleClass('underscore-blink');
-        }, 1000);
+        gsap.from(".banner", {
+            opacity: 0,
+            duration: 2,
+            ease: "easeInOut", 
+            delay: 0.6
+        });
 
+        // underscrore blink
+        setTimeout(function() {
+            $('.underscore-blink').addClass('visible');
+            
+            // active the class animate
+            setTimeout(function() {
+                $('.underscore-blink').addClass('animate');
+            }, 300);
+        }, 1800);
 
         
         

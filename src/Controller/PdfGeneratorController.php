@@ -4,6 +4,7 @@ namespace App\Controller;
  
 use Dompdf\Dompdf;
 use App\Entity\User;
+use App\Repository\SubscriptionRepository;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,14 +14,18 @@ class PdfGeneratorController extends AbstractController
 {
     // #[Route('/pdf/generator/{id}', name: 'app_pdf_generator')]
     #[Route('/pdf/subscriptions_history/{id}', name: 'subscriptions_history')]
-    public function index(User $user = null, Security $security): Response
+    public function index(User $user = null, Security $security, SubscriptionRepository $subscriptionRepo): Response
     {
 
         $user = $security->getUser();
+        $userId = $user->getId();
+        $totalSubscriptions = $subscriptionRepo->getTotalSubscriptions($userId);
+
 
         // Générer le HTML du PDF
         $html = $this->renderView('pdf_generator/subscriptionsHistory.html.twig', [
             'user' => $user,
+            'totalSubscriptions' => $totalSubscriptions,
         ]);
 
         // Instanciation de Dompdf

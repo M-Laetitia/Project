@@ -99,6 +99,7 @@ class ParticipationController extends AbstractController
         return $this->render('exposition/newParticipation.html.twig', [
             'formSendParticipation' => $form,
             'user' => $user,
+            'area' => $area,
 
         ]);
     }
@@ -107,6 +108,7 @@ class ParticipationController extends AbstractController
     #[Route('/event/{id}/new', name: 'new_event_participation')]
     public function newArea(AreaParticipation $areaParticipation = null, Area $area, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
     {
+
 
         $user = $security->getUser();
 
@@ -155,6 +157,7 @@ class ParticipationController extends AbstractController
         return $this->render('event/newParticipation.html.twig', [
             'formSendParticipation' => $form,
             'user' => $user,
+            'area'=> $area, 
 
         ]);
     }
@@ -275,6 +278,7 @@ class ParticipationController extends AbstractController
         return $this->render('workshop/newParticipation.html.twig', [
             'formSendRegistration' => $form,
             'user' => $user,
+            'workshop' =>$workshop,
 
         ]);
     }

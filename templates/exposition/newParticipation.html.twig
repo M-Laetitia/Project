@@ -5,15 +5,59 @@
 
 {% block body %}
 
-<h1>Partipate to an exhibition</h1>
 
-{{ form_start(formSendParticipation)}}
-    {{ form_errors(formSendParticipation)}}
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">{{area.name}}</h1>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
 
-    {{ form_row(formSendParticipation.firstname)}}
-    {{ form_row(formSendParticipation.lastname)}}
-    {{ form_row(formSendParticipation.submit)}}
+<style>
+    body {
+        background-color: #151515;
+    }
+</style>
 
-{{ form_end(formSendParticipation)}}
+
+<div class="breadcrumb breadcrumb-light">
+<p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_exposition') }}">All Expositions</a> > <a href="{{ path('show_exposition', { slug : area.slug  }) }}">{{area.name}}</a> > Reservation</p>
+</div>
+
+
+<section class="content participation-content" id="register-user">
+    <div id="register-container">
+        <div id="separator">
+
+        </div>
+        <div class="left-register" id="l-participation">
+         
+        </div>
+
+        <div class="right-register" id="r-participation">
+            <div id="title-register">
+                <h2>Make a reservation<span class="underscore">_</span></h2>
+                <p style="padding-bottom:0;"><span id="name">{{area.name}}</span><span id="pipe-separator">|</span> {{area.startDate|formatDate}} - {{area.startDate|date('H:i')}} </p>
+
+                <p><span style="visibility:hidden;" id="name">{{area.name}}</span><span style="visibility:hidden;" id="pipe-separator">|</span> {{area.endDate|formatDate}} - {{area.endDate|date('H:i')}} </p>
+            </div>
+
+            <div id="form-register">
+
+                {{ form_start(formSendParticipation)}}
+                    {{ form_errors(formSendParticipation)}}
+                    {{ form_row(formSendParticipation.firstname)}}
+                    {{ form_row(formSendParticipation.lastname)}}
+                        {{ form_row(formSendParticipation.submit, { 'attr' : { 'class': 'btn btn6' } })}}
+                {{ form_end(formSendParticipation)}}
+
+            </div>
+        </div>
+    </div>
+</section>
+
 
 {% endblock %}

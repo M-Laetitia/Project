@@ -11,30 +11,68 @@
 
 {% block body %}
 
-<h1>Payment:</h1>
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">subscription / payment</h1>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
 
-<p>Subscription choosen:</p>
-<p>{{subscriptionType}}</p>
-<p>{{subscriptionType.price}} eur</p>
-<p>{{subscriptionType.duration}} days</p>
+<style>
+    body {
+        background-color: #151515;
+    }
+</style>
 
-<p>Make the payment</p>
+<div class="breadcrumb breadcrumb-light">
+    <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_subscription') }}">All Subscriptions</a> >{{subscriptionType}}
+</div>
 
 
-{# changer nom id #}
-<div id="client-secret" data-client-secret="{{ clientSecret }}"></div>
+<section class="content participation-content" id="register-user">
+    <div id="register-container">
+        <div id="separator">
 
+        </div>
+        <div class="left-register" id="l-participation">
+         
+        </div>
 
-{{ form_start(formSubscriptionPayment, {'attr': {'id': 'subscription-form'}}) }}
-        {{ form_errors(formSubscriptionPayment)}}
-        {{ form_row(formSubscriptionPayment.firstname)}}
-        {{ form_row(formSubscriptionPayment.lastname)}}
-        {{ form_row(formSubscriptionPayment.address)}}
-        <div id="card-elements" class="stripe-card-elements"></div>
-        <div id="card-errors" role="alter"></div>
+        <div class="right-register" id="r-participation">
+            <div id="detail-subscription-payment">
+                <h2>Proceed to payment<span class="underscore">_</span></h2>
+  
+                <p>Subscription choosen:</p>
+                <p>{{subscriptionType}}</p>
+                <p>{{subscriptionType.price}} euros</p>
+                <p>{{subscriptionType.duration}} days</p>
+            </div>
 
-        {{ form_row(formSubscriptionPayment.Subscribe, {'attr': {'class': 'card-button'}}) }}
-{{ form_end(formSubscriptionPayment)}}
+            {# <p>Make the payment</p> #}
+            <div id="form-register">
+
+            {# changer nom id #}
+            <div id="client-secret" data-client-secret="{{ clientSecret }}"></div>
+
+            {{ form_start(formSubscriptionPayment, {'attr': {'id': 'subscription-form'}}) }}
+                    {{ form_errors(formSubscriptionPayment)}}
+                    {{ form_row(formSubscriptionPayment.firstname)}}
+                    {{ form_row(formSubscriptionPayment.lastname)}}
+                    {{ form_row(formSubscriptionPayment.address)}}
+                    <div id="card-elements" class="stripe-card-elements"></div>
+                    <div id="card-errors" role="alter"></div>
+
+                    {{ form_row(formSubscriptionPayment.Subscribe, {'attr': {'class': 'card-button btn btn6'}}) }}
+            {{ form_end(formSubscriptionPayment)}}
+
+            </div>
+        </div>
+    </div>
+</section>
+
 
 <script>
   

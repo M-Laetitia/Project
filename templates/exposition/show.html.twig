@@ -5,12 +5,22 @@
 
 {% block body %}
 
+
 <div class="banner">
-        <div>
+        <div class="content">
             <h1 class="banner-title">{{area.name}}</h1>
-            <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
         </div>
+    </div>
+
+
+<div class="breadcrumb breadcrumb-dark">
+        <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_exposition') }}">All Expositions</a> > {{area.name}}</p>
 </div>
+
 
     
 <section class="" id="event-show">
@@ -90,10 +100,12 @@
                                 
                 {% elseif area.status == 'OPEN' %}
                         <div id="expo-participate">
-                                {# <a href="{{ path('new_exposition_participation', {'id': area.id }) }}"></a> #}
+                                <a href="{{ path('new_exposition_participation', {'id': area.id }) }}">
                                 <div id="btn-event">
                                         <div id="btn-participate-expo" class="button btn6">PARTICIPATE</div>
                                 </div>
+                                </a>
+                                
                         </div>
                         {% endif %}
                 {% endif %}

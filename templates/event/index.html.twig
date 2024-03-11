@@ -5,11 +5,19 @@
 
 {% block body %}
 
+
 <div class="banner">
-    <div>
+    <div class="content">
         <h1 class="banner-title">OUR EVENTS</h1>
-        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
     </div>
+</div>
+
+<div class="breadcrumb breadcrumb-dark">
+    <p><a href="{{ path('app_homepage') }}">Home </a> > All Events </p>
 </div>
 
 <section class="content" id="events-index">

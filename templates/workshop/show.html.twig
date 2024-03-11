@@ -7,10 +7,17 @@
 {% block body %}
 
 <div class="banner">
-    <div>
+    <div class="content">
         <h1 class="banner-title">{{workshop.name}}</h1>
-        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
     </div>
+</div>
+
+<div class="breadcrumb breadcrumb-dark">
+    <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_workshop') }}">All Workshops</a> > {{workshop.name}} </p>
 </div>
 
 <section class="" id="event-show">
@@ -134,11 +141,15 @@
                     {% elseif workshop.status == 'OPEN' %}
 
                     <div id="expo-participate">
-                        <div id="btn-event">
+
+                        <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">
+                            <div id="btn-event">
                                 <div class="button btn6">PARTICIPATE</div>
-                        </div>
+                            </div>
+                        </a></p>
+                        
                     </div>
-                        {# <a href="{{ path('new_workshop_registration', {'id': workshop.id }) }}">Click here!</a></p> #}
+                        
                     {% endif %}
                     </p>
                 {% endif %}

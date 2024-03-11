@@ -363,6 +363,7 @@ html {
   position: relative;
   text-align: center;
   cursor: pointer;
+  letter-spacing: 0.25rem;
 }
 
 .btn4 {

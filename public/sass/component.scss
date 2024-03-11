@@ -19,6 +19,7 @@ $transition-len: 0.35s;
   position: relative;
   text-align: center;
   cursor: pointer;
+  letter-spacing: $letter-spacing-medium;
   // border-radius: 0.3rem;
   // transition: all $transition-len cubic-bezier($transition-bezier);
 

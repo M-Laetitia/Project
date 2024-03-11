@@ -718,6 +718,7 @@ html {
   position: relative;
   text-align: center;
   cursor: pointer;
+  letter-spacing: 0.25rem;
 }
 
 .btn4 {
@@ -1288,6 +1289,18 @@ html {
     background-position: left;
   }
 }
+.participation-content button:hover {
+  background-color: #272727;
+}
+.participation-content #r-participation #title-register p #name {
+  font-size: 1.4rem;
+}
+.participation-content #r-participation #title-register p #pipe-separator {
+  color: #F9F9F9;
+  font-size: 1.4rem;
+  padding: 0 0.3rem;
+}
+
 #calendar-page {
   width: 70%;
   height: 800px;

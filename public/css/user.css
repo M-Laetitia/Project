@@ -718,6 +718,7 @@ html {
   position: relative;
   text-align: center;
   cursor: pointer;
+  letter-spacing: 0.25rem;
 }
 
 .btn4 {
@@ -1486,6 +1487,14 @@ html {
   background-color: #F9F9F9;
   color: #151515;
   border: 2px solid #151515;
+}
+
+.see-more {
+  margin-bottom: 0.6rem;
+  color: #4c4545;
+}
+.see-more a:hover {
+  color: #eeaf42;
 }
 
 .subscriptions {

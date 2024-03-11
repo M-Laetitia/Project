@@ -157,11 +157,35 @@ body {
 
 
 .content {
-    // background-color: red;
     width: $content-width;
     margin: auto;
 }
 
+.breadcrumb {
+    width: $content-width;
+    margin: auto;
+    margin-bottom: .9rem;
+}
+
+.breadcrumb-light {
+    color: $main-white-color;
+    a {
+        transition: $transition-basic;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+}
+
+.breadcrumb-dark {
+    color: $main-black-color;
+    a {
+        transition: $transition-basic;
+        &:hover {
+            color: $secondary-color3;
+        }
+    }
+}
   
 
 /*  ---------------------------------- */

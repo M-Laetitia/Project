@@ -14,11 +14,24 @@ class WorkshopRegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            // ->add('registrationDate')
-            // ->add('workshop')
-            // ->add('user')
+
+            ->add('firstname', TextType::class, [
+                'label' => 'First name',
+                'required' => true, 
+                'attr' => [
+                    'placeholder' => 'Enter your first name'
+                ]
+            ])
+
+            ->add('lastname', TextType::class, [
+                'label' => 'Last name',
+                'required' => true, 
+                'attr' => [
+                    'placeholder' => 'Enter your last name'
+                ]
+            ])
+
+
             ->add('Participate', SubmitType::class)
         ;
     }

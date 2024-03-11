@@ -13,10 +13,17 @@
 
 
 <div class="banner">
-    <div>
+    <div class="content">
         <h1 class="banner-title">SUBSCRIPTIONS</h1>
-        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
     </div>
+</div>
+
+<div class="breadcrumb breadcrumb-light">
+    <p><a href="{{ path('app_homepage') }}">Home </a> > All Subscriptions </p>
 </div>
 
 {% if app.user %}

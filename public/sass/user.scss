@@ -529,6 +529,17 @@
     }
 }
 
+.see-more {
+    margin-bottom: .6rem;
+    color: $grey-medium;
+
+    a {
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+}
+
 .subscriptions {
     display: flex;
     flex-direction: column;

@@ -22,6 +22,7 @@
                 <div id="pattern"></div>
                 <h2 class="text-n1">{{ user }}<span class="underscore">_</span> </h2>
                 <div id="avatar">
+
                     <div>
                         <picture>
                             {% if user.avatar %}
@@ -30,8 +31,8 @@
                                 <img src="{{ asset('images/default_profile.jpg') }}">
                             {% endif %}
                         </picture>
-                        
                     </div>
+
                     <div>
                         <i id="upload-avatar-btn" class="fa-regular fa-pen-to-square fa-lg"></i>
                     </div>
@@ -237,9 +238,14 @@
                                             {% if participation.area.status in ["OPEN", "CLOSED", "PENDING"]  %}
                                             <div>
                                                 <p>0{{ counter }}.</p>
-                                                <p>{{ participation.area.name }} <span>|</span> {{ participation.area.startDate|formatDate }}  - {{ participation.area.startDate|date('H:i') }} </p>
-
-                                                <a href="{{ path('show_event', { slug : participation.area.slug  }) }}">see</a>
+                                                <p>
+                                                    {{ participation.area.name }} <span>|</span> {{ participation.area.startDate|formatDate }}  - {{ participation.area.startDate|date('H:i') }} 
+                                                </p>
+                                                
+                                                <div class="see-more" >
+                                                    <a href="{{ path('show_event', { slug : participation.area.slug  }) }}">See more <i class="ri-eye-close-line"></i></a>
+                                                </div>
+                                                
                                             </div>
                                                 {% set counter = counter + 1 %}
                                             {% endif %}
@@ -258,7 +264,10 @@
                                                 <p>0{{ counter }}.</p>
                                                 <p>{{ participation.area.name }} <span>|</span> {{ participation.area.startDate|formatDate }}  - {{ participation.area.startDate|date('H:i') }} </p>
 
-                                                <a href="{{ path('show_event', { slug : participation.area.slug  }) }}">see</a>
+                                                <div class="see-more" >
+                                                    <a href="{{ path('show_event', { slug : participation.area.slug  }) }}">See more <i class="ri-eye-close-line"></i></a>
+                                                </div>
+
                                             </div>
                                                 {% set counter2 = counter2 + 1 %}
                                             {% endif %}
@@ -287,7 +296,10 @@
                                                 <p>0{{ counter }}.</p>
                                                 <p>{{ participation.area.name }} <span>|</span> {{ participation.area.startDate|formatDate }}  - {{ participation.area.startDate|date('H:i') }} . {{ participation.area.endDate|formatDate }}  - {{ participation.area.endDate|date('H:i') }}</p>
 
-                                                <a href="{{ path('show_exposition', { slug : participation.area.slug  }) }}">see</a>
+                                                <div class="see-more" >
+                                                    <a href="{{ path('show_exposition', { slug : participation.area.slug  }) }}">See more <i class="ri-eye-close-line"></i></a>
+                                                </div>
+
                                             </div>
                                                 {% set counter = counter + 1 %}
                                             {% endif %}
@@ -306,7 +318,10 @@
                                                 <p>0{{ counter }}.</p>
                                                 <p>{{ participation.area.name }} <span>|</span> {{ participation.area.startDate|formatDate }}  - {{ participation.area.startDate|date('H:i') }} . {{ participation.area.endDate|formatDate }}  - {{ participation.area.endDate|date('H:i') }}</p>
 
-                                                <a href="{{ path('show_exposition', { slug : participation.area.slug  }) }}">see</a>
+                                                <div class="see-more" >
+                                                    <a href="{{ path('show_exposition', { slug : participation.area.slug  }) }}">See more <i class="ri-eye-close-line"></i></a>
+                                                </div>
+
                                             </div>
                                                 {% set counter2 = counter2 + 1 %}
                                             {% endif %}
@@ -333,7 +348,11 @@
                                                 <p>0{{ counter }}.</p>
                                                 <p>{{ participation.workshop.name }} <span>|</span> {{ participation.workshop.startDate|formatDate }}  - {{ participation.workshop.startDate|date('H:i') }} . {{ participation.workshop.endDate|formatDate }}  - {{ participation.workshop.endDate|date('H:i') }}</p>
 
-                                                <a href="{{ path('show_workshop', { slug : participation.workshop.slug  }) }}">see</a>
+                                                <div class="see-more" >
+                                                    <a href="{{ path('show_workshop', { slug : participation.workshop.slug  }) }}">See more <i class="ri-eye-close-line"></i></a>
+                                                </div>
+
+                                               
                                             </div>
                                                 {% set counter = counter + 1 %}
                                             {% endif %}
@@ -351,7 +370,11 @@
                                                 <p>0{{ counter }}.</p>
                                                 <p>{{ participation.workshop.name }} <span>|</span> {{ participation.workshop.startDate|formatDate }}  - {{ participation.workshop.startDate|date('H:i') }} . {{ participation.workshop.endDate|formatDate }}  - {{ participation.workshop.endDate|date('H:i') }}</p>
 
-                                                <a href="{{ path('show_workshop', { slug : participation.workshop.slug  }) }}">see</a>
+                                                <div class="see-more" >
+                                                    <a href="{{ path('show_workshop', { slug : participation.workshop.slug  }) }}">See more <i class="ri-eye-close-line"></i></a>
+                                                </div>
+
+                                                
                                             </div>
                                                 {% set counter2 = counter2 + 1 %}
                                             {% endif %}
@@ -561,10 +584,18 @@
                     $('.icon-cancel').removeClass('fa-regular').addClass('fa-solid');
                 },
                 function() {
-
                     $(this).find('.icon-cancel').removeClass('fa-solid').addClass('fa-regular');
                 }
             );
+
+            // change logo on hovering (cancel)
+            $('.see-more a').hover(function() {
+                $(this).find('i').removeClass('ri-eye-close-line').addClass('ri-eye-fill');
+            }, function() {
+                $(this).find('i').removeClass('ri-eye-fill').addClass('ri-eye-close-line');
+            });
+
+
 
             // show / hide eye icon on activities hover
             $('.activity-list p').hover(function() {

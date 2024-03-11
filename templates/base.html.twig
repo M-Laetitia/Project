@@ -81,6 +81,8 @@
         {# Google icon: #}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
+    
+
 
         {% block stylesheets %}
             <link rel="stylesheet" href="{{asset('css/general.css')}}">
@@ -331,7 +333,17 @@
         ease: "power4.out",
         delay: 1.1
         }); */
-
+        setTimeout(function() {
+            gsap.to(".name-app", {
+                keyframes: [
+                    { backgroundPosition: "100% 0%", ease: "none", duration: 0 }, 
+                    { backgroundPosition: "0% 0%", ease: "none", duration: 0.5 }, 
+                    { backgroundPosition: "100% 0%", ease: "none", duration: 1 } 
+                ],
+                repeat: -1, // infinite repeat
+                repeatDelay: 8 // seconds between repetition
+            });
+        }, 2000);
 
 
         gsap.from(".breadcrumb", {

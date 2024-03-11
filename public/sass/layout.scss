@@ -221,15 +221,14 @@ nav {
             to right,
             $secondary-color,
             $secondary-color 50%,
-            $main-white-color 50%
+            $main-white-color 50%,
         );
         background-size: 200% 100%;
         background-position: -100%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        
-        animation: colorChange 2s forwards;
-        animation-delay: 2s;
+        // animation: colorChange 2s forwards;
+        // animation-delay: 2s;
 
         a {
             transition: 5s ease-in-out;
@@ -248,21 +247,19 @@ nav {
             }
         }
 
-       
-
     }
 
-    @keyframes colorChange {
-        0% {
-            background-position: 100%; /* Position initiale du dégradé */
-        }
-        50% {
-            background-position: 0%; /* Position intermédiaire du dégradé */
-        }
-        100% {
-            background-position: 100%; /* Position finale du dégradé */
-        }
-    }
+    //  @keyframes colorChange {
+    //     0% {
+    //         background-position: 100%;
+    //     }
+    //     50% {
+    //         background-position: 0%; 
+    //     }
+    //     100% {
+    //         background-position: 100%; 
+    //     }
+    // }
 
     .nav-links {
         font-size: $fs-text;

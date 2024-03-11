@@ -906,6 +906,65 @@ $grey-color: #272727;
 }
 
 // ---------------------------------
+//  ██████   █████  ██    ██ ███    ███ ███████ ███    ██ ████████ 
+//  ██   ██ ██   ██  ██  ██  ████  ████ ██      ████   ██    ██    
+//  ██████  ███████   ████   ██ ████ ██ █████   ██ ██  ██    ██    
+//  ██      ██   ██    ██    ██  ██  ██ ██      ██  ██ ██    ██    
+//  ██      ██   ██    ██    ██      ██ ███████ ██   ████    ██    
+// ---------------------------------
+
+
+#detail-subscription-payment {
+
+    #details {
+        background-color: $main-black-color;
+        // border: 1px solid $secondary-color;
+        margin-top: 1.6rem;
+        margin-right: 12rem;
+        padding: 2rem;
+
+        p:nth-child(1)  {
+            font-size: 1.1rem;
+            font-weight: $semi-bold;
+            // text-transform: uppercase;
+            color: $secondary-color;
+            margin-bottom: .6rem;
+        }
+
+    }
+
+
+}
+
+.payment-subscription {
+    position: relative;
+    #confirmation-modal-payment {
+        background-color: grey;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px; 
+        height: 200px; 
+        z-index: 10;
+    }
+}
+
+
+#card-elements {
+    color: green;
+    div {
+        background-color: red !important;
+    }
+
+    .InputContainer .InputElement {
+        color: red !important;
+    }
+}
+
+
+
+// ---------------------------------
 //  ██       ██████   ██████  ██ ███    ██ 
 //  ██      ██    ██ ██       ██ ████   ██ 
 //  ██      ██    ██ ██   ███ ██ ██ ██  ██ 

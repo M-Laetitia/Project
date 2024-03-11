@@ -5,17 +5,58 @@
 
 {% block body %}
 
-<h1>Workshop registration</h1>
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">{{workshop.name}}</h1>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #151515;
+    }
+</style>
+
+<div class="breadcrumb breadcrumb-light">
+    <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_workshop') }}">All Workshops</a> > <a href="{{ path('show_workshop', { slug : workshop.slug  }) }}">{{workshop.name}}</a> > Reservation</p>
+</div>
 
 
-{{ form_start(formSendRegistration)}}
-    {{ form_errors(formSendRegistration)}}
+<section class="content participation-content" id="register-user">
+    <div id="register-container">
+        <div id="separator">
 
-    {{ form_row(formSendRegistration.firstname)}}
-    {{ form_row(formSendRegistration.lastname)}}
-    {{ form_row(formSendRegistration.Participate)}}
+        </div>
+        <div class="left-register" id="l-participation">
+        </div>
 
-{{ form_end(formSendRegistration)}}
+        <div class="right-register" id="r-participation">
+            <div id="title-register">
+                <h2>Make a reservation<span class="underscore">_</span></h2>
+
+                <p style="padding-bottom:0;"><span id="name">{{workshop.name}}</span><span id="pipe-separator">|</span> {{workshop.startDate|formatDate}} - {{workshop.startDate|date('H:i')}} </p>
+
+                <p><span style="visibility:hidden;" id="name">{{workshop.name}}</span><span style="visibility:hidden;" id="pipe-separator">|</span> {{workshop.endDate|formatDate}} - {{workshop.endDate|date('H:i')}} </p>
+            </div>
+
+
+            <div id="form-register">
+                {{ form_start(formSendRegistration)}}
+                    {{ form_errors(formSendRegistration)}}
+                
+                    {{ form_row(formSendRegistration.firstname)}}
+                    {{ form_row(formSendRegistration.lastname)}}
+                    {{ form_row(formSendRegistration.Participate, { 'attr' : { 'class': 'btn btn6' } })}}
+                {{ form_end(formSendRegistration)}}
+            
+            </div>
+        </div>
+    </div>
+</section>
 
 
 {% endblock %}

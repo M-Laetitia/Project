@@ -332,6 +332,8 @@
         delay: 1.1
         }); */
 
+
+
         gsap.from(".breadcrumb", {
             opacity: 0, 
             duration: 1.2, 
@@ -393,6 +395,15 @@
             var currentYear = new Date().getFullYear();
             $('#footer-date').text(currentYear);
 
+            // switch pattern footer depending on the body color
+            var bodyBgColor = $('body').css('background-color');
+
+            if (bodyBgColor.includes("21")) { 
+                $('#top-footer').css('background-image', "url('../images/motif-footer03.png')");
+            } else if (bodyBgColor.includes("249")) { 
+                $('#top-footer').css('background-image', "url('../images/motif-footer02.png')");
+            }
+            
         
         });
 

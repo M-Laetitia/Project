@@ -29,16 +29,26 @@ class ArtistStatusType extends AbstractType
             ->add('category', ChoiceType::class, [
                 'label' => 'Category',
                 'mapped' => false,
+                // 'expanded' => true,
+                // 'multiple' => false,
                 'required' => true, 
                 'choices' => [
                     'Choose a category' => '',
                     'Illustration' => 'illustration',
-                    'Photography' => 'photgraphy',
+                    'Photography' => 'photography',
                     'Graphism' => 'graphism',
                     'Craftsman' => 'craftsman',
                     'Other' => 'Other',
                 ],
-                'choice_attr' => ['Choose a category' => ['disabled'=>'']]
+                'choice_attr' => function($choice, $key, $value) {
+                    // Applique une classe 'option-class' à toutes les options, y compris celle désactivée
+                    $attrs = ['class' => 'option'];
+                    if ($value === '') {
+                        // Vous pouvez ajouter ici d'autres attributs spécifiques pour l'option désactivée si nécessaire
+                        $attrs['disabled'] = '';
+                    }
+                    return $attrs;
+                },
             ])
 
             ->add('discipline', TextType::class, [

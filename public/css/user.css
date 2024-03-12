@@ -1748,11 +1748,14 @@ html {
   transition: ease-in-out 0.3s;
 }
 #subscription-page .subscription-card .image {
-  border: 1px solid grey;
   width: 50%;
   height: 14rem;
   margin: auto;
   margin-bottom: 2rem;
+}
+#subscription-page .subscription-card .image img {
+  width: 100%;
+  height: 100%;
 }
 #subscription-page .subscription-card p {
   color: #eeaf42;
@@ -1781,6 +1784,43 @@ html {
 }
 #subscription-page .subscription-card .subscription-btn div:hover {
   transform: scale(1.1);
+}
+
+#detail-subscription-payment #details {
+  background-color: #151515;
+  margin-top: 1.6rem;
+  margin-right: 12rem;
+  padding: 2rem;
+}
+#detail-subscription-payment #details p:nth-child(1) {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #eeaf42;
+  margin-bottom: 0.6rem;
+}
+
+.payment-subscription {
+  position: relative;
+}
+.payment-subscription #confirmation-modal-payment {
+  background-color: grey;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+  z-index: 10;
+}
+
+#card-elements {
+  color: green;
+}
+#card-elements div {
+  background-color: red !important;
+}
+#card-elements .InputContainer .InputElement {
+  color: red !important;
 }
 
 .login-user #new-password {

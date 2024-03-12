@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /* ---------------------------------- */
 /* ---------------------------------- */
 :root {
@@ -1263,8 +1262,6 @@ nav .name-app {
   background-position: -100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: colorChange 2s forwards;
-  animation-delay: 2s;
 }
 nav .name-app a {
   transition: 5s ease-in-out;
@@ -1275,17 +1272,6 @@ nav .name-app a:hover {
   background-position: -100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-@keyframes colorChange {
-  0% {
-    background-position: 100%; /* Position initiale du dégradé */
-  }
-  50% {
-    background-position: 0%; /* Position intermédiaire du dégradé */
-  }
-  100% {
-    background-position: 100%; /* Position finale du dégradé */
-  }
 }
 nav .nav-links {
   font-size: 0.9rem;
@@ -1405,17 +1391,10 @@ aside div p {
 /*  ---------------------------------- */
 #top-footer {
   width: 100%;
-  height: 561px;
   z-index: 1;
-}
-#top-footer:after {
-  content: "";
-  width: 100%;
-  height: 100%;
+  height: 561px;
   background-image: url("../images/motif-footer02.png");
   background-repeat: no-repeat;
-  position: absolute;
-  z-index: -1;
 }
 
 footer {

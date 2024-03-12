@@ -637,7 +637,7 @@
 // ---------------------------------
 
 
-#register-user {
+.register-user {
     background-color: $grey-dark;
     
     #register-container {
@@ -894,7 +894,6 @@ $grey-color: #272727;
             
 
             div {
-                
                 text-align: center;
                 background-color: $grey-color;
                 color: $grey-color;
@@ -923,7 +922,6 @@ $grey-color: #272727;
 
     #details {
         background-color: $main-black-color;
-        // border: 1px solid $secondary-color;
         margin-top: 1.6rem;
         margin-right: 12rem;
         padding: 2rem;
@@ -931,30 +929,76 @@ $grey-color: #272727;
         p:nth-child(1)  {
             font-size: 1.1rem;
             font-weight: $semi-bold;
-            // text-transform: uppercase;
             color: $secondary-color;
             margin-bottom: .6rem;
         }
-
     }
-
 
 }
 
 .payment-subscription {
     position: relative;
     #confirmation-modal-payment {
-        background-color: grey;
+        background-color: #ededed;
+        color: $main-black-color;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 300px; 
-        height: 200px; 
+        width: 35rem; 
+        letter-spacing: $letter-spacing-text;
         z-index: 10;
+        visibility: hidden;
+        padding: 2rem;
+    }
+
+    #action-btn {
+        column-gap: 4rem;
+        margin-top: 1.5rem;
+
+
+        div {
+            // @include center-flexbox();
+            column-gap:  0.6rem;
+            
+
+            i {
+                @include center-flexbox();
+                background-color: transparent;
+                width: 1.6rem;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                border: 1px solid $main-black-color;
+                transition: background-color ease 0.3s;
+               
+            }
+
+            // .icon-confirm {
+            //     &:hover {
+            //     background-color: $secondary-color;
+            //     border: 1px solid $secondary-color;
+            //     color: $main-white-color;
+            //     }
+            // }
+
+            // .icon-cancel {
+            //     &:hover {
+            //     background-color: $main-black-color;
+            //     border: 1px solid $main-black-color;
+            //     color: $main-white-color;
+            //     }
+            // }
+
+            
+        }
     }
 }
 
+#confirm-btn {
+    div {
+        display: inline-block !important;
+    }
+}
 
 #card-elements {
     color: green;

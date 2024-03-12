@@ -130,6 +130,19 @@ img {
     }
 }
 
+$test2: 30rem; 
+#popup-role-artist {
+    position: fixed;
+    right: 0;
+    width: 14rem;
+    height: 6rem;
+    background-color: $secondary-color;
+    color: $main-black-color;
+    // display: block;
+   
+    
+}
+
 // ---------------------------------
 //   █████  ██████  ████████ ██ ███████ ████████     ██████   █████   ██████  ███████ 
 //  ██   ██ ██   ██    ██    ██ ██         ██        ██   ██ ██   ██ ██       ██      
@@ -294,3 +307,51 @@ img {
 
 
 // ANIMATION_________________________
+
+
+// ---------------------------------
+//   ██████  ███████ ████████     ██████   ██████  ██      ███████ 
+//  ██       ██         ██        ██   ██ ██    ██ ██      ██      
+//  ██   ███ █████      ██        ██████  ██    ██ ██      █████   
+//  ██    ██ ██         ██        ██   ██ ██    ██ ██      ██      
+//   ██████  ███████    ██        ██   ██  ██████  ███████ ███████
+// ---------------------------------
+
+#role-artist {
+   select {
+    color: $main-white-color;
+
+   }
+
+}
+
+select {
+    // A reset of styles, including removing the default dropdown arrow
+    appearance: none;
+    // Additional resets for further consistency
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+  }
+  .custom-select {
+    width: 100%;
+    min-width: 15ch;
+    max-width: 30ch;
+
+    cursor: pointer;
+    line-height: 1.1;
+    background-color: grey;
+    padding: 0.5rem 1rem;
+    
+
+
+  }
+
+//   https://codepen.io/cssinate/pen/KVdYjz

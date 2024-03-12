@@ -1570,16 +1570,16 @@ html {
   border: 2px solid #151515;
 }
 
-#register-user {
+.register-user {
   background-color: #272727;
 }
-#register-user #register-container {
+.register-user #register-container {
   display: grid;
   grid-template-columns: 50% 50%;
   color: #F9F9F9;
   position: relative;
 }
-#register-user #register-container #separator {
+.register-user #register-container #separator {
   background-color: #eeaf42;
   width: 80%;
   height: 5px;
@@ -1589,30 +1589,30 @@ html {
   transform: translate(-50%, -50%);
   z-index: 1 !important;
 }
-#register-user #register-container .left-register {
+.register-user #register-container .left-register {
   background-color: black;
   width: 100%;
   height: 100%;
 }
-#register-user #register-container #l-register {
+.register-user #register-container #l-register {
   background-image: url("../images/register.png");
   background-repeat: no-repeat;
   background-size: auto 100%;
   width: 100%;
   height: 100%;
 }
-#register-user #register-container .right-register {
+.register-user #register-container .right-register {
   background-color: #272727;
   width: 100%;
   height: 100%;
   padding: 5rem 5rem 3rem 5rem;
 }
-#register-user #register-container .right-register #title-register p {
+.register-user #register-container .right-register #title-register p {
   color: #eeaf42;
   padding-top: 0.2rem;
   padding-bottom: 3rem;
 }
-#register-user #register-container #r-register {
+.register-user #register-container #r-register {
   background-image: url("../images/register2.png");
   background-repeat: no-repeat;
   background-size: auto 100%;
@@ -1620,20 +1620,20 @@ html {
   height: 100%;
   padding: 5rem 5rem 3rem 5rem;
 }
-#register-user #register-container #form-register {
+.register-user #register-container #form-register {
   padding-right: 12rem;
 }
-#register-user #register-container #form-register div {
+.register-user #register-container #form-register div {
   display: flex;
   flex-direction: column;
   padding-bottom: 1.8rem;
 }
-#register-user #register-container #form-register label {
+.register-user #register-container #form-register label {
   text-transform: uppercase;
   padding-bottom: 1rem;
   transition: ease-in-out 0.6s;
 }
-#register-user #register-container #form-register input {
+.register-user #register-container #form-register input {
   background-color: transparent;
   border-bottom: 1px solid #939393;
   border-top: none;
@@ -1642,29 +1642,29 @@ html {
   outline: none;
   transition: ease-in-out 0.6s;
 }
-#register-user #register-container #form-register #terms-register {
+.register-user #register-container #form-register #terms-register {
   display: flex;
 }
-#register-user #register-container #form-register #terms-register p {
+.register-user #register-container #form-register #terms-register p {
   display: flex;
   align-items: center;
 }
-#register-user #register-container #form-register #terms-register p a {
+.register-user #register-container #form-register #terms-register p a {
   transition: ease-in-out 0.6s;
 }
-#register-user #register-container #form-register #terms-register p span {
+.register-user #register-container #form-register #terms-register p span {
   margin: 0rem 0.4rem;
   color: #eeaf42;
 }
-#register-user #register-container #login {
+.register-user #register-container #login {
   margin-top: 1rem;
 }
-#register-user #register-container #login a {
+.register-user #register-container #login a {
   color: #eeaf42;
   position: relative;
   text-decoration: none;
 }
-#register-user #register-container #login a:before {
+.register-user #register-container #login a:before {
   content: "";
   position: absolute;
   bottom: -3px;
@@ -1674,7 +1674,7 @@ html {
   background-color: #eeaf42;
   transition: width 0.3s ease;
 }
-#register-user #register-container #login a:hover:before {
+.register-user #register-container #login a:hover:before {
   width: 100%;
 }
 
@@ -1803,14 +1803,39 @@ html {
   position: relative;
 }
 .payment-subscription #confirmation-modal-payment {
-  background-color: grey;
+  background-color: #ededed;
+  color: #151515;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
-  height: 200px;
+  width: 35rem;
+  letter-spacing: 0.05rem;
   z-index: 10;
+  visibility: hidden;
+  padding: 2rem;
+}
+.payment-subscription #action-btn {
+  column-gap: 4rem;
+  margin-top: 1.5rem;
+}
+.payment-subscription #action-btn div {
+  column-gap: 0.6rem;
+}
+.payment-subscription #action-btn div i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  width: 1.6rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid #151515;
+  transition: background-color ease 0.3s;
+}
+
+#confirm-btn div {
+  display: inline-block !important;
 }
 
 #card-elements {

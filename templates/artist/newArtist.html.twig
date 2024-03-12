@@ -5,6 +5,12 @@
 
 {% block body %}
 
+    <style>
+        body {
+            background-color: #151515;
+        }
+    </style>
+
     <div class="banner">
         <div class="content">
             <h1 class="banner-title">BECOME AN ARTIST</h1>
@@ -15,32 +21,55 @@
         </div>
     </div>
 
+    <section class="content register-user" id="role-artist">
+        <div id="register-container">
+            <div id="separator">
 
+            </div>
+            <div class="left-register" id="l-role-artist">
+                
+            </div>
 
-    {% if app.user %}
+            <div class="right-register" id="r-role-artist">
+                <div id="title-register">
+                    <h2>blabla<span class="underscore">_</span></h2>
+                    <p>ddfsdfdfdddsdfdft</p>
+                </div>
+                {# <h2>become a part of the communauty - get the Artist Status</h2> #}
 
-        {% if is_granted('ROLE_ARTIST') %}
-                <p>you are already an artist</p>
-            {% else %}
-                <h2>become a part of the communauty - get the Artist Status</h2>
+                <div id="form-register">
+                    {% if app.user %}
 
-                    {{ form_start(formStatusArtist) }}
-                        {{ form_errors(formStatusArtist) }}
-
-                        {{ form_row(formStatusArtist.artistName) }}
-                        {{ form_row(formStatusArtist.emailPro) }}
-                        {{ form_row(formStatusArtist.discipline) }}
-                        {{ form_row(formStatusArtist.category) }}
-                        {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
-                    {{ form_end(formStatusArtist) }}
+                    {% if is_granted('ROLE_ARTIST') %}
+                            <p>you are already an artist</p>
+                        {% else %}
+                                {{ form_start(formStatusArtist) }}
+                                    {{ form_errors(formStatusArtist) }}
+                                    {{ form_row(formStatusArtist.artistName) }}
+                                    {{ form_row(formStatusArtist.emailPro) }}
+                                    {{ form_row(formStatusArtist.discipline) }}
+                                    {{ form_row(formStatusArtist.category, { 'attr' : { 'class': 'custom-select' } })}}
+                                    {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
+                                {{ form_end(formStatusArtist) }}
+                        {% endif %}
                     
-            {% endif %}
-        
-    {% else %}
-        <p>register / login</p>
-    {% endif %}
+                {% else %}
+                <div>
+                    <p>You need to log in to become an Artist <a href="{{ path('app_login') }}">Log in.</a> </p>
+                    <p>You don't have an account?  <a href="{{ path('app_register') }}">Register</a> </p>
 
-        
+                </div>
+
+                {% endif %}
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+
 
 {# 
     {% if app.user %}

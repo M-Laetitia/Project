@@ -40,68 +40,7 @@ class HomeController extends AbstractController
         $user = $security->getUser();
         $artists = $userRepository->findArtistUsers();
 
-        $form = $this->createForm(ArtistStatusType::class, $user);
-        $form->handleRequest($request);
-
-        if ($user) {
-            // Récupérer les rôles de l'utilisateur
-            $userRoles = $user->getRoles();
-        }    
-
-        if ($form->isSubmitted() && $form->isValid() ) {
-            // Ajouter le rôle "ROLE_ARTIST" si ce n'est pas déjà présent
-            if (!in_array('ROLE_ARTIST', $userRoles, true)) {
-                $userRoles[] = 'ROLE_ARTIST';
-            }
-
-            // ^Json infos
-            // Récupérer les valeurs pour le champ artistInfos (json)
-            $email = $form->get('emailPro')->getData();
-            $discipline =$form->get('discipline')->getData();
-            $artistName =$form->get('artistName')->getData();
-            $category =$form->get('category')->getData();
-
-            // Récupérer ou initialiser artistInfos
-            $artistInfos = $user->getArtistInfos() ?? [];
-
-     
-            // Définir les champs et leurs valeurs
-            $fields = [
-                'emailPro' => $email,
-                'discipline' => $discipline,
-                'artistName' => $artistName,
-                'category' => $category,
-
-            ];
-
-            // Fusionner les nouvelles données avec les données existantes
-            $artistInfos = array_merge($artistInfos, $fields);
-            // dd($artistInfos);
-
-            // Mettez à jour artistInfos dans l'entité User
-            $user->setArtistInfos($artistInfos);
-
-            // Mise à jour des rôles dans l'entité User
-
-            $user->setRoles($userRoles);
-            $user = $form->getData();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // Déconnexion et reconnexion manuelles de l'utilisateur
-            // $firewallName = 'main'; 
-            // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-            // $this->get('security.token_storage')->setToken($token);
-
-            // Message flash
-            $this->addFlash('success', 'Status artist successfully created');
-
-            return $this->redirectToRoute('app_home');
-        }
-
-
-
-
+        
         // $markers = [];
 
         // foreach ($artists as $artist) {
@@ -119,11 +58,9 @@ class HomeController extends AbstractController
         // }
 
 
-
         return $this->render('home/index.html.twig', [
             'artists' => $artists,
             // 'markers' => $markers,
-            'formStatusArtist'=> $form,
         ]);
     }
 

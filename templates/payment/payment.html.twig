@@ -115,9 +115,7 @@
                 </div>
             </div>
 
-           
     
-            
             {# <button id="deleteButton">Delete File</button> #}
             
 
@@ -152,6 +150,7 @@
       });
     });*/
 
+    
 
     // add overlay on body to hide page content for confirmation modale
     $(document).ready(function() {
@@ -169,8 +168,12 @@
             $('#confirmation-modal-payment').css('visibility', 'hidden');
         });
 
-
       });
+
+      const inputs = document.querySelectorAll('input');
+      console.log("check", inputs)
+      const value = inputs.value;
+      console.log("check2", value)
 
     window.onload = () => {
 

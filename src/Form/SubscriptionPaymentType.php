@@ -44,6 +44,7 @@ class SubscriptionPaymentType extends AbstractType
 
 
             ->add('Subscribe', SubmitType::class, [
+                'label' => 'confirm',
                 'attr' => ['data-secret' => '', 'id' => '']
             ]);
         ;

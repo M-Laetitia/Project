@@ -39,16 +39,10 @@
         z-index: 5;
         visibility: hidden;
         opacity: 0.8;
-        transition: ease-in-out 0.6s;
     }
 
     body.has-after::after {
         visibility: visible; 
-    }
-
-    #confirmation-modal-payment {
-        transition: ease-in-out 0.6s;
-        visibility: hidden;
     }
 
 
@@ -93,23 +87,37 @@
                         <div id="card-elements" class="stripe-card-elements"></div>
                         <div id="card-errors" role="alter"></div>
     
-                        {{ form_row(formSubscriptionPayment.Subscribe, {'attr': {'class': 'card-button btn btn6'}}) }}
+                        <div>
+                            <button style="display: block;" class="btn btn6" id="confirmation-payement-btn">Subscribe</button>
+                        </div>
+
+                        <div id="confirmation-modal-payment">
+
+                            <p>Are you sure you want to proceed with the payment? Please confirm your order details before finalising your purchase.
+                            </p>
+
+                            <div id="action-btn">
+                                
+                                <div id="confirm-btn">
+                                    <i class=" icon-confirm fa-solid fa-check "></i>
+                                    {{ form_row(formSubscriptionPayment.Subscribe) }}
+                                </div>
+
+                                <div id="cancel-btn">
+                                    <i class="fa-solid fa-xmark "></i>
+                                    <p style="cursor: pointer;" class="icon-cancel">cancel</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        
                 {{ form_end(formSubscriptionPayment)}}
                 </div>
             </div>
 
-            <button id="activateAfter">click</button>
+           
     
-            <div id="confirmation-modal-payment">
-                <p>Are you sure you want to proceed with the payment? Please confirm your order details before finalizing your purchase.</p>
-                <div id="confirm-btn">
-                    <p>confirm</p>
-                </div>
-                <div id="cancel-btn">
-                    <p>cancel</p>
-                </div>
-            </div>
-
+            
             {# <button id="deleteButton">Delete File</button> #}
             
 
@@ -149,14 +157,14 @@
     $(document).ready(function() {
         
          // Lorsque le bouton est cliqué, afficher l'overlay et la fenêtre modale
-         $('#activateAfter').click(function() {
+         $('#confirmation-payement-btn').click(function() {
             $('body').addClass('has-after');
             $('#confirmation-modal-payment').css('visibility', 'visible');
         });
 
        
         // Lorsque le bouton d'annulation est cliqué, masquer l'overlay et la fenêtre modale
-        $('#cancel-btn').click(function() {
+        $('.icon-cancel').click(function() {
             $('body').removeClass('has-after');
             $('#confirmation-modal-payment').css('visibility', 'hidden');
         });

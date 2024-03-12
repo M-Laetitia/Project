@@ -18,9 +18,12 @@ class ArtistStatusType extends AbstractType
         $builder
              // JSON ARTIST-INFO
              ->add('emailPro', EmailType::class, [
-                'label' => 'Email Professionnel',
+                'label' => 'Professionnal Email',
                 'mapped' => false,
                 'required' => true, 
+                'attr' => [
+                    'placeholder' => 'Enter your e-mail address'
+                ]
             ])
 
             ->add('category', ChoiceType::class, [
@@ -42,12 +45,18 @@ class ArtistStatusType extends AbstractType
                 'label' => 'Discipline',
                 'mapped' => false,
                 'required' => true, 
+                'attr' => [
+                    'placeholder' => 'example: Wood craft Artisan'
+                ]
             ])
 
             ->add('artistName', TextType::class, [
                 'label' => 'artist name',
                 'mapped' => false,
                 'required' => true, 
+                'attr' => [
+                    'placeholder' => 'Enter your Artist name'
+                ]
             ])
 
             ->add('submit', SubmitType::class)

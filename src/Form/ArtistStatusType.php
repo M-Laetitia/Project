@@ -28,12 +28,14 @@ class ArtistStatusType extends AbstractType
                 'mapped' => false,
                 'required' => true, 
                 'choices' => [
+                    'Choose a category' => '',
                     'Illustration' => 'illustration',
                     'Photography' => 'photgraphy',
                     'Graphism' => 'graphism',
                     'Craftsman' => 'craftsman',
                     'Other' => 'Other',
                 ],
+                'choice_attr' => ['Choose a category' => ['disabled'=>'']]
             ])
 
             ->add('discipline', TextType::class, [
@@ -48,7 +50,7 @@ class ArtistStatusType extends AbstractType
                 'required' => true, 
             ])
 
-            ->add('Submit', SubmitType::class)
+            ->add('submit', SubmitType::class)
 
 
         ;

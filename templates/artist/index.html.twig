@@ -5,14 +5,23 @@
 
 {% block body %}
 
+
     <div class="banner">
-        <div>
+        <div class="content">
             <h1 class="banner-title">DISCOVER THE ARTISTS</h1>
-            <p class="banner-text">Be Inspired<span class="underscore-static">_</span></p>
+            <div class="subtitle">
+                <p class="banner-text">Be Inspired</p>
+                <div class="underscore-blink"> </div>
+            </div>
         </div>
     </div>
-
     
+    <div id="popup-role-artist">
+        <p>Do you want to be a part of the artist communauty?</p>
+        <div>Learn more</div>
+        <div id="close-popup-btn">close</div>
+    </div>
+
 
     <section class="content" id="artists-index">
 
@@ -26,11 +35,9 @@
             <div class="category" data-category="Other" onclick="showArtists('Other')">Other</div>
 
             <div class="" id="more-filters-btn"> <span id="cross-filters"></span>filters</div>
-        {# <div class="" id="more-filters-btn"> <span><i class="ri-add-fill"></i></span>filters</div> #}
-
+            {# <div class="" id="more-filters-btn"> <span><i class="ri-add-fill"></i></span>filters</div> #}
         </div>
     
-
     {% if searchResults %}
     <h2></h2>
     {% else %}
@@ -91,7 +98,7 @@
                 </div>
             {% endif %}
                 
-            {% endfor %}
+        {% endfor %}
     </section>
 
     <section id="search-results"></section>
@@ -104,6 +111,14 @@
     <script src= "{{ asset('js/gsap.min.js') }}"></script>
 
     <script>
+
+        // show popup after a delay of 4s
+        gsap.from('#popup-role-artist', 1.2, {opacity: 0, delay: 4 });
+        // close popup for artist role
+        $('#close-popup-btn').click(function(){
+            $("#popup-role-artist").css('display', 'none'); 
+        });
+
 
         gsap.from('.categories', 1.2, {opacity: 0, delay: 0.4 });
 

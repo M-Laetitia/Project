@@ -23,26 +23,31 @@
 
     <section class="content register-user" id="role-artist">
         <div id="register-container">
-            <div id="separator">
-
-            </div>
+            <div id="separator"></div>
+            
             <div class="left-register" id="l-role-artist">
-                
+                <img src="{{ asset('images/visuals/roleArtist01.webp') }}" alt="">
             </div>
 
             <div class="right-register" id="r-role-artist">
                 <div id="title-register">
-                    <h2>blabla<span class="underscore">_</span></h2>
-                    <p>ddfsdfdfdddsdfdft</p>
+                    <h2>Get the Artist status<span class="underscore">_</span></h2>
+                    <p>Become a part of the communauty.</p>
                 </div>
-                {# <h2>become a part of the communauty - get the Artist Status</h2> #}
+                
+                <div id="artist-role-infos">
+                    <p>Why ask for artist status ? <span><i class="ri-arrow-down-s-line"></i></span></p>
+                </div>
+                
+
+                <p id="artist-role-text" style="display:none;">By obtaining artist status, you will be able to become part of our community and have your artist page added to our artist catalog. You will then be able to edit it as you wish and publish it to make it visible to all visitors. Artist status will also allow you to submit proposals to exhibit your work at our exhibitions.</p>
 
                 <div id="form-register">
                     {% if app.user %}
 
-                    {% if is_granted('ROLE_ARTIST') %}
-                            <p>you are already an artist</p>
-                        {% else %}
+                    {# {% if is_granted('ROLE_ARTIST') %} #}
+                            {# <p>you are already an artist</p> #}
+                        {# {% else %} #}
                                 {{ form_start(formStatusArtist) }}
                                     {{ form_errors(formStatusArtist) }}
                                     {{ form_row(formStatusArtist.artistName) }}
@@ -51,7 +56,7 @@
                                     {{ form_row(formStatusArtist.category, { 'attr' : { 'class': 'custom-select' } })}}
                                     {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
                                 {{ form_end(formStatusArtist) }}
-                        {% endif %}
+                        {# {% endif %} #}
                     
                 {% else %}
                 <div>
@@ -62,7 +67,6 @@
 
                 {% endif %}
                     
-                    
                 </div>
                 
             </div>
@@ -71,23 +75,23 @@
     </section>
 
 
-{# 
-    {% if app.user %}
-        <h2>become a part of the communauty - get the Artist Status</h2>
+    <script>
+        //  change icon (arrow) on hover
+        $("#artist-role-infos").hover(
+            function() {
+                $(this).find("i").removeClass("ri-arrow-down-s-line").addClass("ri-arrow-down-double-line");
+            },
+            function() {
+                $(this).find("i").removeClass("ri-arrow-down-double-line").addClass("ri-arrow-down-s-line");
+            }
+        );
 
-        {{ form_start(formStatusArtist) }}
-            {{ form_errors(formStatusArtist) }}
+        // show / hide text explication
+        $("#artist-role-infos").click(function() {
+            $("#artist-role-text").slideToggle();
 
-            {{ form_row(formStatusArtist.artistName) }}
-            {{ form_row(formStatusArtist.emailPro) }}
-            {{ form_row(formStatusArtist.discipline) }}
-            {{ form_row(formStatusArtist.category) }}
-            {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
-        {{ form_end(formStatusArtist) }}
-        
-    {% endif %} #}
+        });
+    </script>
 
-
-  
 
 {% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Join the communauty{% endblock %}
+{% block meta %}{% endblock %}
+
+{% block body %}
+
+    <div class="banner">
+        <div class="content">
+            <h1 class="banner-title">BECOME AN ARTIST</h1>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% if app.user %}
+
+        {% if is_granted('ROLE_ARTIST') %}
+                <p>you are already an artist</p>
+            {% else %}
+                <h2>become a part of the communauty - get the Artist Status</h2>
+
+                    {{ form_start(formStatusArtist) }}
+                        {{ form_errors(formStatusArtist) }}
+
+                        {{ form_row(formStatusArtist.artistName) }}
+                        {{ form_row(formStatusArtist.emailPro) }}
+                        {{ form_row(formStatusArtist.discipline) }}
+                        {{ form_row(formStatusArtist.category) }}
+                        {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
+                    {{ form_end(formStatusArtist) }}
+                    
+            {% endif %}
+        
+    {% else %}
+        <p>register / login</p>
+    {% endif %}
+
+        
+
+{# 
+    {% if app.user %}
+        <h2>become a part of the communauty - get the Artist Status</h2>
+
+        {{ form_start(formStatusArtist) }}
+            {{ form_errors(formStatusArtist) }}
+
+            {{ form_row(formStatusArtist.artistName) }}
+            {{ form_row(formStatusArtist.emailPro) }}
+            {{ form_row(formStatusArtist.discipline) }}
+            {{ form_row(formStatusArtist.category) }}
+            {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
+        {{ form_end(formStatusArtist) }}
+        
+    {% endif %} #}
+
+
+  
+
+{% endblock %}

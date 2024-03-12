@@ -1,10 +1,12 @@
 // ^ Make add flash message disappear after 5s
 
-$(document).ready(function() {
-    setTimeout(function() {
-        $('.alert').slideUp(3000); // 1000 millisecondes for the animation's duration
-    }, 2000); // delay
-});
+if(document.querySelector('.alter')) {
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('.alert').slideUp(3000); // 1000 millisecondes for the animation's duration
+        }, 2000); // delay
+    });
+}
 
 
 // ^ Artist page Carousel 
@@ -131,16 +133,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // ^ Artists page - eyes
-$(document).ready(function() {
-    // console.log("test icon")
 
-    $('.ri-eye-close-fill').hover(
-        function() {
-            $(this).toggleClass('ri-eye-fill')
-        },
-    )
+if (document.querySelector('.ri-eye-close-fill')) {
+
+    $(document).ready(function() {
+        // console.log("test icon")
     
-})
+        $('.ri-eye-close-fill').hover(
+            function() {
+                $(this).toggleClass('ri-eye-fill')
+            },
+        )
+        
+    })
+
+}
 
 // // ^ Artists page - eyes
 // $(document).ready(function() {
@@ -156,36 +163,36 @@ $(document).ready(function() {
 
 
 // ^ Artist edit infos toggle
+if (document.querySelector('edit-info-btn')) {
 
-$(document).ready(function() {
-    $('.edit-info-btn').click(function(){
-        $(".edit-infos").slideToggle();
-    });
-
-    
-})
+    $(document).ready(function() {
+        $('.edit-info-btn').click(function(){
+            $(".edit-infos").slideToggle();
+        });
+    })
+}
 
 // ^ see past events toggle
 
-$(document).ready(function() {
-    $('.past-event-btn').click(function(){
-        $(".past-events").slideToggle();
-    });
+if (document.querySelector('past-event-btn')) {
 
-    $('.past-event-btn').hover(
-        function() {
-            $('.past-event-title h2').css('color', 'rgb(240, 189, 47)');
-        },
-        function() {
-            $('.past-event-title h2').css('color', 'rgb(25, 24, 27)');
-        }
-    );
+    $(document).ready(function() {
+        $('.past-event-btn').click(function(){
+            $(".past-events").slideToggle();
+        });
     
-})
+        $('.past-event-btn').hover(
+            function() {
+                $('.past-event-title h2').css('color', 'rgb(240, 189, 47)');
+            },
+            function() {
+                $('.past-event-title h2').css('color', 'rgb(25, 24, 27)');
+            }
+        );
+    })
+}
 
 // ^ DASHBOARD MAIN PAGE : 
-
-
 
 $(document).ready(function() {
 
@@ -251,4 +258,67 @@ $(document).ready(function(){
     });
 });
 
+
+//&---------------------------------
+//&  ███████  ██████  ██████  ███    ███ 
+//~~ ██      ██    ██ ██   ██ ████  ████ 
+//~~ █████   ██    ██ ██████  ██ ████ ██ 
+//?  ██      ██    ██ ██   ██ ██  ██  ██ 
+//?  ██       ██████  ██   ██ ██      ██
+//? ---------------------------------
+
+
+if(document.querySelectorAll('#form-register')) {
+
+    // elements animation
+    // gsap.from(".register-user", {
+    //     opacity: 0, 
+    //     duration: 1.2, 
+    //     ease: "easeInOut", 
+    //     delay: 0.8
+    // });
+
+    // gsap.from("#separator", {
+    //     x : 100,
+    //     opacity: 0, 
+    //     duration: 1.6, 
+    //     ease: "easeInOut", 
+    //     delay: 2
+    // });
+
+    // gsap.from(".left-register", {
+    //     opacity: 0, 
+    //     duration: 1.6, 
+    //     ease: "easeInOut", 
+    //     delay: 1.5
+    // });
+
+    // gsap.from(".right-register", {
+    //     opacity: 0, 
+    //     duration: 1.6, 
+    //     ease: "easeInOut", 
+    //     delay: 1.7
+    // });
+
+    // add color when focus on input
+    document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('#form-register input');
+        
+        inputs.forEach(function(input) {
+            if (!input.matches('#terms-register input')) {
+                input.addEventListener('focus', function() {
+                    this.style.borderColor = '#f0bd2f'; 
+                    this.previousElementSibling.style.color = '#f0bd2f'; 
+                });
+        
+                //blur event is triggered when the input field loses focus
+                input.addEventListener('blur', function() {
+                    this.style.borderColor = '#939393'; 
+                    this.previousElementSibling.style.color = ''; 
+                });
+            }
+        });
+    });
+
+}
 

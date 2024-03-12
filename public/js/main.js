@@ -271,34 +271,34 @@ $(document).ready(function(){
 if(document.querySelectorAll('#form-register')) {
 
     // elements animation
-    // gsap.from(".register-user", {
-    //     opacity: 0, 
-    //     duration: 1.2, 
-    //     ease: "easeInOut", 
-    //     delay: 0.8
-    // });
+    gsap.from(".register-user", {
+        opacity: 0, 
+        duration: 1.2, 
+        ease: "easeInOut", 
+        delay: 0.8
+    });
 
-    // gsap.from("#separator", {
-    //     x : 100,
-    //     opacity: 0, 
-    //     duration: 1.6, 
-    //     ease: "easeInOut", 
-    //     delay: 2
-    // });
+    gsap.from("#separator", {
+        opacity: 0,
+        duration: 1, 
+        width: "0%",
+        delay: 0.5, 
+        ease: "power2.out" 
+    });
 
-    // gsap.from(".left-register", {
-    //     opacity: 0, 
-    //     duration: 1.6, 
-    //     ease: "easeInOut", 
-    //     delay: 1.5
-    // });
+    gsap.from(".left-register", {
+        opacity: 0, 
+        duration: 1.6, 
+        ease: "easeInOut", 
+        delay: 1
+    });
 
-    // gsap.from(".right-register", {
-    //     opacity: 0, 
-    //     duration: 1.6, 
-    //     ease: "easeInOut", 
-    //     delay: 1.7
-    // });
+    gsap.from(".right-register", {
+        opacity: 0, 
+        duration: 1.6, 
+        ease: "easeInOut", 
+        delay: 1.2
+    });
 
     // add color when focus on input
     document.addEventListener('DOMContentLoaded', function() {

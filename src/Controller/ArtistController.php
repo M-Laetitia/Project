@@ -9,6 +9,7 @@ use App\Form\ArtistType;
 use App\Form\BannerFormType;
 use App\Form\EditArtistType;
 use App\Form\PictureFormType;
+use App\Form\ArtistStatusType;
 use App\Form\SearchArtistType;
 use App\Service\PictureService;
 use App\Repository\UserRepository;
@@ -55,6 +56,81 @@ class ArtistController extends AbstractController
     //         'formArtistSearch' => $formArtistSearch->createView(),
     //     ]);
     // }
+
+    #[Route('/artist/new', name: 'get_role_artist')]
+    public function newArtist(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager,  Request $request): Response
+    {
+
+        if($user = $security->getUser()) {
+
+            $form = $this->createForm(ArtistStatusType::class, $user);
+            $form->handleRequest($request);
+        
+            if ($form->isSubmitted() && $form->isValid() ) {
+                // Ajouter le rôle "ROLE_ARTIST" si ce n'est pas déjà présent
+                if (!in_array('ROLE_ARTIST', $userRoles, true)) {
+                    $userRoles[] = 'ROLE_ARTIST';
+                }
+
+                $userSlug = $user->getSlug();
+    
+                // ^Json infos
+                // Récupérer les valeurs pour le champ artistInfos (json)
+                $email = $form->get('emailPro')->getData();
+                $discipline =$form->get('discipline')->getData();
+                $artistName =$form->get('artistName')->getData();
+                $category =$form->get('category')->getData();
+    
+                // Récupérer ou initialiser artistInfos
+                $artistInfos = $user->getArtistInfos() ?? [];
+    
+         
+                // Définir les champs et leurs valeurs
+                $fields = [
+                    'emailPro' => $email,
+                    'discipline' => $discipline,
+                    'artistName' => $artistName,
+                    'category' => $category,
+    
+                ];
+    
+                // Fusionner les nouvelles données avec les données existantes
+                $artistInfos = array_merge($artistInfos, $fields);
+                // dd($artistInfos);
+    
+                // Mise à jour artistInfos dans l'entité User
+                $user->setArtistInfos($artistInfos);
+    
+                // Mise à jour des rôles dans l'entité User
+    
+                $user->setRoles($userRoles);
+                $user = $form->getData();
+                $entityManager->persist($user);
+                $entityManager->flush();
+    
+                // Déconnexion et reconnexion manuelles de l'utilisateur
+                // $firewallName = 'main'; 
+                // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+                // $this->get('security.token_storage')->setToken($token);
+    
+                // Message flash
+                $this->addFlash('success', 'Status artist successfully created');
+    
+                return $this->redirectToRoute('manage_profil' , ['slug' => $userSlug]);
+            }
+        
+            
+            return $this->render('artist/newArtist.html.twig', [
+                'user' => $user,
+                'formStatusArtist'=> $form,
+            ]);
+        }
+
+        return $this->render('artist/newArtist.html.twig', [
+        ]);
+        
+
+    }
 
 
     #[Route('/artist', name: 'app_artist')]

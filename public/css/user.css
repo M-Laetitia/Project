@@ -1681,10 +1681,6 @@ html {
 #btn-register {
   width: 61% !important;
 }
-#btn-register:hover {
-  background-color: #272727;
-}
-
 #terms-register a:hover {
   color: #eeaf42 !important;
 }

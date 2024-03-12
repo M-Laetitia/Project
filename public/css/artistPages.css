@@ -1311,12 +1311,53 @@ img {
   transform: translateY(0);
 }
 
+#role-artist {
+  letter-spacing: 0.05rem;
+}
 #role-artist select {
   color: #F9F9F9;
 }
+#role-artist #l-role-artist {
+  background-color: #1a1a1a;
+  width: 100%;
+  height: 100%;
+  min-height: 645px;
+}
+#role-artist #l-role-artist img {
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+#role-artist #r-role-artist {
+  background-image: url("../images/visuals/roleArtist02.webp");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+  padding: 5rem 5rem 3rem 5rem;
+}
+#role-artist #artist-role-infos {
+  padding-right: 12rem;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+#role-artist #artist-role-infos p {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transition: ease-in-out 0.3s;
+}
+#role-artist #artist-role-infos:hover p {
+  color: #eeaf42;
+}
+#role-artist #artist-role-text {
+  font-size: 0.9rem;
+  text-align: justify;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05rem;
+}
 
 select {
-  appearance: none;
   background-color: transparent;
   border: none;
   padding: 0 1em 0 0;
@@ -1327,6 +1368,7 @@ select {
   cursor: inherit;
   line-height: inherit;
   outline: none;
+  color: #F9F9F9;
 }
 
 .custom-select {
@@ -1337,6 +1379,57 @@ select {
   line-height: 1.1;
   background-color: grey;
   padding: 0.5rem 1rem;
+  position: relative;
+}
+
+input:checked + label {
+  order: 1;
+  z-index: 2;
+  background: #666;
+  border-top: none;
+  position: relative;
+}
+
+input:checked + label:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgb(255, 2, 2);
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 2.5px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.option {
+  padding: 0 30px 0 10px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  background: #333;
+  border-top: #222 solid 1px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  pointer-events: none;
+  order: 2;
+  z-index: 1;
+  transition: background 0.4s ease-in-out;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.option:hover {
+  background: #666;
+}
+
+.custom-select:focus .option {
+  position: relative;
+  pointer-events: all;
 }
 
 /*# sourceMappingURL=artistPages.css.map */

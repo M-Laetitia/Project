@@ -10,7 +10,6 @@
 // ---------------------------------
 
 #artists-index {
-
     .categories {
         @include center-flexbox();
         padding-bottom: 2.5rem;
@@ -91,7 +90,6 @@ img {
 }
 
 #more-filters {
-
     margin-bottom: 3rem;
     .form-search-username-discipline {
     
@@ -124,8 +122,7 @@ img {
         transition: ease-in-out 0.6s;
 
         &:hover {
-            background-color: $main-black-color;
-            
+            background-color: $main-black-color; 
         }
     }
 }
@@ -137,11 +134,114 @@ $test2: 30rem;
     width: 14rem;
     height: 6rem;
     background-color: $secondary-color;
-    color: $main-black-color;
-    // display: block;
-   
-    
+    color: $main-black-color; 
 }
+
+
+// ^ MEDIA QUERIES - ARTIST - INDEX
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:480px) { 
+    #artists-index {
+        #artists-container {
+            grid-template-columns: repeat(1, 1fr);
+  
+            #hover2{
+                // 
+                width: clamp(20rem, 2.5vw, 30rem);
+                // width: 20rem;
+                height: 20rem;
+            }
+        }
+    }
+    #artists-index .categories {
+        flex-wrap: wrap;
+        padding-bottom: 2.5rem;
+        column-gap: 3rem;
+        row-gap: 0.5rem;
+    }
+
+    #more-filters .form-search-username-discipline form {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 1.3rem;
+    }
+}
+
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
+    #artists-index {
+        #artists-container {
+            grid-template-columns: repeat(1, 1fr);
+  
+            #hover2{
+                width: 25rem;
+                height: 25rem;
+            }
+        }
+    }
+    #artists-index .categories {
+        flex-wrap: wrap;
+        padding-bottom: 2.5rem;
+        column-gap: 3rem;
+        row-gap: 0.5rem;
+    }
+
+    #more-filters .form-search-username-discipline form {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 1.3rem;
+    }
+}
+
+// & LARGE SCREEN
+@media screen and (min-width:768px) and (max-width:1200px) { 
+    #artists-index {
+        #artists-container {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+  
+            #hover2{
+                width: 20rem;
+                height: 20rem;
+            }
+        }
+    }
+    #artists-index .categories {
+        flex-wrap: wrap;
+        padding-bottom: 2.5rem;
+        column-gap: 3rem;
+        row-gap: 0.5rem;
+    }
+    #more-filters .form-search-username-discipline form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        row-gap: 2rem;
+    }
+}
+
+@media screen and (min-width:1200px) and (max-width:1560px) { 
+    #artists-index {
+        #artists-container {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+  
+            #hover2{
+                width: 25rem;
+                height:25rem;
+            }
+        }
+    }
+}
+
+
+
+
 
 // ---------------------------------
 //   █████  ██████  ████████ ██ ███████ ████████     ██████   █████   ██████  ███████ 
@@ -367,83 +467,83 @@ $test2: 30rem;
         margin-bottom: 2rem;
         letter-spacing: $letter-spacing-text;
     }
+    select {
+        background-color: transparent;
+        border: none;
+        padding: 0 1em 0 0;
+        margin: 0;
+        width: 100%;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: inherit;
+        line-height: inherit;
+        outline: none;
+        color: $main-white-color;
+    }
+    
+    .custom-select {
+        width: 100%;
+        min-width: 15ch;
+        max-width: 30ch;
+        cursor: pointer;
+        line-height: 1.1;
+        background-color: grey;
+        padding: 0.5rem 1rem;
+        position: relative;
+    }
+    
+    input:checked + label {
+        order: 1;
+        z-index:2;
+        background:#666;
+        border-top:none;
+        position:relative;
+    }
+    
+    input:checked + label:after {
+        content:'';
+        width: 0; 
+        height: 0; 
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid rgb(255, 2, 2);
+        position:absolute;
+        right:10px;
+        top:calc(50% - 2.5px);
+        pointer-events:none;
+        z-index:3;
+    }
+    
+    .option {
+        padding:0 30px 0 10px;
+        min-height:40px;
+        display:flex;
+        align-items:center;
+        background:#333;
+        border-top:#222 solid 1px;
+        position:absolute;
+        top:0;
+        width: 100%;
+        pointer-events:none;
+        order:2;
+        z-index:1;
+        transition:background .4s ease-in-out;
+        box-sizing:border-box;
+        overflow:hidden;
+        white-space:nowrap;
+    }
+      
+    .option:hover {
+        background:#666;
+    }
+    
+    .custom-select:focus .option {
+        position:relative;
+        pointer-events:all;
+    }
 }
 
 
 
-select {
-    background-color: transparent;
-    border: none;
-    padding: 0 1em 0 0;
-    margin: 0;
-    width: 100%;
-    font-family: inherit;
-    font-size: inherit;
-    cursor: inherit;
-    line-height: inherit;
-    outline: none;
-    color: $main-white-color;
-}
-
-.custom-select {
-    width: 100%;
-    min-width: 15ch;
-    max-width: 30ch;
-    cursor: pointer;
-    line-height: 1.1;
-    background-color: grey;
-    padding: 0.5rem 1rem;
-    position: relative;
-}
-
-input:checked + label {
-    order: 1;
-    z-index:2;
-    background:#666;
-    border-top:none;
-    position:relative;
-}
-
-input:checked + label:after {
-    content:'';
-    width: 0; 
-    height: 0; 
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid rgb(255, 2, 2);
-    position:absolute;
-    right:10px;
-    top:calc(50% - 2.5px);
-    pointer-events:none;
-    z-index:3;
-}
-
-.option {
-    padding:0 30px 0 10px;
-    min-height:40px;
-    display:flex;
-    align-items:center;
-    background:#333;
-    border-top:#222 solid 1px;
-    position:absolute;
-    top:0;
-    width: 100%;
-    pointer-events:none;
-    order:2;
-    z-index:1;
-    transition:background .4s ease-in-out;
-    box-sizing:border-box;
-    overflow:hidden;
-    white-space:nowrap;
-}
-  
-.option:hover {
-    background:#666;
-}
-
-.custom-select:focus .option {
-    position:relative;
-    pointer-events:all;
-}
 
 //https://codepen.io/cssinate/pen/KVdYjz

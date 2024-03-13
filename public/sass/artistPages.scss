@@ -241,8 +241,6 @@ $test2: 30rem;
 
 
 
-
-
 // ---------------------------------
 //   █████  ██████  ████████ ██ ███████ ████████     ██████   █████   ██████  ███████ 
 //  ██   ██ ██   ██    ██    ██ ██         ██        ██   ██ ██   ██ ██       ██      
@@ -299,7 +297,6 @@ $test2: 30rem;
         grid-template-columns: 70% 30%;
         margin-bottom: 7rem;
         #about {
-            // background-color: red;
             padding-right: 5rem;
             text-align: justify;
             h3 {
@@ -311,8 +308,7 @@ $test2: 30rem;
         }
 
         #info {
-            // background-color: pink;
-
+ 
             .text-n2 {
                 span {
                     color: $secondary-color;
@@ -327,11 +323,19 @@ $test2: 30rem;
                 border-left: 4px solid $secondary-color3;
                 padding: 1.5rem 0rem 0rem 1rem;
                 line-height: 2.5rem;
+                
 
                 #list-info {
+   
                     p {
-                        span {
-                            margin-right: 3rem;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+
+                    a {
+                        transform:  $transition-basic;
+                        &:hover {
+                            color: $secondary-color3;
                         }
                     }
                 }
@@ -403,6 +407,122 @@ $test2: 30rem;
     opacity: 1; 
     transform: translateY(0); 
     
+}
+
+// ^ MEDIA QUERIES - ARTIST - SHOW
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:480px) { 
+    #artist-show {
+        width: 80%;
+        header {
+            margin-bottom: 3rem;
+            figure {
+                height: 18rem;
+            }
+        }
+
+    .text-n1 {
+            text-align: left;
+        }    
+    }
+    #artist-detail {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    #artist-show #artist-detail #about {
+        padding-right: 0rem;
+        text-align: justify;
+        padding-bottom: 1.5rem;
+    }
+
+    #artist-show #artist-detail #info #list-infos #list-info p span {
+        margin-right: 1rem;
+    }
+
+    #artist-show #gallery #images {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+    }
+
+    #artist-show header #quote {
+        display: none;
+    }
+      
+}
+
+
+
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
+    #artist-show {
+        width: 80%;
+        header {
+            margin-bottom: 3rem;
+            figure {
+                height: 26rem;
+            }
+        }
+
+    .text-n1 {
+            text-align: left;
+        }    
+    }
+    #artist-detail {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    #artist-show #artist-detail #about {
+        padding-right: 0rem;
+        text-align: justify;
+        padding-bottom: 1.5rem;
+    }
+
+    #artist-show #artist-detail #info #list-infos #list-info p span {
+        margin-right: 1rem;
+    }
+
+    #artist-show #gallery #images {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+    }
+
+    #artist-show header #quote {
+        display: none;
+    }
+}
+
+// & LARGE SCREEN
+@media screen and (min-width:768px) and (max-width:1200px) { 
+    #artist-show header #quote {
+        position: absolute;
+        width: 100%;
+        height: 3.5rem;
+        transform: translate(0rem, -20px);
+        padding : 0 1rem;
+    }
+    #artist-show #gallery #images {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    #artist-show #artist-detail {
+        margin-bottom: 6rem;
+        grid-template-columns: 60% 40%;
+    }
+
+    #artist-show #artist-detail #about {
+        padding-right: 3rem;
+    }
+}
+
+@media screen and (min-width:1200px) and (max-width:1560px) { 
+
 }
 
 

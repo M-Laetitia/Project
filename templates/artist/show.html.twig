@@ -12,23 +12,32 @@
 
 {% block body %}
 
+
 <div class="banner">
-    <div>
+    <div class="content">
         <h1 class="banner-title">
             {% for artistData in artist %}
                 {{ artistData.artistInfos.artistName }}
             {% endfor %}
         </h1>
-        <p class="banner-text">
+        <div class="subtitle">
+            <p class="banner-text">
             {% for artistData in artist %}
                 {{ artistData.artistInfos.discipline }}
             {% endfor %}
-            <span class="underscore-static">_</span>
-        </p>
+            </p>
+            <div class="underscore-blink"> </div>
+        </div>
     </div>
 </div>
 
+<div class="breadcrumb breadcrumb-dark">
+    <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_artist') }}">All Artists</a> > 
+        {% for artistData in artist %}
+            {{ artistData.artistInfos.artistName }}
+        {% endfor %} </p>
 </div>
+
 
 <section class="content" id="artist-show">
 
@@ -36,17 +45,27 @@
         <figure>
             <img src="{{ asset('images/exemple_artist/banner2.jpg') }}" alt="">
         </figure>
+
         <div id="quote">
-            <span><</span>
-            <p> Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh </p>
-            <span>></span>
+            <span id="quote-style"><</span>
+            <p id="quote-text">
+                {% for artistData in artist %}
+                    {{ artistData.artistInfos.quote }}
+                {% endfor %}
+            </p>
+            <span id="quote-style">></span>
         </div>
+
     </header>
 
     <section id="artist-detail">
         <div id="about">
             <h3 class="text-n1"> <span id="about-text">About the </span class="underscore">artist<span>_</span></h3>
-            <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
+            <p>
+                {% for artistData in artist %}
+                {{ artistData.artistInfos.biography }}
+                {% endfor %}
+            </p>
         </div>
 
         <div id="info">
@@ -54,14 +73,12 @@
             <div id="list-infos">
                 <div id="list-info">
                     {% for artistData in artist %}
-                       
-                        <p><span>Category :</span>  {{ artistData.artistInfos.category }} </p>
-                        <p><span>Website :</span> </p>
-                        <p><span>Shop :</span> </p>
-                        <p><span>Contact :</span>  {{ artistData.artistInfos.emailPro }} </p>
+                        <p><span>Category :</span> {{ artistData.artistInfos.category }} </p>
+                        <p><span>Website :</span> {{ artistData.artistInfos.website }} </p>
+                        <p><span>Shop :</span> {{ artistData.artistInfos.shop }} </p>
+                        <p><span>Contact :</span> {{ artistData.artistInfos.emailPro }} </p>
                     {% endfor %}
 
-                    
                 </div>
                 <div id="socials">
                     <i class="fa-brands fa-square-behance"></i>

@@ -124,11 +124,21 @@ $content-width: 70%;
 
 // MEDIA QUERIES
 
-@media (min-width: 45em) { 
+
+@media screen and (min-width: 320px) { 
     
 }
 
-@media screen and (max-width: 767px) {
+
+@media screen and (min-width: 480px) { 
+    
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 1200px) {
 
 }
   

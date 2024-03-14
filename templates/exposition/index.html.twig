@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}List Expositions{% endblock %}
-{% block meta %}List Expositions{% endblock %}
+{% block title %}Art Expositions - MOSAIC{% endblock %}
+{% block meta %}Experience vibrant exhibitions on MOSAIC, where artists mmet to share their creativity with visitors. Reserve your spot now for a journey through art and inspiration!{% endblock %}
 
 {% block body %}
-
 
 
 <div class="banner">
@@ -27,7 +26,7 @@
         <div class="container-event">
             <div id="picture-event">
                 <figure>
-                    <div></div>
+                    <img src="{{ asset('images/expo_img.jpg') }}" alt="">
                 </figure>
                 
             </div>
@@ -35,7 +34,7 @@
                 <h2 class="text-n1">{{expo.name}}<span class="">_</span></h2>
                 <p id="resume-event">{{expo.description}}</p>
                 <div id="details-event">
-                    <p><span>Date : </span> {{expo.startDate|formatDate}} <span>|</span> {{expo.startDate|date('H:i')}} - {{expo.endDate|date('H:i')}}</p> 
+                    <p><span>Date : </span> {{expo.startDate|formatDate}} <span id="pipe-separator">|</span> {{expo.startDate|date('H:i')}} - {{expo.endDate|date('H:i')}}</p> 
                     <p><span>Statut : </span>
                     
                         <span class="status {{ expo.status == 'OPEN' ? 'open' : 

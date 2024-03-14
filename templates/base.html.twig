@@ -139,7 +139,7 @@
         //  ██   ████ ██   ██   ████   ██████  ██   ██ ██   ██
         /*  ---------------------------------- */#}
 
-        <nav>
+        <nav class="page-header">
             <div class="name-app">
                 <p class="{% if app.request.attributes.get('_route') == 'app_homepage' %}active{% endif %}">
                     <a href="{{ path('app_homepage') }}">MOSAIC</a>
@@ -156,17 +156,24 @@
 
             <div class="nav-links">
 
-                <p><a href="{{ path('app_artist') }}">ARTISTS</a></p>
-                <p><a href="{{ path('app_event') }}">EVENTS</a></p>
-                <p><a href="{{ path('app_workshop') }}">WORKSHOPS</a></p>
-                <p><a href="{{ path('app_exposition') }}">EXPOSITIONS</a></p>
-                <p><a href="{{ path('app_studio') }}">ART STUDIOS</a></p>
-                <p><a href="{{ path('app_calendar') }}">CALENDAR</a></p>
+                <div>
+                    <p><a href="{{ path('app_artist') }}">ARTISTS</a></p>
+                    <p><a href="{{ path('app_event') }}">EVENTS</a></p>
+                    <p><a href="{{ path('app_workshop') }}">WORKSHOPS</a></p>
+                    <p><a href="{{ path('app_exposition') }}">EXPOSITIONS</a></p>
+                    <p><a href="{{ path('app_studio') }}">ART STUDIOS</a></p>
+                    <p><a href="{{ path('app_calendar') }}">CALENDAR</a></p>
+                </div>
 
+                
                 {# <p class="{% if app.request.attributes.get('_route') == 'app_calendar' %}active{% endif %}">
                     <a href="{{ path('app_calendar') }}">CALENDAR</a>
                 </p> #}
 
+            </div>
+
+            <div id="burger-menu">
+                <div id="burger-icon">MENU</div>
             </div>
 
             <div class="nav-menu">
@@ -176,8 +183,21 @@
                     <div></div>
                 </a>
             </div>
-
         </nav>
+
+        <header id="mobile-header">
+            <div class="nav-links">
+                <div>
+                    <p><a href="{{ path('app_artist') }}">ARTISTS</a></p>
+                    <p><a href="{{ path('app_event') }}">EVENTS</a></p>
+                    <p><a href="{{ path('app_workshop') }}">WORKSHOPS</a></p>
+                    <p><a href="{{ path('app_exposition') }}">EXPOSITIONS</a></p>
+                    <p><a href="{{ path('app_studio') }}">ART STUDIOS</a></p>
+                    <p><a href="{{ path('app_calendar') }}">CALENDAR</a></p>
+                </div>
+            </div>
+        </header>
+        
 
 
 
@@ -321,8 +341,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     
 
-
-
     <script>
 
 
@@ -334,6 +352,13 @@
                     $(this).addClass("highlight");
                 }
             });
+
+            $('#burger-icon').click(function() {
+                $('#mobile-header').toggleClass('nav-active');
+
+            })
+
+            
         });
 
 

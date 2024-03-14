@@ -75,14 +75,13 @@ body {
     width: 100%;
     height: 12rem;
     @include center-flexbox();
+    z-index: -500;
     // clamp(1.6rem, 2.5vw, 2.3rem);
     margin-bottom: 9rem;
     // padding-left: $padding-border;
     .content {
         width: $content-width;
         margin: auto;
-
-
         .subtitle {
             
             display: flex;
@@ -222,8 +221,7 @@ body {
 
 
 nav {
-    // position: absolute;
-    // margin-bottom: 2rem;
+    position: relative;
     width: 100%;
     height: $nav-size;
     background-color: $main-black-color;
@@ -231,12 +229,10 @@ nav {
     padding: 0 1.8rem;
     display: grid;
     align-items: center;
-    grid-template-columns: 25% 45% 30%;
+    grid-template-columns: 15% 80% 5%;
     letter-spacing: $letter-spacing-title;
-    z-index: 2000;
-    
-    // gap: 2rem;
-    // padding: 0 2rem ;
+    z-index: 10;
+
     .name-app {
         font-size: 2rem;
         letter-spacing: $letter-spacing-title;
@@ -270,41 +266,12 @@ nav {
                 -webkit-text-fill-color: transparent;
             }
         }
-
     }
 
+    
 
-    .nav-links {
-        font-size: $fs-text;
-        justify-content: space-between;
-        display: flex;
-
-        a {
-            transition: ease-in-out 0.3s;
-            position: relative;
-
-            &:hover {
-                color: $secondary-color;
-            }
-
-            &:before {
-                content: '';
-                position: absolute;
-                bottom: -3px; 
-                left: 0;
-                width: 0; 
-                height: 1px; 
-                background-color: $secondary-color; 
-                transition: width 0.3s ease; 
-            }
-
-            &:hover:before {
-                color: $secondary-color;
-                width: 97%;
-            }
-        }
-        
-       
+    #burger-menu {
+        display: none;
     }
 
     .nav-menu {
@@ -350,6 +317,136 @@ nav {
     }
 }
 
+.nav-links {
+    font-size: $fs-text;
+    // justify-content: space-between;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 9rem;
+
+    a {
+        transition: ease-in-out 0.3s;
+        position: relative;
+
+        &:hover {
+            color: $secondary-color;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            bottom: -3px; 
+            left: 0;
+            width: 0; 
+            height: 1px; 
+            background-color: $secondary-color; 
+            transition: width 0.3s ease; 
+        }
+
+        &:hover:before {
+            color: $secondary-color;
+            width: 97%;
+        }
+    }
+
+    div {
+
+        display: flex;
+        justify-content: space-evenly;
+        column-gap: 1.3rem;
+    }
+   
+}
+
+#mobile-header{
+    display: none;
+    .nav-links {
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.highlight {
+    color: $secondary-color;
+}
+
+// ^ MEDIA QUERIES - NAVBAR
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:480px) { 
+
+}
+
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
+
+}
+
+// & LARGE SCREEN
+@media screen and (max-width:1200px) { 
+
+
+    nav #burger-menu {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    nav .nav-links {
+        display: none;
+    }
+
+    
+
+    nav .nav-links div {
+        display: flex;
+        // justify-content: space-evenly;
+        // column-gap: 1.3rem;
+        flex-direction: column;
+        row-gap: .8rem;
+        z-index: -1000;
+    }
+
+    #mobile-header {
+        font-size: 0.9rem;
+        display: flex;
+        padding-left: 10rem;
+        background-color: $main-black-color;
+        top: 0;
+        justify-content: flex-start;
+        width: 100%;
+        height: 16rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        top: 6rem;
+        transition: ease-in-out 0.6s;
+        transform: translateY(-360px);
+        position: absolute;
+        z-index: 1;
+
+        a {
+            color: $main-black-color;
+
+            &:hover {
+                color: $secondary-color!important;
+            }
+        }
+    }
+
+    .nav-active {
+        transform: translateY(0px)!important;
+    }
+
+   
+}
+
+
+
+@media (min-width: 1200px) and (max-width: 1500px) {
+    nav .nav-links {
+        margin-right: 5rem; 
+    }
+}
 
 
 // div:nth-child(1), div:nth-child(3), div:nth-child(2)

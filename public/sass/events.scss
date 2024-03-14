@@ -30,10 +30,7 @@
                 background-color: grey;
                 width: 100%;
                 height: 100%;
-                
-                div {
-    
-                }
+
             }
         }
 
@@ -464,38 +461,7 @@
     100%{background-position:left}
   }
 
-// ---------------------------------
-//  ██████   █████  ██████  ████████ ██  ██████ ██ ██████   █████  ████████ ███████ 
-//  ██   ██ ██   ██ ██   ██    ██    ██ ██      ██ ██   ██ ██   ██    ██    ██      
-//  ██████  ███████ ██████     ██    ██ ██      ██ ██████  ███████    ██    █████   
-//  ██      ██   ██ ██   ██    ██    ██ ██      ██ ██      ██   ██    ██    ██      
-//  ██      ██   ██ ██   ██    ██    ██  ██████ ██ ██      ██   ██    ██    ███████
-// ---------------------------------
 
-.participation-content {
-    button {
-        &:hover {
-            background-color: $grey-dark;
-        }
-    }
-
-    #r-participation {
-        #title-register {
-            p {
-                #name {
-                    font-size: 1.4rem;
-                }
-
-                #pipe-separator{
-                    color: $main-white-color;
-                    font-size: 1.4rem;
-                    padding: 0 0.3rem;
-                }
-            }
-            
-        }
-    }
-}
 
 
 // ---------------------------------

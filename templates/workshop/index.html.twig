@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Workshops page{% endblock %}
-{% block meta %}List of the workshops{% endblock %}
-
+{% block title %}Art Workshops - MOSAIC{% endblock %}
+{% block meta %}Discover a world of creativity with our art workshops on MOSAIC. Join us for engaging sessions designed to inspire and cultivate your artistic talents. Explore our workshops now!{% endblock %}
 
 {% block body %}
-
 
 <div class="banner">
     <div class="content">
@@ -22,14 +20,13 @@
     <p><a href="{{ path('app_homepage') }}">Home </a> > All Workshops </p>
 </div>
 
-
 <section class="content" id="events-index">
     {% for workshop in ongoingWorkshop %}
 
         <div class="container-event">
             <div id="picture-event">
                 <figure>
-                    <div></div>
+                    <img src="{{ asset('images/workshop_img.jpg') }}" alt="">
                 </figure>
             </div>
             <div id="infos-event">

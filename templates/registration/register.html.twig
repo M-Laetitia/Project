@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Sign Up !{% endblock %}
+{% block meta %}"Quick and easy registration process. Join MOSAIC today and be a part of the communauty. Sign up now!"{% endblock %}
 
 {% block body %}
 
@@ -25,18 +26,17 @@
         </div>
     </div>
         
-    
-    <section class="content" id="register-user">
+    <section class="content register-user" id="register-user-page">
     
         <div id="register-container">
             <div id="separator">
 
             </div>
-            <div class="left-register" id="l-register">
-                
+            <div class="left-register" id="l-register-user">
+                <img src="{{ asset('images/visuals/register01.webp') }}" alt="">
             </div>
 
-            <div class="right-register" id="r-register">
+            <div class="right-register" id="r-register-user">
                 <div id="title-register">
                     <h2>SIGN UP<span class="underscore">_</span></h2>
                     <p>to become a fragment of Mosaic</p>
@@ -78,62 +78,5 @@
 
     </section>
     
-  <script src= "{{ asset('js/gsap.min.js') }}"></script>
-       
-  <script>
-    gsap.from("#register-user", {
-        opacity: 0, 
-        duration: 1.2, 
-        ease: "easeInOut", 
-        delay: 0.8
-    });
-
-    gsap.from("#l-register", {
-        opacity: 0, 
-        duration: 1.6, 
-        ease: "easeInOut", 
-        delay: 1.5
-    });
-
-    gsap.from("#r-register", {
-        opacity: 0, 
-        duration: 1.6, 
-        ease: "easeInOut", 
-        delay: 1.7
-    });
-
-    gsap.from("#separator", {
-        x : 100,
-        opacity: 0, 
-        duration: 1.6, 
-        ease: "easeInOut", 
-        delay: 2
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('#form-register input');
-        
-        inputs.forEach(function(input) {
-            if (!input.matches('#terms-register input')) {
-                 input.addEventListener('focus', function() {
-                     this.style.borderColor = '#f0bd2f'; 
-                     this.previousElementSibling.style.color = '#f0bd2f'; 
-                 });
-         
-                 //blur event is triggered when the input field loses focus
-                 input.addEventListener('blur', function() {
-                     this.style.borderColor = '#939393'; 
-                     this.previousElementSibling.style.color = ''; 
-                 });
-             }
-        });
-    });
-  </script>
-
-
-    
-
-    
-
    
 {% endblock %}

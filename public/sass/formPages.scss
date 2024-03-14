@@ -356,6 +356,41 @@ $grey-color: #272727;
     }
 }
 
+// ---------------------------------
+//  ██████   █████  ██████  ████████ ██  ██████ ██ ██████   █████  ████████ ███████ 
+//  ██   ██ ██   ██ ██   ██    ██    ██ ██      ██ ██   ██ ██   ██    ██    ██      
+//  ██████  ███████ ██████     ██    ██ ██      ██ ██████  ███████    ██    █████   
+//  ██      ██   ██ ██   ██    ██    ██ ██      ██ ██      ██   ██    ██    ██      
+//  ██      ██   ██ ██   ██    ██    ██  ██████ ██ ██      ██   ██    ██    ███████
+// ---------------------------------
+
+#participation-page {
+
+    #r-participation {
+        #title-register {
+            p {
+                #name {
+                    font-size: 1.4rem;
+                }
+                #pipe-separator{
+                    color: $main-white-color !important;
+                    font-size: 1.4rem;
+                    padding: 0 0.3rem;
+                }
+            }
+        }
+    }
+
+    #r-participation {
+        background-image: url('../images/visuals/participations02.webp'); 
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        width:100%;
+        height: 100%;
+        padding: 5rem 5rem 3rem 5rem;
+    } 
+}
+
 
 //&  ---------------------------------
 //&   ██████  ██    ██ ███████ ██████  ██ ███████ ███████ 

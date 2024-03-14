@@ -156,29 +156,16 @@
 
             <div class="nav-links">
 
-                <p class="{% if app.request.attributes.get('_route') == 'app_artist' %}active{% endif %}">
-                    <a href="{{ path('app_artist') }}">ARTISTS</a>
-                </p>
+                <p><a href="{{ path('app_artist') }}">ARTISTS</a></p>
+                <p><a href="{{ path('app_event') }}">EVENTS</a></p>
+                <p><a href="{{ path('app_workshop') }}">WORKSHOPS</a></p>
+                <p><a href="{{ path('app_exposition') }}">EXPOSITIONS</a></p>
+                <p><a href="{{ path('app_studio') }}">ART STUDIOS</a></p>
+                <p><a href="{{ path('app_calendar') }}">CALENDAR</a></p>
 
-                <p id="events">
-                    <a href="{{ path('app_event') }}">EVENTS</a>
-                </p>
-
-                <p class="{% if app.request.attributes.get('_route') == 'app_workshop' %}active{% endif %}">
-                    <a href="{{ path('app_workshop') }}">WORKSHOPS</a>
-                </p>
-
-                <p class="{% if app.request.attributes.get('_route') == 'app_exposition' %}active{% endif %}">
-                    <a href="{{ path('app_exposition') }}">EXPOSITIONS</a>
-                </p>
-
-                <p class="{% if app.request.attributes.get('_route') == 'app_studio' %}active{% endif %}">
-                    <a href="{{ path('app_studio') }}">ART STUDIOS</a>
-                </p>
-
-                <p class="{% if app.request.attributes.get('_route') == 'app_calendar' %}active{% endif %}">
+                {# <p class="{% if app.request.attributes.get('_route') == 'app_calendar' %}active{% endif %}">
                     <a href="{{ path('app_calendar') }}">CALENDAR</a>
-                </p>
+                </p> #}
 
             </div>
 
@@ -341,12 +328,12 @@
 
         $(document).ready(function() {
             var currentUrl = window.location.href;
-            var navItem = $('#events');
-            var link = navItem.find("a");
-    
-            if (currentUrl.includes("event")) {
-                link.addClass("highlight");
-            }
+            $('nav p a').each(function() {
+                var href = $(this).attr('href');
+                if (currentUrl.includes(href)) {
+                    $(this).addClass("highlight");
+                }
+            });
         });
 
 

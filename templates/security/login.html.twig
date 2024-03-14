@@ -2,6 +2,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
+{% block meta %}Easily access your MOSAIC account. Sign in now for seamless navigation{% endblock %}
 
 {% block body %}
 
@@ -22,13 +23,13 @@
     </div>
 </div>
 
-<section class="content login-user" id="register-user">
+<section class="content register-user" id="login-page">
     <div id="register-container">
-        <div id="separator">
 
-        </div>
+        <div id="separator"></div>
+
         <div class="left-register" id="l-login">
-           
+            <img src="{{ asset('images/visuals/login01.webp') }}" alt="Hand holding a flower with a eye logo inside">
         </div>
 
         <div class="right-register" id="r-login">
@@ -86,74 +87,19 @@
 
 
 
-<h3>test google auth</h3>
+{# <h3>test google auth</h3> #}
 
 
-<a href="
+{# <a href="
 https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri=<?= urlencode('http://127.0.0.1:8000/connect') ?>&response_type=code&client_id=<?= GOOGLE_ID ?>">test google
-</a>
+</a> #}
 
 
 {# <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri={{ url('connect') | url_encode }}&response_type=code&client_id={{ GOOGLE_ID }}">test google2</a> #}
 
-<a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri={{ 'http://127.0.0.1:8000/connect'|url_encode }}&response_type=code&client_id={{ GOOGLE_ID }}">test google3</a>
+{# <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&redirect_uri={{ 'http://127.0.0.1:8000/connect'|url_encode }}&response_type=code&client_id={{ GOOGLE_ID }}">test google3</a> #}
 
- {# client_id=client_id"> #}
-
-
-<script src= "{{ asset('js/gsap.min.js') }}"></script>
-
-<script>
-
-    gsap.from("#register-user", {
-        opacity: 0, 
-        duration: 1.2, 
-        ease: "easeInOut", 
-        delay: 0.8
-    });
-
-    gsap.from("#l-login", {
-        opacity: 0, 
-        duration: 1.6, 
-        ease: "easeInOut", 
-        delay: 1.5
-    });
-
-    gsap.from("#r-login", {
-        opacity: 0, 
-        duration: 1.6, 
-        ease: "easeInOut", 
-        delay: 1.7
-    });
-
-    gsap.from("#separator", {
-        x : 100,
-        opacity: 0, 
-        duration: 1.6, 
-        ease: "easeInOut", 
-        delay: 2
-    });
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('#form-register input');
-        
-        inputs.forEach(function(input) {
-            if (!input.matches('#terms-register input')) {
-                 input.addEventListener('focus', function() {
-                     this.style.borderColor = '#f0bd2f'; 
-                     this.previousElementSibling.style.color = '#f0bd2f'; 
-                 });
-         
-                 //blur event is triggered when the input field loses focus
-                 input.addEventListener('blur', function() {
-                     this.style.borderColor = '#939393'; 
-                     this.previousElementSibling.style.color = ''; 
-                 });
-             }
-        });
-    });
-  </script>
+{# client_id=client_id"> #}
 
 
 {% endblock %}

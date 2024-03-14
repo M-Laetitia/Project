@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Make a workshop registration{% endblock %}
-{% block meta %}Make a workshop registration{% endblock %}
+{% block title %}Workshop registration{% endblock %}
+{% block meta %}Immerse yourself in creativity. Join our upcoming art workshop with just a few clicks. Reserve your spot now!{% endblock %}
 
 {% block body %}
 
@@ -16,9 +16,7 @@
 </div>
 
 <style>
-    body {
-        background-color: #151515;
-    }
+    body {background-color: #151515;}
 </style>
 
 <div class="breadcrumb breadcrumb-light">
@@ -26,12 +24,13 @@
 </div>
 
 
-<section class="content participation-content" id="register-user">
+<section class="content register-user" id="participation-page">
     <div id="register-container">
-        <div id="separator">
 
-        </div>
+        <div id="separator"></div>
+
         <div class="left-register" id="l-participation">
+            <img src="{{ asset('images/visuals/participations01.webp') }}" alt="White hands on a black background, with intertwined threads and yellow floral patterns on the sides.">
         </div>
 
         <div class="right-register" id="r-participation">
@@ -55,8 +54,8 @@
             
             </div>
         </div>
+        
     </div>
 </section>
-
 
 {% endblock %}

@@ -344,6 +344,7 @@
     <script>
 
 
+        // add a color on links in the navbar
         $(document).ready(function() {
             var currentUrl = window.location.href;
             $('nav p a').each(function() {
@@ -353,9 +354,24 @@
                 }
             });
 
+
+            // animation for the links in the hamburger menu (mobile)
             $('#burger-icon').click(function() {
                 $('#mobile-header').toggleClass('nav-active');
-
+            
+                // Select all links within '.nav-links'
+                $('#mobile-header .nav-links a').each(function(index) {
+                    var link = $(this);
+            
+                    // Reset the color of the links when hiding them
+                    if ($('#mobile-header').hasClass('nav-active')) {
+                        setTimeout(function() {
+                            link.css('color', '#F9F9F9'); 
+                        }, 200 + index * 100); // Start after 200ms, then increase by 100ms for each link
+                    } else {
+                        link.css('color', '#151515'); // Reset the color of the link
+                    }
+                });
             })
 
             

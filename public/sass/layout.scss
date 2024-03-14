@@ -204,6 +204,12 @@ body {
         }
     }
 }
+
+@media screen and (min-width:320px) and (max-width:480px) { 
+    .breadcrumb {
+        font-size: .9rem;
+    }
+}
   
 
 /*  ---------------------------------- */
@@ -587,10 +593,9 @@ footer {
     }
 }
 
-@media screen and (min-width:1200px) and (max-width:1560px) { 
-
+@media screen and (min-width:1200px) and (max-width:1300px) { 
     .content {
-        width: 90%;
+        width: 85%;
     }
 }
 

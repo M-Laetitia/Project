@@ -59,7 +59,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
 
-        <meta name="description" content={% block meta %}"Description!"{% endblock %}">
+        {# <meta name="description" content={% block meta %}"Description!"{% endblock %}"> #}
 
         <link rel="icon" href="{{ asset('images/visuals/favicon.png') }}" type="image/png" >
 
@@ -98,6 +98,7 @@
             <link rel="stylesheet" href="{{asset('css/studios.css')}}">
             <link rel="stylesheet" href="{{asset('css/events.css')}}">
             <link rel="stylesheet" href="{{asset('css/formPages.css')}}">
+            <link rel="stylesheet" href="{{asset('css/indexPages.css')}}">
         {% endblock %}
 
         {% block javascripts %}
@@ -159,7 +160,7 @@
                     <a href="{{ path('app_artist') }}">ARTISTS</a>
                 </p>
 
-                <p class="{% if app.request.attributes.get('_route') == 'app_event' %}active{% endif %}">
+                <p id="events">
                     <a href="{{ path('app_event') }}">EVENTS</a>
                 </p>
 
@@ -336,6 +337,19 @@
 
 
     <script>
+
+
+        $(document).ready(function() {
+            var currentUrl = window.location.href;
+            var navItem = $('#events');
+            var link = navItem.find("a");
+    
+            if (currentUrl.includes("event")) {
+                link.addClass("highlight");
+            }
+        });
+
+
         // footer animation
         /*gsap.from('#top-footer', {
         duration: 1.2,

@@ -134,8 +134,6 @@
     }
 }
 
-
-
 #btn-register {
     width: 61% !important;
     // margin-right: 12rem;
@@ -147,6 +145,85 @@
 
 #terms-register a:hover {
     color: $secondary-color !important;
+}
+
+// ---------------------------------
+//  ██       ██████   ██████  ██ ███    ██ 
+//  ██      ██    ██ ██       ██ ████   ██ 
+//  ██      ██    ██ ██   ███ ██ ██ ██  ██ 
+//  ██      ██    ██ ██    ██ ██ ██  ██ ██ 
+//  ███████  ██████   ██████  ██ ██   ████
+// ---------------------------------
+
+
+#login-page {
+
+    .left-register {
+        #l-login img{
+            width:100%;
+            height: 100%;
+        }
+    }
+
+    #register-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        color: #F9F9F9;
+        position: relative;
+    }
+
+    #new-password {
+        text-align: right;
+        margin-bottom: 2rem;
+        color: $grey-light;
+        transition: ease-in-out 0.3s;
+
+        &:hover {
+            color: $secondary-color; 
+        }
+    }
+
+    #create-account {
+        a {
+            color: $grey-light;
+            transition: ease-in-out 0.3s;
+            position: relative;
+
+            &:hover {
+                color: $secondary-color;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: -3px; 
+                left: 0;
+                width: 0; 
+                height: 1px; 
+                background-color: $secondary-color; 
+                transition: width 0.3s ease; 
+            }
+
+            &:hover:before {
+                color: $secondary-color;
+                width: 100%;
+            }
+        }
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 3rem;
+    }
+
+    #r-login {
+        background-image: url('../images/login2.png'); 
+        background-repeat: no-repeat;
+        background-size: auto 100%;
+        width:100%;
+        height: 100%;
+        padding: 5rem 5rem 3rem 5rem;
+    } 
 }
 
 
@@ -297,7 +374,7 @@ $grey-color: #272727;
     }
 
     .register-user #register-container {
-        display: flex ;
+        display: flex !important;
         flex-direction: column;
     }
 
@@ -332,7 +409,7 @@ $grey-color: #272727;
     }
 
     .register-user #register-container {
-        display: flex;
+        display: flex !important;
         flex-direction: column;
     }
 

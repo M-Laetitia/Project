@@ -1076,527 +1076,367 @@ html {
   transition: opacity ease-in-out 1s;
 }
 
-#artists-index .categories {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 2.5rem;
-  column-gap: 3rem;
+.register-user {
+  background-color: #272727;
 }
-#artists-index .categories .category {
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: ease-in-out 0.3s;
-}
-#artists-index .categories .category:hover {
-  color: #207E93;
-  transform: translateY(-5px);
-}
-#artists-index .categories #all:hover {
-  color: #eeaf42;
-}
-#artists-index .categories #more-filters-btn {
-  cursor: pointer;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#artists-index .categories #more-filters-btn:hover {
-  color: #207E93;
-}
-#artists-index .categories #more-filters-btn:hover span {
-  color: #207E93;
-}
-#artists-index #artists-container {
-  width: 100%;
+.register-user #register-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5rem;
-  justify-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-#artists-index #artists-container #hover2 {
-  width: 23.5rem;
-  height: 23.5rem;
-  background-color: black;
-}
-#artists-index #artists-container #hover2 img {
-  object-fit: cover;
-}
-
-img {
-  object-fit: cover;
-}
-
-#cross-filters {
-  background-color: #eeaf42;
-  height: 15px;
-  width: 2px;
+  grid-template-columns: 50% 50%;
+  color: #F9F9F9;
   position: relative;
-  margin-right: 0.7rem;
-  transition: ease-in-out 0.3s;
 }
-#cross-filters:hover {
-  background-color: #207E93;
-}
-#cross-filters:before {
-  content: "";
+.register-user #register-container #separator {
+  background-color: #eeaf42;
+  width: 80%;
+  height: 5px;
   position: absolute;
-  background-color: inherit;
-  height: inherit;
-  width: inherit;
-  transform: rotate(90deg);
+  left: 50%;
+  top: 1px;
+  transform: translate(-50%, -50%);
+  z-index: 1 !important;
 }
-
-#more-filters {
-  margin-bottom: 3rem;
+.register-user #register-container .left-register {
+  background-color: black;
+  width: 100%;
+  height: 100%;
 }
-#more-filters .form-search-username-discipline form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.register-user #register-container .left-register img {
+  width: 100%;
+  height: 100%;
 }
-#more-filters p {
-  font-weight: 500;
-  margin-right: 2rem;
+.register-user #register-container #l-register-user {
+  width: 100%;
+  height: 100%;
 }
-#more-filters input {
-  border: none;
-  background-color: transparent;
-  border-bottom: 2px solid #eeaf42;
-  width: 16rem;
-  margin-right: 4rem;
-  outline: none;
+.register-user #register-container .right-register {
+  background-color: #272727;
+  width: 100%;
+  height: 100%;
+  padding: 5rem 5rem 3rem 5rem;
 }
-#more-filters button {
-  background-color: transparent;
-  text-transform: uppercase;
-  padding: 0.3rem 1.7rem;
-  border: 1px solid #eeaf42;
+.register-user #register-container .right-register #title-register p {
   color: #eeaf42;
-  font-weight: 600;
+  padding-top: 0.2rem;
+  padding-bottom: 3rem;
+}
+.register-user #register-container #r-register-user {
+  background-image: url("../images/visuals/register02.webp") !important;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+}
+.register-user #register-container #form-register {
+  padding-right: 6rem;
+}
+.register-user #register-container #form-register div {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1.8rem;
+}
+.register-user #register-container #form-register label {
+  text-transform: uppercase;
+  padding-bottom: 1rem;
   transition: ease-in-out 0.6s;
 }
-#more-filters button:hover {
-  background-color: #151515;
+.register-user #register-container #form-register input {
+  background-color: transparent;
+  border-bottom: 1px solid #939393;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  transition: ease-in-out 0.6s;
 }
-
-#popup-role-artist {
-  position: fixed;
-  right: 0;
-  width: 14rem;
-  height: 6rem;
-  background-color: #eeaf42;
-  color: #151515;
+.register-user #register-container #form-register #terms-register {
+  display: flex;
 }
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  #artists-index #artists-container #hover2 {
-    width: clamp(20rem, 2.5vw, 30rem);
-    height: 20rem;
-  }
-  #artists-index .categories {
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    column-gap: 3rem;
-    row-gap: 0.5rem;
-  }
-  #more-filters .form-search-username-discipline form {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    row-gap: 1.3rem;
-  }
-}
-@media screen and (min-width: 480px) and (max-width: 768px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  #artists-index #artists-container #hover2 {
-    width: 25rem;
-    height: 25rem;
-  }
-  #artists-index .categories {
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    column-gap: 3rem;
-    row-gap: 0.5rem;
-  }
-  #more-filters .form-search-username-discipline form {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    row-gap: 1.3rem;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-  #artists-index #artists-container #hover2 {
-    width: 20rem;
-    height: 20rem;
-  }
-  #artists-index .categories {
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    column-gap: 3rem;
-    row-gap: 0.5rem;
-  }
-  #more-filters .form-search-username-discipline form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 2rem;
-  }
-}
-@media screen and (min-width: 1200px) and (max-width: 1560px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-  #artists-index #artists-container #hover2 {
-    width: 25rem;
-    height: 25rem;
-  }
-}
-#artist-show header {
-  position: relative;
-  margin-bottom: 6rem;
-}
-#artist-show header figure {
-  width: 100%;
-  height: 40rem;
-  background-color: grey;
-  overflow: hidden;
-}
-#artist-show header figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-}
-#artist-show header #quote {
-  position: absolute;
-  width: 100%;
-  height: 2.5rem;
-  background-color: #eeaf42;
-  right: 0;
-  transform: translate(25rem, -20px);
-  padding-right: 12rem;
-  padding-left: 1rem;
+.register-user #register-container #form-register #terms-register p {
   display: flex;
   align-items: center;
-  color: #F9F9F9;
 }
-#artist-show header #quote span {
-  color: #207E93;
-  font-weight: 700;
-  font-size: 2rem;
+.register-user #register-container #form-register #terms-register p a {
+  transition: ease-in-out 0.6s;
 }
-#artist-show header #quote p {
-  font-weight: 400 !important;
-  margin: 0 1rem;
-}
-#artist-show #artist-detail {
-  display: grid;
-  grid-template-columns: 70% 30%;
-  margin-bottom: 7rem;
-}
-#artist-show #artist-detail #about {
-  padding-right: 5rem;
-  text-align: justify;
-}
-#artist-show #artist-detail #about h3 {
-  margin-bottom: 1.5rem;
-}
-#artist-show #artist-detail #about span {
-  color: #207E93;
-}
-#artist-show #artist-detail #info .text-n2 span {
+.register-user #register-container #form-register #terms-register p span {
+  margin: 0rem 0.4rem;
   color: #eeaf42;
 }
-#artist-show #artist-detail #info #list-info span {
-  font-weight: 400;
+.register-user #register-container #login {
+  margin-top: 1rem;
 }
-#artist-show #artist-detail #info #list-infos {
-  border-left: 4px solid #207E93;
-  padding: 1.5rem 0rem 0rem 1rem;
-  line-height: 2.5rem;
+.register-user #register-container #login a {
+  color: #eeaf42;
+  position: relative;
+  text-decoration: none;
 }
-#artist-show #artist-detail #info #list-infos #list-info p {
-  display: flex;
-  justify-content: space-between;
+.register-user #register-container #login a:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #eeaf42;
+  transition: width 0.3s ease;
 }
-#artist-show #artist-detail #info #list-infos #list-info a {
-  transform: ease-in-out 0.3s;
+.register-user #register-container #login a:hover:before {
+  width: 100%;
 }
-#artist-show #artist-detail #info #list-infos #list-info a:hover {
-  color: #207E93;
+
+#btn-register {
+  width: 61% !important;
 }
-#artist-show #artist-detail #info #socials {
-  margin-top: 2rem;
-  color: #151515;
-  font-size: 2rem;
-  display: flex;
-  column-gap: 2rem;
-  cursor: pointer;
+#terms-register a:hover {
+  color: #eeaf42 !important;
 }
-#artist-show #artist-detail #info #socials i {
-  transition: 0.3s ease-in-out;
+
+#login-page .left-register #l-login img {
+  width: 100%;
+  height: 100%;
 }
-#artist-show #artist-detail #info #socials i:hover {
-  color: #207E93;
-  transform: translateY(-5px);
+#login-page #register-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  color: #F9F9F9;
+  position: relative;
 }
-#artist-show #gallery h3 {
+#login-page #new-password {
+  text-align: right;
+  margin-bottom: 2rem;
+  color: #c3b5b5;
+  transition: ease-in-out 0.3s;
+}
+#login-page #new-password:hover {
+  color: #eeaf42;
+}
+#login-page #create-account a {
+  color: #c3b5b5;
+  transition: ease-in-out 0.3s;
+  position: relative;
+}
+#login-page #create-account a:hover {
+  color: #eeaf42;
+}
+#login-page #create-account a:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #eeaf42;
+  transition: width 0.3s ease;
+}
+#login-page #create-account a:hover:before {
+  color: #eeaf42;
+  width: 100%;
+}
+#login-page button {
+  width: 100%;
   margin-bottom: 3rem;
 }
-#artist-show #gallery h3 span {
-  color: #207E93;
-}
-#artist-show #gallery #images {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5rem;
-}
-#artist-show #gallery #images picture {
-  width: 23.5rem;
-  height: 23.5rem;
-  background-color: grey;
-  overflow: hidden;
-  cursor: pointer;
-}
-#artist-show #gallery #images picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1s ease;
-}
-
-.artist-container {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 2s ease, transform 2s ease;
-}
-
-.artist-container.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  #artist-show {
-    width: 80%;
-  }
-  #artist-show header {
-    margin-bottom: 3rem;
-  }
-  #artist-show header figure {
-    height: 18rem;
-  }
-  #artist-show .text-n1 {
-    text-align: left;
-  }
-  #artist-detail {
-    display: flex !important;
-    flex-direction: column;
-  }
-  #artist-show #artist-detail #about {
-    padding-right: 0rem;
-    text-align: justify;
-    padding-bottom: 1.5rem;
-  }
-  #artist-show #artist-detail #info #list-infos #list-info p span {
-    margin-right: 1rem;
-  }
-  #artist-show #gallery #images {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-  }
-  #artist-show header #quote {
-    display: none;
-  }
-}
-@media screen and (min-width: 480px) and (max-width: 768px) {
-  #artist-show {
-    width: 80%;
-  }
-  #artist-show header {
-    margin-bottom: 3rem;
-  }
-  #artist-show header figure {
-    height: 26rem;
-  }
-  #artist-show .text-n1 {
-    text-align: left;
-  }
-  #artist-detail {
-    display: flex !important;
-    flex-direction: column;
-  }
-  #artist-show #artist-detail #about {
-    padding-right: 0rem;
-    text-align: justify;
-    padding-bottom: 1.5rem;
-  }
-  #artist-show #artist-detail #info #list-infos #list-info p span {
-    margin-right: 1rem;
-  }
-  #artist-show #gallery #images {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-  }
-  #artist-show header #quote {
-    display: none;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-  #artist-show header #quote {
-    position: absolute;
-    width: 100%;
-    height: 3.5rem;
-    transform: translate(0rem, -20px);
-    padding: 0 1rem;
-  }
-  #artist-show #gallery #images {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-  #artist-show #artist-detail {
-    margin-bottom: 6rem;
-    grid-template-columns: 60% 40%;
-  }
-  #artist-show #artist-detail #about {
-    padding-right: 3rem;
-  }
-}
-#role-artist {
-  letter-spacing: 0.05rem;
-}
-#role-artist select {
-  color: #F9F9F9;
-}
-#role-artist #l-role-artist {
-  background-color: #1a1a1a;
-  width: 100%;
-  height: 100%;
-  min-height: 645px;
-}
-#role-artist #l-role-artist img {
-  height: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-#role-artist #r-role-artist {
-  background-image: url("../images/visuals/roleArtist02.webp");
+#login-page #r-login {
+  background-image: url("../images/login2.png");
   background-repeat: no-repeat;
   background-size: auto 100%;
   width: 100%;
   height: 100%;
   padding: 5rem 5rem 3rem 5rem;
 }
-#role-artist #artist-role-infos {
-  padding-right: 6rem;
-  cursor: pointer;
-  margin-bottom: 2rem;
+
+#subscription-page {
+  width: 70%;
+  margin: auto;
 }
-#role-artist #artist-role-infos p {
-  width: 100%;
+#subscription-page p {
+  color: #F9F9F9;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+#subscription-page .subscription-cards {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+#subscription-page .ongoing-subscription {
+  position: relative;
+}
+#subscription-page .ongoing-subscription:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #151515;
+  opacity: 0.8;
+}
+#subscription-page .subscription-card {
+  background-color: #272727;
+  width: 21rem;
+  border-left: 1px solid #272727;
+  border-right: 1px solid #272727;
+  border-top: 1px solid #272727;
+  border-bottom: 1px solid #eeaf42;
+  padding-bottom: 2rem;
+  cursor: pointer;
+  transition: scale ease-in-out 0.3;
+  opacity: 0;
+}
+#subscription-page .subscription-card:hover {
+  background-color: #eeaf42;
+  border-color: #eeaf42;
+}
+#subscription-page .subscription-card:hover h2, #subscription-page .subscription-card:hover p {
+  color: #151515;
+}
+#subscription-page .subscription-card:hover .btn {
+  background-color: #272727;
+  color: #eeaf42;
+  border-color: #272727;
+}
+#subscription-page .subscription-card h2 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 1.8rem;
+  margin-bottom: 2rem;
+  color: #F9F9F9;
+  letter-spacing: 0.2rem;
   transition: ease-in-out 0.3s;
 }
-#role-artist #artist-role-infos:hover p {
-  color: #eeaf42;
-}
-#role-artist #artist-role-text {
-  font-size: 0.9rem;
-  text-align: justify;
+#subscription-page .subscription-card .image {
+  width: 50%;
+  height: 14rem;
+  margin: auto;
   margin-bottom: 2rem;
-  letter-spacing: 0.05rem;
 }
-#role-artist select {
-  background-color: transparent;
-  border: none;
-  padding: 0 1em 0 0;
-  margin: 0;
+#subscription-page .subscription-card .image img {
   width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: inherit;
-  line-height: inherit;
-  outline: none;
-  color: #F9F9F9;
+  height: 100%;
 }
-#role-artist .custom-select {
-  width: 100%;
-  min-width: 15ch;
-  max-width: 30ch;
-  cursor: pointer;
-  line-height: 1.1;
-  background-color: grey;
-  padding: 0.5rem 1rem;
-  position: relative;
+#subscription-page .subscription-card p {
+  color: #eeaf42;
+  text-align: center;
+  letter-spacing: 0.2rem;
 }
-#role-artist input:checked + label {
-  order: 1;
-  z-index: 2;
-  background: #666;
-  border-top: none;
-  position: relative;
+#subscription-page .subscription-card p:nth-child(3) {
+  font-weight: 700;
+  font-size: 1.2rem;
 }
-#role-artist input:checked + label:after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid rgb(255, 2, 2);
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 2.5px);
-  pointer-events: none;
-  z-index: 3;
+#subscription-page .subscription-card p:nth-child(4) {
+  font-size: 1rem;
 }
-#role-artist .option {
-  padding: 0 30px 0 10px;
-  min-height: 40px;
+#subscription-page .subscription-card .subscription-btn {
+  margin-top: 1.3rem;
   display: flex;
-  align-items: center;
-  background: #333;
-  border-top: #222 solid 1px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  pointer-events: none;
-  order: 2;
-  z-index: 1;
-  transition: background 0.4s ease-in-out;
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: nowrap;
+  justify-content: center;
 }
-#role-artist .option:hover {
-  background: #666;
+#subscription-page .subscription-card .subscription-btn div {
+  text-align: center;
+  background-color: #272727;
+  color: #272727;
+  border-color: #272727;
+  transition: ease-in-out 0.3s;
+  width: 11rem;
 }
-#role-artist .custom-select:focus .option {
-  position: relative;
-  pointer-events: all;
+#subscription-page .subscription-card .subscription-btn div:hover {
+  transform: scale(1.1);
 }
 
-/*# sourceMappingURL=artistPages.css.map */
+#participation-page #r-participation #title-register p #name {
+  font-size: 1.4rem;
+}
+#participation-page #r-participation #title-register p #pipe-separator {
+  color: #F9F9F9 !important;
+  font-size: 1.4rem;
+  padding: 0 0.3rem;
+}
+#participation-page #r-participation {
+  background-image: url("../images/visuals/participations02.webp");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  width: 100%;
+  height: 100%;
+  padding: 5rem 5rem 3rem 5rem;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .content {
+    width: 100%;
+  }
+  .register-user #register-container {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .register-user .left-register {
+    width: 100%;
+    height: 100%;
+    min-height: auto;
+  }
+  .register-user .right-register {
+    padding: 3rem 3rem 3rem 3rem !important;
+  }
+  .register-user #register-container #form-register {
+    padding-right: 0rem;
+  }
+  .register-user #artist-role-infos {
+    padding-right: 0rem;
+  }
+  #role-artist .custom-select {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 900px) {
+  .content .register-user {
+    width: 85% !important;
+    margin: auto;
+  }
+  .register-user #register-container {
+    display: flex !important;
+    flex-direction: column;
+  }
+  .register-user .left-register {
+    width: 100%;
+    height: 100%;
+    min-height: auto;
+  }
+  .register-user .right-register {
+    padding: 3rem 3rem 3rem 3rem !important;
+  }
+  .register-user #register-container #form-register {
+    padding-right: 0rem;
+  }
+  .register-user .left-register img {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  #role-artist #artist-role-infos {
+    padding-right: 0rem;
+  }
+  #role-artist .custom-select {
+    max-width: 100%;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1400px) {
+  .content #register-user {
+    width: 80% !important;
+    margin: auto;
+  }
+  .register-user .right-register {
+    padding: 4rem 2rem 3rem 2rem !important;
+  }
+  .register-user #register-container #form-register {
+    padding-right: 2rem;
+  }
+  .register-user .left-register img {
+    width: 100%;
+    height: 100%;
+  }
+  #role-artist #artist-role-infos {
+    padding-right: 2rem;
+  }
+  #role-artist .custom-select {
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=formPages.css.map */

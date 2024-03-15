@@ -1076,527 +1076,142 @@ html {
   transition: opacity ease-in-out 1s;
 }
 
-#artists-index .categories {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 2.5rem;
-  column-gap: 3rem;
-}
-#artists-index .categories .category {
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: ease-in-out 0.3s;
-}
-#artists-index .categories .category:hover {
-  color: #207E93;
-  transform: translateY(-5px);
-}
-#artists-index .categories #all:hover {
-  color: #eeaf42;
-}
-#artists-index .categories #more-filters-btn {
-  cursor: pointer;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#artists-index .categories #more-filters-btn:hover {
-  color: #207E93;
-}
-#artists-index .categories #more-filters-btn:hover span {
-  color: #207E93;
-}
-#artists-index #artists-container {
-  width: 100%;
+#events-index .container-event {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5rem;
-  justify-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-#artists-index #artists-container #hover2 {
-  width: 23.5rem;
-  height: 23.5rem;
-  background-color: black;
-}
-#artists-index #artists-container #hover2 img {
-  object-fit: cover;
-}
-
-img {
-  object-fit: cover;
-}
-
-#cross-filters {
-  background-color: #eeaf42;
-  height: 15px;
-  width: 2px;
+  grid-template-columns: 55% 45%;
+  height: 26rem;
   position: relative;
-  margin-right: 0.7rem;
-  transition: ease-in-out 0.3s;
-}
-#cross-filters:hover {
-  background-color: #207E93;
-}
-#cross-filters:before {
-  content: "";
-  position: absolute;
-  background-color: inherit;
-  height: inherit;
-  width: inherit;
-  transform: rotate(90deg);
-}
-
-#more-filters {
-  margin-bottom: 3rem;
-}
-#more-filters .form-search-username-discipline form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#more-filters p {
-  font-weight: 500;
-  margin-right: 2rem;
-}
-#more-filters input {
-  border: none;
-  background-color: transparent;
-  border-bottom: 2px solid #eeaf42;
-  width: 16rem;
-  margin-right: 4rem;
-  outline: none;
-}
-#more-filters button {
-  background-color: transparent;
-  text-transform: uppercase;
-  padding: 0.3rem 1.7rem;
-  border: 1px solid #eeaf42;
-  color: #eeaf42;
-  font-weight: 600;
-  transition: ease-in-out 0.6s;
-}
-#more-filters button:hover {
-  background-color: #151515;
-}
-
-#popup-role-artist {
-  position: fixed;
-  right: 0;
-  width: 14rem;
-  height: 6rem;
-  background-color: #eeaf42;
-  color: #151515;
-}
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  #artists-index #artists-container #hover2 {
-    width: clamp(20rem, 2.5vw, 30rem);
-    height: 20rem;
-  }
-  #artists-index .categories {
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    column-gap: 3rem;
-    row-gap: 0.5rem;
-  }
-  #more-filters .form-search-username-discipline form {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    row-gap: 1.3rem;
-  }
-}
-@media screen and (min-width: 480px) and (max-width: 768px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  #artists-index #artists-container #hover2 {
-    width: 25rem;
-    height: 25rem;
-  }
-  #artists-index .categories {
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    column-gap: 3rem;
-    row-gap: 0.5rem;
-  }
-  #more-filters .form-search-username-discipline form {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    row-gap: 1.3rem;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-  #artists-index #artists-container #hover2 {
-    width: 20rem;
-    height: 20rem;
-  }
-  #artists-index .categories {
-    flex-wrap: wrap;
-    padding-bottom: 2.5rem;
-    column-gap: 3rem;
-    row-gap: 0.5rem;
-  }
-  #more-filters .form-search-username-discipline form {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-    row-gap: 2rem;
-  }
-}
-@media screen and (min-width: 1200px) and (max-width: 1560px) {
-  #artists-index #artists-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-  #artists-index #artists-container #hover2 {
-    width: 25rem;
-    height: 25rem;
-  }
-}
-#artist-show header {
-  position: relative;
-  margin-bottom: 6rem;
-}
-#artist-show header figure {
-  width: 100%;
-  height: 40rem;
-  background-color: grey;
-  overflow: hidden;
-}
-#artist-show header figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-}
-#artist-show header #quote {
-  position: absolute;
-  width: 100%;
-  height: 2.5rem;
-  background-color: #eeaf42;
-  right: 0;
-  transform: translate(25rem, -20px);
-  padding-right: 12rem;
-  padding-left: 1rem;
-  display: flex;
-  align-items: center;
-  color: #F9F9F9;
-}
-#artist-show header #quote span {
-  color: #207E93;
-  font-weight: 700;
-  font-size: 2rem;
-}
-#artist-show header #quote p {
-  font-weight: 400 !important;
-  margin: 0 1rem;
-}
-#artist-show #artist-detail {
-  display: grid;
-  grid-template-columns: 70% 30%;
   margin-bottom: 7rem;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
-#artist-show #artist-detail #about {
-  padding-right: 5rem;
-  text-align: justify;
-}
-#artist-show #artist-detail #about h3 {
-  margin-bottom: 1.5rem;
-}
-#artist-show #artist-detail #about span {
-  color: #207E93;
-}
-#artist-show #artist-detail #info .text-n2 span {
-  color: #eeaf42;
-}
-#artist-show #artist-detail #info #list-info span {
-  font-weight: 400;
-}
-#artist-show #artist-detail #info #list-infos {
-  border-left: 4px solid #207E93;
-  padding: 1.5rem 0rem 0rem 1rem;
-  line-height: 2.5rem;
-}
-#artist-show #artist-detail #info #list-infos #list-info p {
-  display: flex;
-  justify-content: space-between;
-}
-#artist-show #artist-detail #info #list-infos #list-info a {
-  transform: ease-in-out 0.3s;
-}
-#artist-show #artist-detail #info #list-infos #list-info a:hover {
-  color: #207E93;
-}
-#artist-show #artist-detail #info #socials {
-  margin-top: 2rem;
-  color: #151515;
-  font-size: 2rem;
-  display: flex;
-  column-gap: 2rem;
-  cursor: pointer;
-}
-#artist-show #artist-detail #info #socials i {
-  transition: 0.3s ease-in-out;
-}
-#artist-show #artist-detail #info #socials i:hover {
-  color: #207E93;
-  transform: translateY(-5px);
-}
-#artist-show #gallery h3 {
-  margin-bottom: 3rem;
-}
-#artist-show #gallery h3 span {
-  color: #207E93;
-}
-#artist-show #gallery #images {
+#events-index .container-event #picture-event {
+  padding-right: 3rem;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5rem;
+  height: 26rem;
 }
-#artist-show #gallery #images picture {
-  width: 23.5rem;
-  height: 23.5rem;
+#events-index .container-event #picture-event figure {
   background-color: grey;
-  overflow: hidden;
-  cursor: pointer;
-}
-#artist-show #gallery #images picture img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 1s ease;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
 }
-
-.artist-container {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 2s ease, transform 2s ease;
+#events-index .container-event #picture-event figure img {
+  width: 100%;
+  height: 100%;
+  transition: ease-in-out 0.6s;
+  cursor: pointer;
 }
-
-.artist-container.visible {
-  opacity: 1;
-  transform: translateY(0);
+#events-index .container-event #picture-event figure img:hover {
+  transform: scale(1.1);
+}
+#events-index .container-event #infos-event h2 {
+  color: #eeaf42;
+  text-transform: uppercase;
+  padding-bottom: 2rem;
+}
+#events-index .container-event #infos-event h2 span {
+  color: #207E93;
+}
+#events-index .container-event #infos-event #resume-event {
+  padding-bottom: 2rem;
+  text-align: justify;
+}
+#events-index .container-event #infos-event #details-event {
+  display: grid;
+  row-gap: 1rem;
+}
+#events-index .container-event #infos-event #details-event span {
+  font-weight: 600;
+}
+#events-index .container-event #infos-event #details-event #pipe-separator {
+  color: #eeaf42;
+}
+#events-index .container-event #infos-event #btn-event {
+  bottom: 0;
+  position: absolute;
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
-  #artist-show {
-    width: 80%;
-  }
-  #artist-show header {
-    margin-bottom: 3rem;
-  }
-  #artist-show header figure {
-    height: 18rem;
-  }
-  #artist-show .text-n1 {
-    text-align: left;
-  }
-  #artist-detail {
-    display: flex !important;
+  #events-index .container-event {
+    display: flex;
     flex-direction: column;
+    height: 100%;
   }
-  #artist-show #artist-detail #about {
-    padding-right: 0rem;
-    text-align: justify;
-    padding-bottom: 1.5rem;
+  #events-index .container-event #infos-event {
+    width: 80%;
+    margin: auto;
   }
-  #artist-show #artist-detail #info #list-infos #list-info p span {
-    margin-right: 1rem;
+  #resume-event {
+    line-height: 1.4rem;
   }
-  #artist-show #gallery #images {
+  #events-index .container-event #infos-event #details-event {
+    row-gap: 0.6rem;
+  }
+  #events-index .container-event #picture-event {
+    height: 18rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  #events-index .container-event #picture-event {
+    padding-right: 0;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
   }
-  #artist-show header #quote {
-    display: none;
+  #events-index .container-event #picture-event figure {
+    width: 100%;
+    height: 21rem;
+    margin-bottom: 2rem;
+  }
+  #events-index .container-event #infos-event #resume-event {
+    padding-bottom: 2rem;
+    text-align: justify;
+  }
+  #events-index .container-event #infos-event #btn-event {
+    bottom: 0;
+    position: inherit;
+    margin-top: 2rem;
   }
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
-  #artist-show {
-    width: 80%;
-  }
-  #artist-show header {
-    margin-bottom: 3rem;
-  }
-  #artist-show header figure {
-    height: 26rem;
-  }
-  #artist-show .text-n1 {
-    text-align: left;
-  }
-  #artist-detail {
-    display: flex !important;
+  #events-index .container-event {
+    display: flex;
     flex-direction: column;
+    height: 100%;
   }
-  #artist-show #artist-detail #about {
-    padding-right: 0rem;
+  #events-index .container-event #infos-event {
+    width: 100%;
+  }
+  #resume-event {
+    line-height: 1.4rem;
+  }
+  #events-index .container-event #infos-event #details-event {
+    row-gap: 0.6rem;
+  }
+  #events-index .container-event #picture-event {
+    height: 22rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  #events-index .container-event #picture-event {
+    padding-right: 0;
+    width: 100%;
+  }
+  #events-index .container-event #picture-event figure {
+    width: 100%;
+    height: 21rem;
+    margin-bottom: 2rem;
+  }
+  #events-index .container-event #infos-event #resume-event {
+    padding-bottom: 2rem;
     text-align: justify;
-    padding-bottom: 1.5rem;
   }
-  #artist-show #artist-detail #info #list-infos #list-info p span {
-    margin-right: 1rem;
+  #events-index .container-event #infos-event #btn-event {
+    bottom: 0;
+    position: inherit;
+    margin-top: 2rem;
   }
-  #artist-show #gallery #images {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
-  }
-  #artist-show header #quote {
-    display: none;
-  }
-}
-@media screen and (min-width: 768px) and (max-width: 1200px) {
-  #artist-show header #quote {
-    position: absolute;
-    width: 100%;
-    height: 3.5rem;
-    transform: translate(0rem, -20px);
-    padding: 0 1rem;
-  }
-  #artist-show #gallery #images {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-  #artist-show #artist-detail {
-    margin-bottom: 6rem;
-    grid-template-columns: 60% 40%;
-  }
-  #artist-show #artist-detail #about {
-    padding-right: 3rem;
-  }
-}
-#role-artist {
-  letter-spacing: 0.05rem;
-}
-#role-artist select {
-  color: #F9F9F9;
-}
-#role-artist #l-role-artist {
-  background-color: #1a1a1a;
-  width: 100%;
-  height: 100%;
-  min-height: 645px;
-}
-#role-artist #l-role-artist img {
-  height: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-#role-artist #r-role-artist {
-  background-image: url("../images/visuals/roleArtist02.webp");
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  width: 100%;
-  height: 100%;
-  padding: 5rem 5rem 3rem 5rem;
-}
-#role-artist #artist-role-infos {
-  padding-right: 6rem;
-  cursor: pointer;
-  margin-bottom: 2rem;
-}
-#role-artist #artist-role-infos p {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transition: ease-in-out 0.3s;
-}
-#role-artist #artist-role-infos:hover p {
-  color: #eeaf42;
-}
-#role-artist #artist-role-text {
-  font-size: 0.9rem;
-  text-align: justify;
-  margin-bottom: 2rem;
-  letter-spacing: 0.05rem;
-}
-#role-artist select {
-  background-color: transparent;
-  border: none;
-  padding: 0 1em 0 0;
-  margin: 0;
-  width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: inherit;
-  line-height: inherit;
-  outline: none;
-  color: #F9F9F9;
-}
-#role-artist .custom-select {
-  width: 100%;
-  min-width: 15ch;
-  max-width: 30ch;
-  cursor: pointer;
-  line-height: 1.1;
-  background-color: grey;
-  padding: 0.5rem 1rem;
-  position: relative;
-}
-#role-artist input:checked + label {
-  order: 1;
-  z-index: 2;
-  background: #666;
-  border-top: none;
-  position: relative;
-}
-#role-artist input:checked + label:after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid rgb(255, 2, 2);
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 2.5px);
-  pointer-events: none;
-  z-index: 3;
-}
-#role-artist .option {
-  padding: 0 30px 0 10px;
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  background: #333;
-  border-top: #222 solid 1px;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  pointer-events: none;
-  order: 2;
-  z-index: 1;
-  transition: background 0.4s ease-in-out;
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: nowrap;
-}
-#role-artist .option:hover {
-  background: #666;
-}
-#role-artist .custom-select:focus .option {
-  position: relative;
-  pointer-events: all;
 }
 
-/*# sourceMappingURL=artistPages.css.map */
+/*# sourceMappingURL=indexPages.css.map */

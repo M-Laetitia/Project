@@ -18,9 +18,11 @@
     
     <div id="popup-role-artist">
         <p>Do you want to be a part of the artist communauty?</p>
-        <div>Learn more</div>
-        <div id="close-popup-btn">close</div>
-        <a href="{{ path('get_role_artist') }}">clic</a>
+        <div>
+            <p><a href="{{ path('get_role_artist') }}">Learn more</a></p>
+            <p id="close-popup-btn">Not now</p>
+        </div>
+  
     </div>
 
 
@@ -114,11 +116,11 @@
     <script>
 
         // show popup after a delay of 4s
-        gsap.from('#popup-role-artist', 1.2, {opacity: 0, delay: 4 });
+        //gsap.from('#popup-role-artist', 1.2, {opacity: 0, delay: 4 });
         // close popup for artist role
-        $('#close-popup-btn').click(function(){
+        /*$('#close-popup-btn').click(function(){
             $("#popup-role-artist").css('display', 'none'); 
-        });
+        });*/
 
 
         gsap.from('.categories', 1.2, {opacity: 0, delay: 0.4 });

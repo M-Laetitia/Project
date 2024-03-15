@@ -1110,7 +1110,6 @@ html {
   animation: moveLeftRight 5s linear infinite;
   background-size: auto 100%;
   background-position: 0 0;
-  /*adjust s value for speed*/
 }
 @keyframes animatedBackground {
   from {
@@ -1581,14 +1580,18 @@ html {
     justify-content: space-between;
   }
   #profil-user #top h2 {
-    margin-top: 3rem;
+    margin-top: 4rem;
   }
   #profil-user #top #roles {
-    align-self: center;
     position: absolute;
-    top: 0;
     bottom: 0;
     margin-right: 10rem;
+    top: -219px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   #profil-user #upload-avatar {
     display: flex;
@@ -1608,6 +1611,99 @@ html {
   }
   #profil-user #middle #right #activity {
     width: 100%;
+  }
+  #profil-user #bottom {
+    padding: 0px 2rem;
+  }
+  #profil-user #bottom #content {
+    display: block;
+  }
+  #profil-user #middle #right .logo-profile {
+    padding-bottom: 3rem;
+  }
+  #profil-user #middle #right #activities {
+    margin-top: 2rem;
+  }
+  #profil-user #activity-recap {
+    padding-bottom: 2rem;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 950px) {
+  #profil-user {
+    width: 100%;
+  }
+  #profil-user #top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #profil-user #top h2 {
+    margin-top: 4rem;
+  }
+  #profil-user #top #roles {
+    position: absolute;
+    bottom: 0;
+    margin-right: 10rem;
+    top: -219px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #profil-user #upload-avatar {
+    display: flex;
+    margin-top: 10rem;
+    margin-right: 0;
+  }
+  #profil-user #middle #left #info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-left: 4px solid #207E93;
+    padding: 1.5rem 0rem 1.5rem 1rem;
+  }
+  #profil-user #middle {
+    display: block;
+    margin: 1rem 2rem 3rem 2rem;
+  }
+  #profil-user #middle #right #activity {
+    width: 100%;
+  }
+  #profil-user #bottom {
+    padding: 0px 2rem;
+  }
+  #profil-user #bottom #content {
+    display: block;
+  }
+  #profil-user #middle #right .logo-profile {
+    padding-bottom: 3rem;
+  }
+  #profil-user #middle #right #activities {
+    margin-top: 2rem;
+  }
+  #profil-user #activity-recap {
+    padding-bottom: 2rem;
+  }
+}
+@media screen and (min-width: 950px) and (max-width: 1500px) {
+  #profil-user #top h2 {
+    padding-left: 3rem;
+  }
+  #profil-user #top #roles {
+    margin-right: 2rem;
+  }
+  #profil-user #middle {
+    margin: 8rem 1rem 6rem 1rem;
+    justify-content: center;
+    width: 100%;
+  }
+  #profil-user #middle #right #activity {
+    width: 20rem;
+  }
+  #profil-user #middle #left #info {
+    width: 24rem;
   }
 }
 #detail-subscription-payment #details {

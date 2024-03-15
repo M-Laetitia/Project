@@ -1085,6 +1085,22 @@ html {
   justify-content: center;
   column-gap: 3rem;
   margin-bottom: 3rem;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+#studios-index #studio-links p {
+  transition: ease-in-out 0.3s;
+  font-weight: 400;
+}
+#studios-index #studio-links p:hover {
+  color: #207E93;
+  transform: translateY(-5px);
+}
+#studios-index #studios-container .odd .studio-content {
+  grid-template-columns: 34% 17% 49%;
+}
+#studios-index #studios-container .even .studio-content {
+  grid-template-columns: 49% 17% 34%;
 }
 #studios-index #studios-container .studio {
   transition: ease-in-out 0.3s;
@@ -1094,16 +1110,11 @@ html {
   width: 100%;
 }
 #studios-index #studios-container .studio-container .studio-content {
-  width: 70%;
+  width: 65%;
   display: grid;
-  grid-template-columns: 45% 10% 45%;
   margin: auto;
   color: #F9F9F9;
   position: relative;
-}
-#studios-index #studios-container .studio-container .studio-content figure {
-  width: 36rem;
-  height: 27rem;
 }
 #studios-index #studios-container .studio-container .studio-content figure img {
   width: 100%;
@@ -1115,6 +1126,7 @@ html {
   display: grid;
   grid-template-columns: auto 1fr;
   position: relative;
+  text-transform: uppercase;
 }
 #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle .separator {
   width: 100%;
@@ -1137,6 +1149,67 @@ html {
   bottom: 0;
 }
 
+@media screen and (min-width: 320px) and (max-width: 900px) {
+  #studios-index #studio-links {
+    display: flex;
+    column-gap: 1.7rem;
+    row-gap: 1rem;
+    padding: 0rem 2rem;
+    flex-wrap: wrap;
+  }
+  #studios-index #studios-container .odd .studio-container .studio-content {
+    width: 80%;
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: 1rem;
+  }
+  #studios-index #studios-container .even .studio-container .studio-content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+  #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle {
+    margin-bottom: 2rem;
+  }
+  #studios-index #studios-container .studio-container {
+    padding: 3rem 0;
+    width: 100%;
+  }
+  #studios-index #studios-container .studio-container .studio-content .info-studio .text-studio {
+    text-align: left;
+    margin-bottom: 2rem;
+    line-height: 1.4rem;
+    font-size-adjust: 0.5;
+  }
+  #studios-index #studios-container .studio-container .studio-content .info-studio .btn6 {
+    position: relative;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  #studios-index #studios-container .studio-container .studio-content {
+    width: 85%;
+  }
+  #studios-index #studios-container .studio-container {
+    padding: 3rem 0;
+  }
+  #studios-index #studios-container .odd .studio-content {
+    grid-template-columns: 41% 10% 49%;
+    margin-bottom: 2rem;
+  }
+  #studios-index #studios-container .even .studio-content {
+    grid-template-columns: 49% 10% 41%;
+  }
+  #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle {
+    margin-bottom: 1rem;
+  }
+  #studios-index #studios-container .studio-container .studio-content .info-studio h2 {
+    margin-bottom: 1rem;
+  }
+  #studios-index #studios-container .studio-container .studio-content .info-studio .btn6 {
+    position: relative;
+  }
+}
 #studio-show header {
   background-color: #151515;
   height: 40rem;
@@ -1186,6 +1259,135 @@ html {
 #studio-show #details-studio #btn-studio div {
   margin-right: 2rem;
   color: #F9F9F9;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  #studio-show header {
+    height: 30rem;
+    padding: 3rem 0rem 3rem 0rem;
+  }
+  #studio-show header figure {
+    width: 100%;
+    height: 100%;
+  }
+  #studio-show header figure img {
+    width: 100%;
+    height: 100%;
+  }
+  #studio-show #details-studio {
+    display: flex;
+    width: 84%;
+    margin: auto;
+    margin-top: 4rem;
+    flex-direction: column;
+  }
+  #studio-show #details-studio #about-studio {
+    text-align: left;
+  }
+  #studio-show #details-studio #about-studio p {
+    text-align: justify;
+  }
+  #studio-show .text-n1 {
+    text-align: left !important;
+  }
+  #studio-show #details-studio #info {
+    margin-left: 0rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  #studio-show #details-studio #info #list-infos {
+    line-height: 1.4rem;
+  }
+  #studio-show #details-studio #info #list-infos #list-info div {
+    width: 100%;
+  }
+  #studio-show #details-studio #btn-studio {
+    margin: 1rem 0rem;
+  }
+  #studio-show #details-studio #btn-studio div {
+    margin-bottom: 2rem;
+    display: inline-block;
+    width: 100%;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 900px) {
+  #studio-show header {
+    height: 30rem;
+    padding: 3rem 0rem 3rem 0rem;
+  }
+  #studio-show header figure {
+    width: 100%;
+    height: 100%;
+  }
+  #studio-show header figure img {
+    width: 100%;
+    height: 100%;
+  }
+  #studio-show #details-studio {
+    display: flex;
+    width: 84%;
+    margin: auto;
+    margin-top: 4rem;
+    flex-direction: column;
+  }
+  #studio-show #details-studio #about-studio {
+    text-align: left;
+  }
+  #studio-show #details-studio #about-studio p {
+    text-align: justify;
+  }
+  #studio-show .text-n1 {
+    text-align: left !important;
+  }
+  #studio-show #details-studio #info {
+    margin-left: 0rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  #studio-show #details-studio #info #list-infos {
+    line-height: 1.4rem;
+  }
+  #studio-show #details-studio #info #list-infos #list-info div {
+    width: 100%;
+  }
+  #studio-show #details-studio #btn-studio {
+    margin: 1rem 0rem;
+  }
+  #studio-show #details-studio #btn-studio div {
+    margin-bottom: 2rem;
+    display: block;
+    width: 15rem;
+  }
+}
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  #studio-show #details-studio #btn-studio div {
+    margin-bottom: 2rem;
+    display: block;
+  }
+  #studio-show header {
+    background-color: #151515;
+    height: 30rem;
+    padding: 3rem 0rem 3rem 0rem;
+  }
+  #studio-show header figure img {
+    width: 100%;
+    height: 100%;
+    background-color: grey;
+  }
+  #studio-show #details-studio {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    width: 87%;
+    margin: auto;
+    margin-top: 4rem;
+  }
+  #studio-show #details-studio #info {
+    margin-left: 3rem;
+  }
+  #studio-show #details-studio #info #list-infos #list-info div {
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=studios.css.map */

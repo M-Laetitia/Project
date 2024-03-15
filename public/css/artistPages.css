@@ -1183,15 +1183,6 @@ img {
   background-color: #151515;
 }
 
-#popup-role-artist {
-  position: fixed;
-  right: 0;
-  width: 14rem;
-  height: 6rem;
-  background-color: #eeaf42;
-  color: #151515;
-}
-
 @media screen and (min-width: 320px) and (max-width: 480px) {
   #artists-index #artists-container {
     grid-template-columns: repeat(1, 1fr);

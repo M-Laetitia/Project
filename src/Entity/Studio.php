@@ -38,6 +38,9 @@ class Studio
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 150, nullable: true)]
+    private ?string $title = null;
+
     public function __toString() 
     {
         return $this->name; 
@@ -169,5 +172,17 @@ class Studio
     {
         $slugify = new Slugify();
         return $slugify->slugify($this->getName());
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): static
+    {
+        $this->title = $title;
+
+        return $this;
     }
 }

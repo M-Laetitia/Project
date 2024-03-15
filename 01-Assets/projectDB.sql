@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `area` (
 -- Listage des données de la table project.area : ~11 rows (environ)
 REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`, `slug`) VALUES
 	(1, 'Expo 01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-03-15 15:54:00', '2024-03-15 18:54:00', 4, 'EXPO', 'OPEN', 'expo01'),
-	(2, 'Expo 02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', NULL, NULL, '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'ARCHIVED', 'expo02'),
+	(2, 'Expo 02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', NULL, NULL, '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'PENDING', 'expo02'),
 	(3, 'Event 001', 'Praesent vitae fermentum felis. Vivamus venenatis, leo quis tincidunt consectetur, felis urna consectetur eros, ut faucibus eros sem vitae mauris. Aliquam a scelerisque urna.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-02-22 20:09:00', '2024-02-22 20:09:00', 6, 'EVENT', 'OPEN', 'event-001'),
 	(4, 'Event 02', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', NULL, NULL, '2024-02-06 16:10:05', '2024-02-07 16:10:06', 12, 'EVENT', 'ARCHIVED', 'event-02'),
 	(8, 'Event 03', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum turpis sed efficitur blandit. Phasellus aliquet sem at euismod dignissim.', NULL, NULL, '2024-03-20 10:49:00', '2024-03-20 10:25:00', 10, 'EVENT', 'CLOSED', 'event-03'),
@@ -108,8 +108,8 @@ REPLACE INTO `area_participation` (`id`, `firstname`, `lastname`, `start_date`, 
 	(4, '0202', '3023', NULL, NULL, '2023-12-09 16:13:37', 4, 19),
 	(17, 'John', 'John', NULL, NULL, '2023-12-16 16:16:21', 1, 19),
 	(20, 'Cath', 'Laurier', NULL, NULL, '2023-12-16 16:33:45', 2, 19),
-	(23, 'Cath', 'Laurier', NULL, NULL, '2023-12-17 11:43:20', 3, 8),
-	(24, 'Cath', 'Laurier', NULL, NULL, '2023-12-18 10:17:12', 1, 8),
+	(23, 'Cath', 'Laurier', NULL, NULL, '2023-12-17 11:43:20', 3, 11),
+	(24, 'Cath', 'Laurier', NULL, NULL, '2023-12-18 10:17:12', 1, 11),
 	(25, 'audra', 'audra', NULL, NULL, '2024-03-09 13:43:49', 3, 19);
 
 -- Listage de la structure de table project. contact
@@ -126,9 +126,9 @@ CREATE TABLE IF NOT EXISTS `contact` (
 
 -- Listage des données de la table project.contact : ~3 rows (environ)
 REPLACE INTO `contact` (`id`, `name`, `icon`, `url`, `user_id`) VALUES
-	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'audraAuclair@instagram.com', 19),
-	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'audraAuclair@behance.com', 19),
-	(3, 'Facebook', '<i class="fa-brands fa-facebook"></i>', 'http://33223', 19);
+	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'test@instagram.com', 9),
+	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'test@behance.com', 11),
+	(3, 'Facebook', '<i class="fa-brands fa-facebook"></i>', 'test@facebook.com', 9);
 
 -- Listage de la structure de table project. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
@@ -171,9 +171,9 @@ CREATE TABLE IF NOT EXISTS `exposition_proposal` (
 
 -- Listage des données de la table project.exposition_proposal : ~4 rows (environ)
 REPLACE INTO `exposition_proposal` (`id`, `proposal_date`, `status`, `user_id`, `area_id`) VALUES
-	(7, '2023-12-06 15:32:25', 'pending', 8, 2),
+	(7, '2023-12-06 15:32:25', 'pending', 7, 2),
 	(14, '2023-12-17 00:56:01', NULL, 10, 1),
-	(15, '2023-12-17 00:56:15', NULL, 10, 1),
+	(15, '2023-12-17 00:56:15', NULL, 7, 1),
 	(25, '2023-12-17 01:45:18', 'pending', 8, 1);
 
 -- Listage de la structure de table project. lesson
@@ -342,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `subscription` (
 
 -- Listage des données de la table project.subscription : ~3 rows (environ)
 REPLACE INTO `subscription` (`id`, `user_id`, `subscription_type_id`, `payment_date`, `infos_user`, `infos_subscription`, `total`, `is_active`) VALUES
-	(1, 19, 1, '2024-03-01 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 1),
+	(1, 8, 1, '2024-03-01 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 1),
 	(3, 19, 1, '2021-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
 	(4, 19, 1, '2023-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 02", "price": "60.00", "duration": 60}', 60.00, 0);
 
@@ -430,7 +430,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Listage des données de la table project.user : ~10 rows (environ)
 REPLACE INTO `user` (`id`, `email`, `username`, `slug`, `password`, `roles`, `is_verified`, `avatar`, `registration_date`, `last_login_date`, `last_profil_edit_date`, `artist_infos`, `is_published`) VALUES
 	(7, '05@exemple.com', 'test05', 'test05', '$2y$13$JLmhaHe/j7US1RkvTZUi0uK9UUHnvl81GhrIBUsftIp7fwzPc3IE.', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-11-29 00:28:28', '2023-12-06 17:52:56', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Illustration", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Handcrafted Wood Artisan"}', 1),
-	(8, 'cath@exemple.com', 'Cath', 'cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-02-09 22:34:00', NULL, '{"address": {"city": "Strasbourg", "street": "56 Bd Clemenceau", "country": "France", "postalCode": "67000"}, "category": "Illustration", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Illustrator"}', 1),
+	(8, 'cath@exemple.com', 'Cath', 'cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-03-14 13:10:47', NULL, '{"address": {"city": "Strasbourg", "street": "56 Bd Clemenceau", "country": "France", "postalCode": "67000"}, "category": "Illustration", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Illustrator"}', 1),
 	(9, '02@exemple.com', 'Hannah', 'hannah', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-12-18 09:29:52', '2023-12-16 16:11:33', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Design", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Illustrator"}', 1),
 	(10, '04@exemple.com', 'Mark', 'mark', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-11-28 23:35:55', '2023-12-15 13:04:12', NULL, '{"address": {"city": "Strasbourg", "street": "14 rue Paul Janet", "country": "France", "postalCode": "67000"}, "category": "Design", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Handcrafted Wood Artisan"}', 1),
 	(11, '01@exemple.com', 'test', 'test', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER"]', 0, NULL, '2023-11-29 09:26:35', NULL, NULL, NULL, NULL),

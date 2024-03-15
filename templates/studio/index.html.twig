@@ -1,32 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}list of art studio {% endblock %}
-{% block meta %}list of art studio {% endblock %}
+{% block title %}Art Studios - MOSAIC{% endblock %}
+{% block meta %}Explore our dedicated art studios on MOSAIC, each offering unique spaces for creative expression. Discover the perfect environment to nurture your artistic talents. Dive into our studio now!{% endblock %}
 
 {% block body %}
 
 <div class="banner">
-    <div>
+    <div class="content">
         <h1 class="banner-title">OUR SPACES</h1>
-        <p class="banner-text">Be Creative<span class="underscore-static">_</span></p>
+        <div class="subtitle">
+            <p class="banner-text">Be creative</p>
+            <div class="underscore-blink"> </div>
+        </div>
     </div>
 </div>
 
+<div class="breadcrumb breadcrumb-dark">
+    <p><a href="{{ path('app_homepage') }}">Home </a> > All Studios </p>
 </div>
 
 {# class="content" #}
 <section  id="studios-index">
 
     <div id="studio-links">
-        {# <p><a href="#studio11">Studio Calliope</a></p>
-        <p><a href="#studio10">Studio Thalie</a></p>
-        <p><a href="#studio03">Studio 03</a></p>
-        <p><a href="#studio0">Studio 04</a></p> #}
         {% for studio in studios %}
          <p><a href="#{{studio.slug}}">{{studio.name}}</a></p>
         {% endfor %}
     </div>
-
     
     <div id="studios-container">
         {% for studio in studios %}
@@ -43,17 +43,15 @@
             
                         <div class="info-studio">
                             <div class="subtitle">
-                                <p>SOME TEXT TEXTTEXT TEXT</p>
+                                <p>{{studio.title}}</p>
                                 <div class="separator"></div>
                             </div>
                             
                             <h2 class="text-n1">{{studio}}<span class="underscore">_</span></h2>
-                            <p class="text-studio">{{studio.detail}} </p>
+                            <p class="text-studio">{{studio.description}} </p>
                             <div class="button btn6"><a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">SEE MORE</a></div>
-                            
             
                         </div>
-    
                     </div>
                 </div>
 
@@ -63,12 +61,12 @@
     
                         <div class="info-studio">
                             <div class="subtitle">
-                                <p>SOME TEXT TEXTTEXT TEXT</p>
+                                <p>{{studio.title}}</p>
                                 <div class="separator"></div>
                             </div>
                             
                             <h2 class="text-n1">{{studio}}<span class="underscore">_</span></h2>
-                            <p class="text-studio">{{studio.detail}} </p>
+                            <p class="text-studio">{{studio.description}} </p>
                             <div class="button btn6"><a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">SEE MORE</a></div>
                             
                         </div>
@@ -78,17 +76,12 @@
                         <figure>
                             <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
                         </figure>
-    
                     </div>
                 </div>
-                
             {% endif %}
-            
         </div>
         {% endfor %}
-
     </div>
-
 
 </section>
 
@@ -101,17 +94,43 @@
         gsap.from('#studio-links', { opacity: 0, duration: 1.2, delay: 0.6 });
         gsap.from('#studios-container', { opacity: 0, duration: 1.2, delay: 0.6 });
 
-       
-
         // Define an array 'colors' containing color codes.
-        const colors = ['#242424', '#207E93', '#F04C4B']; 
+        const colors = ['#eeaf42', '#151515', '#207E93','#151515']; 
         const eventItems = document.querySelectorAll('.studio-container');
         const eventLinks = document.querySelectorAll('.event-link');
     
         eventItems.forEach((item, index) => {
         //The modulo operator '%' is used with the length of the 'colors' array to ensure that if the 'index' exceeds the number of available colors, it starts again from the beginning of the array
         item.style.backgroundColor = colors[index % colors.length];
-        
+
+
+        // change color text / btn / etc
+        const studioDivs = document.querySelectorAll('.studio-container')
+
+
+        const textStudio = document.querySelectorAll('.studio-container p')
+        console.log('studio text', textStudio)
+    
+            // parcourir chaque div
+            studioDivs.forEach(function(studioDiv) {
+                // récupérer la couleur du bg
+                var backgroundColor = window.getComputedStyle(studioDiv).getPropertyValue("background-color");
+                
+
+                console.log("couleur studio" , backgroundColor)
+
+                textStudio.forEach(function(textStudio) {
+                    // vérif de la couleur
+                    if (backgroundColor.includes("21")) {
+                        //appliquer style en fonction de la couleur
+                        textStudio.style.color = "red";
+                    } else {
+                        // mettre couleur par défaut
+                        textStudio.style.color = "black";
+                    }
+                });
+            });
+
 
         eventLinks.forEach((link, index) => {
             link.addEventListener('click', function(event) {
@@ -127,10 +146,8 @@
         });
         });
     });
-
         
     </script>
-
 
 {% endblock %}
 

@@ -50,7 +50,12 @@
             <span id="quote-style"><</span>
             <p id="quote-text">
                 {% for artistData in artist %}
-                    {{ artistData.artistInfos.quote }}
+                    {% if artistData.artistInfos.quote is defined %}
+                        {{ artistData.artistInfos.quote }}
+                    {% else %}
+                        
+                    {% endif %}
+                    
                 {% endfor %}
             </p>
             <span id="quote-style">></span>
@@ -63,7 +68,13 @@
             <h3 class="text-n1"> <span id="about-text">About the </span class="underscore">artist<span>_</span></h3>
             <p>
                 {% for artistData in artist %}
-                {{ artistData.artistInfos.biography }}
+
+                    {% if artistData.artistInfos.biography is defined %}
+                    {{ artistData.artistInfos.biography }}
+                    {% else %}
+                        
+                    {% endif %}
+                    
                 {% endfor %}
             </p>
         </div>
@@ -73,10 +84,34 @@
             <div id="list-infos">
                 <div id="list-info">
                     {% for artistData in artist %}
-                        <p><span>Category :</span> {{ artistData.artistInfos.category }} </p>
-                        <p><span>Website :</span> {{ artistData.artistInfos.website }} </p>
-                        <p><span>Shop :</span> {{ artistData.artistInfos.shop }} </p>
-                        <p><span>Contact :</span> {{ artistData.artistInfos.emailPro }} </p>
+                        <p><span>Category :</span> 
+                            {% if artistData.artistInfos.category is defined %}
+                            {{ artistData.artistInfos.category }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+
+                        <p><span>Website :</span> 
+                            {% if artistData.artistInfos.website is defined %}
+                            {{ artistData.artistInfos.website }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+
+                        <p><span>Shop :</span> 
+                            {% if artistData.artistInfos.shop is defined %}
+                            {{ artistData.artistInfos.shop }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+
+                        <p><span>Contact :</span> 
+                            {% if artistData.artistInfos.contact is defined %}
+                            {{ artistData.artistInfos.contact }}
+                            {% else %}
+                            {% endif %}
+                        </p>
+
                     {% endfor %}
 
                 </div>
@@ -85,7 +120,20 @@
                     <i class="fa-brands fa-square-instagram"></i>
                     <i class="fa-brands fa-square-twitter"></i>
                 </div>
-                
+
+             
+                {% for user in artist %}
+                    {% if  user.contacts|length > 0 %}
+                        {% for contact in user.contacts %}
+                         {# raw > ne pas échapper le contenu de contact.icon, permet d'afficher correctement les balises <i>  #}
+                        {{ contact.icon|raw }}
+                            
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            
+
+
             </div>
             
         </div>

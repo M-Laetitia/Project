@@ -241,17 +241,20 @@ class ArtistController extends AbstractController
 
     // ^ show artist detail (all)
     #[Route('/artist/{slug}-{id}', name: 'show_artist')]
-    public function show(UserRepository $userRepository, string $slug, int $id): Response {
+    public function show(UserRepository $userRepository, EntityManagerInterface $entityManager, string $slug, int $id): Response {
 
         // get the artist
-        $artist = $userRepository->findArtistUsers($id);
+        $artist = $userRepository->findBy(['id' => $id]);
         // check if the artist exists
         if (!$artist) {
             // if not, redirect to the error page
             return $this->render('error/error404.html.twig', [], new Response('', Response::HTTP_NOT_FOUND));
         }
 
-        $artist = $userRepository->findArtistUsers($id);
+        // forcer la récupération des contacts de l'user
+        // foreach ($artist as $user) {
+        //     $user->getContacts()->initialize();
+        // }
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
 

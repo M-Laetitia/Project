@@ -7,15 +7,20 @@
 
 
     <div class="banner">
-        <div>
+        <div class="content">
             <h1 class="banner-title">{{ studio.name}}</h1>
-            <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
         </div>
     </div>
 
+    <div class="breadcrumb breadcrumb-dark">
+        <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_studio') }}">All Studios</a> > {{studio.name}} </p>
+    </div>
 
-
-
+    
     <section class="" id="studio-show">
         <header id="background-studio">
             <figure>

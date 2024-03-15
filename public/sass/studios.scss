@@ -280,3 +280,177 @@
         }
     }
 }
+
+//&  ---------------------------------
+//&   ██████  ██    ██ ███████ ██████  ██ ███████ ███████ 
+//~  ██    ██ ██    ██ ██      ██   ██ ██ ██      ██      
+//~  ██    ██ ██    ██ █████   ██████  ██ █████   ███████ 
+//~  ██ ▄▄ ██ ██    ██ ██      ██   ██ ██ ██           ██ 
+//?   ██████   ██████  ███████ ██   ██ ██ ███████ ███████ 
+//?     ▀▀                                                
+//?  ---------------------------------
+
+
+// ^ MEDIA QUERIES - STUDIO - SHOW
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:480px) { 
+    #studio-show header {
+        height: 30rem;
+        padding: 3rem 0rem 3rem 0rem;
+    }
+
+    #studio-show header figure {
+        width: 100%;
+        height: 100%;
+    }
+
+    #studio-show header figure img {
+        width: 100%;
+        height: 100%;;
+    }
+    #studio-show #details-studio {
+        display: flex;
+        width: 84%;
+        margin: auto;
+        margin-top: 4rem;
+        flex-direction: column;
+    }
+    
+    #studio-show #details-studio #about-studio {
+        text-align:left;
+    }
+
+    #studio-show #details-studio #about-studio p {
+        text-align: justify;
+    }
+
+    #studio-show .text-n1 {
+        text-align: left!important;
+    }
+
+    #studio-show #details-studio #info {
+        margin-left: 0rem;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    #studio-show #details-studio #info #list-infos {
+        line-height: 1.4rem;
+    }
+
+    #studio-show #details-studio #info #list-infos #list-info div {
+        width: 100%;
+    }
+
+    #studio-show #details-studio #btn-studio {
+        margin: 1rem 0rem;
+    }
+
+    #studio-show #details-studio #btn-studio div {
+        margin-bottom: 2rem;
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:900px) { 
+    #studio-show header {
+        height: 30rem;
+        padding: 3rem 0rem 3rem 0rem;
+    }
+
+    #studio-show header figure {
+        width: 100%;
+        height: 100%;
+    }
+
+    #studio-show header figure img {
+        width: 100%;
+        height: 100%;;
+    }
+    #studio-show #details-studio {
+        display: flex;
+        width: 84%;
+        margin: auto;
+        margin-top: 4rem;
+        flex-direction: column;
+    }
+    
+    #studio-show #details-studio #about-studio {
+        text-align:left;
+    }
+
+    #studio-show #details-studio #about-studio p {
+        text-align: justify;
+    }
+
+    #studio-show .text-n1 {
+        text-align: left!important;
+    }
+
+    #studio-show #details-studio #info {
+        margin-left: 0rem;
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    #studio-show #details-studio #info #list-infos {
+        line-height: 1.4rem;
+    }
+
+    #studio-show #details-studio #info #list-infos #list-info div {
+        width: 100%;
+    }
+
+    #studio-show #details-studio #btn-studio {
+        margin: 1rem 0rem;
+    }
+
+    #studio-show #details-studio #btn-studio div {
+        margin-bottom: 2rem;
+        display: block;
+        width: 15rem;
+    }
+}
+
+// & LARGE SCREEN
+@media screen and (min-width:900px) and (max-width:1200px) { 
+    #studio-show #details-studio #btn-studio div {
+        margin-bottom: 2rem;
+        display: block;
+    }
+
+    #studio-show header {
+        background-color: #151515;
+        height: 30rem;
+        padding: 3rem 0rem 3rem 0rem;
+    }    
+
+    #studio-show header figure img {
+        width: 100%;
+        height: 100%;
+        background-color: grey;
+    }
+    #studio-show #details-studio {
+        display: grid;
+        grid-template-columns: 55% 45%;
+        width: 87%;
+        margin: auto;
+        margin-top: 4rem;
+    }
+
+    #studio-show #details-studio #info {
+        margin-left: 3rem;
+    }
+
+    #studio-show #details-studio #info #list-infos #list-info div {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+}
+
+@media screen and (min-width:1200px) and (max-width:1560px) { 
+
+}

@@ -59,7 +59,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
 
-        {# <meta name="description" content={% block meta %}"Description!"{% endblock %}"> #}
+        <meta name="description" content="{% block meta %}"Description!"{% endblock %}">
 
         <link rel="icon" href="{{ asset('images/visuals/favicon.png') }}" type="image/png" >
 
@@ -343,6 +343,7 @@
 
     <script>
 
+   
 
         // add a color on links in the navbar
         $(document).ready(function() {
@@ -367,7 +368,7 @@
                     if ($('#mobile-header').hasClass('nav-active')) {
                         setTimeout(function() {
                             link.css('color', '#F9F9F9'); 
-                        }, 200 + index * 100); // Start after 200ms, then increase by 100ms for each link
+                        }, 200 + index * 100); // Start after 200ms, then increase by 200ms for each link
                     } else {
                         link.css('color', '#151515'); // Reset the color of the link
                     }
@@ -459,14 +460,7 @@
             var currentYear = new Date().getFullYear();
             $('#footer-date').text(currentYear);
 
-            // switch pattern footer depending on the body color
-            var bodyBgColor = $('body').css('background-color');
-
-            if (bodyBgColor.includes("21")) { 
-                $('#top-footer').css('background-image', "url('../images/motif-footer03.png')");
-            } else if (bodyBgColor.includes("249")) { 
-                $('#top-footer').css('background-image', "url('../images/motif-footer02.png')");
-            }
+            
             
         
         });
@@ -509,6 +503,17 @@
             }, 300);
         }, 1800);
 
+
+        // switch pattern footer depending on the body color
+        var bodyBgColor = $('body').css('background-color');
+        console.log("test bg", bodyBgColor)
+
+        if (bodyBgColor.includes("21")) { 
+            console.log("ok");
+            $('#top-footer').css('background-image', "url('../../images/motif-footer03.png')");
+        } else if (bodyBgColor.includes("249")) { 
+            $('#top-footer').css('background-image', "url('../../images/motif-footer02.png')");
+        }
         
         
     </script>

@@ -9,41 +9,59 @@
 //  ██ ██   ████ ██████  ███████ ██   ██
 // ---------------------------------
 
+
+
 #studios-index {
     margin-bottom: 10rem;
 
     #studio-links {
-    @include center-flexbox();
-    column-gap: 3rem;
-    margin-bottom: 3rem;
-    }
+        @include center-flexbox();
+        column-gap: 3rem;
+        margin-bottom: 3rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        p {
+            transition: ease-in-out 0.3s;
+            font-weight: 400;
 
+            &:hover {
+                color: $secondary-color3;
+                transform: translateY(-5px);
+            }
+        }
+    }
+    
     #studios-container {
 
+        .odd {
+            .studio-content {
+                grid-template-columns: 34% 17% 49%;
+            }
+        }
+
+        .even {
+            .studio-content {
+                grid-template-columns: 49% 17% 34%;
+            }
+        }
+    
         .studio {
             // opacity: 0;
             transition: ease-in-out 0.3s;
         }
         
         .studio-container {
-            // background-color: $main-black-color;
             padding: 5rem 0;
             width: 100%;
 
             .studio-content {
-                width: $content-width;
-                // background-color: $main-black-color;
+                width: 65%;
                 display: grid;
-                grid-template-columns: 45% 10% 45%;
                 margin: auto;
                 color: $main-white-color;
                 position: relative;
-                // height: 20rem;
 
                 figure {
-                    width: 36rem;
-                    height: 27rem;
-    
                     img {
                         width: 100%;
                         height: 100%;
@@ -57,8 +75,8 @@
                         display: grid;
                         grid-template-columns: auto 1fr;
                         position: relative;
+                        text-transform: uppercase;
                         
-
                         .separator {
                             width: 100%;
                             height: 100%;
@@ -87,6 +105,106 @@
             }
         }
     }
+}
+
+//&  ---------------------------------
+//&   ██████  ██    ██ ███████ ██████  ██ ███████ ███████ 
+//~  ██    ██ ██    ██ ██      ██   ██ ██ ██      ██      
+//~  ██    ██ ██    ██ █████   ██████  ██ █████   ███████ 
+//~  ██ ▄▄ ██ ██    ██ ██      ██   ██ ██ ██           ██ 
+//?   ██████   ██████  ███████ ██   ██ ██ ███████ ███████ 
+//?     ▀▀                                                
+//?  ---------------------------------
+
+// ^ MEDIA QUERIES - STUDIO - INDEX
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:900px) { 
+    #studios-index #studio-links {
+        display: flex;
+        column-gap: 1.7rem;
+        row-gap: 1rem;
+        padding: 0rem 2rem;
+        flex-wrap: wrap;
+    }
+
+    
+    #studios-index  #studios-container .odd .studio-container .studio-content {
+        width: 80%;
+        display: flex;
+        flex-direction: column-reverse;
+        row-gap: 1rem;
+    }
+
+    #studios-index  #studios-container .even .studio-container .studio-content {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+    }
+    #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle {
+        margin-bottom: 2rem;
+    }
+    
+
+    #studios-index #studios-container .studio-container {
+        padding: 3rem 0;
+        width: 100%;
+    }
+
+    #studios-index #studios-container .studio-container .studio-content .info-studio .text-studio {
+        text-align: left;
+        margin-bottom: 2rem;
+        line-height: 1.4rem;
+        font-size-adjust: 0.5;
+    }
+
+    #studios-index #studios-container .studio-container .studio-content .info-studio .btn6 {
+        position: relative;
+        
+    }
+}
+
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
+    
+}
+
+// & LARGE SCREEN
+@media screen and (min-width:900px) and (max-width:1200px) { 
+    #studios-index #studios-container .studio-container .studio-content {
+        width: 85%;
+    }
+
+    #studios-index #studios-container .studio-container {
+        padding: 3rem 0;
+    }
+
+    #studios-index #studios-container .odd .studio-content {
+        grid-template-columns: 41% 10% 49%;
+        margin-bottom: 2rem;
+    }
+
+    #studios-index #studios-container .even .studio-content {
+        grid-template-columns: 49% 10% 41%;
+    }
+
+    #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle {
+        margin-bottom: 1rem;
+    }
+
+    #studios-index #studios-container .studio-container .studio-content .info-studio h2 {
+        margin-bottom: 1rem;
+    }
+
+    #studios-index #studios-container .studio-container .studio-content .info-studio .btn6 {
+        position: relative;
+
+    }
+
+}
+
+@media screen and (min-width:1200px) and (max-width:1560px) { 
+
 }
 
 // ---------------------------------

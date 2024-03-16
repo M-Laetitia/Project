@@ -322,3 +322,40 @@ if(document.querySelectorAll('#form-register')) {
 
 }
 
+//^ REGISTER - show/hide password - toggle eye icon
+
+if(document.getElementById("register-user-page")) {
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword1 = document.getElementById('toggle-password1');
+        const passwordField1 = document.querySelector('.password-field-1');
+    
+        const togglePassword2 = document.getElementById('toggle-password2');
+        const passwordField2 = document.querySelector('.password-field-2');
+    
+        const toggleIcon1 = document.createElement('i');
+        toggleIcon1.classList.add('fa', 'fa-eye', 'toggle-password-icon1');
+        passwordField1.parentNode.insertBefore(toggleIcon1, passwordField1.nextSibling); 
+    
+        const toggleIcon2 = document.createElement('i');
+        toggleIcon2.classList.add('fa', 'fa-eye', 'toggle-password-icon2');
+        passwordField2.parentNode.insertBefore(toggleIcon2, passwordField2.nextSibling);
+    
+    
+        toggleIcon1.addEventListener('click', function() {
+            // Checks the current type attribute of the password field.
+            // If it is 'password', it changes it to 'text', otherwise it remains 'password'.
+            const type = passwordField1.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField1.setAttribute('type', type);
+            toggleIcon1.classList.toggle('fa-eye'); 
+            toggleIcon1.classList.toggle('fa-eye-slash');
+        });
+    
+        toggleIcon2.addEventListener('click', function() {
+            const type = passwordField2.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField2.setAttribute('type', type);
+            toggleIcon2.classList.toggle('fa-eye'); 
+            toggleIcon2.classList.toggle('fa-eye-slash');
+        });
+    });
+} 

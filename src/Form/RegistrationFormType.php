@@ -47,10 +47,17 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->add('username' , TextType::class, [
-                'label' =>'usermane',
+                'label' => 'Username',
+                'constraints' => [
+                    new Assert\Length([
+                        'min' => 3,
+                        'minMessage' => 'Username must be at least {{ limit }} characters long',
+                    ]),
+                ],
                 'attr' => [
-                    'placeholder' => 'Enter your username'
-                ]
+                    'placeholder' => 'Enter your username',
+                    'minlength' => 3,
+                ],
             ])
 
 
@@ -76,7 +83,7 @@ class RegistrationFormType extends AbstractType
                     'attr' => ['class' => 'password-field-1'] 
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation',
+                    'label' => 'Confirmation ',
                     'attr' => ['class' => 'password-field-2'] 
                 ],
                 'mapped' => false,

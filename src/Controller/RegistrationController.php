@@ -129,7 +129,13 @@ class RegistrationController extends AbstractController
     {
 
         $username = $request->request->get('username');
-        $existingUsername = $userRepository->findOneBy(['username' => $username]);
+
+        // username to lowercase
+        $normalizedUsername = strtolower($username);
+
+        // Check if a similar username (usign the slug) already exists in the database
+        $existingUsername = $userRepository->findOneBy(['slug' => $normalizedUsername]);
+        // $existingUsername = $userRepository->findOneBy(['username' => $username]);
 
         if ($existingUsername) {
                 $response = [

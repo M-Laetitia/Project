@@ -7,31 +7,12 @@
 //  ██   ██  ██████   ██████     ██                                       
 /* ---------------------------------- */
 
-:root {
-    /* colors */
-    --clr-dark: 230 35% 7%;
-    --clr-light: 231 77% 90%;
-    --clr-white: 0 0% 100%; 
-
-    /* font-sizes */
-    --fs-900: clamp(5rem, 8vw + 1rem, 9.375rem);
-    --fs-800: 3.5rem;
-    --fs-700: 1.5rem;
-    --fs-600: 1rem;
-    --fs-500: 1.3rem;
-    --fs-400: 0.9375rem;
-    --fs-300: 1rem;
-    --fs-200: 0.9rem;
-
-}
-
+// ^ COLORS
 $main-black-color: #151515; 
 $main-white-color: #F9F9F9;
-
 // $secondary-color: #f0bd2f;
 $secondary-color: #eeaf42;
 $secondary-color2: #E49E4B;
-
 
 $secondary-color3: #207E93;
 
@@ -43,15 +24,13 @@ $grey-dark: #272727;
 $grey-medium: #4c4545;
 $grey-light: #c3b5b5;
 
-
-
+// ^ FONT
 $main-font: "Poppins", sans-serif;
 $secondary-font:  "Raleway", sans-serif;
 
 $letter-spacing-title : 0.3rem;
 $letter-spacing-medium : 0.25rem;
 $letter-spacing-text : 0.05rem;
-
 
 $extra-bold: 700;
 $bold: 600;
@@ -66,18 +45,18 @@ $fs-big: 4rem;
 $fs-text: 0.9rem;
 $line-height-text: 1.3rem;
 
+// ^ TRANSITIONS
 $transition-bezier: 0.800, 1.000, 0.000, 1.000;
 $transition-len: 0.35s;
 $transition-basic: ease-in-out 0.3s; 
 
+// ^ SIZING
 $nav-size: 6rem ; 
 $footer-size: 28rem;
-
-// $padding-border: 3rem;
 $content-width: 70%;
 
 
-// utility class
+// ^ UTILITY CLASSES
 .text-n1 {
     font-weight: $extra-bold;
     font-size: 1.85rem;
@@ -101,54 +80,20 @@ $content-width: 70%;
 }
 
 
-@media (min-width: 35em) { /*560px*/
-    :root {
-        --fs-800: 5rem;
-        --fs-700: 2.5rem;
-        --fs-600: 1.5rem;
-        --fs-500: 1.5rem; /*20px*/
-        --fs-400: 1rem;
-    }
+// ^ MEDIA QUERIES 
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:480px) { 
 }
 
-@media (min-width: 45em) { /*720*/
-    :root {
-        --fs-800: 6.25rem;
-        --fs-700: 3.5rem;
-        --fs-600: 2rem;
-        --fs-500: 1.75rem;
-        --fs-400: 1.125rem;/* base size = body text size */
-    }
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
 }
 
-
-// MEDIA QUERIES
-
-
-@media screen and (min-width: 320px) { 
-    
+// & LARGE SCREEN
+@media screen and (min-width:768px) and (max-width:1200px) { 
 }
 
-
-@media screen and (min-width: 480px) { 
-    
-}
-
-@media screen and (max-width: 768px) {
-
-}
-
-@media screen and (max-width: 1200px) {
-
-}
-  
-  
-@media screen and (min-width: 768px) and (max-width: 1023px) {
-    
-}
-
-@media screen and (min-width: 990px) and (max-width: 1170px) {
-   
+@media screen and (min-width:1200px) and (max-width:1560px) { 
 }
 
 /*  ---------------------------------- */
@@ -186,7 +131,6 @@ h1,h2, h3, h4, h5, h6 {
 
 p {
     font-weight: 300;
-    
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
@@ -208,6 +152,7 @@ a:not([class]) {
 
 a {
     color: inherit;
+    text-decoration: none;
 }
 
 /* Make images easier to work with */
@@ -284,140 +229,3 @@ body {
     background-color: $secondary-color; 
     color: $main-black-color; 
 }
-
-
-/*  ---------------------------------- */
-//  ██    ██ ████████ ██ ██      ██ ████████ ██    ██      ██████ ██       █████  ███████ ███████ ███████ ███████ 
-//  ██    ██    ██    ██ ██      ██    ██     ██  ██      ██      ██      ██   ██ ██      ██      ██      ██      
-//  ██    ██    ██    ██ ██      ██    ██      ████       ██      ██      ███████ ███████ ███████ █████   ███████ 
-//  ██    ██    ██    ██ ██      ██    ██       ██        ██      ██      ██   ██      ██      ██ ██           ██ 
-//   ██████     ██    ██ ███████ ██    ██       ██         ██████ ███████ ██   ██ ███████ ███████ ███████ ███████ 
-/* ---------------------------------- */
-
-.flex {
-    display: flex;
-    gap: var(--gap, 1rem);
-}
-
-/* .flex.even-columns > * {
-    width: 100%;
-    outline: solid 2px green;
-} */
-
-.grid {
-    display: grid;
-    gap: var(--gap, 1rem);
-}
-
-.d-block {
-    display: block;
-}
-
-.flow > *:where(:not(:first-child)) { /*select every div that has a sibling before*/
-    margin-top: var(--flow-space, 1rem); /*undefined custom property so the 1rem become the default*/
-    /* outline: 1px solid red; */
-}
-
-.container {
-    padding-inline: 2em; /*logical property, modern css*/
-    margin-inline: auto;
-    max-width: 60rem;
-}
-
-.sr-only {  /*screen reader only*/
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap; /* added line */
-    border: 0;
-}
-
-.skip-to-content {
-    position: absolute;
-    z-index: 9999;
-    background: hsl( var(--clr-white) );
-    color: hsl( var(--clr-dark) );
-    padding: .5em 1em;
-    margin-inline: auto;   
-    transform: translateY(-100%);  
-    transition: transform 250ms ease-in;
-}
-
-.skip-to-content:focus {
-    transform: translateY(0%);  
-}
-
-.box {
-    background-color: lightblue;
-    padding: 3rem;
-}
-
-
-
-/* .call-to-action {
-    --gap: 5rem;
-    background: pink;
-    padding: 2rem;
-    border-radius: 1rem;
-} */
-
-/* Colors*/
-
-.bg-dark {background-color: hsl(var(--clr-dark));}
-.bg-accent {background-color: hsl(var(--clr-light));}
-.bg-white {background-color: hsl(var(--clr-white));}
-
-.text-dark {color: hsl(var(--clr-dark));}
-.text-accent {color: hsl(var(--clr-light));}
-.text-white {color: hsl(var(--clr-white));}
-
-/* .example-component {
-    background-color: hsl( var(--clr-light) /.2);
-} */
-
-/* Typography */
-.ff-serif { font-family: var(--ff-serif); } 
-.ff-sans-cond { font-family: var(--ff-sans-cond); } 
-.ff-sans-normal { font-family: var(--ff-sans-normal); } 
-
-.letter-spacing-1 { letter-spacing: 4.75px; } 
-.letter-spacing-2 { letter-spacing: 2.7px; } 
-.letter-spacing-3 { letter-spacing: 2.35px; } 
-
-.uppercase { text-transform: uppercase; }
-
-.fs-900 { font-size: var(--fs-900); }
-.fs-800 { font-size: var(--fs-800); }
-.fs-700 { font-size: var(--fs-700); }
-.fs-600 { font-size: var(--fs-600); }
-.fs-500 { font-size: var(--fs-500); }
-.fs-400 { font-size: var(--fs-400); }
-.fs-300 { font-size: var(--fs-300); }
-.fs-200 { font-size: var(--fs-200); }
-
-
-.fs-900,
-.fs-800,
-.fs-700,
-.fs-600 {
-    line-height: 1.1;
-}
-
-.numbered-title {
-    font-family: var(--ff-sans-cond);
-    font-size: var(--fs-500);
-    color: hsl(var(--clr-white));
-    text-transform: uppercase;
-    letter-spacing: 4.72px;
-}
-
-.numbered-title span {
-    color: hsl( var(--clr-white) / .25);
-    font-weight: 700;
-    padding-right: 0.5em;
-}
-

@@ -10,8 +10,11 @@
 // ---------------------------------
 
 
+
 .register-user {
     background-color: $grey-dark;
+
+
 
     #register-container {
         display: grid;
@@ -107,6 +110,8 @@
                     }
                 }
             }
+
+          
         }
 
         #login {
@@ -132,6 +137,22 @@
             }
         }
     }
+
+    #form-register form {
+        div {
+            position: relative;
+        }
+    }
+    
+    .fa-eye, .fa-eye-slash {
+        color: #939393;
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        right: 0;
+        transform: translateY(30px);
+    }
 }
 
 #btn-register {
@@ -146,6 +167,9 @@
 #terms-register a:hover {
     color: $secondary-color !important;
 }
+
+
+
 
 // ---------------------------------
 //  ██       ██████   ██████  ██ ███    ██ 

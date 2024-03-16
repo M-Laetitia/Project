@@ -51,13 +51,11 @@
                         {{ form_row(registrationForm.information) }}
                         {{ form_row(registrationForm.username) }}
 
-                        <p id="toggle-password1">see</p>
-
-                        <p id="toggle-password2">see2</p>
-
                         {{ form_row(registrationForm.plainPassword, {
                             label: 'Password'
+                            
                         }) }}
+                        
                 
                     <div id="terms-register">
                         {{ form_label(registrationForm.agreeTerms) }}
@@ -78,12 +76,13 @@
 
                 </div>
                 
+ 
             </div>
         </div>
-
     </section>
     
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             const togglePassword1 = document.getElementById('toggle-password1');
             const passwordField1 = document.querySelector('.password-field-1');
@@ -91,15 +90,27 @@
             const togglePassword2 = document.getElementById('toggle-password2');
             const passwordField2 = document.querySelector('.password-field-2');
 
+            const toggleIcon1 = document.createElement('i');
+            toggleIcon1.classList.add('fa', 'fa-eye', 'toggle-password-icon1');
+            passwordField1.parentNode.insertBefore(toggleIcon1, passwordField1.nextSibling); 
 
-            togglePassword1.addEventListener('click', function() {
+            const toggleIcon2 = document.createElement('i');
+            toggleIcon2.classList.add('fa', 'fa-eye', 'toggle-password-icon2');
+            passwordField2.parentNode.insertBefore(toggleIcon2, passwordField2.nextSibling);
+
+
+            toggleIcon1.addEventListener('click', function() {
                 const type = passwordField1.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordField1.setAttribute('type', type);
+                toggleIcon1.classList.toggle('fa-eye'); 
+                toggleIcon1.classList.toggle('fa-eye-slash');
             });
 
-            togglePassword2.addEventListener('click', function() {
+            toggleIcon2.addEventListener('click', function() {
                 const type = passwordField2.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordField2.setAttribute('type', type);
+                toggleIcon2.classList.toggle('fa-eye'); 
+                toggleIcon2.classList.toggle('fa-eye-slash');
             });
         });
 

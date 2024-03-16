@@ -93,7 +93,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
-
+            $this->addFlash('success', 'Your account has been successfully created. An activation email has been sent to the provided address. Please check your email and click the activation link to activate your account.');
             return $this->redirectToRoute('app_login');
         }
 
@@ -136,18 +136,18 @@ class RegistrationController extends AbstractController
         $existingUsername = $userRepository->findOneBy(['slug' => $normalizedUsername]);
 
         if ($existingUsername) {
-            $response['usernameMessage'] = 'Username already exists';
+            $response['usernameMessage'] = 'This username already exists.';
         } else {
-            $response['usernameMessage'] = 'Username is available';
+            $response['usernameMessage'] = '';
         }
 
         $email = $request->request->get('email');
         $existingEmail = $userRepository->findOneBy(['email' => $email]);
 
         if ($existingEmail) {
-            $response['emailMessage'] = 'Email already exists';
+            $response['emailMessage'] = 'This e-mail already exists.';
         } else {
-            $response['emailMessage'] = 'Email is available';
+            $response['emailMessage'] = '';
         }
         
         return new JsonResponse($response);

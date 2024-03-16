@@ -9,19 +9,6 @@
         body {
             background-color: #151515;
         }
-
-    
-        .valid {
-            text-decoration: line-through;
-            text-decoration-color: yellow;
-            color: grey;
-        }
-        
-        .invalid {
-            text-decoration: none;
-        }
-
-
     </style>
 
     {% for flash_error in app.flashes('verify_email_error') %}
@@ -59,24 +46,19 @@
                     {{ form_start(registrationForm) }}
                     {{ form_errors(registrationForm) }}
                     
-                        
                         {{ form_row(registrationForm.email) }}
-                        
-                        check mail : <p id="checkEmail"></p>
-
-
                         {{ form_row(registrationForm.information) }}
+                       <p class="checkMessages" id="checkEmail"></p>
+
                         {{ form_row(registrationForm.username) }}
-
-
-                        check pseudo : <p id="checkUsername"></p>
+                        <p  class="checkMessages" id="checkUsername"></p>
 
                         {{ form_row(registrationForm.plainPassword, {
                             label: 'Password'
-                            
                         }) }}
 
-                        test password: <p id="passwordMatchMessage"></p>
+                        <p class="checkMessages" id="passwordMatchMessage"></p>
+
                         <div id="passwordCriteria">
                             <div id="lengthCriterion" class="password-criterion">At least 12 characters</div>
                             <div id="specialCharCriterion" class="password-criterion">At least one special character</div>
@@ -84,7 +66,6 @@
                             <div id="uppercaseCriterion" class="password-criterion">At least one uppercase letter</div>
                         </div>
                         
-                
                     <div id="terms-register">
                         {{ form_label(registrationForm.agreeTerms) }}
                         <p>
@@ -109,7 +90,6 @@
         </div>
     </section>
     
-
     <script>
         $(document).ready(function() {
             $('#registration_form_username, #registration_form_information').keyup(function() {
@@ -136,38 +116,6 @@
                 });
             });
         });
-
-        
-        // check regex for password
-        $('#registration_form_plainPassword_first').keyup(function() {
-            var password = $(this).val();
-            
-            // Check length criterion
-            var lengthCriterion = password.length >= 12;
-            updateCriterionStyle($('#lengthCriterion'), lengthCriterion);
-            
-            // Check special character criterion
-            var specialCharCriterion = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-            updateCriterionStyle($('#specialCharCriterion'), specialCharCriterion);
-            
-            // Check number criterion
-            var numberCriterion = /\d/.test(password);
-            updateCriterionStyle($('#numberCriterion'), numberCriterion);
-            
-            // Check uppercase criterion
-            var uppercaseCriterion = /[A-Z]/.test(password);
-            updateCriterionStyle($('#uppercaseCriterion'), uppercaseCriterion);
-        });
-        
-        function updateCriterionStyle($criterion, isValid) {
-            if (isValid) {
-                $criterion.addClass('valid').removeClass('invalid');
-            } else {
-                $criterion.addClass('invalid').removeClass('valid');
-            }
-        }
-        
-
 
     </script>
    

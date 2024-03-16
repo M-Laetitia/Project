@@ -71,8 +71,14 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'The password fields must match.',
                 // 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirmation'],
+                'first_options'  => [
+                    'label' => 'Password',
+                    'attr' => ['class' => 'password-field-1'] 
+                ],
+                'second_options' => [
+                    'label' => 'Confirmation',
+                    'attr' => ['class' => 'password-field-2'] 
+                ],
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password'],
@@ -86,7 +92,7 @@ class RegistrationFormType extends AbstractType
                     // ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Your password should be at least {{ limit }} characters.',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

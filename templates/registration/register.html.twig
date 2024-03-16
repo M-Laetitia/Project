@@ -50,6 +50,11 @@
                         {{ form_row(registrationForm.email) }} 
                         {{ form_row(registrationForm.information) }}
                         {{ form_row(registrationForm.username) }}
+
+                        <p id="toggle-password1">see</p>
+
+                        <p id="toggle-password2">see2</p>
+
                         {{ form_row(registrationForm.plainPassword, {
                             label: 'Password'
                         }) }}
@@ -78,5 +83,31 @@
 
     </section>
     
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword1 = document.getElementById('toggle-password1');
+            const passwordField1 = document.querySelector('.password-field-1');
+
+            const togglePassword2 = document.getElementById('toggle-password2');
+            const passwordField2 = document.querySelector('.password-field-2');
+
+
+            togglePassword1.addEventListener('click', function() {
+                const type = passwordField1.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField1.setAttribute('type', type);
+            });
+
+            togglePassword2.addEventListener('click', function() {
+                const type = passwordField2.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField2.setAttribute('type', type);
+            });
+        });
+
+
+    </script>
+
    
 {% endblock %}
+
+
+  

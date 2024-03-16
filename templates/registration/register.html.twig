@@ -47,12 +47,16 @@
                     {{ form_errors(registrationForm) }}
                     
                         
-                        {{ form_row(registrationForm.email) }} 
+                        {{ form_row(registrationForm.email) }}
+                        
+                        check mail : <p id="checkEmail"></p>
+
+
                         {{ form_row(registrationForm.information) }}
                         {{ form_row(registrationForm.username) }}
 
 
-                        test pseudo : <p id="checkUsername"></p>
+                        check pseudo : <p id="checkUsername"></p>
 
                         {{ form_row(registrationForm.plainPassword, {
                             label: 'Password'
@@ -87,20 +91,27 @@
 
     <script>
         $(document).ready(function() {
-            $('#registration_form_username').keyup(function() {
-                var username= $(this).val();
-                $.ajax({
-                    url: '/check-username',
-                    method: 'POST',
-                    data: {username: username},
-                    dataType: 'json',
-                    success: function(response) {
-                        if (!response.success) {
-                            $('#checkUsername').text(response.message);
-                        } else {
-                            $('#checkUsername').text(response.message); 
-                        }
+            $('#registration_form_username, #registration_form_information').keyup(function() {
+                var username = $('#registration_form_username').val();
+                var email = $('#registration_form_information').val();
+
+                 // check is the inputs fields are empty
+                if (username === '' && email === '') {
+                    $('#checkUsername').empty(); // delete message
+                    $('#checkEmail').empty(); // delete message
+                    return; 
+                }
+  
+                    $.ajax({
+                        url: '/check-credentials',
+                        method: 'POST',
+                        data: {username: username, email: email},
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#checkUsername').text(response.usernameMessage);
+                            $('#checkEmail').text(response.emailMessage);
                     }
+                    
                 });
             });
         });

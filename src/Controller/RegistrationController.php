@@ -60,7 +60,8 @@ class RegistrationController extends AbstractController
 
             // check if username already exists
             $username = $form->get('username')->getData();
-            $existingUsername = $userRepository->findOneBy(['username' => $username]);
+            $normalizedUsername = strtolower($username);
+            $existingUsername = $userRepository->findOneBy(['slug' => $username]);
             if ($existingUsername) {
                 $this->addFlash('error', 'This mail already exists');
                 return $this->redirectToRoute('app_register');
@@ -124,31 +125,31 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/check-username", name="check-username", methods={"POST"})
     */
-    #[Route('/check-username', name: 'check-username', methods: ['POST'])]
-    public function checkUsername(Request $request, UserRepository $userRepository)
+    #[Route('/check-credentials', name: 'check-credentials', methods: ['POST'])]
+    public function checkCredentials(Request $request, UserRepository $userRepository)
     {
 
         $username = $request->request->get('username');
-
         // username to lowercase
         $normalizedUsername = strtolower($username);
-
         // Check if a similar username (usign the slug) already exists in the database
         $existingUsername = $userRepository->findOneBy(['slug' => $normalizedUsername]);
-        // $existingUsername = $userRepository->findOneBy(['username' => $username]);
 
         if ($existingUsername) {
-                $response = [
-                    'success' => false,
-                    'message' => 'Username already exists',
-                ];
-            } else {
-                $response = [
-                    'success' => true,
-                    'message' => 'Username is available',
-                ];
-            }
+            $response['usernameMessage'] = 'Username already exists';
+        } else {
+            $response['usernameMessage'] = 'Username is available';
+        }
 
+        $email = $request->request->get('email');
+        $existingEmail = $userRepository->findOneBy(['email' => $email]);
+
+        if ($existingEmail) {
+            $response['emailMessage'] = 'Email already exists';
+        } else {
+            $response['emailMessage'] = 'Email is available';
+        }
+        
         return new JsonResponse($response);
     }
 }

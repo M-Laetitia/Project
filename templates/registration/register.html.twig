@@ -9,6 +9,19 @@
         body {
             background-color: #151515;
         }
+
+    
+        .valid {
+            text-decoration: line-through;
+            text-decoration-color: yellow;
+            color: grey;
+        }
+        
+        .invalid {
+            text-decoration: none;
+        }
+
+
     </style>
 
     {% for flash_error in app.flashes('verify_email_error') %}
@@ -62,7 +75,14 @@
                             label: 'Password'
                             
                         }) }}
+
                         test password: <p id="passwordMatchMessage"></p>
+                        <div id="passwordCriteria">
+                            <div id="lengthCriterion" class="password-criterion">At least 12 characters</div>
+                            <div id="specialCharCriterion" class="password-criterion">At least one special character</div>
+                            <div id="numberCriterion" class="password-criterion">At least one number</div>
+                            <div id="uppercaseCriterion" class="password-criterion">At least one uppercase letter</div>
+                        </div>
                         
                 
                     <div id="terms-register">
@@ -117,8 +137,35 @@
             });
         });
 
-     
-
+        
+        // check regex for password
+        $('#registration_form_plainPassword_first').keyup(function() {
+            var password = $(this).val();
+            
+            // Check length criterion
+            var lengthCriterion = password.length >= 12;
+            updateCriterionStyle($('#lengthCriterion'), lengthCriterion);
+            
+            // Check special character criterion
+            var specialCharCriterion = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+            updateCriterionStyle($('#specialCharCriterion'), specialCharCriterion);
+            
+            // Check number criterion
+            var numberCriterion = /\d/.test(password);
+            updateCriterionStyle($('#numberCriterion'), numberCriterion);
+            
+            // Check uppercase criterion
+            var uppercaseCriterion = /[A-Z]/.test(password);
+            updateCriterionStyle($('#uppercaseCriterion'), uppercaseCriterion);
+        });
+        
+        function updateCriterionStyle($criterion, isValid) {
+            if (isValid) {
+                $criterion.addClass('valid').removeClass('invalid');
+            } else {
+                $criterion.addClass('invalid').removeClass('valid');
+            }
+        }
         
 
 

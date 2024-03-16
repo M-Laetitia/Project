@@ -13,7 +13,9 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
@@ -117,5 +119,30 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_register');
+    }
+
+    /**
+     * @Route("/check-username", name="check-username", methods={"POST"})
+    */
+    #[Route('/check-username', name: 'check-username', methods: ['POST'])]
+    public function checkUsername(Request $request, UserRepository $userRepository)
+    {
+
+        $username = $request->request->get('username');
+        $existingUsername = $userRepository->findOneBy(['username' => $username]);
+
+        if ($existingUsername) {
+                $response = [
+                    'success' => false,
+                    'message' => 'Username already exists',
+                ];
+            } else {
+                $response = [
+                    'success' => true,
+                    'message' => 'Username is available',
+                ];
+            }
+
+        return new JsonResponse($response);
     }
 }

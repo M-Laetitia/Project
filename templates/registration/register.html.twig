@@ -51,6 +51,9 @@
                         {{ form_row(registrationForm.information) }}
                         {{ form_row(registrationForm.username) }}
 
+
+                        test pseudo : <p id="checkUsername"></p>
+
                         {{ form_row(registrationForm.plainPassword, {
                             label: 'Password'
                             
@@ -82,6 +85,26 @@
     </section>
     
 
+    <script>
+        $(document).ready(function() {
+            $('#registration_form_username').keyup(function() {
+                var username= $(this).val();
+                $.ajax({
+                    url: '/check-username',
+                    method: 'POST',
+                    data: {username: username},
+                    dataType: 'json',
+                    success: function(response) {
+                        if (!response.success) {
+                            $('#checkUsername').text(response.message);
+                        } else {
+                            $('#checkUsername').text(response.message); 
+                        }
+                    }
+                });
+            });
+        });
+    </script>
    
 {% endblock %}
 

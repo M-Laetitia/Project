@@ -312,4 +312,34 @@ class CalendarController extends AbstractController
 
         ]);
     }
+
+    #[Route('/archives', name: 'app_archives')]
+    public function indexArchives (Request $request, AreaRepository $areaRepository, WorkshopRepository $workshopRepository) : Response
+    {
+
+        $pastAreas = $areaRepository->findBy([
+            // 'type' => 'EVENT',
+            'status' => ['ARCHIVED'],
+        ]);
+        $pastWorkshops = $workshopRepository->findBy([
+            'status' => ['ARCHIVED'],
+        ]);
+
+        // merge events, expos and workshops
+        $allPastEvents = array_merge($pastAreas, $pastWorkshops);
+
+        // usort($array, $callback_function);
+        // An anonymous function using the syntax function($a, $b).
+        // This expression uses the spaceship comparison operator (<=>) to compare the start dates (startDate) of the two events $a and $b.
+        usort($allPastEvents, function($a, $b) {
+            return $a->getStartDate() <=> $b->getStartDate();
+        });
+
+        //Extracts the first five elements from the array.
+        $latestEvents = array_slice($allPastEvents, 0, 5);
+
+        return $this->render('calendar/archives.html.twig', [
+             'latestEvents' => $latestEvents,
+        ]);
+    }
 }

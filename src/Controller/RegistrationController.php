@@ -43,17 +43,27 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            // Obtener la valeur du champ "formation" directement à partir du formulaire
+            // Get the value of the "formation" field directly from the form (formation = email / honey pot)
             $formation = $form->get('information')->getData();
             
-             // Vérifier si l'adresse e-mail existe déjà
+             // Check if the email address already exists
             $existingUser = $userRepository->findOneBy(['email' => $formation]);
 
             if ($existingUser) {
-                // L'adresse e-mail existe déjà, affichez un message d'erreur ou faites ce que vous voulez
+                // The email address already exists, display an error message and redirect
                 $this->addFlash('error', 'This mail already exists');
                 return $this->redirectToRoute('app_register');
             }
+
+
+            // check if username already exists
+            $username = $form->get('username')->getData();
+            $existingUsername = $userRepository->findOneBy(['username' => $username]);
+            if ($existingUsername) {
+                $this->addFlash('error', 'This mail already exists');
+                return $this->redirectToRoute('app_register');
+            }
+
 
             $user = new User();
             $user = $form->getData();

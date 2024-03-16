@@ -322,9 +322,36 @@ if(document.querySelectorAll('#form-register')) {
 
 }
 
+// ---------------------------------
+//  ██████  ███████  ██████  ██ ███████ ████████ ███████ ██████  
+//  ██   ██ ██      ██       ██ ██         ██    ██      ██   ██ 
+//  ██████  █████   ██   ███ ██ ███████    ██    █████   ██████  
+//  ██   ██ ██      ██    ██ ██      ██    ██    ██      ██   ██ 
+//  ██   ██ ███████  ██████  ██ ███████    ██    ███████ ██   ██
+// ---------------------------------
+
+
 //^ REGISTER - show/hide password - toggle eye icon
 
 if(document.getElementById("register-user-page")) {
+
+    $('#registration_form_plainPassword_first, #registration_form_plainPassword_second').keyup(function() {
+        var password1 = $('#registration_form_plainPassword_first').val();
+        var password2 = $('#registration_form_plainPassword_second').val();
+        console.log("pass1", password1)
+        console.log("pass2", password2)
+        // check if input are not empty
+        if (password1 !== '' && password2 !== '') {
+            // compare passwords
+            if (password1 !== password2) {
+                $('#passwordMatchMessage').text('Passwords do not match');
+            } else {
+                $('#passwordMatchMessage').text('');
+            }
+        } else {
+            $('#passwordMatchMessage').text('');
+        }
+    });
 
     document.addEventListener('DOMContentLoaded', function() {
         const togglePassword1 = document.getElementById('toggle-password1');

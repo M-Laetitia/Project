@@ -331,10 +331,10 @@ if(document.querySelectorAll('#form-register')) {
 // ---------------------------------
 
 
-//^ REGISTER - show/hide password - toggle eye icon
-
+//^ REGISTER
 if(document.getElementById("register-user-page")) {
 
+    //^ check if passwords match or not
     $('#registration_form_plainPassword_first, #registration_form_plainPassword_second').keyup(function() {
         var password1 = $('#registration_form_plainPassword_first').val();
         var password2 = $('#registration_form_plainPassword_second').val();
@@ -353,6 +353,36 @@ if(document.getElementById("register-user-page")) {
         }
     });
 
+     //^ check regex for password
+     $('#registration_form_plainPassword_first').keyup(function() {
+        var password = $(this).val();
+        
+        // Check length criterion
+        var lengthCriterion = password.length >= 12;
+        updateCriterionStyle($('#lengthCriterion'), lengthCriterion);
+        
+        // Check special character criterion
+        var specialCharCriterion = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        updateCriterionStyle($('#specialCharCriterion'), specialCharCriterion);
+        
+        // Check number criterion
+        var numberCriterion = /\d/.test(password);
+        updateCriterionStyle($('#numberCriterion'), numberCriterion);
+        
+        // Check uppercase criterion
+        var uppercaseCriterion = /[A-Z]/.test(password);
+        updateCriterionStyle($('#uppercaseCriterion'), uppercaseCriterion);
+    });
+    
+    function updateCriterionStyle($criterion, isValid) {
+        if (isValid) {
+            $criterion.addClass('valid').removeClass('invalid');
+        } else {
+            $criterion.addClass('invalid').removeClass('valid');
+        }
+    }
+
+    //^ show / hide password
     document.addEventListener('DOMContentLoaded', function() {
         const togglePassword1 = document.getElementById('toggle-password1');
         const passwordField1 = document.querySelector('.password-field-1');

@@ -9,7 +9,7 @@
 <div id="categories-past-events">
     <p id="showAllEvents">Events</p>
     <p>Expositions</p>
-    <p>workshops</p>
+    <p id="showAllWorkshops" >workshops</p>
     <br>
     <br>
     <br>
@@ -26,8 +26,13 @@
 <h1>all last events</h1>
 <div id="eventContainer"></div>
 
+<h1>all last workshops</h1>
+<div id="workshopContainer"></div>
+
 
 <script>
+
+    // ARCHIVED EVENTS
     $(document).ready(function() {
         // Variable to track the state of event display
         var eventsVisible = false;
@@ -60,6 +65,42 @@
         // Attach a click handler to the button to load or hide events
         $('#showAllEvents').click(toggleEvents);
     });
+
+    
+    // ARCHIVED WORKSHOPS
+    $(document).ready(function() {
+        // Variable to track the state of event display
+        var workshopsVisible = false;
+    
+        // Function to load or hide events
+        function toggleEvents() {
+            if (workshopsVisible) {
+                // If events are already displayed, hide them
+                $('#workshopContainer').empty();
+                workshopsVisible = false;
+            } else {
+                // Otherwise, load events and display them
+                $.ajax({
+                    url: '/all-past-workshops',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#workshopContainer').empty();
+                        response.forEach(function(workshop) {
+                            $('#workshopContainer').append('<p>' + workshop.name + '</p>');
+                        });
+                        workshopsVisible = true;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error while retrieving past workshops :', error);
+                    }
+                });
+            }
+        }
+        // Attach a click handler to the button to load or hide events
+        $('#showAllWorkshops').click(toggleEvents);
+    });
+
 </script>
 
 {% endblock %}

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\WorkshopRegistrationRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WorkshopController extends AbstractController
@@ -146,6 +147,29 @@ class WorkshopController extends AbstractController
         }
 
         return $this->redirectToRoute('app_dashboard');
+    }
+
+    // ^ AJAX - all archives workshops
+    #[Route('/all-past-workshops', name: 'all-past-workshops', methods: ['POST'])]
+    public function getPastEvents(Request $request, WorkshopRepository $workshopRepository)
+    {
+
+        $pastWorkshops = $workshopRepository->findBy([
+            'status' => ['ARCHIVED'],
+        ]);
+
+        // Convert objects to associative arrays
+        $workshopsArray = [];
+        foreach ($pastWorkshops as $workshop) {
+            $workshopsArray[] = [
+                'id' => $workshop->getId(),
+                'name' => $workshop->getName(),
+                'slug' => $workshop->getSlug(),
+            ];
+        }
+
+        // Convert associative array to JSON and send response
+        return new JsonResponse($workshopsArray);
     }
 
 }

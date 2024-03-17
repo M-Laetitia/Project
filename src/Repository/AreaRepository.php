@@ -114,6 +114,40 @@ class AreaRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    //^ Get all past content ordered by date DESC
+    public function getAllPastContent() {
+        $em = $this->getEntityManager();
+
+        // Query for areas
+        $areaQb = $em->createQueryBuilder();
+        $areaQb->select('a')
+                ->from('App\Entity\Area', 'a')
+                ->where('a.status = :status')
+                ->setParameter('status', 'ARCHIVED')
+                ->orderBy('a.startDate', 'DESC');
+    
+        // Query for workshops
+        $workshopQb = $em->createQueryBuilder();
+        $workshopQb->select('w')
+                    ->from('App\Entity\Workshop', 'w')
+                    ->where('w.status = :status')
+                    ->setParameter('status', 'ARCHIVED')
+                    ->orderBy('w.startDate', 'DESC');
+    
+        // Execute queries
+        $areaResults = $areaQb->getQuery()->getResult();
+        $workshopResults = $workshopQb->getQuery()->getResult();
+    
+        // Merge and sort results
+        $allPastContent = array_merge($areaResults, $workshopResults);
+        usort($allPastContent, function($a, $b) {
+            return $b->getStartDate() <=> $a->getStartDate();
+        });
+    
+        return $allPastContent;
+    }
+
+
 
 //    /**
 //     * @return Area[] Returns an array of Area objects

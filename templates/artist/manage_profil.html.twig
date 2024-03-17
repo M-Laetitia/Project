@@ -18,13 +18,15 @@
 <section class="content" id="artist_profile">
 
     <div id="artist-infos">
+
+        {# GENERAL INFOS ____________________________________________#}
+        {# _________________________________________________________ #}
         <h2>General informations:</h2>
 
         <p> Artist Name : {{ artist.artistInfos.artistName }}</p>
         <p> Mail : {{ artist.artistInfos.emailPro }}</p>
         <p> Discipline : {{ artist.artistInfos.discipline }}</p>
         <p> Category : {{ artist.artistInfos.category }}</p>
-
 
         {{ form_start(formEditArtist) }}
         {{ form_row(formEditArtist.artistName, {'value': artist.artistInfos.artistName}) }}
@@ -33,6 +35,8 @@
         {{ form_row(formEditArtist.category, {'value': artist.artistInfos.category}) }}
 
 
+        {# ARTIST INFOS _____________________________________________#}
+        {# _________________________________________________________ #}
         <h2>Artist informations:</h2>
 
         {# BIO #}
@@ -94,7 +98,11 @@
             {{ form_row(formEditArtist.shop, {'value': "add your shop link"}) }}
         {% endif %}
 
+
+        {# ADDRESS __________________________________________________#}
+        {# _________________________________________________________ #}
         <h3>addresse for shop / gallery</h3>
+
 
         {# ADDRESS #}
         {% if artist.artistInfos.address.country is defined %}
@@ -148,6 +156,8 @@
         {% endif %}
 
 
+        {# SOCIALS __________________________________________________#}
+        {# _________________________________________________________ #}
         <h2>Social medias:</h2>
 
         {% if artist.contacts is defined %}
@@ -185,19 +195,14 @@
         {% endif %}
         
         
-        
-        {# {% for contact in artist.contacts %}
-            {{ form_row(formEditArtist.contacts, {'value': contact.url}) }}
-        {% endfor %} #}
-        
-        
-        
         <button type="submit">Sauvegarder</button>
         {{ form_end(formEditArtist) }}
 
 
     </div>
 
+    {# BANNER __________________________________________________#}
+    {# _________________________________________________________ #}
     <h2>Gallery</h2>
     
     <div>
@@ -213,28 +218,28 @@
     </div>
     
     
-    {# <p>Banner/s</p>
+    <p>Banner/s</p>
     {{ form_start(formAddBanner) }}
     {{ form_errors(formAddBanner) }}
     {{ form_row(formAddBanner.picture) }}
     {{ form_row(formAddBanner.altDescription) }}
     {{ form_row(formAddBanner.title) }}
     <button type="submit">Add</button>
-    {{ form_end(formAddBanner) }} #}
+    {{ form_end(formAddBanner) }} 
     
    
     
     {# Permettre edit avec input et ajax / select and slide pour image / bouton pour published et unpusblsih, et bouton pour aperçu profil #}
     
+    {# GALLERY __________________________________________________#}
+    {# _________________________________________________________ #}
     <h3>Gallery</h3>
     
-    {% if canUploadImage %}
-        {{ form_start(formAddPictureGallery) }}
-        {{ form_errors(formAddPictureGallery) }}
+    
+        
     
         {% for picture in picturesGallery  %}
         <div>
-    
             {% if picture.IsSelected == 1  %}
                 <div id="selectedImage">
                     <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
@@ -247,14 +252,14 @@
                     <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
                     <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
                 </div>
-                
             {% endif %}
-            
-    
         </div>
         {% endfor %}
-    
-    
+
+
+    {% if canUploadImage %}
+        {{ form_start(formAddPictureGallery) }}
+        {{ form_errors(formAddPictureGallery) }}
         {{ form_row(formAddPictureGallery.picture) }}
         {{ form_row(formAddPictureGallery.altDescription) }}
         {{ form_row(formAddPictureGallery.title) }}
@@ -262,30 +267,9 @@
         {{ form_end(formAddPictureGallery) }}
     
     {% else %}
-    
-        {% for picture in picturesGallery  %}
-        
-            {% if picture.IsSelected == 1  %}
-                <div id="selectedImage">
-                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
-                    <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
-                    <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="selectedImg"><i class="fa-solid fa-check"></i></div></a>
-                </div>
-            {% else %}
-                <div id="notSelectedImage">
-                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
-                    <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
-                    <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
-                </div>
-                
-            {% endif %}
-    
-        
-        {% endfor %}
         <p>Maximum image limit reached. Please delete some before adding more.</p>
     {% endif %}
     
-        
     {{ form_start(formPublishPageArtist) }}
         {% if artist.isPublished == 1 %}
         <button type="submit">Unpublish</button>
@@ -295,9 +279,7 @@
     {{ form_end(formPublishPageArtist) }}
     
 
-
 </section>    
-
 
 
 {% endblock %}

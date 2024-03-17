@@ -32,6 +32,9 @@ class Picture
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $title = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isSelected = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +96,18 @@ class Picture
     public function setTitle(?string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function isIsSelected(): ?bool
+    {
+        return $this->isSelected;
+    }
+
+    public function setIsSelected(?bool $isSelected): static
+    {
+        $this->isSelected = $isSelected;
 
         return $this;
     }

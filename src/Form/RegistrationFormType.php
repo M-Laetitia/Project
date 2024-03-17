@@ -49,7 +49,7 @@ class RegistrationFormType extends AbstractType
             ->add('username' , TextType::class, [
                 'label' => 'Username',
                 'constraints' => [
-                    new Assert\Length([
+                    new Length([
                         'min' => 3,
                         'minMessage' => 'Username must be at least {{ limit }} characters long',
                     ]),

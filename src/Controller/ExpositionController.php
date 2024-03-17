@@ -328,7 +328,9 @@ class ExpositionController extends AbstractController
         $pastExpos = $areaRepository->findBy([
             'type' => 'EXPO',
             'status' => ['ARCHIVED'],
-        ]);
+        ],
+        ['startDate' => 'DESC'] 
+        );
 
         // Convert objects to associative arrays
         $exposArray = [];

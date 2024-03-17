@@ -8,7 +8,7 @@
 <h1>Catégories </h1>
 <div id="categories-past-events">
     <p id="showAllEvents">Events</p>
-    <p>Expositions</p>
+    <p id="showAllExpos" >Expositions</p>
     <p id="showAllWorkshops" >workshops</p>
     <br>
     <br>
@@ -28,6 +28,9 @@
 
 <h1>all last workshops</h1>
 <div id="workshopContainer"></div>
+
+<h1>all last expositions</h1>
+<div id="expoContainer"></div>
 
 
 <script>
@@ -66,20 +69,49 @@
         $('#showAllEvents').click(toggleEvents);
     });
 
+
+
+     // ARCHIVED EXPO
+     $(document).ready(function() {
+        var exposVisible = false;
+    
+        function toggleEvents() {
+            if (exposVisible) {
+                $('#expoContainer').empty();
+                exposVisible = false;
+            } else {
+                $.ajax({
+                    url: '/all-past-expositions',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#expoContainer').empty();
+                        response.forEach(function(expo) {
+                            $('#expoContainer').append('<p>' + expo.name + '</p>');
+                        });
+                        exposVisible = true;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error while retrieving past expositions :', error);
+                    }
+                });
+            }
+        }
+        $('#showAllExpos').click(toggleEvents);
+    });
+
+
+
     
     // ARCHIVED WORKSHOPS
     $(document).ready(function() {
-        // Variable to track the state of event display
         var workshopsVisible = false;
     
-        // Function to load or hide events
         function toggleEvents() {
             if (workshopsVisible) {
-                // If events are already displayed, hide them
                 $('#workshopContainer').empty();
                 workshopsVisible = false;
             } else {
-                // Otherwise, load events and display them
                 $.ajax({
                     url: '/all-past-workshops',
                     method: 'POST',
@@ -97,7 +129,6 @@
                 });
             }
         }
-        // Attach a click handler to the button to load or hide events
         $('#showAllWorkshops').click(toggleEvents);
     });
 

@@ -5,10 +5,10 @@ namespace App\Controller;
 use App\Entity\Area;
 use App\Entity\User;
 use App\Form\ExpositionType;
-use App\Form\AreaParticipationType;
 use App\Service\MailerService;
 use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
+use App\Form\AreaParticipationType;
 use App\Form\ExpositionProposalType;
 use App\Controller\ExpositionController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\AreaParticipationRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExpositionProposalRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ExpositionController extends AbstractController
@@ -317,6 +318,30 @@ class ExpositionController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_dashboard');
+    }
+
+    // ^ AJAX - all archived expostions
+    #[Route('/all-past-expositions', name: 'all-past-expositions', methods: ['POST'])]
+    public function getPastExpos(Request $request, AreaRepository $areaRepository)
+    {
+
+        $pastExpos = $areaRepository->findBy([
+            'type' => 'EXPO',
+            'status' => ['ARCHIVED'],
+        ]);
+
+        // Convert objects to associative arrays
+        $exposArray = [];
+        foreach ($pastExpos as $expo) {
+            $exposArray[] = [
+                'id' => $expo->getId(),
+                'name' => $expo->getName(),
+                'slug' => $expo->getSlug(),
+            ];
+        }
+
+        // Convert associative array to JSON and send response
+        return new JsonResponse($exposArray);
     }
 
 

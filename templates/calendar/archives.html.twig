@@ -28,7 +28,24 @@
 
 
 <script>
-
+    $(document).ready(function() {
+        $('#showAllEvents').click(function() {
+            $.ajax({
+                url: '/all-past-events',
+                method: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    $('#eventContainer').empty();
+                response.forEach(function(event) {
+                    $('#eventContainer').append('<p>' + event.name + '</p>');
+                });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error while retrieving past events :', error);
+                }
+            });
+        });
+    });
 </script>
 
 {% endblock %}

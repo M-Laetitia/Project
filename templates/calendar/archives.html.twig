@@ -10,6 +10,7 @@
     <p id="showAllEvents">Events</p>
     <p id="showAllExpos" >Expositions</p>
     <p id="showAllWorkshops" >workshops</p>
+    <p id="showAll" >All</p>
     <br>
     <br>
     <br>
@@ -31,6 +32,9 @@
 
 <h1>all last expositions</h1>
 <div id="expoContainer"></div>
+
+<h1>all</h1>
+<div id="allContainer"></div>
 
 
 <script>
@@ -55,7 +59,7 @@
                     success: function(response) {
                         $('#eventContainer').empty();
                         response.forEach(function(event) {
-                            $('#eventContainer').append('<p>' + event.name + '</p>');
+                            $('#eventContainer').append('<p>' + event.name + ' ||' + event.date + '</p>');
                         });
                         eventsVisible = true;
                     },
@@ -100,8 +104,6 @@
         $('#showAllExpos').click(toggleEvents);
     });
 
-
-
     
     // ARCHIVED WORKSHOPS
     $(document).ready(function() {
@@ -131,6 +133,37 @@
         }
         $('#showAllWorkshops').click(toggleEvents);
     });
+
+
+    // ALL
+    $(document).ready(function() {
+        var allContentVisible = false;
+    
+        function toggleEvents() {
+            if (allContentVisible) {
+                $('#allContainer').empty();
+                allContentVisible = false;
+            } else {
+                $.ajax({
+                    url: '/all-past-content',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#allContainer').empty();
+                        response.forEach(function(item) {
+                            $('#allContainer').append('<p>' + item.name + '</p>');
+                        });
+                        allContentVisible = true;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error while retrieving past content :', error);
+                    }
+                });
+            }
+        }
+        $('#showAll').click(toggleEvents);
+    });
+
 
 </script>
 

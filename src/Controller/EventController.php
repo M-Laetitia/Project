@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\AreaParticipationRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EventController extends AbstractController
@@ -168,4 +169,31 @@ class EventController extends AbstractController
         $this->addFlash('success', 'The event has been successfully deleted');
         return $this->redirectToRoute('app_dashboard');
     }
+
+
+    // ^ AJAX - all events
+    #[Route('/all-past-events', name: 'all-past-events', methods: ['POST'])]
+    public function getPastEvents(Request $request, AreaRepository $areaRepository)
+    {
+
+        $pastEvents = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['ARCHIVED'],
+        ]);
+        // dd($pastEvents);
+
+        // Convert objects to associative arrays
+        $eventsArray = [];
+        foreach ($pastEvents as $event) {
+            $eventsArray[] = [
+                'id' => $event->getId(),
+                'name' => $event->getName(),
+                'slug' => $event->getSlug(),
+            ];
+        }
+
+        // Convert associative array to JSON and send response
+        return new JsonResponse($eventsArray);
+    }
+    
 }

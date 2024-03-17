@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+{% block meta %}Calendar{% endblock %}
+
+{% block body %}
+
+<h1>Catégories </h1>
+<div id="categories-past-events">
+    <p id="showAllEvents">Events</p>
+    <p>Expositions</p>
+    <p>workshops</p>
+    <br>
+    <br>
+    <br>
+</div>
+
+<h1> 5 lastest events</h1>
+<div id="all-previous">
+
+    {% for latestEvent in latestEvents %}
+        <p>{{latestEvent.name}}</p>
+    {% endfor %}
+</div>
+
+<h1>all last events</h1>
+<div id="eventContainer"></div>
+
+
+<script>
+
+</script>
+
+{% endblock %}

@@ -1,17 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}
-    {% for artistData in artist %}
-        {{ artistData.artistInfos.artistName }}
-    {% endfor %}'s Artist Page{% endblock %}
-{% block meta %}Learn more about 
-    {% for artistData in artist %}
-        {{ artistData.artistInfos.artistName }}
-    {% endfor %}
+    Discover {% for artistData in artist %} {{ artistData.artistInfos.artistName }} {% endfor %} - MOSAIC
+{% endblock %} 
+
+{% block meta %}
+    Explore the artistic journey of {% for artistData in artist %}{{ artistData.artistInfos.artistName }}{% endfor %} on MOSAIC. Discover their unique vision, biography, and stunning artwork gallery. Immerse yourself in their creativity and be inspired. 
 {% endblock %}
-
 {% block body %}
-
 
 <div class="banner">
     <div class="content">
@@ -40,27 +37,39 @@
 
 
 <section class="content" id="artist-show">
-
-    <header>
+    <header id="header">
         <figure>
-            <img src="{{ asset('images/exemple_artist/banner2.jpg') }}" alt="">
+            {% for user in artist %}
+                {% set bannerImage = null %}
+                {% for image in user.pictures %}
+                    {% if image.type == "banner" %}
+                        {% set bannerImage = image %}
+                    {% endif %}
+                {% endfor %}
+                {% if bannerImage %}
+                    <img src="{{ asset('images/artists/' ~ user.id ~ '/banner/' ~ bannerImage.path) }}" alt="{{ bannerImage.altDescription }}">
+                {% else %}
+                    
+                {% endif %}
+            {% endfor %}
         </figure>
 
         <div id="quote">
-            <span id="quote-style"><</span>
-            <p id="quote-text">
                 {% for artistData in artist %}
                     {% if artistData.artistInfos.quote is defined %}
-                        {{ artistData.artistInfos.quote }}
-                    {% else %}
+                        <span id="quote-style"><</span>
+                        <p id="quote-text">
+                        {{ artistData.artistInfos.quote }}</p>
+                        <span id="quote-style">></span>
                         
+                    {% else %}
+                        <span id="quote-style"></span>
+                        <p></p>
+                        <span id="quote-style"></span>
                     {% endif %}
-                    
                 {% endfor %}
             </p>
-            <span id="quote-style">></span>
         </div>
-
     </header>
 
     <section id="artist-detail">
@@ -68,13 +77,10 @@
             <h3 class="text-n1"> <span id="about-text">About the </span class="underscore">artist<span>_</span></h3>
             <p>
                 {% for artistData in artist %}
-
-                    {% if artistData.artistInfos.biography is defined %}
-                    {{ artistData.artistInfos.biography }}
+                    {% if artistData.artistInfos.bio is defined %}
+                    {{ artistData.artistInfos.bio }}
                     {% else %}
-                        
                     {% endif %}
-                    
                 {% endfor %}
             </p>
         </div>
@@ -90,199 +96,68 @@
                             {% else %}
                             {% endif %}
                         </p>
-
                         <p><span>Website :</span> 
                             {% if artistData.artistInfos.website is defined %}
-                            {{ artistData.artistInfos.website }}
+                            <a href="http://{{ artistData.artistInfos.website }}">{{ artistData.artistInfos.website }}</a>
                             {% else %}
                             {% endif %}
                         </p>
-
                         <p><span>Shop :</span> 
                             {% if artistData.artistInfos.shop is defined %}
                             {{ artistData.artistInfos.shop }}
                             {% else %}
                             {% endif %}
                         </p>
-
                         <p><span>Contact :</span> 
-                            {% if artistData.artistInfos.contact is defined %}
-                            {{ artistData.artistInfos.contact }}
+                            {% if artistData.artistInfos.emailPro is defined %}
+                            {{ artistData.artistInfos.emailPro }}
                             {% else %}
                             {% endif %}
                         </p>
-
                     {% endfor %}
-
                 </div>
                 <div id="socials">
-                    <i class="fa-brands fa-square-behance"></i>
-                    <i class="fa-brands fa-square-instagram"></i>
-                    <i class="fa-brands fa-square-twitter"></i>
+                    {% for user in artist %}
+                        {% if  user.contacts|length > 0 %}
+                            {% for contact in user.contacts %}
+                            <a href="{{ contact.url }}">{{ contact.icon|raw }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
-
-             
-                {% for user in artist %}
-                    {% if  user.contacts|length > 0 %}
-                        {% for contact in user.contacts %}
-                         {# raw > ne pas échapper le contenu de contact.icon, permet d'afficher correctement les balises <i>  #}
-                        {{ contact.icon|raw }}
-                            
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
-            
-
-
             </div>
-            
         </div>
     </section>
 
     <section id="gallery">
         <h3 class="text-n2">Dive into their art<span>_</span></h3>
         <div id="images">
+            {% for user in artist %}
+            {% set hasWorkImage = false %}
+            {% for image in user.pictures %}
+                {% if image.type == "work" %}
 
-            <div class="artist-container">
+            <div class="artist-container ">
                 <figure>
                     <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
+                        <img src="{{asset('images/artists/' ~ user.id ~'/works/mini/500x500-') ~ image.path }}" alt="{{image.altDescription}}">
+                        {% set hasWorkImage = true %}
+                        <p id="text2"> {{image.title}}<span>_</span> </p>
                     </div>
                 </figure>
             </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-            <div class="artist-container">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{ asset('images/image.jpg') }}" alt="">
-                        <p id="text2">Some text <span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-
-
-            
-
-
-    
+            {% endif %}
+                 
+            {% endfor %}
+            {% if not hasWorkImage %}
+                <p>Their gallery is empty for the moment. :( </p>
+            {% endif %}
+            {% endfor %}
         </div>
-
-        <i class="fa-solid fa-eye"></i>
     </section>
 
 </section>
 
+ <script src= "{{ asset('js/pagesShow.js') }}"></script>
 
- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-<script>
-    $(document).ready(function() {
-        // Déclencher l'affichage des images lors du défilement de la page
-        $(window).scroll(function() {
-            $('.artist-container:not(.visible)').each(function() {
-                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
-                    $(this).addClass('visible');
-                }
-            });
-        });
-    });
-</script>
-
-
-    {# <h2>Realisations: </h2> #}
-    {# {% for artistData in artist %}
-    <div class="artist-works">
-        {% for picture in artistData.pictures %}
-            <div class="picture">
-                <img class="image" src="{{ asset('images/artists/' ~ artistData.id ~'/works/mini/300x300-' ~ picture.path) }}" alt="{{picture.altDescription}}" width="150">
-            </div>
-        {% endfor %}
-    </div>
-    {% endfor %} #}
-
-{#     
-    {% for artistData in artist %}
-        <h3>Contact:</h3>
-        <p>{{ artistData.artistInfos.emailPro }}</p>
-         #}
-        {# Test avec condition en fonction des données #}
-        {# {% if artistData.artistInfos.discipline is not null %}
-            <p>test: {{ artistData.artistInfos.discipline }}</p>
-        {% endif %} #}
-
-    {# {% endfor %} #}
-
-    
-    {# TODO:
-    mettre condition pour vérifier si y'a info 
-    clique > image gde taille
-    mettre condition pour vérifier ispusblished
-    oeil pour afficher plus de contenu (lazy loading?)
-
-     #}
-   
 {% endblock %}

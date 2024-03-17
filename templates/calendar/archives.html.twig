@@ -29,22 +29,36 @@
 
 <script>
     $(document).ready(function() {
-        $('#showAllEvents').click(function() {
-            $.ajax({
-                url: '/all-past-events',
-                method: 'POST',
-                dataType: 'json',
-                success: function(response) {
-                    $('#eventContainer').empty();
-                response.forEach(function(event) {
-                    $('#eventContainer').append('<p>' + event.name + '</p>');
+        // Variable to track the state of event display
+        var eventsVisible = false;
+    
+        // Function to load or hide events
+        function toggleEvents() {
+            if (eventsVisible) {
+                // If events are already displayed, hide them
+                $('#eventContainer').empty();
+                eventsVisible = false;
+            } else {
+                // Otherwise, load events and display them
+                $.ajax({
+                    url: '/all-past-events',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function(response) {
+                        $('#eventContainer').empty();
+                        response.forEach(function(event) {
+                            $('#eventContainer').append('<p>' + event.name + '</p>');
+                        });
+                        eventsVisible = true;
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error while retrieving past events :', error);
+                    }
                 });
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error while retrieving past events :', error);
-                }
-            });
-        });
+            }
+        }
+        // Attach a click handler to the button to load or hide events
+        $('#showAllEvents').click(toggleEvents);
     });
 </script>
 

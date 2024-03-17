@@ -331,8 +331,13 @@ class ArtistController extends AbstractController
         $artistInfos = $user->getArtistInfos() ?? [];
         $artistSocials = $artist->getContacts();
 
+
+        $bannerExists = null;
         $existingBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
-        $bannerExists =  $existingBanner->getPath();
+        if ($existingBanner) {
+            $bannerExists =  $existingBanner->getPath();
+        }
+        
 
         $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
         $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
@@ -687,5 +692,30 @@ class ArtistController extends AbstractController
             return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
         }
         return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
+    }
+
+    #[Route('/select-picture/{id}', name: 'select_picture', methods: ['GET'])]
+    public function selectPicture(Security $security, Picture $picture, EntityManagerInterface $entityManager): Response
+    {
+        $user = $security->getUser();
+
+        // Retrieve all images of the user/artist
+        $pictures = $user->getPictures();
+
+        
+        //  Loop through these images
+        foreach ($pictures as $pic) {
+            // Update the selection status based on the selected image
+            if ($pic->getId() === $picture->getId()) {
+                $pic->setIsSelected(1);
+            } else {
+                $pic->setIsSelected(0);
+            }
+        }
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
+
     }
 }

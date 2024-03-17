@@ -17,11 +17,7 @@ class PictureService
 
     public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250, ?int $maxFileSize = 5)
     {
-        // Generate a new and unique name for the image
-        // The md5 function is a hashing function that produces a 32-character hexadecimal checksum
-        // uniqid(rand(), true) generates a unique string based on the current timestamp with microsecond resolution (the use of true adds more entropy to the string).
-        // Md5 takes this unique string and converts it into a 32-character hexadecimal hash.
-        $file = md5(uniqid(rand(), true)) . '.' . $picture->guessExtension();
+        
 
         // Retrieve image information
         $picture_infos = getimagesize($picture); // returns an array with the dimensions and other details of the image.
@@ -113,6 +109,13 @@ class PictureService
             mkdir($destinationPath, 0755, true);
         }
 
+        // Generate a new and unique name for the image
+        // The md5 function is a hashing function that produces a 32-character hexadecimal checksum
+        // uniqid(rand(), true) generates a unique string based on the current timestamp with microsecond resolution (the use of true adds more entropy to the string).
+        // Md5 takes this unique string and converts it into a 32-character hexadecimal hash.
+
+        // $file = md5(uniqid(rand(), true)) . '.' . $picture->guessExtension();
+        $file = md5(uniqid(rand(), true)) . '.webp';
 
         // on stocke l'image recadrée (miniature)
         imagewebp($resized_picture, $path . '/works/mini/' . $width. 'x' . $height . '-' . $file );

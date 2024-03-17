@@ -171,24 +171,28 @@ class EventController extends AbstractController
     }
 
 
-    // ^ AJAX - all events
+    // ^ AJAX - all archived events
     #[Route('/all-past-events', name: 'all-past-events', methods: ['POST'])]
     public function getPastEvents(Request $request, AreaRepository $areaRepository)
     {
-
-        $pastEvents = $areaRepository->findBy([
-            'type' => 'EVENT',
-            'status' => ['ARCHIVED'],
-        ]);
+        $pastEvents = $areaRepository->findBy(
+            [
+                'type' => 'EVENT',
+                'status' => ['ARCHIVED'],
+            ],
+            ['startDate' => 'DESC'] 
+        );
         // dd($pastEvents);
 
         // Convert objects to associative arrays
         $eventsArray = [];
         foreach ($pastEvents as $event) {
+            $formattedDate = $event->getStartDate()->format('d-m-Y H:i');
             $eventsArray[] = [
                 'id' => $event->getId(),
                 'name' => $event->getName(),
                 'slug' => $event->getSlug(),
+                'date' => $formattedDate,
             ];
         }
 
@@ -196,4 +200,28 @@ class EventController extends AbstractController
         return new JsonResponse($eventsArray);
     }
     
+    // ^ AJAX - all archived content
+    #[Route('/all-past-content', name: 'all-past-content', methods: ['POST'])]
+    public function getPastContent(Request $request, AreaRepository $areaRepository)
+    {
+        $pastContent = $areaRepository->getAllPastContent();
+        // dd($pastContent);
+
+        // dd($pastEvents);
+
+        // Convert objects to associative arrays
+        $pastContentArray = [];
+        foreach ($pastContent as $content) {
+            $formattedDate = $content->getStartDate()->format('d-m-Y H:i');
+            $pastContentArray[] = [
+                'id' => $content->getId(),
+                'name' => $content->getName(),
+                'slug' => $content->getSlug(),
+                'date' => $formattedDate,
+            ];
+        }
+
+        // Convert associative array to JSON and send response
+        return new JsonResponse($pastContentArray);
+    }
 }

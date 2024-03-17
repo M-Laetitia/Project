@@ -88,9 +88,17 @@
     <div>
         <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
 
-        {# <a href="" data-delete data-token="{{csrf_token('delete' ~ picture.id )}}">delete</a> #}
-
         <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
+
+        {% if picture.IsSelected == 1 %}
+            <a href="{{ path('select_picture', {'id': picture.id }) }}">Selected image</a>
+        {% else %}
+            <a href="{{ path('select_picture', {'id': picture.id }) }}">Select image</a>
+        {% endif %}
+        
+
+
+
 
     </div>
     {% endfor %}
@@ -111,6 +119,12 @@
         {# <a href="" data-delete data-token="{{csrf_token('delete' ~ picture.id )}}">delete</a> #}
 
         <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
+
+        {% if picture.IsSelected == 1 %}
+        <a href="{{ path('select_picture', {'id': picture.id }) }}">Selected image</a>
+        {% else %}
+            <a href="{{ path('select_picture', {'id': picture.id }) }}">Select image</a>
+        {% endif %}
 
     </div>
     {% endfor %}

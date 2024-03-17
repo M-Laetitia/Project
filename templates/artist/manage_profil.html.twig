@@ -21,265 +21,305 @@
 
         {# GENERAL INFOS ____________________________________________#}
         {# _________________________________________________________ #}
-        <h2>General informations:</h2>
+        <h2 class="text-n2">General informations<span>_</span></h2>
+        <div class="sections-artist">
+            <p> <span>Artist name : </span>{{ artist.artistInfos.artistName }}</p>
+            <p> <span>Contact : </span>{{ artist.artistInfos.emailPro }}</p>
+            <p> <span>Discipline :</span> {{ artist.artistInfos.discipline }}</p>
+            <p> <span>Category :</span> {{ artist.artistInfos.category }}</p>
 
-        <p> Artist Name : {{ artist.artistInfos.artistName }}</p>
-        <p> Mail : {{ artist.artistInfos.emailPro }}</p>
-        <p> Discipline : {{ artist.artistInfos.discipline }}</p>
-        <p> Category : {{ artist.artistInfos.category }}</p>
+            <p><i class="fa-solid fa-pen-to-square"></i></p>
+    
+            <div class="forms-artist" id="form-01" style="display: none;">
+                {{ form_start(formEditArtist) }}
+                {{ form_row(formEditArtist.artistName, {'value': artist.artistInfos.artistName}) }}
+                {{ form_row(formEditArtist.emailPro, {'value': artist.artistInfos.emailPro}) }}
+                {{ form_row(formEditArtist.discipline, {'value': artist.artistInfos.discipline}) }}
+                {{ form_row(formEditArtist.category, {'value': artist.artistInfos.category}) }}
+            </div>
+        </div>
 
-        {{ form_start(formEditArtist) }}
-        {{ form_row(formEditArtist.artistName, {'value': artist.artistInfos.artistName}) }}
-        {{ form_row(formEditArtist.emailPro, {'value': artist.artistInfos.emailPro}) }}
-        {{ form_row(formEditArtist.discipline, {'value': artist.artistInfos.discipline}) }}
-        {{ form_row(formEditArtist.category, {'value': artist.artistInfos.category}) }}
 
 
         {# ARTIST INFOS _____________________________________________#}
         {# _________________________________________________________ #}
-        <h2>Artist informations:</h2>
+        <h2 class="text-n2">Artist informations<span>_</span></h2>
+        <div class="sections-artist">
 
-        {# BIO #}
-        {% if artist.artistInfos.bio is defined %}
-            <p>Biography : {{ artist.artistInfos.bio }}</p>
-        {% else %}
-            <p>Biography : empty </p>
-        {% endif %}
 
-        {# QUOTE #}
-        {% if artist.artistInfos.quote is defined %}
-            <p>Quote : {{ artist.artistInfos.quote }}</p>
-        {% else %}
-            <p>Quote : empty</p>
-        {% endif %}
-
-        {# WEBSITE #}
-        {% if artist.artistInfos.website is defined %}
-            <p>Website : {{ artist.artistInfos.website }}</p>
-        {% else %}
-            <p>Website : empty</p>
-        {% endif %}
-
-        {# SHOP #}
-        {% if artist.artistInfos.shop is defined %}
-            <p>Shop (name) : {{ artist.artistInfos.shop }}</p>
-        {% else %}
-            <p>Shop : empty</p>
-        {% endif %}
+            {% if artist.artistInfos.bio is defined %}
+                <p><span>Biography :</span></p>  
+                <div class="text">
+                    <p>{{ artist.artistInfos.bio }}</p>
+                </div>
+            {% else %}
+                <p><span>Biography :</span></p>
+            {% endif %}
     
-        {# ADDRESS #}
-        {# {% if artist.artistInfos.address is defined %}
-        <p>Address : {{ artist.artistInfos.address.country }} {{ artist.artistInfos.address.city }} {{ artist.artistInfos.address.street }} {{ artist.artistInfos.address.postalCode }}</p>
-        {% else %}
-            <p>Address: empty</p>
-        {% endif %} #}
+            {# QUOTE #}
+            {% if artist.artistInfos.quote is defined %}
+                <p><span>Quote :</span></p>
+                <div class="text">
+                    <p>{{ artist.artistInfos.quote }}</p>
+                </div>    
 
-        {% if artist.artistInfos.bio is defined %}
-            {{ form_row(formEditArtist.bio, {'value': artist.artistInfos.bio}) }}
-        {% else %}
-            {{ form_row(formEditArtist.bio, {'value': "add your bio link"}) }}
-        {% endif %}
+            {% else %}
+                <p><span>Quote : </span></p>
+            {% endif %}
+    
+            {# WEBSITE #}
+            {% if artist.artistInfos.website is defined %}
+                <p><span>Website :</span>  {{ artist.artistInfos.website }}</p>
+            {% else %}
+                <p><span>Website :</span> : </p>
+            {% endif %}
 
-        {% if artist.artistInfos.quote is defined%}
-            {{ form_row(formEditArtist.quote, {'value': artist.artistInfos.quote }) }}
-        {% else %}
-            {{ form_row(formEditArtist.quote, {'value': "add your quote link"}) }}
-        {% endif %}
+            <p><i class="fa-solid fa-pen-to-square"></i></p>
 
-        {% if artist.artistInfos.website is defined%}
-            {{ form_row(formEditArtist.website, {'value': artist.artistInfos.website }) }}
-        {% else %}
-            {{ form_row(formEditArtist.website, {'value': "add your website link"}) }}
-        {% endif %}
+            <div class="forms-artist" id="form-02" style="display: none;">
 
-        {% if artist.artistInfos.shop is defined%}
-            {{ form_row(formEditArtist.shop, {'value': artist.artistInfos.shop }) }}
-        {% else %}
-            {{ form_row(formEditArtist.shop, {'value': "add your shop link"}) }}
-        {% endif %}
-
-
-        {# ADDRESS __________________________________________________#}
-        {# _________________________________________________________ #}
-        <h3>addresse for shop / gallery</h3>
-
-
-        {# ADDRESS #}
-        {% if artist.artistInfos.address.country is defined %}
-            <p>country : {{ artist.artistInfos.address.country }}</p>
-        {% else %}
-            <p>country : empty</p>
-        {% endif %}
-
-        {% if artist.artistInfos.address.city is defined %}
-            <p>city : {{ artist.artistInfos.address.city }}</p>
-        {% else %}
-            <p>city : empty</p>
-        {% endif %}
-
-        {% if artist.artistInfos.address.street is defined %}
-            <p>street : {{ artist.artistInfos.address.street }}</p>
-        {% else %}
-            <p>street : empty</p>
-        {% endif %}
-
-        {% if artist.artistInfos.address.postalCode is defined %}
-            <p>cp : {{ artist.artistInfos.address.postalCode }}</p>
-        {% else %}
-            <p>cp : empty</p>
-        {% endif %}
-
+                {% if artist.artistInfos.bio is defined %}
+                    {{ form_row(formEditArtist.bio, {'value': artist.artistInfos.bio}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.bio, {'value': "add your bio link"}) }}
+                {% endif %}
         
+                {% if artist.artistInfos.quote is defined%}
+                    {{ form_row(formEditArtist.quote, {'value': artist.artistInfos.quote }) }}
+                {% else %}
+                    {{ form_row(formEditArtist.quote, {'value': "add your quote link"}) }}
+                {% endif %}
+        
+                {% if artist.artistInfos.website is defined%}
+                    {{ form_row(formEditArtist.website, {'value': artist.artistInfos.website }) }}
+                {% else %}
+                    {{ form_row(formEditArtist.website, {'value': "add your website link"}) }}
+                {% endif %}
 
-        {% if artist.artistInfos.address.country is defined %}
-            {{ form_row(formEditArtist.country, {'value': artist.artistInfos.address.country}) }}
-        {% else %}
-            {{ form_row(formEditArtist.country, {'value': "add country"}) }}
-        {% endif %}
+            </div>
 
-        {% if artist.artistInfos.address.street is defined %}
-            {{ form_row(formEditArtist.street, {'value': artist.artistInfos.address.street}) }}
-        {% else %}
-            {{ form_row(formEditArtist.street, {'value': "add street"}) }}
-        {% endif %}
+        </div>
 
-        {% if artist.artistInfos.address.city is defined %}
-            {{ form_row(formEditArtist.city, {'value': artist.artistInfos.address.city}) }}
-        {% else %}
-            {{ form_row(formEditArtist.city, {'value': "add city"}) }}
-        {% endif %}
+        {# ADDRESS _________________________________________________#}
+        {# _________________________________________________________ #}
+        <h2 class="text-n2">Shop / address <span>_</span></h2>
+        <div class="sections-artist">
 
-        {% if artist.artistInfos.address.postalCode is defined %}
-            {{ form_row(formEditArtist.postalCode, {'value': artist.artistInfos.address.postalCode}) }}
-        {% else %}
-            {{ form_row(formEditArtist.postalCode, {'value': "add postalCode"}) }}
-        {% endif %}
+            {% if artist.artistInfos.shop is defined %}
+                <p><span>Shop or Gallery (name) :</span> {{ artist.artistInfos.shop }}</p>
+            {% else %}
+                <p><span>Shop or Gallery (name) :</span></p>
+            {% endif %}
+        
+                
+            {% if artist.artistInfos.address.country is defined %}
+                <p><span>Country :</span> {{ artist.artistInfos.address.country }}</p>
+            {% else %}
+                <p><span>Country :</span></p>
+            {% endif %}
+    
+            {% if artist.artistInfos.address.city is defined %}
+                <p><span>City :</span> {{ artist.artistInfos.address.city }}</p>
+            {% else %}
+                <p><span>City :</span></p>
+            {% endif %}
+    
+            {% if artist.artistInfos.address.street is defined %}
+                <p><span>Street :</span> {{ artist.artistInfos.address.street }}</p>
+            {% else %}
+                <p><span>Street :</span></p>
+            {% endif %}
+    
+            {% if artist.artistInfos.address.postalCode is defined %}
+                <p><span>Postal code :</span> {{ artist.artistInfos.address.postalCode }}</p>
+            {% else %}
+                <p><span>Postal code :</span></p>
+            {% endif %}
 
+            <p><i class="fa-solid fa-pen-to-square"></i></p>
+
+            <div class="forms-artist" id="form-03" style="display: none;">
+
+                {% if artist.artistInfos.shop is defined%}
+                    {{ form_row(formEditArtist.shop, {'value': artist.artistInfos.shop }) }}
+                {% else %}
+                    {{ form_row(formEditArtist.shop, {'value': "add your shop link"}) }}
+                {% endif %}
+        
+                {% if artist.artistInfos.address.country is defined %}
+                    {{ form_row(formEditArtist.country, {'value': artist.artistInfos.address.country}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.country, {'value': "add country"}) }}
+                {% endif %}
+        
+                {% if artist.artistInfos.address.street is defined %}
+                    {{ form_row(formEditArtist.street, {'value': artist.artistInfos.address.street}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.street, {'value': "add street"}) }}
+                {% endif %}
+        
+                {% if artist.artistInfos.address.city is defined %}
+                    {{ form_row(formEditArtist.city, {'value': artist.artistInfos.address.city}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.city, {'value': "add city"}) }}
+                {% endif %}
+        
+                {% if artist.artistInfos.address.postalCode is defined %}
+                    {{ form_row(formEditArtist.postalCode, {'value': artist.artistInfos.address.postalCode}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.postalCode, {'value': "add postalCode"}) }}
+                {% endif %}
+
+            </div>
+
+        </div>
 
         {# SOCIALS __________________________________________________#}
         {# _________________________________________________________ #}
-        <h2>Social medias:</h2>
+        <h2 class="text-n2">Socials medias <span>_</span></h2>
+        <div class="sections-artist">
 
-        {% if artist.contacts is defined %}
-            {% for contact in artist.contacts %}
-                {{contact.url}}
-                <br>
-            {% endfor %}
-        {% else %}
-            <p>empty</p>
-        {% endif %}
+            {% if artist.contacts is defined %}
+                {% for contact in artist.contacts %}
+                
+                    <p><span>{{ contact.name }} :</span> <a href="{{ contact.url }}">{{ contact.url }}</a></p>
+                {% else %}
+                    <p><span>{{ contact.name }} :</span></p>
+                
+                    {% endfor %}
+                {% else %}
+                <p>No contact information available</p>
+            {% endif %}
 
+            <p><i class="fa-solid fa-pen-to-square"></i></p>
+
+            <div class="forms-artist" id="form-03" style="display: none;">
+                {% if twitter %}
+                    {{ form_row(formEditArtist.twitter, {'value': twitter}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.twitter, {'value': "add your twitter link"}) }}
+                {% endif %}
         
-        {% if twitter %}
-            {{ form_row(formEditArtist.twitter, {'value': twitter}) }}
-        {% else %}
-            {{ form_row(formEditArtist.twitter, {'value': "add your twitter link"}) }}
-        {% endif %}
-
-        {% if dribbble %}
-            {{ form_row(formEditArtist.dribbble, {'value': dribbble}) }}
-        {% else %}
-            {{ form_row(formEditArtist.dribbble, {'value': "add your dribbble link"}) }}
-        {% endif %}
-
-        {% if instagram %}
-            {{ form_row(formEditArtist.instagram, {'value': instagram}) }}
-        {% else %}
-            {{ form_row(formEditArtist.instagram, {'value': "add your fb link"}) }}
-        {% endif %}
-
-        {% if behance %}
-            {{ form_row(formEditArtist.behance, {'value': behance}) }}
-        {% else %}
-            {{ form_row(formEditArtist.behance, {'value': "add your fb link"}) }}
-        {% endif %}
+                {% if dribbble %}
+                    {{ form_row(formEditArtist.dribbble, {'value': dribbble}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.dribbble, {'value': "add your dribbble link"}) }}
+                {% endif %}
         
+                {% if instagram %}
+                    {{ form_row(formEditArtist.instagram, {'value': instagram}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.instagram, {'value': "add your fb link"}) }}
+                {% endif %}
+        
+                {% if behance %}
+                    {{ form_row(formEditArtist.behance, {'value': behance}) }}
+                {% else %}
+                    {{ form_row(formEditArtist.behance, {'value': "add your fb link"}) }}
+                {% endif %}
+                
+
+            </div>
+            
+            
+        </div>
+
         
         <button type="submit">Sauvegarder</button>
-        {{ form_end(formEditArtist) }}
+            {{ form_end(formEditArtist) }}
 
 
-    </div>
-
-    {# BANNER __________________________________________________#}
-    {# _________________________________________________________ #}
-    <h2>Gallery</h2>
+        {# BANNER __________________________________________________#}
+        {# _________________________________________________________ #}
+        <h2 class="text-n2">Banner <span>_</span></h2>
+        <div class="sections-artist">
     
-    <div>
-        {% if bannerExists %}
-            <div style="width: 1200px; height: 400px; background-color: grey;">
-                <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/artists/' ~ artist.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+            <div>
+                {% if bannerExists %}
+                    <div style="width: 600px; height: 200px; background-color: grey;">
+                        <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/artists/' ~ artist.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+                    </div>
+                {% else %}
+                <div style="width: 500px; height: 100px; background-color: grey;">
+                        <!-- Div sans image -->
+                    </div>
+                {% endif %}
             </div>
-        {% else %}
-        <div style="width: 500px; height: 100px; background-color: grey;">
-                <!-- Div sans image -->
-            </div>
-        {% endif %}
-    </div>
-    
-    
-    <p>Banner/s</p>
-    {{ form_start(formAddBanner) }}
-    {{ form_errors(formAddBanner) }}
-    {{ form_row(formAddBanner.picture) }}
-    {{ form_row(formAddBanner.altDescription) }}
-    {{ form_row(formAddBanner.title) }}
-    <button type="submit">Add</button>
-    {{ form_end(formAddBanner) }} 
-    
-   
-    
-    {# Permettre edit avec input et ajax / select and slide pour image / bouton pour published et unpusblsih, et bouton pour aperçu profil #}
-    
-    {# GALLERY __________________________________________________#}
-    {# _________________________________________________________ #}
-    <h3>Gallery</h3>
-    
-    
+            
+            <p><i class="fa-solid fa-pen-to-square"></i></p>
 
+            <div class="forms-artist" id="form-04" style="display: none;">
+                {{ form_start(formAddBanner) }}
+                {{ form_errors(formAddBanner) }}
+                {{ form_row(formAddBanner.picture) }}
+                {{ form_row(formAddBanner.altDescription) }}
+                {{ form_row(formAddBanner.title) }}
+                <button type="submit">Add</button>
+                {{ form_end(formAddBanner) }} 
+            </div>
     
-        {% for picture in picturesGallery  %}
-        <div>
-            {% if picture.IsSelected == 1  %}
-                <div id="selectedImage">
-                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
-                    <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
-                    <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="selectedImg"><i class="fa-solid fa-check"></i></div></a>
-                </div>
-            {% else %}
-                <div id="notSelectedImage">
-                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
-                    <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
-                    <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
-                </div>
-            {% endif %}
+    
         </div>
-        {% endfor %}
 
+        {# GALLERY __________________________________________________#}
+        {# _________________________________________________________ #}
+        <h2 class="text-n2">Gallery <span>_</span></h2>
+            <div class="sections-artist ">
+                <div id="gallery-artist">
+                {% for picture in picturesGallery  %}
+                <div id="gallery-img">
+                    {% if picture.IsSelected == 1  %}
+                        <div id="selectedImage">
+                            <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+                            <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
+                            <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="selectedImg"><i class="fa-solid fa-check"></i></div></a>
+                        </div>
+                    {% else %}
+                        <div id="notSelectedImage">
+                            <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+                            <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
+                            <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
+                        </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                </div>
+                
+                <div class="forms-artist" id="form-04" style="display: block;">
+        
+                    {% if canUploadImage %}
+                        {{ form_start(formAddPictureGallery) }}
+                        {{ form_errors(formAddPictureGallery) }}
+                        {{ form_row(formAddPictureGallery.picture) }}
+                        {{ form_row(formAddPictureGallery.altDescription) }}
+                        {{ form_row(formAddPictureGallery.title) }}
+                        <button type="submit">ajouter</button>
+                        {{ form_end(formAddPictureGallery) }}
+                    
+                    {% else %}
+                        <p>Maximum image limit reached. Please delete some before adding more.</p>
+                    {% endif %}
+                    
+                    
+                    
+                </div>
+            </div>
+            
+            {{ form_start(formPublishPageArtist) }}
+                {% if artist.isPublished == 1 %}
+                <button type="submit">Unpublish</button>
+                {% else %}
+                <button type="submit">Publish</button>
+                {% endif %}
+            {{ form_end(formPublishPageArtist) }}
+           
+    </div>
 
-    {% if canUploadImage %}
-        {{ form_start(formAddPictureGallery) }}
-        {{ form_errors(formAddPictureGallery) }}
-        {{ form_row(formAddPictureGallery.picture) }}
-        {{ form_row(formAddPictureGallery.altDescription) }}
-        {{ form_row(formAddPictureGallery.title) }}
-        <button type="submit">ajouter</button>
-        {{ form_end(formAddPictureGallery) }}
-    
-    {% else %}
-        <p>Maximum image limit reached. Please delete some before adding more.</p>
-    {% endif %}
-    
-    {{ form_start(formPublishPageArtist) }}
-        {% if artist.isPublished == 1 %}
-        <button type="submit">Unpublish</button>
-        {% else %}
-        <button type="submit">Publish</button>
-        {% endif %}
-    {{ form_end(formPublishPageArtist) }}
     
 
 </section>    
+
+
 
 
 {% endblock %}

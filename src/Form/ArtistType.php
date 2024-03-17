@@ -118,6 +118,56 @@ class ArtistType extends AbstractType
                 },
             ])
 
+            ->add('bio', TextType::class, [
+                'label' => 'Biography',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('quote', TextType::class, [
+                'label' => 'Quote',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('website', UrlType::class, [
+                'label' => 'Website',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('shop', TextType::class, [
+                'label' => 'Shop / gallery Name',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('country', TextType::class, [
+                'label' => 'Country',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('street', TextType::class, [
+                'label' => 'Street',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('city', TextType::class, [
+                'label' => 'City',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('postalCode', TextType::class, [
+                'label' => 'Postal Code',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+
+
             // ->add('contacts', CollectionType::class, [
             //     'entry_type' => TextType::class,
             //     'entry_options' => [

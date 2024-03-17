@@ -320,8 +320,8 @@ class ArtistController extends AbstractController
     }
 
 
-    // ^ artist page -manage  (ROLE ARTIST)
-    #[Route('/artist/{slug}/artist_profil', name: 'manage_profil')]
+    // ^ artist page -manage  (ROLE ARTIST)  NEW !!!!
+    #[Route('/artist/{slug}/artist_profile', name: 'manage_profil')]
     #[IsGranted("ROLE_ARTIST")]
     public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , PictureRepository $pictureRepo, PictureService $pictureService,  Request $request): Response 
     {
@@ -331,30 +331,32 @@ class ArtistController extends AbstractController
         $artistInfos = $user->getArtistInfos() ?? [];
         $artistSocials = $artist->getContacts();
 
-
         $bannerExists = null;
         $existingBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
         if ($existingBanner) {
             $bannerExists =  $existingBanner->getPath();
         }
         
-
         $contactInstagram = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Instagram']);
         $contactBehance = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Behance']);
-        $contactFacebook = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Facebook']);
+        $contactTwitter = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Twitter']);
+        $contactDribbble = $contactRepo->findOneBy(['user' => $artistId, 'name' => 'Dribbble']);
       
         // Initialiser les variables avant la boucle
         $instagram = null;
         $behance = null;
-        $facebook = null;
+        $twitter = null;
+        $dribbble = null;
 
         foreach ($artistSocials as $social) {
             if ($social->getName() == 'Instagram') {
                 $instagram = $social->getUrl();
             } elseif ($social->getName() == 'Behance') {
                 $behance = $social->getUrl();
-            } elseif ($social->getName() == 'Facebook') {
-                $facebook = $social->getUrl();
+            } elseif ($social->getName() == 'Twitter') {
+                $twitter = $social->getUrl();
+            } elseif ($social->getName() == 'Dribbble') {
+                $dribbble = $social->getUrl();
             }
         }
 
@@ -364,57 +366,111 @@ class ArtistController extends AbstractController
 
 
         $form->handleRequest($request);
-
         $formPage = $this->createForm(PublishedArtistPageType::class);
         $formPage->handleRequest($request);
 
-
-       
         if ($form->isSubmitted() && $form->isValid() ) {
             // ^ Json infos
             $email = $form->get('emailPro')->getData();
             $discipline =$form->get('discipline')->getData();
             $artistName =$form->get('artistName')->getData();
-
+            $category =$form->get('category')->getData();
+            
             $artistInstagram = $form->get('instagram')->getData();
             $artistBehance = $form->get('behance')->getData();
-            $artistFacebook = $form->get('facebook')->getData();
+            $artistTwitter = $form->get('twitter')->getData();
+            $artistDribbble = $form->get('dribbble')->getData();
  
+            // dd($artistDribbble);
             // Vérifier les valeurs existantes avant de les mettre à jour
             $fields = [];
 
             if ($email !== null && $email !== $artistInfos['emailPro']) {
                 $fields['emailPro'] = $email;
             }
-
             if ($discipline !== null && $discipline !== $artistInfos['discipline']) {
                 $fields['discipline'] = $discipline;
             }
-
             if ($artistName !== null && $artistName !== $artistInfos['artistName']) {
                 $fields['artistName'] = $artistName;
             }
-
-            // Si pas de facebook pour cet utilisateur et ce réseau social
-            if (!$contactFacebook) {
-                // Créez une nouvelle instance de l'entité Contact
-                $contactFacebook = new Contact();
-                $contactFacebook->setUser($artist); // Associez l'utilisateur à ce contactFacebook
-                $contactFacebook->setName("Facebook"); // Définissez le nom du réseau social
-                $contactFacebook->setIcon('<i class="fa-brands fa-facebook"></i>');
-                $contactFacebook->setUrl($artistFacebook);
-                $entityManager->persist($contactFacebook);
-                $entityManager->flush($contactFacebook);
+            if ($category !== null && $category !== $artistInfos['category']) {
+                $fields['category'] = $category;
             }
 
-            $contactBehance->setUrl($artistBehance);
+            // TWITTER
+            if (!$contactTwitter) {
+                $contactTwitter = new Contact();
+                $contactTwitter->setUser($artist); 
+                $contactTwitter->setName("Twitter"); 
+                $contactTwitter->setIcon('<i class="fa-brands fa-twitter"></i>');
+                $contactTwitter->setUrl($artistTwitter);
+                $entityManager->persist($contactTwitter);
+                $entityManager->flush($contactTwitter);
+            } elseif ($contactTwitter) {
+                $contactTwitter->setUrl($artistTwitter);
+                $entityManager->persist($contactTwitter);
+                $entityManager->flush($contactTwitter);
+            }
+
+            // DRIBBbLE
+            if (!$contactDribbble) {
+                $contactDribbble = new Contact();
+                $contactDribbble->setUser($artist); 
+                $contactDribbble->setName("Dribbble");
+                $contactDribbble->setIcon('<i class="fa-brands fa-dribbble"></i>');
+                $contactDribbble->setUrl($artistDribbble);
+                $entityManager->persist($contactDribbble);
+                $entityManager->flush($contactDribbble);
+            } elseif ($contactDribbble) {
+                $contactDribbble->setUrl($artistDribbble);
+                $entityManager->persist($contactDribbble);
+                $entityManager->flush($contactDribbble);
+            }
+
+            // BEHANCE
+            if (!$contactBehance) {
+                $contactBehance = new Contact();
+                $contactBehance->setUser($artist); 
+                $contactBehance->setName("Behance"); 
+                $contactBehance->setIcon('<i class="fa-brands fa-square-behance"></i>');
+                $contactBehance->setUrl($artistBehance);
+                $entityManager->persist($contactBehance);
+                $entityManager->flush($contactBehance);
+            } elseif ($contactBehance) {
+                $contactBehance->setUrl($artistBehance);
+                $entityManager->persist($contactBehance);
+                $entityManager->flush($contactBehance);
+            }
+
+            // BEHANCE
+            if (!$contactInstagram) {
+                $contactInstagram = new Contact();
+                $contactInstagram->setUser($artist); 
+                $contactInstagram->setName("Behance"); 
+                $contactInstagram->setIcon('<i class="fa-brands fa-square-behance"></i>');
+                $contactInstagram->setUrl($artistInstagram);
+                $entityManager->persist($contactInstagram);
+                $entityManager->flush($contactInstagram);
+            } elseif ($contactInstagram) {
+                $contactInstagram->setUrl($artistInstagram);
+                $entityManager->persist($contactInstagram);
+                $entityManager->flush($contactInstagram);
+            }
+
+
          
             // Fusionner les champs avec artistInfos
             $artistInfos = array_merge($artistInfos, $fields);
-            // Mettez à jour artistInfos dans l'entité User
+            // Mettre à jour artistInfos dans l'entité User
             $entityManager->persist($user);
             $user->setArtistInfos($artistInfos);
+
+
+
             $entityManager->flush();
+
+
 
             $this->addFlash('success', 'Informations successfully edited!');
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
@@ -561,7 +617,8 @@ class ArtistController extends AbstractController
 
             'instagram' => $instagram,
             'behance' => $behance,
-            'facebook' => $facebook, 
+            'twitter' => $twitter, 
+            'dribbble' => $dribbble, 
             
         ]);
     }

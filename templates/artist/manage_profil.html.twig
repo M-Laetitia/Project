@@ -64,11 +64,11 @@
         {% endif %}
     
         {# ADDRESS #}
-        {% if artist.artistInfos.address is defined %}
+        {# {% if artist.artistInfos.address is defined %}
         <p>Address : {{ artist.artistInfos.address.country }} {{ artist.artistInfos.address.city }} {{ artist.artistInfos.address.street }} {{ artist.artistInfos.address.postalCode }}</p>
         {% else %}
             <p>Address: empty</p>
-        {% endif %}
+        {% endif %} #}
 
         {% if artist.artistInfos.bio is defined %}
             {{ form_row(formEditArtist.bio, {'value': artist.artistInfos.bio}) }}
@@ -95,6 +95,33 @@
         {% endif %}
 
         <h3>addresse for shop / gallery</h3>
+
+        {# ADDRESS #}
+        {% if artist.artistInfos.address.country is defined %}
+            <p>country : {{ artist.artistInfos.address.country }}</p>
+        {% else %}
+            <p>country : empty</p>
+        {% endif %}
+
+        {% if artist.artistInfos.address.city is defined %}
+            <p>city : {{ artist.artistInfos.address.city }}</p>
+        {% else %}
+            <p>city : empty</p>
+        {% endif %}
+
+        {% if artist.artistInfos.address.street is defined %}
+            <p>street : {{ artist.artistInfos.address.street }}</p>
+        {% else %}
+            <p>street : empty</p>
+        {% endif %}
+
+        {% if artist.artistInfos.address.postalCode is defined %}
+            <p>cp : {{ artist.artistInfos.address.postalCode }}</p>
+        {% else %}
+            <p>cp : empty</p>
+        {% endif %}
+
+        
 
         {% if artist.artistInfos.address.country is defined %}
             {{ form_row(formEditArtist.country, {'value': artist.artistInfos.address.country}) }}

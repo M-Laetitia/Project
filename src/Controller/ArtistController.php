@@ -458,6 +458,75 @@ class ArtistController extends AbstractController
             }
 
 
+            if(isset($artistInfos['address'])) {
+                    $address = $artistInfos['address'];
+                if (isset($address['city']) && $city !== null && $city !== $address['city']) {
+                    $fields['city'] = $city;
+                } else {
+                    // Le street n'existe pas encore dans l'adresse
+                    $address['city'] = $city;
+                }
+                    $address['city'] = $city;
+                    $artistInfos['address'] = $address;
+                    $artist->setArtistInfos($artistInfos);
+                    $entityManager->persist($artist);
+                    $entityManager->flush();
+                
+            }
+
+            if(isset($artistInfos['address'])) {
+                $address = $artistInfos['address'];
+                if (isset($address['country']) && $country !== null && $country !== $address['country']) {
+                    $fields['country'] = $country;
+                } else {
+                    // Le street n'existe pas encore dans l'adresse
+                    $address['country'] = $country;
+                }
+                    $address['country'] = $country;
+                    $artistInfos['address'] = $address;
+                    $artist->setArtistInfos($artistInfos);
+                    $entityManager->persist($artist);
+                    $entityManager->flush();
+                
+            }
+
+            if(isset($artistInfos['address'])) {
+                $address = $artistInfos['address'];
+                if (isset($address['street']) && $street !== null && $street !== $address['street']) {
+                    $address['street'] = $street;
+                } else {
+                    // Le street n'existe pas encore dans l'adresse
+                    $address['street'] = $street;
+                }
+                    $address['street'] = $street;
+                    $artistInfos['address'] = $address;
+                    $artist->setArtistInfos($artistInfos);
+                    $entityManager->persist($artist);
+                    $entityManager->flush();
+                
+            }
+
+            if(isset($artistInfos['address'])) {
+                $address = $artistInfos['address'];
+                if (isset($address['postalCode']) && $postalCode !== null && $postalCode !== $address['postalCode']) {
+                    // Le postalCode existe déjà dans l'adresse et est différent
+                    $address['postalCode'] = $postalCode;
+                } else {
+                    // Le postalCode n'existe pas encore dans l'adresse
+                    $address['postalCode'] = $postalCode;
+                }
+            
+                // Mettre à jour l'adresse dans le tableau global $artistInfos
+                $artistInfos['address'] = $address;
+            
+                // Mettre à jour l'entité et persister les changements
+                $artist->setArtistInfos($artistInfos);
+                $entityManager->persist($artist);
+                $entityManager->flush();
+            }
+
+
+
 
            
             // ^ ADD / EDIT SOCIALS

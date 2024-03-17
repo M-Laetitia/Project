@@ -236,19 +236,19 @@
     <h3>Gallery</h3>
     
     
-        
+
     
         {% for picture in picturesGallery  %}
         <div>
             {% if picture.IsSelected == 1  %}
                 <div id="selectedImage">
-                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
+                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
                     <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
                     <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="selectedImg"><i class="fa-solid fa-check"></i></div></a>
                 </div>
             {% else %}
                 <div id="notSelectedImage">
-                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/300x300-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
+                    <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="50">
                     <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
                     <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
                 </div>

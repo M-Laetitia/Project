@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -79,11 +80,42 @@ class ArtistType extends AbstractType
                 
             ])
 
-            ->add('facebook', UrlType::class, [
-                'label' => 'Facebook',
+            ->add('twitter', UrlType::class, [
+                'label' => 'Twitter',
                 'mapped' => false,
                 'required' => false, 
                 
+            ])
+
+            ->add('dribbble', UrlType::class, [
+                'label' => 'Dribbble',
+                'mapped' => false,
+                'required' => false, 
+            ])
+
+            ->add('category', ChoiceType::class, [
+                'label' => 'Category',
+                'mapped' => false,
+                // 'expanded' => true,
+                // 'multiple' => false,
+                'required' => true, 
+                'choices' => [
+                    'Choose a category' => '',
+                    'Illustration' => 'illustration',
+                    'Photography' => 'photography',
+                    'Graphism' => 'graphism',
+                    'Craftsman' => 'craftsman',
+                    'Other' => 'Other',
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    // Applique une classe 'option-class' à toutes les options, y compris celle désactivée
+                    $attrs = ['class' => 'option'];
+                    if ($value === '') {
+                        // Vous pouvez ajouter ici d'autres attributs spécifiques pour l'option désactivée si nécessaire
+                        $attrs['disabled'] = '';
+                    }
+                    return $attrs;
+                },
             ])
 
             // ->add('contacts', CollectionType::class, [

@@ -348,6 +348,16 @@ class ArtistController extends AbstractController
         $twitter = null;
         $dribbble = null;
 
+        $quote = null;
+        $bio = null;
+        $website = null;
+        $shop = null;
+
+        $country= null;
+        $city= null;
+        $street= null;
+        $postalCode = null;
+
         foreach ($artistSocials as $social) {
             if ($social->getName() == 'Instagram') {
                 $instagram = $social->getUrl();
@@ -380,6 +390,20 @@ class ArtistController extends AbstractController
             $artistBehance = $form->get('behance')->getData();
             $artistTwitter = $form->get('twitter')->getData();
             $artistDribbble = $form->get('dribbble')->getData();
+
+            $bio = $form->get('bio')->getData();
+            $quote = $form->get('quote')->getData();
+            $website = $form->get('website')->getData();
+            $shop = $form->get('shop')->getData();
+
+            $country = $form->get('country')->getData();
+            $street = $form->get('street')->getData();
+            $city = $form->get('city')->getData();
+            $postalCode = $form->get('postalCode')->getData();
+
+            // $artistWebsite = $form->get('website')->getData();
+            // $artistQuote = $form->get('quote')->getData();
+            // $artistShop = $form->get('shop')->getData();
  
             // dd($artistDribbble);
             // Vérifier les valeurs existantes avant de les mettre à jour
@@ -397,6 +421,43 @@ class ArtistController extends AbstractController
             if ($category !== null && $category !== $artistInfos['category']) {
                 $fields['category'] = $category;
             }
+
+            //  vérifier d'abord si la clé "quote" est définie dans le tableau $artistInfos
+            //  vérifier si la variable $quote est différente de null.
+            //  vérifier si la valeur de $quote est différente de la valeur de "quote" dans $artistInfos. 
+            if (isset($artistInfos['bio']) && $bio !== null && $bio !== $artistInfos['bio']) {
+                $fields['bio'] = $bio;
+            }
+            if (isset($artistInfos['quote']) && $quote !== null && $quote !== $artistInfos['quote']) {
+                $fields['quote'] = $quote;
+            } else {
+                $artistInfos['quote'] = $quote;
+                $artist->setArtistInfos($artistInfos);
+                $entityManager->persist($artist);
+                $entityManager->flush();
+            }
+
+            if (isset($artistInfos['website']) && $website !== null && $website !== $artistInfos['website']) {
+                $fields['website'] = $website;
+            } else {
+                // Ajouter le site web au tableau associatif
+                $artistInfos['website'] = $website;
+                $artist->setArtistInfos($artistInfos);
+                $entityManager->persist($artist);
+                $entityManager->flush();
+            }
+
+            if (isset($artistInfos['shop']) && $shop !== null && $shop !== $artistInfos['shop']) {
+                $fields['shop'] = $shop;
+            } else {
+                // Ajouter le site web au tableau associatif
+                $artistInfos['shop'] = $shop;
+                $artist->setArtistInfos($artistInfos);
+                $entityManager->persist($artist);
+                $entityManager->flush();
+            }
+
+
 
            
             // ^ ADD / EDIT SOCIALS
@@ -419,6 +480,7 @@ class ArtistController extends AbstractController
             createOrUpdateContact($entityManager, $artist, "Dribbble", '<i class="fa-brands fa-dribbble"></i>', $artistDribbble, $contactDribbble, $artistDribbble);
             createOrUpdateContact($entityManager, $artist, "Behance", '<i class="fa-brands fa-square-behance"></i>', $artistBehance, $contactBehance, $artistBehance);
             createOrUpdateContact($entityManager, $artist, "Instagram", '<i class="fa-brands fa-instagram"></i>', $artistInstagram, $contactInstagram, $artistInstagram);
+            // ^ __________________
 
 
             // Fusionner les champs avec artistInfos
@@ -426,12 +488,7 @@ class ArtistController extends AbstractController
             // Mettre à jour artistInfos dans l'entité User
             $entityManager->persist($user);
             $user->setArtistInfos($artistInfos);
-
-
-
             $entityManager->flush();
-
-
 
             $this->addFlash('success', 'Informations successfully edited!');
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
@@ -447,10 +504,8 @@ class ArtistController extends AbstractController
                 $message = 'Artist page successfully published!';
             }
 
-
             $entityManager->persist($user);
             $entityManager->flush();
-
             $this->addFlash('success', $message);
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
@@ -524,7 +579,6 @@ class ArtistController extends AbstractController
             $this->addFlash('success', 'Your banner has been successfully added/edited');
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
-
 
         // ^ pictures (gallery) upload
         $picturesGallery = $pictureRepo->findBy(['user' => $artistId, 'type' => 'work']); 

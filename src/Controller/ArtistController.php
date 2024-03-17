@@ -586,11 +586,10 @@ class ArtistController extends AbstractController
     
         if ($formBanner->isSubmitted() && $formBanner->isValid()) {
             $bannerFile = $formBanner->get('picture')->getData();
-            $newFilename = md5(uniqid(rand(), true)) . '.' . $bannerFile->guessExtension();
+
             $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
             if ($bannerFile) {
-                
                 // vérifier le format du fichier
                 $oldBanner = $pictureRepo->findOneBy(['user' => $artistId, 'type' => 'banner']); 
                 if (!in_array($bannerFile->getMimeType(), $allowedMimeTypes)) {
@@ -605,44 +604,36 @@ class ArtistController extends AbstractController
                     return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
                 }
 
-                
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                // $newFilename = md5(uniqid(rand(), true)) . '.' . $bannerFile->guessExtension();
                 if ($oldBanner) {
                     $oldBannerName = $oldBanner->getPath();
                     $bannerDirectory = 'images/artists/' . $artistId . '/banner';
                     $absoluteOldBannerPath = $this->getParameter('kernel.project_dir') . '/public/' . $bannerDirectory . '/' . $oldBannerName;
-                    // dd($absoluteOldBannerPath);
 
                     $filesystem = new Filesystem();
                     if ($filesystem->exists($absoluteOldBannerPath)) {
                         $filesystem->remove($absoluteOldBannerPath);
                     }
-
                     $oldBanner->setPath($newFilename);
 
                 } else {
                     // Si aucune bannière existante, créer le dossier "banner"
+                    $bannerDirectory = 'images/artists/' . $artistId . '/banner';
                     $filesystem = new Filesystem();
                     $filesystem->mkdir($bannerDirectory);
 
                     $picture = new Picture();
-
-                    
-
                     $picture = $formBanner->getData();
                     $picture->setUser($artist);
                     $picture->setType('banner');
                     $picture->setPath($newFilename);
-    
                     $entityManager->persist($picture);
-                    
                 }
 
             // Déplacer la nouvelle image vers le dossier "banner"
-            
-
             $bannerFile->move($bannerDirectory, $newFilename);
             $entityManager->flush();
-
             }
 
             $this->addFlash('success', 'Your banner has been successfully added/edited');
@@ -655,7 +646,7 @@ class ArtistController extends AbstractController
         $formPicture = $this->createForm(PictureFormType::class);      
         $formPicture->handleRequest($request);
 
-        $maxImagesAllowed = 2;
+        $maxImagesAllowed = 10;
         $numberOfImages = count($pictureRepo->findBy(['user' => $artistId, 'type' => 'work']));
         // vérifier si l'user peut upload une image, renvoie true ou false 
         $canUploadImage = $numberOfImages < $maxImagesAllowed;

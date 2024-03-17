@@ -37,7 +37,7 @@
 
         {# BIO #}
         {% if artist.artistInfos.bio is defined %}
-            <p>Quote : {{ artist.artistInfos.bio }}</p>
+            <p>Biography : {{ artist.artistInfos.bio }}</p>
         {% else %}
             <p>Biography : empty </p>
         {% endif %}
@@ -69,6 +69,57 @@
         {% else %}
             <p>Address: empty</p>
         {% endif %}
+
+        {% if artist.artistInfos.bio is defined %}
+            {{ form_row(formEditArtist.bio, {'value': artist.artistInfos.bio}) }}
+        {% else %}
+            {{ form_row(formEditArtist.bio, {'value': "add your bio link"}) }}
+        {% endif %}
+
+        {% if artist.artistInfos.quote is defined%}
+            {{ form_row(formEditArtist.quote, {'value': artist.artistInfos.quote }) }}
+        {% else %}
+            {{ form_row(formEditArtist.quote, {'value': "add your quote link"}) }}
+        {% endif %}
+
+        {% if artist.artistInfos.website is defined%}
+            {{ form_row(formEditArtist.website, {'value': artist.artistInfos.website }) }}
+        {% else %}
+            {{ form_row(formEditArtist.website, {'value': "add your website link"}) }}
+        {% endif %}
+
+        {% if artist.artistInfos.shop is defined%}
+            {{ form_row(formEditArtist.shop, {'value': artist.artistInfos.shop }) }}
+        {% else %}
+            {{ form_row(formEditArtist.shop, {'value': "add your shop link"}) }}
+        {% endif %}
+
+        <h3>addresse for shop / gallery</h3>
+
+        {% if artist.artistInfos.address.country is defined %}
+            {{ form_row(formEditArtist.country, {'value': artist.artistInfos.address.country}) }}
+        {% else %}
+            {{ form_row(formEditArtist.country, {'value': "add country"}) }}
+        {% endif %}
+
+        {% if artist.artistInfos.address.street is defined %}
+            {{ form_row(formEditArtist.street, {'value': artist.artistInfos.address.street}) }}
+        {% else %}
+            {{ form_row(formEditArtist.street, {'value': "add street"}) }}
+        {% endif %}
+
+        {% if artist.artistInfos.address.city is defined %}
+            {{ form_row(formEditArtist.city, {'value': artist.artistInfos.address.city}) }}
+        {% else %}
+            {{ form_row(formEditArtist.city, {'value': "add city"}) }}
+        {% endif %}
+
+        {% if artist.artistInfos.address.postalCode is defined %}
+            {{ form_row(formEditArtist.postalCode, {'value': artist.artistInfos.address.postalCode}) }}
+        {% else %}
+            {{ form_row(formEditArtist.postalCode, {'value': "add postalCode"}) }}
+        {% endif %}
+
 
         <h2>Social medias:</h2>
 

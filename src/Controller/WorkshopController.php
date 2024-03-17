@@ -149,14 +149,16 @@ class WorkshopController extends AbstractController
         return $this->redirectToRoute('app_dashboard');
     }
 
-    // ^ AJAX - all archives workshops
+    // ^ AJAX - all archived workshops
     #[Route('/all-past-workshops', name: 'all-past-workshops', methods: ['POST'])]
-    public function getPastEvents(Request $request, WorkshopRepository $workshopRepository)
+    public function getPastWorkshops(Request $request, WorkshopRepository $workshopRepository)
     {
 
         $pastWorkshops = $workshopRepository->findBy([
             'status' => ['ARCHIVED'],
-        ]);
+        ],
+        ['startDate' => 'DESC'] 
+        );
 
         // Convert objects to associative arrays
         $workshopsArray = [];

@@ -62,7 +62,7 @@
     <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
 </div>
 
-<div class="past-events" style="display:none">
+<div class="past-events" style="display:block">
     {% for event in pastEvents %}
     <div>
         <p>
@@ -82,7 +82,7 @@
 
         <p>{{event.description}}</p>
 
-        <a href="{{ path('show_event', {slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
+        <a href="{{ path('show_archived_event', {slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
         <hr>
     </div>
     {% endfor %}

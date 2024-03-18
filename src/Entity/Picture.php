@@ -18,7 +18,7 @@ class Picture
     #[ORM\Column(length: 255)]
     private ?string $path = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, nullable: true)]
     #[Assert\Length(max:150, maxMessage:'The alt description cannot be longer than {{ limit }} characters.')]
     private ?string $altDescription = null;
 
@@ -34,6 +34,9 @@ class Picture
 
     #[ORM\Column(nullable: true)]
     private ?bool $isSelected = null;
+
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Area $area = null;
 
     public function getId(): ?int
     {
@@ -108,6 +111,18 @@ class Picture
     public function setIsSelected(?bool $isSelected): static
     {
         $this->isSelected = $isSelected;
+
+        return $this;
+    }
+
+    public function getArea(): ?Area
+    {
+        return $this->area;
+    }
+
+    public function setArea(?Area $area): static
+    {
+        $this->area = $area;
 
         return $this;
     }

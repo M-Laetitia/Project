@@ -238,7 +238,6 @@ class ArtistController extends AbstractController
     }
         
 
-
     // ^ show artist detail (all)
     #[Route('/artist/{slug}-{id}', name: 'show_artist')]
     public function show(UserRepository $userRepository, EntityManagerInterface $entityManager, string $slug, int $id): Response {
@@ -646,7 +645,7 @@ class ArtistController extends AbstractController
         $formPicture = $this->createForm(PictureFormType::class);      
         $formPicture->handleRequest($request);
 
-        $maxImagesAllowed = 10;
+        $maxImagesAllowed = 12;
         $numberOfImages = count($pictureRepo->findBy(['user' => $artistId, 'type' => 'work']));
         // vérifier si l'user peut upload une image, renvoie true ou false 
         $canUploadImage = $numberOfImages < $maxImagesAllowed;
@@ -660,7 +659,7 @@ class ArtistController extends AbstractController
                  // on appelle le service d'ajout
                 if ($pictureFile !== null) 
                 {
-                    $file = $pictureService->add($pictureFile, $folder, 300, 300);
+                    $file = $pictureService->add($pictureFile, $folder, 500, 500);
                     $img = new Picture();
                     $img = $formPicture->getData();
                     $img->setPath($file);
@@ -804,6 +803,7 @@ class ArtistController extends AbstractController
 
     }
     
+    // ^ Delete Picture
     #[Route('/delete/picture/{id}', name: 'delete_picture')]
     public function deletePicture(User $user =null, Security $security, Picture $picture, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ): Response
     {
@@ -826,6 +826,7 @@ class ArtistController extends AbstractController
         return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
     }
 
+    // ^ Select Picture
     #[Route('/select-picture/{id}', name: 'select_picture', methods: ['GET'])]
     public function selectPicture(Security $security, Picture $picture, EntityManagerInterface $entityManager): Response
     {

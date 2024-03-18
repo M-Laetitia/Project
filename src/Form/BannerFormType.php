@@ -44,7 +44,7 @@ class BannerFormType extends AbstractType
             ])
 
             ->add('altDescription', TextType::class, [
-                'label' => 'Little description ',
+                'label' => 'Little description : ',
                 'required' => true, 
                 'invalid_message' => 'The description must not exceed 125 characters.',
                 'constraints' => [
@@ -56,7 +56,7 @@ class BannerFormType extends AbstractType
             ])
 
             ->add('title', TextType::class, [
-                'label' => 'Title ',
+                'label' => 'Title : ',
                 'required' => false, 
                 'invalid_message' => 'The title must be between 5 and 30 characters.',
                 'constraints' => [

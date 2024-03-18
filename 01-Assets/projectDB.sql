@@ -47,7 +47,7 @@ REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date
 	(12, 'Event10', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, NULL, '2023-12-13 19:15:00', '2023-12-21 19:15:00', 12, 'EVENT', 'ARCHIVED', 'event10'),
 	(13, 'expo 10', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, '2023-12-18 00:06:00', '2023-12-30 00:06:00', 15, 'EXPO', 'ARCHIVED', 'expo03'),
 	(15, 'teSstslug 02', 'errrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrr', NULL, NULL, '2023-12-24 12:15:00', '2023-12-28 12:15:00', 3, 'EVENT', 'ARCHIVED', 'tesstslug-02'),
-	(16, 'event 30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, NULL, '2023-12-23 23:15:17', '2023-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'event30');
+	(16, 'event 30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, NULL, '2025-12-23 23:15:17', '2025-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'event30');
 
 -- Listage de la structure de table project. area_area_category
 CREATE TABLE IF NOT EXISTS `area_area_category` (
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `area_participation` (
   `end_date` datetime DEFAULT NULL,
   `inscription_date` datetime NOT NULL,
   `area_id` int NOT NULL,
-  `user_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_B269FA74BD0F409C` (`area_id`),
   KEY `IDX_B269FA74A76ED395` (`user_id`),
@@ -122,13 +122,16 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id`),
   KEY `IDX_4C62E638A76ED395` (`user_id`),
   CONSTRAINT `FK_4C62E638A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.contact : ~3 rows (environ)
 REPLACE INTO `contact` (`id`, `name`, `icon`, `url`, `user_id`) VALUES
-	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'test@instagram.com', 9),
-	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'test@behance.com', 11),
-	(3, 'Facebook', '<i class="fa-brands fa-facebook"></i>', 'test@facebook.com', 9);
+	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'https://www.instagram.com/audraauclair', 8),
+	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'https://www.behance.com/audraauclair', 8),
+	(3, 'Twitter', '<i class="fa-brands fa-facebook"></i>', 'test@twitter.com', 21),
+	(4, 'Twitter', '<i class="fa-brands fa-facebook"></i>', 'test@instagram.com', 21),
+	(5, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'https://www.dribble.com/audraauclair', 22),
+	(6, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'https://www.twitter.com/audraauclair', 8);
 
 -- Listage de la structure de table project. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
@@ -160,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `exposition_proposal` (
   `id` int NOT NULL AUTO_INCREMENT,
   `proposal_date` datetime NOT NULL,
   `status` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   `area_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_31AD3D5A76ED395` (`user_id`),
@@ -246,24 +249,30 @@ CREATE TABLE IF NOT EXISTS `picture` (
   `alt_description` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int DEFAULT NULL,
+  `is_selected` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_16DB4F89A76ED395` (`user_id`),
   CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.picture : ~11 rows (environ)
-REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `user_id`) VALUES
-	(14, NULL, '4e93894773ea018dcd546cebfbfd0197.png', 'Triangular decoration pot for wooden walls', 'work', 8),
-	(15, NULL, '7527f55545d728e2373f81ccf3556f01.png', 'small wooden storage unit for walls, wood and metal', 'work', 8),
-	(16, NULL, '5f1078ae34c2b2848a3f16482d0e0739.png', 'Wood single-flower vase wall decoration', 'work', 8),
-	(17, NULL, '1d3588c11527f835902897db4be16632.png', 'wooden plant display tray', 'work', 8),
-	(18, NULL, 'f4b1beba14c7ce6f1b88f0b2ae1af1cd.png', 'hexagonal wooden frame for wall decoration', 'work', 8),
-	(19, NULL, '5f99531fe94af2ce265f38046fcc01ba.png', 'minimalist wooden ceiling lamp', 'work', 8),
-	(20, NULL, 'ccea1f05bc5e00df999837e90b47c829.png', 'wooden cutting board', 'work', 8),
-	(31, NULL, '1471b612a89cfb817e0198e579547c78.png', 'wood cutting board', 'work', 8),
-	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', 19),
-	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', 19),
-	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', 19);
+REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `user_id`, `is_selected`) VALUES
+	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', 19, NULL),
+	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', 19, NULL),
+	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', 19, NULL),
+	(45, 'bbbb6666', '080923a66169dbd79bb882bb4f90d65a.webp', 'aaaaaannnnnnn', 'banner', 8, 0),
+	(47, 'Vertige', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 'description', 'work', 8, 0),
+	(48, 'In Disguise', '45c6cb6f5f11307813f82c4f1be6b611.webp', 'description', 'work', 8, 1),
+	(49, 'Blossom', '9ae8bd3821888e44e06897584044a2d3.webp', 'description', 'work', 8, 0),
+	(50, 'Little witch', 'a36bd41b21eba83732e7b632745b24ba.webp', 'description', 'work', 8, 0),
+	(51, 'Past Memories', 'cdc02e2367126fb1bdf0579dde839a3c.webp', 'descrption', 'work', 8, 0),
+	(52, 'Envol', '7cd353d4dfb494d3f0c4dcc2e0745b08.webp', 'description', 'work', 8, 0),
+	(53, 'Regret', '88b25aa06df98c8ca9c00a61d656a060.webp', 'description', 'work', 8, 0),
+	(54, 'Murmure', 'bd878c2d4b9c8abd9dd998351055da10.webp', 'description', 'work', 8, 0),
+	(55, 'Puppet', '4aa7f4672aa08e986c70c7f039947216.webp', 'description', 'work', 8, 0),
+	(56, 'Ghost', '25ca203c9a9224b0d406a8c790eba075.webp', 'description', 'work', 8, 0),
+	(57, 'Earth', 'fd34f797b7c139e935f5456499f4896f.webp', 'description', 'work', 8, 0),
+	(58, 'Renaissance', 'ee89ace162fc06434e19e00f623f1942.webp', 'description', 'work', 8, 0);
 
 -- Listage de la structure de table project. programme
 CREATE TABLE IF NOT EXISTS `programme` (
@@ -313,15 +322,16 @@ CREATE TABLE IF NOT EXISTS `studio` (
   `picture` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nb_rooms` int NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.studio : ~3 rows (environ)
-REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`) VALUES
-	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio01'),
-	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02'),
-	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03'),
-	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie');
+REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`, `title`) VALUES
+	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio01', NULL),
+	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02', NULL),
+	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03', NULL),
+	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie', NULL);
 
 -- Listage de la structure de table project. subscription
 CREATE TABLE IF NOT EXISTS `subscription` (
@@ -425,12 +435,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `is_published` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.user : ~10 rows (environ)
+-- Listage des données de la table project.user : ~13 rows (environ)
 REPLACE INTO `user` (`id`, `email`, `username`, `slug`, `password`, `roles`, `is_verified`, `avatar`, `registration_date`, `last_login_date`, `last_profil_edit_date`, `artist_infos`, `is_published`) VALUES
 	(7, '05@exemple.com', 'test05', 'test05', '$2y$13$JLmhaHe/j7US1RkvTZUi0uK9UUHnvl81GhrIBUsftIp7fwzPc3IE.', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-11-29 00:28:28', '2023-12-06 17:52:56', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Illustration", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Handcrafted Wood Artisan"}', 1),
-	(8, 'cath@exemple.com', 'Cath', 'cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-03-14 13:10:47', NULL, '{"address": {"city": "Strasbourg", "street": "56 Bd Clemenceau", "country": "France", "postalCode": "67000"}, "category": "Illustration", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Illustrator"}', 1),
+	(8, 'cath@exemple.com', 'Cath', 'cath', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-03-17 08:54:02', NULL, '{"bio": "Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.", "city": "Strasbourg", "shop": null, "quote": "Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh", "street": "12 rue des machin", "address": {"city": "Strasbourg", "street": "13 rue des Cèdres", "country": "France", "postalCode": "67200"}, "website": "http://www.audraauclair.com", "category": "illustration", "emailPro": "AudraAuclair@exemple.com", "artistName": "Audra Auclair", "discipline": "Illustrator"}', 1),
 	(9, '02@exemple.com', 'Hannah', 'hannah', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-12-18 09:29:52', '2023-12-16 16:11:33', NULL, '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Design", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Illustrator"}', 1),
 	(10, '04@exemple.com', 'Mark', 'mark', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER", "ROLE_ARTIST"]', 0, NULL, '2023-11-28 23:35:55', '2023-12-15 13:04:12', NULL, '{"address": {"city": "Strasbourg", "street": "14 rue Paul Janet", "country": "France", "postalCode": "67000"}, "category": "Design", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Handcrafted Wood Artisan"}', 1),
 	(11, '01@exemple.com', 'test', 'test', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER"]', 0, NULL, '2023-11-29 09:26:35', NULL, NULL, NULL, NULL),
@@ -438,7 +448,10 @@ REPLACE INTO `user` (`id`, `email`, `username`, `slug`, `password`, `roles`, `is
 	(13, 'john@exemple.com', 'john', 'john', '$2y$13$YPpkZAQQhMN5TcoJOqTWyeztWa1Np1CsHdx60Mq/71g5d61FFw6Sm', '["ROLE_USER"]', 1, NULL, '2023-11-29 10:58:30', '2023-11-29 13:12:46', NULL, NULL, NULL),
 	(14, 'test@gmal.com', 'test', 'test', '$2y$13$Wx42D/YpHmrLgu1xJpEmh.WUyo44805AnSmsutKxEZo0v8Uq0Sf4m', '["ROLE_USER"]', 0, NULL, '2023-12-20 21:38:46', NULL, NULL, NULL, NULL),
 	(18, 'celeste@exemple.com', 'Céleste2', 'celeste2', '$2y$13$uafPhat5ZOa0ymd7YaFrbOuIy4QzFWWn/YwGi0CE2gSp295jSIp1q', '["ROLE_USER"]', 0, NULL, '2024-02-13 00:13:00', NULL, NULL, NULL, 0),
-	(19, 'audra@gmail.com', 'Audra Auclair', 'audra', '$2y$13$Ug3sz4ttKQy7hnouNHxnJ.SveE4prtH2qK98H0qu0O3fmNZ3iP5De', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 0, '65cd0d0f1910b.jpg', '2024-02-13 00:14:24', '2024-03-10 22:45:53', NULL, '{"category": "Illustration", "emailPro": "audraAuclair@example.com", "artistName": "Audra Auclair", "discipline": "Illustrator"}', 1);
+	(19, 'audra@gmail.com', 'Audra Auclair', 'audra', '$2y$13$Ug3sz4ttKQy7hnouNHxnJ.SveE4prtH2qK98H0qu0O3fmNZ3iP5De', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 0, '65cd0d0f1910b.jpg', '2024-02-13 00:14:24', '2024-03-10 22:45:53', NULL, '{"category": "Illustration", "emailPro": "audraAuclair@example.com", "artistName": "Audra Auclair", "discipline": "Illustrator"}', 1),
+	(20, 'cerrleste@exemple.com', 'test', 'test', '$2y$13$wp7F/ThHJbt9AQd3WSjhauMJ0aKBZFCIomsJwMfPq.mYffMOWOqbK', '["ROLE_USER"]', 0, NULL, '2024-03-16 09:06:19', NULL, NULL, NULL, 0),
+	(21, '0001@exemple.com', 'John', 'john', '$2y$13$OhkMxAaGNX3k6yEykI0iqOIPs7omuo4UGqetlUKTIe0EpyHTki3zy', '["ROLE_USER"]', 0, NULL, '2024-03-16 09:06:59', NULL, NULL, NULL, 0),
+	(22, '000001@exemple.com', 'john', 'john', '$2y$13$ml/2Feje/sJazdD9HiU0eOKMiDGjpEbVpb6eGazaSTvIq2NgSDd2W', '["ROLE_USER"]', 0, NULL, '2024-03-16 09:07:34', NULL, NULL, NULL, 0);
 
 -- Listage de la structure de table project. workshop
 CREATE TABLE IF NOT EXISTS `workshop` (
@@ -452,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `workshop` (
   `nb_rooms` int NOT NULL,
   `picture` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_9B6F02C4A76ED395` (`user_id`),
@@ -473,7 +486,7 @@ CREATE TABLE IF NOT EXISTS `workshop_registration` (
   `firstname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `registration_date` datetime NOT NULL,
-  `user_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   `workshop_id` int DEFAULT NULL,
   `timeslot_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),

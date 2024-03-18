@@ -28,24 +28,21 @@
             <p> <span>Discipline :</span> {{ artist.artistInfos.discipline }}</p>
             <p> <span>Category :</span> {{ artist.artistInfos.category }}</p>
 
-            <p><i class="fa-solid fa-pen-to-square"></i></p>
+            <p><i class="fa-solid fa-pen-to-square"></i> Edit</p>
     
             <div class="forms-artist" id="form-01" style="display: none;">
                 {{ form_start(formEditArtist) }}
-                {{ form_row(formEditArtist.artistName, {'value': artist.artistInfos.artistName}) }}
+                {{ form_row(formEditArtist.artistName,{'value': artist.artistInfos.artistName}) }}
                 {{ form_row(formEditArtist.emailPro, {'value': artist.artistInfos.emailPro}) }}
                 {{ form_row(formEditArtist.discipline, {'value': artist.artistInfos.discipline}) }}
                 {{ form_row(formEditArtist.category, {'value': artist.artistInfos.category}) }}
             </div>
         </div>
 
-
-
         {# ARTIST INFOS _____________________________________________#}
         {# _________________________________________________________ #}
         <h2 class="text-n2">Artist informations<span>_</span></h2>
         <div class="sections-artist">
-
 
             {% if artist.artistInfos.bio is defined %}
                 <p><span>Biography :</span></p>  
@@ -74,20 +71,20 @@
                 <p><span>Website :</span> : </p>
             {% endif %}
 
-            <p><i class="fa-solid fa-pen-to-square"></i></p>
+            <p><i class="fa-solid fa-pen-to-square"></i> Edit</p>
 
             <div class="forms-artist" id="form-02" style="display: none;">
 
                 {% if artist.artistInfos.bio is defined %}
                     {{ form_row(formEditArtist.bio, {'value': artist.artistInfos.bio}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.bio, {'value': "add your bio link"}) }}
+                    {{ form_row(formEditArtist.bio, {'value': "add your biography"}) }}
                 {% endif %}
         
                 {% if artist.artistInfos.quote is defined%}
                     {{ form_row(formEditArtist.quote, {'value': artist.artistInfos.quote }) }}
                 {% else %}
-                    {{ form_row(formEditArtist.quote, {'value': "add your quote link"}) }}
+                    {{ form_row(formEditArtist.quote, {'value': "add an inspirationale quote"}) }}
                 {% endif %}
         
                 {% if artist.artistInfos.website is defined%}
@@ -97,12 +94,11 @@
                 {% endif %}
 
             </div>
-
         </div>
 
         {# ADDRESS _________________________________________________#}
         {# _________________________________________________________ #}
-        <h2 class="text-n2">Shop / address <span>_</span></h2>
+        <h2 class="text-n2">Shop / address<span>_</span></h2>
         <div class="sections-artist">
 
             {% if artist.artistInfos.shop is defined %}
@@ -136,47 +132,46 @@
                 <p><span>Postal code :</span></p>
             {% endif %}
 
-            <p><i class="fa-solid fa-pen-to-square"></i></p>
+            <p><i class="fa-solid fa-pen-to-square"></i> Edit</p>
 
             <div class="forms-artist" id="form-03" style="display: none;">
 
                 {% if artist.artistInfos.shop is defined%}
                     {{ form_row(formEditArtist.shop, {'value': artist.artistInfos.shop }) }}
                 {% else %}
-                    {{ form_row(formEditArtist.shop, {'value': "add your shop link"}) }}
+                    {{ form_row(formEditArtist.shop, {'value': "add your shop or gallery name"}) }}
                 {% endif %}
         
                 {% if artist.artistInfos.address.country is defined %}
                     {{ form_row(formEditArtist.country, {'value': artist.artistInfos.address.country}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.country, {'value': "add country"}) }}
+                    {{ form_row(formEditArtist.country, {'value': "add your country"}) }}
                 {% endif %}
         
                 {% if artist.artistInfos.address.street is defined %}
                     {{ form_row(formEditArtist.street, {'value': artist.artistInfos.address.street}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.street, {'value': "add street"}) }}
+                    {{ form_row(formEditArtist.street, {'value': "add your street"}) }}
                 {% endif %}
         
                 {% if artist.artistInfos.address.city is defined %}
                     {{ form_row(formEditArtist.city, {'value': artist.artistInfos.address.city}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.city, {'value': "add city"}) }}
+                    {{ form_row(formEditArtist.city, {'value': "add your city"}) }}
                 {% endif %}
         
                 {% if artist.artistInfos.address.postalCode is defined %}
                     {{ form_row(formEditArtist.postalCode, {'value': artist.artistInfos.address.postalCode}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.postalCode, {'value': "add postalCode"}) }}
+                    {{ form_row(formEditArtist.postalCode, {'value': "add your postal code"}) }}
                 {% endif %}
 
             </div>
-
         </div>
 
         {# SOCIALS __________________________________________________#}
         {# _________________________________________________________ #}
-        <h2 class="text-n2">Socials medias <span>_</span></h2>
+        <h2 class="text-n2">Socials medias<span>_</span></h2>
         <div class="sections-artist">
 
             {% if artist.contacts is defined %}
@@ -191,47 +186,43 @@
                 <p>No contact information available</p>
             {% endif %}
 
-            <p><i class="fa-solid fa-pen-to-square"></i></p>
+            <p><i class="fa-solid fa-pen-to-square"></i> Edit</p>
 
             <div class="forms-artist" id="form-03" style="display: none;">
                 {% if twitter %}
                     {{ form_row(formEditArtist.twitter, {'value': twitter}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.twitter, {'value': "add your twitter link"}) }}
+                    {{ form_row(formEditArtist.twitter, {'value': "add your Twitter"}) }}
                 {% endif %}
         
                 {% if dribbble %}
                     {{ form_row(formEditArtist.dribbble, {'value': dribbble}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.dribbble, {'value': "add your dribbble link"}) }}
+                    {{ form_row(formEditArtist.dribbble, {'value': "add your Dribbble "}) }}
                 {% endif %}
         
                 {% if instagram %}
                     {{ form_row(formEditArtist.instagram, {'value': instagram}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.instagram, {'value': "add your fb link"}) }}
+                    {{ form_row(formEditArtist.instagram, {'value': "add your Instagram"}) }}
                 {% endif %}
         
                 {% if behance %}
                     {{ form_row(formEditArtist.behance, {'value': behance}) }}
                 {% else %}
-                    {{ form_row(formEditArtist.behance, {'value': "add your fb link"}) }}
+                    {{ form_row(formEditArtist.behance, {'value': "add your Behance"}) }}
                 {% endif %}
-                
 
             </div>
-            
-            
         </div>
 
-        
-        <button type="submit">Sauvegarder</button>
+        <button id="btn-save-infos" class="btn btn6 btn-artist-profil" type="submit">save</button>
             {{ form_end(formEditArtist) }}
 
 
         {# BANNER __________________________________________________#}
         {# _________________________________________________________ #}
-        <h2 class="text-n2">Banner <span>_</span></h2>
+        <h2 class="text-n2">Banner<span>_</span></h2>
         <div class="sections-artist">
     
             <div>
@@ -246,87 +237,89 @@
                 {% endif %}
             </div>
             
-            <p><i class="fa-solid fa-pen-to-square"></i></p>
+            <p style="margin-top: 0.6rem;"><i class="fa-solid fa-pen-to-square"></i> Edit</p>
 
             <div class="forms-artist" id="form-04" style="display: none;">
                 {{ form_start(formAddBanner) }}
                 {{ form_errors(formAddBanner) }}
                 {{ form_row(formAddBanner.picture) }}
-                {{ form_row(formAddBanner.altDescription) }}
                 {{ form_row(formAddBanner.title) }}
-                <button type="submit">Add</button>
+                {{ form_row(formAddBanner.altDescription) }}
+                
+                <button id="btn-save-banner" class="btn btn6 btn-artist-profil" type="submit">Add</button>
                 {{ form_end(formAddBanner) }} 
             </div>
-    
-    
         </div>
 
         {# GALLERY __________________________________________________#}
         {# _________________________________________________________ #}
-        <h2 class="text-n2">Gallery <span>_</span></h2>
+        <h2 class="text-n2">Gallery<span>_</span></h2>
+            
             <div class="sections-artist ">
+                <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
                 <div id="gallery-artist">
-                {% for picture in picturesGallery  %}
-                <div id="gallery-img">
-                    {% if picture.IsSelected == 1  %}
-                        <div id="selectedImage">
-                            <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
-                            <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
-                            <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="selectedImg"><i class="fa-solid fa-check"></i></div></a>
-                        </div>
-                    {% else %}
-                        <div id="notSelectedImage">
-                            <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
-                            <a href=" {{ path('delete_picture', {'id': picture.id }) }}">delete</a>
-                            <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
-                        </div>
-                    {% endif %}
-                </div>
-                {% endfor %}
-                </div>
+                    {% for picture in picturesGallery  %}
+                    <div id="gallery-img">
+                        {% if picture.IsSelected == 1  %}
+                            <div id="selectedImage">
+                                <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+
+                                    <div class="actions">
+                                        <a href=" {{ path('delete_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+                                        <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="selectedImg"><i class="fa-solid fa-check"></i></div></a>
+                                    </div>
+                            </div>
+                        {% else %}
+                            <div id="notSelectedImage">
+                                <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+
+                                <div class="actions">
+                                    <a href=" {{ path('delete_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+                                    <a href="{{ path('select_picture', {'id': picture.id }) }}"><div id="NotSelectedImg"> </div></a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    </div>
                 
-                <div class="forms-artist" id="form-04" style="display: block;">
-        
-                    {% if canUploadImage %}
-                        {{ form_start(formAddPictureGallery) }}
-                        {{ form_errors(formAddPictureGallery) }}
-                        {{ form_row(formAddPictureGallery.picture) }}
-                        {{ form_row(formAddPictureGallery.altDescription) }}
-                        {{ form_row(formAddPictureGallery.title) }}
-                        <button type="submit">ajouter</button>
-                        {{ form_end(formAddPictureGallery) }}
-                    
-                    {% else %}
-                        <p>Maximum image limit reached. Please delete some before adding more.</p>
-                    {% endif %}
-                    
-                    
-                    
-                </div>
+                    <p style="margin-top: 0.6rem;"><i class="fa-solid fa-pen-to-square"></i> Add</p>
+                    <div class="forms-artist" id="form-04" style="display: none;">
+            
+                        {% if canUploadImage %}
+                            {{ form_start(formAddPictureGallery) }}
+                            {{ form_errors(formAddPictureGallery) }}
+                            {{ form_row(formAddPictureGallery.picture) }}
+                            {{ form_row(formAddPictureGallery.title) }}
+                            {{ form_row(formAddPictureGallery.altDescription) }}
+                            <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
+                            {{ form_end(formAddPictureGallery) }}
+                        
+                        {% else %}
+                            <p>Maximum image limit reached. Please delete some before adding more.</p>
+                        {% endif %}
+                        
+                    </div>
             </div>
             
             {{ form_start(formPublishPageArtist) }}
                 {% if artist.isPublished == 1 %}
-                <button type="submit">Unpublish</button>
+                    <button class="btn btn6 btn-artist-profil" type="submit">Unpublish</button>
                 {% else %}
-                <button type="submit">Publish</button>
+                    <button class="btn btn6 btn-artist-profil" type="submit">Publish</button>
                 {% endif %}
             {{ form_end(formPublishPageArtist) }}
-           
     </div>
-
-    
 
 </section>    
 
 <script>
     $(document).ready(function() {
         $('.fa-pen-to-square').click(function() {
-            $(this).closest('p').next('.forms-artist').toggle();
+            $('.forms-artist').slideToggle();
         });
     });
 </script>
-
 
 {% endblock %}
 

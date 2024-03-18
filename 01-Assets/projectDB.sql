@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `area` (
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.area : ~11 rows (environ)
 REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`, `slug`) VALUES
@@ -47,7 +47,10 @@ REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date
 	(12, 'Event10', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, NULL, '2023-12-13 19:15:00', '2023-12-21 19:15:00', 12, 'EVENT', 'ARCHIVED', 'event10'),
 	(13, 'expo 10', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, '2023-12-18 00:06:00', '2023-12-30 00:06:00', 15, 'EXPO', 'ARCHIVED', 'expo03'),
 	(15, 'teSstslug 02', 'errrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrr', NULL, NULL, '2023-12-24 12:15:00', '2023-12-28 12:15:00', 3, 'EVENT', 'ARCHIVED', 'tesstslug-02'),
-	(16, 'event 30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, NULL, '2025-12-23 23:15:17', '2025-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'event30');
+	(16, 'event 30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, NULL, '2025-12-23 23:15:17', '2025-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'event30'),
+	(17, 'testimage', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-03-09 19:21:00', '2024-03-31 19:21:00', 23, 'EVENT', 'OPEN', 'testimage'),
+	(18, 'testimage', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-03-09 19:21:00', '2024-03-31 19:21:00', 23, 'EVENT', 'OPEN', 'testimage'),
+	(19, 'test1121212', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-04-05 19:28:00', '2024-04-12 19:29:00', 15, 'EVENT', 'OPEN', 'test1121212');
 
 -- Listage de la structure de table project. area_area_category
 CREATE TABLE IF NOT EXISTS `area_area_category` (
@@ -70,7 +73,10 @@ REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(12, 1),
 	(13, 1),
 	(13, 2),
-	(15, 2);
+	(15, 2),
+	(17, 2),
+	(18, 2),
+	(19, 2);
 
 -- Listage de la structure de table project. area_category
 CREATE TABLE IF NOT EXISTS `area_category` (
@@ -124,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   CONSTRAINT `FK_4C62E638A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.contact : ~3 rows (environ)
+-- Listage des données de la table project.contact : ~6 rows (environ)
 REPLACE INTO `contact` (`id`, `name`, `icon`, `url`, `user_id`) VALUES
 	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'https://www.instagram.com/audraauclair', 8),
 	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'https://www.behance.com/audraauclair', 8),
@@ -246,33 +252,37 @@ CREATE TABLE IF NOT EXISTS `picture` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alt_description` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alt_description` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `area_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `is_selected` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_16DB4F89A76ED395` (`user_id`),
-  CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_16DB4F89BD0F409C` (`area_id`),
+  CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_16DB4F89BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.picture : ~11 rows (environ)
-REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `user_id`, `is_selected`) VALUES
-	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', 19, NULL),
-	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', 19, NULL),
-	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', 19, NULL),
-	(45, 'bbbb6666', '080923a66169dbd79bb882bb4f90d65a.webp', 'aaaaaannnnnnn', 'banner', 8, 0),
-	(47, 'Vertige', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 'description', 'work', 8, 0),
-	(48, 'In Disguise', '45c6cb6f5f11307813f82c4f1be6b611.webp', 'description', 'work', 8, 1),
-	(49, 'Blossom', '9ae8bd3821888e44e06897584044a2d3.webp', 'description', 'work', 8, 0),
-	(50, 'Little witch', 'a36bd41b21eba83732e7b632745b24ba.webp', 'description', 'work', 8, 0),
-	(51, 'Past Memories', 'cdc02e2367126fb1bdf0579dde839a3c.webp', 'descrption', 'work', 8, 0),
-	(52, 'Envol', '7cd353d4dfb494d3f0c4dcc2e0745b08.webp', 'description', 'work', 8, 0),
-	(53, 'Regret', '88b25aa06df98c8ca9c00a61d656a060.webp', 'description', 'work', 8, 0),
-	(54, 'Murmure', 'bd878c2d4b9c8abd9dd998351055da10.webp', 'description', 'work', 8, 0),
-	(55, 'Puppet', '4aa7f4672aa08e986c70c7f039947216.webp', 'description', 'work', 8, 0),
-	(56, 'Ghost', '25ca203c9a9224b0d406a8c790eba075.webp', 'description', 'work', 8, 0),
-	(57, 'Earth', 'fd34f797b7c139e935f5456499f4896f.webp', 'description', 'work', 8, 0),
-	(58, 'Renaissance', 'ee89ace162fc06434e19e00f623f1942.webp', 'description', 'work', 8, 0);
+-- Listage des données de la table project.picture : ~15 rows (environ)
+REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `area_id`, `user_id`, `is_selected`) VALUES
+	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', NULL, 19, NULL),
+	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', NULL, 19, NULL),
+	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', NULL, 19, NULL),
+	(45, 'bbbb6666', '080923a66169dbd79bb882bb4f90d65a.webp', 'aaaaaannnnnnn', 'banner', NULL, 8, 0),
+	(47, 'Vertige', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 'description', 'work', NULL, 8, 0),
+	(48, 'In Disguise', '45c6cb6f5f11307813f82c4f1be6b611.webp', 'description', 'work', NULL, 8, 1),
+	(49, 'Blossom', '9ae8bd3821888e44e06897584044a2d3.webp', 'description', 'work', NULL, 8, 0),
+	(50, 'Little witch', 'a36bd41b21eba83732e7b632745b24ba.webp', 'description', 'work', NULL, 8, 0),
+	(51, 'Past Memories', 'cdc02e2367126fb1bdf0579dde839a3c.webp', 'descrption', 'work', NULL, 8, 0),
+	(52, 'Envol', '7cd353d4dfb494d3f0c4dcc2e0745b08.webp', 'description', 'work', NULL, 8, 0),
+	(53, 'Regret', '88b25aa06df98c8ca9c00a61d656a060.webp', 'description', 'work', NULL, 8, 0),
+	(54, 'Murmure', 'bd878c2d4b9c8abd9dd998351055da10.webp', 'description', 'work', NULL, 8, 0),
+	(55, 'Puppet', '4aa7f4672aa08e986c70c7f039947216.webp', 'description', 'work', NULL, 8, 0),
+	(56, 'Ghost', '25ca203c9a9224b0d406a8c790eba075.webp', 'description', 'work', NULL, 8, 0),
+	(57, 'Earth', 'fd34f797b7c139e935f5456499f4896f.webp', 'description', 'work', NULL, 8, 0),
+	(58, 'Renaissance', 'ee89ace162fc06434e19e00f623f1942.webp', 'description', 'work', NULL, 8, 0),
+	(63, 'aaaaaaaa', '520d65d44e55cbee16485c3318ddcc9c.webp', 'eezzeezezzze', 'picture', 4, NULL, NULL);
 
 -- Listage de la structure de table project. programme
 CREATE TABLE IF NOT EXISTS `programme` (
@@ -326,7 +336,7 @@ CREATE TABLE IF NOT EXISTS `studio` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.studio : ~3 rows (environ)
+-- Listage des données de la table project.studio : ~4 rows (environ)
 REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`, `title`) VALUES
 	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio01', NULL),
 	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02', NULL),

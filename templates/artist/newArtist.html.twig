@@ -45,9 +45,9 @@
                 <div id="form-register">
                     {% if app.user %}
 
-                    {# {% if is_granted('ROLE_ARTIST') %} #}
-                            {# <p>you are already an artist</p> #}
-                        {# {% else %} #}
+                    {% if is_granted('ROLE_ARTIST') %}
+                            <p>You already have the artist status.</p>
+                        {% else %}
                                 {{ form_start(formStatusArtist) }}
                                     {{ form_errors(formStatusArtist) }}
                                     {{ form_row(formStatusArtist.artistName) }}
@@ -56,12 +56,12 @@
                                     {{ form_row(formStatusArtist.category, { 'attr' : { 'class': 'custom-select' } })}}
                                     {{ form_row(formStatusArtist.submit, { 'attr' : { 'class': 'btn btn6' } })}}
                                 {{ form_end(formStatusArtist) }}
-                        {# {% endif %} #}
+                        {% endif %}
                     
                 {% else %}
-                <div>
-                    <p>You need to log in to become an Artist <a href="{{ path('app_login') }}">Log in.</a> </p>
-                    <p>You don't have an account?  <a href="{{ path('app_register') }}">Register</a> </p>
+                <div id="conditions">
+                    <p>You need to <a href="{{ path('app_login') }}"><span>Log in</span></a> to become an Artist. </p>
+                    <p>You don't have an account?  <a href="{{ path('app_register') }}"><span>Register.</span></a> </p>
 
                 </div>
 

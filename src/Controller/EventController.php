@@ -30,8 +30,6 @@ class EventController extends AbstractController
             'status' => ['ARCHIVED'],
         ]);
 
-
-
         $formattedEvents = []; // formater les events pour les rendre compatibles avec FullCalendar
 
         foreach ($ongoingEvents as $event) {
@@ -98,6 +96,7 @@ class EventController extends AbstractController
 
     // ^ show event (user)
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
+    #[Route('archived/event/{slug}', name: 'show_archived_event')]
     #[Route('/event/{slug}', name: 'show_event')]
     public function show(Area $area = null, User $user = null,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {

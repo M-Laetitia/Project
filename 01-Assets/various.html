@@ -249,7 +249,101 @@ gsap.from(card, {
             delay: delay // Délai pour cette carte
         });
 
+        if ($existingUsername) {
+            $response = [
+                'success' => false,
+                'message' => 'Username already exists',
+            ];
+        } else {
+            $response = [
+                'success' => true,
+                'message' => 'Username is available',
+            ];
+        }
 
+
+success: function(response) {
+                        if (!response.success) {
+                            $('#checkUsername').text(response.message);
+                        } else {
+                            $('#checkUsername').text(response.message); 
+                        }
+
+
+$('#registration_form_plainPassword_first').keyup(function() {
+        var password = $(this).val();
+        
+        // Checks if the length of the password is greater than or equal to 12 characters.
+        var lengthCriterion = password.length >= 12;
+        // Updates the state of the checkbox 
+        $('#lengthCriterion').prop('checked', lengthCriterion);
+    
+        // check special charac
+        var specialCharCriterion = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        $('#specialCharCriterion').prop('checked', specialCharCriterion);
+    
+        // check number
+        var numberCriterion = /\d/.test(password);
+        $('#numberCriterion').prop('checked', numberCriterion);
+    
+        // check uppercase
+        var uppercaseCriterion = /[A-Z]/.test(password);
+        $('#uppercaseCriterion').prop('checked', uppercaseCriterion);
+    });
+
+
+    $(document).ready(function() {
+        $('#showAll').click(function() {
+            var allContent = []; // array to stock all content
+    
+            // Ajax  request to get all events
+            $.ajax({
+                url: '/all-past-events',
+                method: 'POST',
+                dataType: 'json',
+                success: function(events) {
+                    allContent = allContent.concat(events); // Add events to the array
+                    displayAllContent(allContent); //display all content
+                }
+            });
+    
+            // Ajax  request to get all workshops
+            $.ajax({
+                url: '/all-past-workshops',
+                method: 'POST',
+                dataType: 'json',
+                success: function(workshops) {
+                    allContent = allContent.concat(workshops); // Add workshops to the array
+                    displayAllContent(allContent); //display all content
+                }
+            });
+    
+            // Ajax  request to get all expos
+            $.ajax({
+                url: '/all-past-expositions',
+                method: 'POST',
+                dataType: 'json',
+                success: function(expos) {
+                    allContent = allContent.concat(expos); // Add expos to the array
+                    displayAllContent(allContent); //display all content
+                }
+            });
+        });
+    
+        // Function to display all retrieved content
+        function displayAllContent(content) {
+            // Clear previous content
+            $('#allContainer').empty();
+            
+            //  Display all content 
+            content.forEach(function(item) {
+                $('#allContainer').append('<p>' + item.name + '</p>');
+            });
+        }
+    });
+
+
+    
 
         // ^ MEDIA QUERIES - ARTIST - SHOW
         // & SMALL SCREEN

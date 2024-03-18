@@ -1,0 +1,39 @@
+@import 'settings';
+@import 'component';
+
+//&  ---------------------------------- */
+//&  ██████   █████  ███████ ██   ██ ██████   ██████   █████  ██████  ██████  
+//~  ██   ██ ██   ██ ██      ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██   ██ 
+//~  ██   ██ ███████ ███████ ███████ ██████  ██    ██ ███████ ██████  ██   ██ 
+//~  ██   ██ ██   ██      ██ ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██   ██ 
+//?  ██████  ██   ██ ███████ ██   ██ ██████   ██████  ██   ██ ██   ██ ██████  
+//? ---------------------------------- */
+
+
+#dashboard-main {
+    color: #F9F9F9;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    color: $main-black-color;
+    padding: 3rem;
+    
+
+    .separator {
+        background-color: $grey-light;
+        width: 60%;
+        height: 2px;
+        margin: 1.7rem 0;
+    }
+
+    #events,#expos, #workshop, #studios {
+        h2 {
+            margin: 3rem 0 .5rem 0;
+        }
+
+        .ongoing , .past-ones {
+            border-left: 4px solid #207E93;
+            padding: 1.5rem 0rem 1.5rem 1rem;
+            display: none;
+        
+        }
+    }
+}

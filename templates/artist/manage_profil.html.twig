@@ -316,7 +316,7 @@
 <script>
     $(document).ready(function() {
         $('.fa-pen-to-square').click(function() {
-            $('.forms-artist').slideToggle();
+            $(this).closest('p').next('.forms-artist').slideToggle();
         });
     });
 </script>

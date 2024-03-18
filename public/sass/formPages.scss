@@ -14,8 +14,6 @@
 .register-user {
     background-color: $grey-dark;
 
-
-
     #register-container {
         display: grid;
         grid-template-columns: 50% 50%;
@@ -153,6 +151,9 @@
         right: 0;
         transform: translateY(30px);
     }
+
+    
+
 }
 
 #btn-register {
@@ -168,7 +169,40 @@
     color: $secondary-color !important;
 }
 
+#register-user-page {
+    .valid {
+        text-decoration: line-through;
+        text-decoration-color: $secondary-color;
+        color: grey;
+    }
+    
+    .invalid {
+        text-decoration: none;
+    }
 
+    #passwordCriteria {
+        padding-left: 0.3rem;
+        background-color: #404040;
+        padding: 0.4rem 0.4rem !important;
+        margin-bottom: 1rem;
+        // box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px 0px inset;
+        
+
+        div {
+            padding-bottom: 0.4rem !important;
+            font-size: 0.9rem;
+            font-weight: 200;
+            
+        }
+    }
+
+    .checkMessages {
+        color: $secondary-color;
+        font-weight: $bold;
+        margin-bottom: 0.8rem;
+    }
+
+}
 
 
 // ---------------------------------

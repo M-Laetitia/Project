@@ -83,6 +83,7 @@ body {
     @include center-flexbox();
     z-index: -500;
     margin-bottom: 9rem;
+
     .content {
         width: $content-width;
         margin: auto;
@@ -118,8 +119,29 @@ body {
     opacity: 1;
 }
 
-// ^ ANIMATION underscore
+// ^ MEDIA QUERIES
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:480px) { 
+    .banner {
+        margin-bottom: 5rem;
+    }
+}
 
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
+    .banner {
+        margin-bottom: 7rem;
+    }
+}
+
+// & LARGE SCREEN
+@media screen and (min-width:768px) and (max-width:1200px) { 
+    .banner {
+        margin-bottom: 8rem;
+    }
+}
+
+// ^ ANIMATION underscore
 .underscore-blink {
     margin-left: 0.3rem;
     width: clamp(1.2rem, calc(1.2rem + 0.7vw), 1.7rem);
@@ -188,41 +210,76 @@ body {
  
 #popup-role-artist {
     position: fixed;
-    right: 0;
+    right: -18rem;
     width: 17rem;
     height: 7rem;
     background-color: $main-black-color;
     color: white; 
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 1.8rem ;
     font-size: 1rem;
     z-index: 1;
+    opacity: 1;
+    // display: block;
+    border-radius: 0.3rem 0rem 0rem 0.3rem;
+    transition: box-shadow $transition-basic;
+
+        &:hover {
+            box-shadow: 0 4px 0 $secondary-color;
+        }
 
     div {
         display: flex;
         column-gap: 1rem;
+        margin-top: 0.5rem; 
         
-
         p {
-            transition: ease 0.3s;
             cursor: pointer;
-
-            /* animation css */
-            transition:  ease-in-out 0.3s;
-            
-            /* GPU hack for smoothing */
-            // transform: translateZ(0);
-            // will-change: transform;
-
+            font-size: 1rem;
+        
             &:hover {
                 color: $secondary-color;
-                // transform: scale(1.01);
-                font-size: 1.05rem;
-                
+                transform: scale(1.05);
+
             }
         }
         
     }
 
+    #star {
+        position: absolute;
+        left: -9px; 
+        top: 45%; 
+        transform: translateY(-50%); 
+        background-color: $main-black-color;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        @include center-flexbox();
+        cursor: pointer;
+        transition: $transition-basic;
+        opacity: 0;
+
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+
+}
+
+@keyframes scaleOnce {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#star:hover i {
+    animation: scaleOnce 1s forwards;
 }
   
 

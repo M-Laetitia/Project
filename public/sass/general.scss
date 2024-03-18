@@ -1,5 +1,5 @@
 // ./dart-sass/sass --watch public/sass:public/css
-// ./dart-sass/sass public/sass/indexPages.scss public/css/indexPages.css
+// ./dart-sass/sass public/sass/managePages.scss public/css/managePages.css
 
 
 .honeypot {
@@ -512,33 +512,6 @@ $colorborder: rgba(0,0,0, 0.8);
 
     
     
-}
-
-.status {
-    color: white;
-    font-size: 0.8rem;
-    padding: 0.2rem;
-    border-radius: 0.2rem;
-}
-.open {
-    background-color: #71b7c0;
-}
-
-.closed {
-    background-color: orange;
-}
-
-.pending {
-    background-color: #8181a2;
-}
-
-.archived {
-    background-color: gray;
-}
-
-.default {
-    /* Styles par défaut si le statut n'est aucun des cas ci-dessus */
-    background-color: black;
 }
 
 .past-event-title {

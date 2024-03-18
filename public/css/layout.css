@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* ---------------------------------- */
 /* ---------------------------------- */
 .text-n1 {
@@ -894,6 +895,34 @@ body {
 }
 #star:hover i {
   animation: scaleOnce 1s forwards;
+}
+
+.status {
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.2rem;
+  border-radius: 0.2rem;
+}
+
+.open {
+  background-color: #207E93;
+}
+
+.closed {
+  background-color: #eeaf42;
+}
+
+.pending {
+  background-color: #c3b5b5;
+}
+
+.archived {
+  background-color: #4c4545;
+}
+
+.default {
+  /* Styles par défaut si le statut n'est aucun des cas ci-dessus */
+  background-color: black;
 }
 
 /*  ---------------------------------- */

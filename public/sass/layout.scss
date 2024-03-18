@@ -281,6 +281,31 @@ body {
 #star:hover i {
     animation: scaleOnce 1s forwards;
 }
+
+
+.status {
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+}
+.open {
+    background-color: $secondary-color3;
+}
+.closed {
+    background-color: $secondary-color;
+}
+.pending {
+    background-color:$grey-light;
+}
+.archived {
+    background-color: $grey-medium;
+}
+.default {
+    /* Styles par défaut si le statut n'est aucun des cas ci-dessus */
+    background-color: black;
+}
+
   
 
 /*  ---------------------------------- */

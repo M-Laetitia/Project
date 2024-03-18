@@ -7,7 +7,9 @@ use App\Entity\AreaCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -72,6 +74,86 @@ class EventType extends AbstractType
                 'multiple' => true,
                 'expanded' => true, 
             ])
+
+            ->add('preview', FileType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => true, 
+                'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
+                'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
+                'constraints' => [
+                    new Image([
+                        // 'maxSize' => '2M', 
+                        // 'maxWidth' => 1800, 
+                        // 'maxHeight' => 1000, 
+
+                        // 'minWidth' => 1200, 
+                        // 'minHeight' => 600, 
+
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            'image/webp',
+                        ],
+                    ]),
+                ],
+            ])
+
+            ->add('titlePreview', TextType::class, [
+                'mapped' => false, 
+                'label' => 'title preview',
+                'required' => true, 
+            ])
+
+            ->add('altDescriptionPreview', TextType::class, [
+                'mapped' => false, 
+                'label' => 'description preview',
+                'required' => true, 
+            ])
+
+
+
+
+            ->add('banner', FileType::class, [
+                'label' => false,
+                'mapped' => false,
+                'required' => true, 
+                'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
+                'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
+                'constraints' => [
+                    new Image([
+                        // 'maxSize' => '2M', 
+                        // 'maxWidth' => 1800, 
+                        // 'maxHeight' => 1000, 
+
+                        // 'minWidth' => 1200, 
+                        // 'minHeight' => 600, 
+
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            'image/webp',
+                        ],
+                    ]),
+                ],
+            ])
+
+            ->add('titleBanner', TextType::class, [
+                'mapped' => false, 
+                'label' => 'title Banner',
+                'required' => true, 
+            ])
+
+            ->add('altDescriptionBanner', TextType::class, [
+                'mapped' => false, 
+                'label' => 'description Banner',
+                'required' => true, 
+            ])
+
+
+
 
             ->add('Create', SubmitType::class);
         ;

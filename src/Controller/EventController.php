@@ -4,9 +4,14 @@ namespace App\Controller;
 
 
 use App\Entity\Area;
+use App\Entity\Picture;
 use App\Form\EventType;
+use App\Form\PictureFormType;
+use App\Service\PictureService;
 use App\Repository\AreaRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -127,7 +132,7 @@ class EventController extends AbstractController
     #[Route('/dashboard/new/event', name:'new_event')]
     #[Route('/dashboard/{id}/edit/event', name:'edit_event')]
     #[IsGranted("ROLE_ADMIN")]
-    public function new_edit(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
+    public function new_edit(Area $area = null, Request $request, PictureRepository $pictureRepo, PictureService $pictureService, EntityManagerInterface $entityManager ) : Response
     {
         $isNewEvent = !$area;
 
@@ -135,24 +140,150 @@ class EventController extends AbstractController
             $area = new Area();
         }
 
+
+        $maxImagesAllowed = 12;
+        $areaId = $area->getId();
+        $numberOfImages = count($pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']));
+        $canUploadImage = $numberOfImages < $maxImagesAllowed;
+
         $form= $this->createForm(EventType::class, $area);
         $form->handleRequest($request);
 
+        $formPicture = $this->createForm(PictureFormType::class);      
+        $formPicture->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid() ) {
+
+
             $area->setType('EVENT');
             $area = $form->getData();
             $area->setSlug($area->generateSlug());
+
             $entityManager->persist($area);
             $entityManager->flush();
+
+            $areaId = $area->getId();
+            $bannerDirectory = 'images/activity/event/' . $areaId . '/banner';
+
+            // ^ BANNER IMAGE
+            $bannerFile = $form->get('banner')->getData();
+            $bannerTitle = $form->get('titleBanner')->getData();
+            $bannerAlt = $form->get('altDescriptionBanner')->getData();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            if ($bannerFile) {
+                if (!in_array($bannerFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('new_event');
+                }
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($bannerFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('new_event');
+                }
+
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+
+                $filesystem = new Filesystem();
+                $filesystem->mkdir($bannerDirectory);
+
+                $picture = new Picture();
+                $picture->setTitle($bannerTitle);
+                $picture->setAltDescription($bannerAlt);
+                $picture->setArea($area);
+                $picture->setType('banner');
+                $picture->setPath($newFilename);
+                $entityManager->persist($picture);
+                
+                // Déplacer la nouvelle image vers le dossier "banner"
+                $bannerFile->move($bannerDirectory, $newFilename);
+                $entityManager->flush();
+            }
+
+            // ^ PREVIEW IMAGE
+
+            $previewFile = $form->get('preview')->getData();
+            $previewTitle = $form->get('titlePreview')->getData();
+            $previewAlt = $form->get('altDescriptionPreview')->getData();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            if ($previewFile) {
+                if (!in_array($previewFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('new_event');
+                }
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($previewFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('new_event');
+                }
+
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                $areaId = $area->getId();
+
+                $filesystem = new Filesystem();
+                $filesystem->mkdir($bannerDirectory);
+
+                $picture = new Picture();
+                $picture->setTitle($previewTitle);
+                $picture->setAltDescription($previewAlt);
+                $picture->setArea($area);
+                $picture->setType('preview');
+                $picture->setPath($newFilename);
+                $entityManager->persist($picture);
+                
+                // Déplacer la nouvelle image vers le dossier "banner"
+                $previewFile->move($bannerDirectory, $newFilename);
+                $entityManager->flush();
+            }
+
+          
 
             $message = $isNewEvent ? 'Event created successfully!' : 'Event edited successfully!';
             $this->addFlash('success', $message);
             return $this->redirectToRoute('app_dashboard');
         }
 
+
+          // ^ GALLERY IMAGES
+          $picturesGallery = $pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']); 
+
+          $folder = $area->getName();
+          
+          
+          if ($formPicture->isSubmitted() && $formPicture->isValid() && $numberOfImages < $maxImagesAllowed ) {
+              $pictureFile = $formPicture->get('picture')->getData();
+               // on appelle le service d'ajout
+              if ($pictureFile !== null) 
+              {
+                  $file = $pictureService->add($pictureFile, $folder, 500, 500);
+                  $img = new Picture();
+                  $img = $formPicture->getData();
+                  $img->setPath($file);
+                  $img->setType('picture');
+                  $img->setArea($area);
+                  $entityManager->persist($img);
+                  $entityManager->flush();   
+                  
+                  $this->addFlash('success', 'Your picture has been successfully added');
+                  return $this->redirectToRoute('edit_event', ['id' => $area->getId()]);
+              }           
+          
+
+            } else {
+                // $this->addFlash('error', 'Maximum image limit reached. Please delete some before adding more.');
+                // return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+            }
+
+
         return $this->render('dashboard/newEvent.html.twig', [
             'formAddEvent' => $form,
             'edit' =>$area->getId(),
+            'maxImagesAllowed' => $maxImagesAllowed,
+            'canUploadImage' => $canUploadImage,
+            'formAddPictureGallery' => $formPicture,
+            'picturesGallery' => $picturesGallery,
+            'area' =>$area,
         ]);
     }
 
@@ -167,6 +298,28 @@ class EventController extends AbstractController
         
         $this->addFlash('success', 'The event has been successfully deleted');
         return $this->redirectToRoute('app_dashboard');
+    }
+
+    // ^ Delete Picture
+    #[Route('/delete/picture/event/{id}', name: 'delete_event_picture')]
+    public function deletePictureEvent( Security $security, Picture $picture, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ): Response
+    {
+       
+        $areaId = $picture->getArea()->getId();
+        $name = $picture->getPath();
+        
+
+        if($pictureService->delete($name, $areaId , 500, 500)) {
+            //on supprime l'image de la base données
+            $entityManager->remove($picture);
+            $entityManager->flush();
+
+
+            $this->addFlash('success', 'Image deleted successfully.'); // Message flash de succès
+
+            return $this->redirectToRoute('edit_event', ['id' => $areaId]);
+        }
+        return $this->redirectToRoute('edit_event', ['id' => $areaId]);
     }
 
 

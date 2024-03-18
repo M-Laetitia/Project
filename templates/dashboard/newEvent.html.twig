@@ -22,10 +22,64 @@
         {{ form_row(formAddEvent.startDate) }}
         {{ form_row(formAddEvent.endDate) }}
         {{ form_row(formAddEvent.areaCategories) }}
+        
+        <p>PREVIEW</p>
+        
+        {{ form_row(formAddEvent.titlePreview) }}
+        {{ form_row(formAddEvent.altDescriptionPreview) }}
+        {{ form_row(formAddEvent.preview) }}
+
+
+        <p>BANNER</p>
+       
+        {{ form_row(formAddEvent.titleBanner) }}
+        {{ form_row(formAddEvent.altDescriptionBanner) }}
+        {{ form_row(formAddEvent.banner) }}
+
 
     {{ form_row(formAddEvent.Create) }}
 
 {{ form_end(formAddEvent) }}
+
+{% if edit %}
+
+
+{% for picture in picturesGallery  %}
+<div id="gallery-img">
+
+        <div id="selectedImage">
+            <img src="{{asset('images/artists/' ~ area.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+
+                <div class="actions">
+                    <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+
+                </div>
+        </div>
+
+</div>
+{% endfor %}
+</div>
+
+
+
+    <h2>ajout d'images</h2>
+    <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
+    {% if canUploadImage %}
+        {{ form_start(formAddPictureGallery) }}
+        {{ form_errors(formAddPictureGallery) }}
+        {{ form_row(formAddPictureGallery.picture) }}
+        {{ form_row(formAddPictureGallery.title) }}
+        {{ form_row(formAddPictureGallery.altDescription) }}
+        <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
+        {{ form_end(formAddPictureGallery) }}
+    
+    {% else %}
+        <p>Maximum image limit reached. Please delete some before adding more.</p>
+    {% endif %}
+
+
+
+{% endif %}
 
 
 {% endblock %}

@@ -110,7 +110,7 @@ if (document.getElementById('artist-show')) {
     $(document).ready(function() {
         //  trigger the display of images while scrolling through the page
         $(window).scroll(function() {
-            $('.artist-container:not(.visible)').each(function() {
+            $('#text-gallery:not(.visible), .artist-container:not(.visible) ').each(function() {
                 if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
                     $(this).addClass('visible');
                 }

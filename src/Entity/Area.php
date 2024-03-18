@@ -56,6 +56,9 @@ class Area
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $quote = null;
 
+    #[ORM\OneToMany(mappedBy: 'area', targetEntity: Picture::class)]
+    private Collection $pictures;
+
 
 
     public function __construct()
@@ -63,6 +66,7 @@ class Area
         $this->expositionProposals = new ArrayCollection();
         $this->areaParticipations = new ArrayCollection();
         $this->areaCategories = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -292,6 +296,36 @@ class Area
     public function setQuote(?string $quote): static
     {
         $this->quote = $quote;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setArea($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getArea() === $this) {
+                $picture->setArea(null);
+            }
+        }
 
         return $this;
     }

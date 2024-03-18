@@ -27,9 +27,9 @@
                     <div>
                         <picture>
                             {% if user.avatar %}
-                            <img src="{{ asset('images/avatars/' ~ user.avatar) }}">
+                            <img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="user's avatar">
                             {% else %}
-                                <img src="{{ asset('images/default_profile.jpg') }}">
+                                <img src="{{ asset('images/default_profile.jpg') }}" alt="default image for avatar">
                             {% endif %}
                         </picture>
                     </div>
@@ -436,7 +436,6 @@
                                     {% if subscription.isActive == 1 %}
                                         <div id="active">
                                             <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
-    
     
                                             {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
     

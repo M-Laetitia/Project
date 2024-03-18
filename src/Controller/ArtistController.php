@@ -693,6 +693,8 @@ class ArtistController extends AbstractController
             'behance' => $behance,
             'twitter' => $twitter, 
             'dribbble' => $dribbble, 
+
+            'maxImagesAllowed' => $maxImagesAllowed,
             
         ]);
     }

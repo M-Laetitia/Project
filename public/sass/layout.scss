@@ -98,8 +98,8 @@ body {
     font-weight: $bold;
     opacity: 0;
     transform: translateX(-80px); 
-    transition: opacity 2s ease, transform 2s ease; 
-    text-transform: uppercase;      
+    text-transform: uppercase; 
+    transition: opacity 2s ease, transform 2s ease;      
 }
 
 .banner-text {
@@ -717,16 +717,13 @@ footer {
 }
 
 
-
-// ^ MEDIA QUERIES - LAYOUT
+// ^  MEDIA QUERIES - LAYOUT
 // & SMALL SCREEN
 @media screen and (min-width:320px) and (max-width:480px) { 
     .banner {
         margin-bottom: 6rem;
     }
     footer {
-        #image {
-        }
         #footer-links {
             column-gap: 3rem;
         }
@@ -763,6 +760,9 @@ footer {
         width: 90%;
     }
 }
+
+
+
 
 @media screen and (min-width:1200px) and (max-width:1300px) { 
     .content {

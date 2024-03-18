@@ -28,32 +28,39 @@ $grey-light: #c3b5b5;
 $main-font: "Poppins", sans-serif;
 $secondary-font:  "Raleway", sans-serif;
 
-$letter-spacing-title : 0.3rem;
-$letter-spacing-medium : 0.25rem;
-$letter-spacing-text : 0.05rem;
-
 $extra-bold: 700;
 $bold: 600;
 $semi-bold: 500;
 $medium: 400;
 $regular: 300;
 
+
+// FONT PROPERTIES
+$letter-spacing-title : 0.3rem;
+$letter-spacing-medium : 0.25rem;
+$letter-spacing-text : 0.05rem;
+
+$line-height-text: 1.3rem;
+
 $fs-text: 0.9rem;
 $fs-regular: 1.5rem;
 $fs-medium: 3rem;
 $fs-big: 4rem;
-$fs-text: 0.9rem;
-$line-height-text: 1.3rem;
+
+// SIZING PROPERTIES
+$nav-size: 6rem ; 
+$footer-size: 28rem;
+$content-width: 70%;
+
+
+
 
 // ^ TRANSITIONS
 $transition-bezier: 0.800, 1.000, 0.000, 1.000;
 $transition-len: 0.35s;
 $transition-basic: ease-in-out 0.3s; 
 
-// ^ SIZING
-$nav-size: 6rem ; 
-$footer-size: 28rem;
-$content-width: 70%;
+
 
 
 // ^ UTILITY CLASSES

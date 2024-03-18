@@ -736,8 +736,8 @@ body {
   font-weight: 600;
   opacity: 0;
   transform: translateX(-80px);
-  transition: opacity 2s ease, transform 2s ease;
   text-transform: uppercase;
+  transition: opacity 2s ease, transform 2s ease;
 }
 
 .banner-text {

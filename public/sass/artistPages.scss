@@ -251,13 +251,15 @@ img {
     header {
         position: relative;
         margin-bottom: 6rem;
+        
         figure {
             width: 100%;
             height: 40rem;
-            background-color: grey;
+            // background-color: grey;
             overflow: hidden;
             img {
-                width: 100%;
+                width: 70%;
+                margin: auto;
                 height: 100%;
                 object-fit: cover;
                 object-position: top;
@@ -290,10 +292,12 @@ img {
     }
 
     #artist-detail {
+        width: $content-width;
+        margin: auto;
         display: grid;
         grid-template-columns: 70% 30%;
         margin-bottom: 7rem;
-        opacity: 0;
+
         #about {
             padding-right: 5rem;
             text-align: justify;
@@ -362,6 +366,8 @@ img {
         }
     }
     #gallery {
+        width: $content-width;
+        margin: auto;
         h3 {
             margin-bottom: 3rem;
             span {
@@ -403,11 +409,22 @@ img {
     transform: translateY(0); 
 }
 
+#text-gallery {
+    opacity: 0; 
+    transform: translateY(50px); 
+    transition: opacity 2s ease, transform 2s ease; 
+}
+
+#text-gallery.visible {
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
 // ^ MEDIA QUERIES - ARTIST - SHOW
 // & SMALL SCREEN
 @media screen and (min-width:320px) and (max-width:480px) { 
     #artist-show {
-        width: 80%;
+
         header {
             margin-bottom: 3rem;
             figure {
@@ -449,6 +466,19 @@ img {
         display: block !important; 
 
     }
+    
+    #artist-show #gallery h3 {
+        margin: 2rem 0rem;
+    }
+
+    #artist-show header figure img {
+        width: 100%;
+    }
+
+    #artist-show #artist-detail {
+        width: 85%;
+
+    }
       
 }
 
@@ -456,7 +486,7 @@ img {
 // & MEDIUM SCREEN
 @media screen and (min-width:480px) and (max-width:768px) { 
     #artist-show {
-        width: 80%;
+
         header {
             margin-bottom: 3rem;
             figure {
@@ -493,6 +523,18 @@ img {
     #artist-show header #quote {
         display: none;
     }
+
+    #artist-show header figure img {
+        width: 100%;
+    }
+
+    #artist-show #artist-detail #info #list-infos #list-info p {
+        display: block;
+    }
+
+    #artist-show #gallery h3 {
+        margin: 2rem 0rem;
+    }
 }
 
 // & LARGE SCREEN
@@ -516,6 +558,11 @@ img {
 
     #artist-show #artist-detail #about {
         padding-right: 3rem;
+    }
+
+    #artist-show #artist-detail #info #list-infos #list-info p {
+        display: block; 
+
     }
 }
 
@@ -652,6 +699,33 @@ img {
         position:relative;
         pointer-events:all;
     }
+
+    #conditions {
+        p {
+            margin-bottom: 0.6rem;
+        }
+
+        span {
+            color: $secondary-color;
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: -3px; 
+                left: 0;
+                width: 0; 
+                height: 1px; 
+                background-color: $secondary-color; 
+                transition: width 0.3s ease; 
+            }
+
+            &:hover:before {
+                color: $secondary-color;
+                width: 100%;
+            }
+        }
+    }
 }
 
 
@@ -667,31 +741,13 @@ img {
 //  ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████
 // ---------------------------------
 
-#selectedImg {
-    width: 20px;
-    height: 20px;
-    border: 1px solid $secondary-color;
-    @include center-flexbox();
-}
 
-#NotSelectedImg {
-    width: 20px;
-    height: 20px;
-    border: 1px solid grey;
-}
-
-#selectedImage {
-    img {
-        border: 1px solid $secondary-color;
-    }
-}
 
 #artist_profile {
     #artist-infos {
         box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
         position: relative;
         padding: 1rem 3rem 3rem 3rem;
-
         h2 {
             margin-bottom: 0.3rem;
             margin-top: 2rem;
@@ -699,22 +755,14 @@ img {
                 color: $secondary-color;
             }
         }
-
         .sections-artist {
             border-left: 4px solid $secondary-color3;
             padding: 1rem 0rem 1rem 1rem;
-            
-
             p {
                 margin-bottom: 0.3rem;
-                
-
                 span {
                     font-weight: 500;
-
                 }
-
-                
             }
             .text {
                 font-weight: 300;
@@ -724,11 +772,102 @@ img {
                 margin-bottom: 0.6rem;
             }
         }
-
         #gallery-artist {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
         }
     }
+
+    .fa-pen-to-square {
+        cursor: pointer;
+        font-size: 1.4rem;
+        margin-top: 0.6rem;
+        transition: $transition-basic;
+        color: $secondary-color3;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
+    #form-02 {
+        div:nth-child(1), div:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.6rem;
+        }
+        div {
+            margin-top: 0.6rem;
+
+            textarea {
+                resize: vertical;
+            }
+        }
+    }
+    .forms-artist {
+        display: flex;
+        row-gap: 0.6rem;
+        flex-direction: column;
+        form {
+            display: flex;
+            row-gap: 0.6rem;
+            flex-direction: column;
+        }
+    }
+    .btn-artist-profil {
+        width: 20rem;
+        margin: 2rem 0 ;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 1.2rem;
+        display: inline-block;
+    }
+
+    #gallery-artist {
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.8rem 0.5rem;
+            font-size: 1.1rem;
+
+            .fa-xmark {
+                @include center-flexbox();
+                border: 1px solid $main-black-color;
+                width: 23px;
+                height: 23px;
+                border-radius: 50%;
+                transition: $transition-basic;
+
+                &:hover {
+                    border: 1px solid $secondary-color;
+                    background-color: $secondary-color;
+                    color: $main-white-color;
+                }
+            }
+        }
+
+        #selectedImg {
+            width: 23px;
+            height: 23px;
+           background-color: $secondary-color;
+           color: $main-white-color;
+            @include center-flexbox();
+        }
+        #NotSelectedImg {
+            width: 23px;
+            height: 23px;
+            border: 1px solid grey;
+            
+
+            &:hover {
+                border: 2px solid $secondary-color;
+            }
+        }
+        #selectedImage {
+            img {
+                border: 3px solid $secondary-color;
+            }
+        }
+    }
 }
+

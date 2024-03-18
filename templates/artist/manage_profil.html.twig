@@ -319,7 +319,13 @@
 
 </section>    
 
-
+<script>
+    $(document).ready(function() {
+        $('.fa-pen-to-square').click(function() {
+            $(this).closest('p').next('.forms-artist').toggle();
+        });
+    });
+</script>
 
 
 {% endblock %}

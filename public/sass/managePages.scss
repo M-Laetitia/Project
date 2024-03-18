@@ -9,13 +9,23 @@
 //?  ██████  ██   ██ ███████ ██   ██ ██████   ██████  ██   ██ ██   ██ ██████  
 //? ---------------------------------- */
 
+//?  ---------------------------------- */
+//?  ███    ███  █████  ██ ███    ██ 
+//?  ████  ████ ██   ██ ██ ████   ██ 
+//?  ██ ████ ██ ███████ ██ ██ ██  ██ 
+//?  ██  ██  ██ ██   ██ ██ ██  ██ ██ 
+//?  ██      ██ ██   ██ ██ ██   ████ 
+//? ---------------------------------- */
 
-#dashboard-main {
+.dashboard {
     color: #F9F9F9;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     color: $main-black-color;
     padding: 3rem;
     
+}
+
+#dashboard-main {
 
     .separator {
         background-color: $grey-light;
@@ -35,5 +45,51 @@
             display: none;
         
         }
+    }
+}
+
+//~  ---------------------------------- */
+//~  ██    ██ ███████ ███████ ██████  ███████     ██      ██ ███████ ████████ 
+//~  ██    ██ ██      ██      ██   ██ ██          ██      ██ ██         ██    
+//~  ██    ██ ███████ █████   ██████  ███████     ██      ██ ███████    ██    
+//~  ██    ██      ██ ██      ██   ██      ██     ██      ██      ██    ██    
+//~   ██████  ███████ ███████ ██   ██ ███████     ███████ ██ ███████    ██    
+//~ ---------------------------------- */
+
+#dashboard-users-list {
+    #search {
+        margin: 0rem 0rem 2rem 0rem;
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        h3 {
+            margin-bottom: 0.8rem;
+            span {
+                color: $secondary-color;
+            }
+        }
+        #by-username {
+            form {
+                display: flex;
+                div {
+                    display: flex;
+                }
+            }
+        }
+        .btn6 {
+            margin-left: 2rem;
+        }
+    }
+
+    .separator {
+        background-color: $grey-light;
+        width: 40%;
+        height: 2px;
+        margin: 1.7rem 0;
+    }
+
+    .roles-user {
+        display: flex;
+        column-gap: 0.6rem;
     }
 }

@@ -23,72 +23,49 @@ class ArtistType extends AbstractType
     {
         $builder
 
-
-            // ->add('pictures', FileType::class, [
-            //     'label' => false,
-            //     'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
-            //     // 'mapped' => !$options['edit_mode'], // Ne mappez pas le champ si c'est en mode édition
-            //     'required' => false, 
-            // ])
-
-            // ->add('altDescription', TextType::class, [
-            //     'constraints' => [
-            //         new Length([
-            //             'max' => 150,
-            //             'maxMessage' => 'The  description cannot be longer than {{ limit }} characters.',
-            //         ]),
-            //     ],
-            //     'mapped' => false, // Ne pas mapper ce champ à une propriété d'entité
-            //     'required' => false, 
-            //     // 'label'=> 'sdsddmffds',
-            // ])
-
-            // Contact (social networks)
-
-            // JSON ARTIST-INFO
             ->add('emailPro', EmailType::class, [
-                'label' => 'Email Professionnel',
+                'label' => 'Contact (email) : ',
                 'mapped' => false,
                 'required' => false, 
                 
             ])
 
             ->add('discipline', TextType::class, [
-                'label' => 'Discipline',
+                'label' => 'Discipline : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('artistName', TextType::class, [
-                'label' => 'artist name',
+                'label' => 'Artist name : ',
                 'mapped' => false,
                 'required' => false, 
                 
             ])
 
             ->add('instagram', UrlType::class, [
-                'label' => 'Instagram',
+                'label' => 'Instagram : ',
                 'mapped' => false,
                 'required' => false, 
                 
             ])
 
             ->add('behance', UrlType::class, [
-                'label' => 'Behance',
+                'label' => 'Behance : ',
                 'mapped' => false,
                 'required' => false, 
                 
             ])
 
             ->add('twitter', UrlType::class, [
-                'label' => 'Twitter',
+                'label' => 'Twitter : ',
                 'mapped' => false,
                 'required' => false, 
                 
             ])
 
             ->add('dribbble', UrlType::class, [
-                'label' => 'Dribbble',
+                'label' => 'Dribbble : ',
                 'mapped' => false,
                 'required' => false, 
             ])
@@ -118,67 +95,53 @@ class ArtistType extends AbstractType
                 },
             ])
 
-            ->add('bio', TextType::class, [
-                'label' => 'Biography',
+            ->add('bio', TextareaType::class, [
+                'label' => 'Biography : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('quote', TextType::class, [
-                'label' => 'Quote',
+                'label' => 'Quote : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('website', UrlType::class, [
-                'label' => 'Website',
+                'label' => 'Website : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('shop', TextType::class, [
-                'label' => 'Shop / gallery Name',
+                'label' => 'Shop / gallery Name : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('country', TextType::class, [
-                'label' => 'Country',
+                'label' => 'Country : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('street', TextType::class, [
-                'label' => 'Street',
+                'label' => 'Street : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('city', TextType::class, [
-                'label' => 'City',
+                'label' => 'City : ',
                 'mapped' => false,
                 'required' => false, 
             ])
 
             ->add('postalCode', TextType::class, [
-                'label' => 'Postal Code',
+                'label' => 'Postal Code : ',
                 'mapped' => false,
                 'required' => false, 
             ])
-
-
-
-            // ->add('contacts', CollectionType::class, [
-            //     'entry_type' => TextType::class,
-            //     'entry_options' => [
-            //         'label' => false,
-            //         // Autres options pour chaque champ de contact
-            //     ],
-            //     'mapped' => false,
-            //     'required' => false,
-            //     'allow_add' => true, // Permettre l'ajout dynamique de nouveaux champs
-            // ])
-
 
             // ->add('Submit', SubmitType::class)
         ;

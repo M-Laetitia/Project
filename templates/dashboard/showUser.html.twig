@@ -1,96 +1,166 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}detail user{% endblock %}
-{% block meta %}detail user{% endblock %}
+{% block title %} - MOSAIC{% endblock %}
+{% block meta %}{% endblock %}
 
 {% block body %}
 
-   <h1>{{ user}}</h1>
+<div class="banner">
+    <div class="content">
+        <h2 class="banner-title">Dashboard</h2>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
+   {# event en cours / à venir / passé #}
+   {# Rajouter hyperliens 
+    ajouter confirmation pour suppression user
+    check slug + redirection archived#}
 
+    <div class="breadcrumb breadcrumb-dark">
+        <p><a href="{{ path('app_dashboard') }}">Dashboard </a> > <a href="{{ path('list_users') }}">All Users </a> > {{user}}<p>
+    </div>
+
+<section class="content dashboard" id="dashboard-user-detail">
+
+    <h1>User : {{user}}</h1>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <p>Actions:</p><a href=" {{ path('delete_user', {'id': app.user.id }) }}">delete</a>
     
-   {% if is_granted('ROLE_ADMIN') %}
-        <p>Actions: EDIT - DELETE</p>
+    {% endif %}
+    
+    <h2>Informations:</h2>
+    
+    <p>Email: {{ user.email}}</p>
+    <p>Registration date: {{ user.registrationDate|formatDate}}</p>
+    <p>Member since: {{ user.durationSinceRegistration}} </p>
+    <p>Last login date: {{ user.lastLoginDate|formatDate}} </p>
+
+    {% if user.getSimpleRoles|length > 0 %}
+    <p>Role: {{ user.getSimpleRoles|join(', ') }} </p>
+    {% else %}
+        <p>Role: no role</p>
     {% endif %}
 
-   <h2>Infos:</h2>
-
-   <p>email: {{ user.email}}</p>
-   <p>Registration date: {{ user.registrationDate|formatDate}}</p>
-   <p>Member since: {{ user.durationSinceRegistration}} </p>
-   <p>last login date: {{ user.lastLoginDate|formatDate}} </p>
-   <p>Role: {{ user.getSimpleRoles|join(', ')}} </p>
-
-   <h3>Activity: (workshop/event/etc)</h3>  
-   
-   {# en cours / à venir / passé #}
-   {# Rajouter hyperliens #}
-
-   <p>Event:</p>
-   <ul>
-       {% for participation in user.areaParticipations %}
-            {% if participation.area.type == 'EVENT' %}
-            
-           <li>
-               <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
-               <p> <a href="{{ path('show_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a>
-                - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
-           </li>
-           {% endif %}
-       {% endfor %}
-   </ul>
-
-   <p>Exposition:</p>
-   <ul>
-       {% for participation in user.areaParticipations %}
-            {% if participation.area.type == 'EXPO' %}
-            
-           <li>
-               <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
-               <p><a href="{{ path('show_exposition', {'id':  participation.area.id }) }}">{{ participation.area.name}}</a> - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
-           </li>
-           {% endif %}
-       {% endfor %}
-   </ul>
-   
-
-   <p>Studios:</p>
-   <ul>
-       {% for participation in user.workshopRegistrations %}
-            {% if participation.timeslot != null %}
-            
-           <li>
-                <p>registration date: {{ participation.registrationDate|formatDate}}</p>
-                <p>{{participation.timeslot.studio.name}}</p>
-                <p>time slot: {{participation.timeslot.startDate|formatDate}} - {{participation.timeslot.endDate|formatDate}}</p>
-           </li>
-           {% endif %}
-       {% endfor %}
-   </ul>
-
-   <p>Workshop:</p>
-   <ul>
-       {% for participation in user.workshopRegistrations %}
-            {% if participation.workshop != null %}
-            
+    <p>Avatar :
+             <picture>
+                 {% if user.avatar %}
+                 <img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="user's avatar">
+                 {% else %}
+                     <img src="{{ asset('images/default_profile.jpg') }}" alt="default image for avatar">
+                 {% endif %}
+             </picture>
+    </p>
+    
+    <h2>Activity :</h2>  
+    
+    <p>Events :</p>
+    <ul>
+        {% for participation in user.areaParticipations %}
+             {% if participation.area.type == 'EVENT' %}
+             
             <li>
+                <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
+                <p> <a href="{{ path('show_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a>
+                 - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
+    <p>Expositions :</p>
+    <ul>
+        {% for participation in user.areaParticipations %}
+             {% if participation.area.type == 'EXPO' %}
+             
+            <li>
+                <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
+                <p><a href="{{ path('show_exposition', {'slug':  participation.area.slug }) }}">{{ participation.area.name}}</a> - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
+    
+    <p>Studios :</p>
+    <ul>
+        {% for participation in user.workshopRegistrations %}
+             {% if participation.timeslot != null %}
+             
+            <li>
+                 <p>registration date: {{ participation.registrationDate|formatDate}}</p>
+                 <p>{{participation.timeslot.studio.name}}</p>
+                 <p>time slot: {{participation.timeslot.startDate|formatDate}} - {{participation.timeslot.endDate|formatDate}}</p>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
+    <p>Workshop :</p>
+    <ul>
+        {% for participation in user.workshopRegistrations %}
+             {% if participation.workshop != null %}
+             
+             <li>
+                 
+                 <p>registration date: {{ participation.registrationDate|formatDate}}</p>
+                 <p><a href="{{ path('show_workshop', {'slug' : participation.workshop.slug})}}">{{participation.workshop.name}}</a></p>
+                 <p>Date: {{participation.workshop.startDate|formatDate}} - {{participation.workshop.endDate|formatDate}}</p>
+            </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
+    <p>Subscriptions :</p>
+    
+    {% if  user.subscriptions is not empty %}
+    
+    <p class="text-n2">Active<span>_</span></p>
+        {% for subscription in user.subscriptions %}
+            {% if subscription.isActive == 1 %}
+                <div id="active">
+                    <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
+
+                    {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+
+                    <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
+
+                    <p><span>Remaining days :</span> {{ subscription.daysRemaining.remaining }}</p>
+                </div>
+            {% endif %}
+            {% endfor %}    
+        
+            <p class="text-n2" style="margin-top: 1.2rem;" >History<span>_</span></p>
+        {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
+            {% if subscription.isActive == 0 %}
+            <div id="inactive">
+
+                <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
+
+
+                {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+
+                <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
                 
-                <p>registration date: {{ participation.registrationDate|formatDate}}</p>
-                <p><a href="{{ path('show_workshop', {slug : participation.workshop.slug})}}">{{participation.workshop.name}}</a></p>
-                <p>Date: {{participation.workshop.startDate|formatDate}} - {{participation.workshop.endDate|formatDate}}</p>
-           </li>
-           {% endif %}
-       {% endfor %}
-   </ul>
+                <div></div>
+                
+            </div>
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+
+</section>
+
    
-   <p>subscription:</p>
+
+   
 
 
 
-   {# ajouter suppression 
-   détail activité #}
-   {# detail si artist?
-   si supervisor? #}
-   {# ajouter si abonnement #}
-   {# permettre suppression pour registration? #}
+
 
 {% endblock %}

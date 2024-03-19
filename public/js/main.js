@@ -199,9 +199,8 @@ $(document).ready(function() {
     // ^ confirmation delete poppup
     $('.delete-btn').click(function(){
         event.preventDefault(); 
-        var targetId = $(this).data('target');
-        console.log(targetId)
-        $("#" + targetId).slideToggle();
+        var targetSlug = $(this).data('target');
+        $("#" + targetSlug).slideToggle();
     });
 
     $('.close-confirmation-btn').click(function(){

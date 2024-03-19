@@ -10,6 +10,7 @@ use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -28,12 +29,12 @@ class WorkshopType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name of the Workshop: * ',
+                'label' => 'Name : ',
                 'required' => true, 
             ])
 
             ->add('description', TextareaType::class, [
-                'label' => 'Write a little description: * ',
+                'label' => 'Description :  ',
                 'required' => true, 
                 'constraints' => [
                     new Length([
@@ -46,7 +47,7 @@ class WorkshopType extends AbstractType
 
             ])
             ->add('detail', TextareaType::class, [
-                'label' => 'Write a complete and detailed description: * ',
+                'label' => 'Detail :  ',
                 'required' => true, 
                 'constraints' => [
                     new Length([
@@ -55,6 +56,12 @@ class WorkshopType extends AbstractType
                     ]),
                 ],
             ])
+
+            ->add('quote', TextType::class, [
+                'label' => 'Quote : ',
+                'required' => true, 
+            ])
+
 
             ->add('startDate', DateType::class, [
                 'widget' => 'single_text',
@@ -88,7 +95,7 @@ class WorkshopType extends AbstractType
 
             ])
             ->add('nbRooms', IntegerType::class, [
-                'label' => 'Capacity: * ',
+                'label' => 'Capacity : ',
                 'required' => true, 
                 'attr' => ['min' => 0],
                 'constraints' => [
@@ -99,11 +106,7 @@ class WorkshopType extends AbstractType
                 ],
             ])
 
-            //! ajouter les contraintes pour l'image, format, taille, poids
-            ->add('picture', FileType::class, [
-                'label' => 'Add a banner: ',
-                'required' => false,
-            ])
+            
             ->add('user', EntityType::class, [
                 'label' => 'Supervisor: * ',
                 'required' => true, 
@@ -125,6 +128,86 @@ class WorkshopType extends AbstractType
                 'by_reference' =>false, // il est obligatoire car Workshop n'a pas de set programme mais c'est Programme qui contient set session
                 // C'est Programme qui est propriétaire de la relation pour éviter un maping false on est obligé de rajouter un by_reference false
             ]) 
+
+            ->add('preview', FileType::class, [
+                'label' => false,
+                'mapped' => false,
+                // 'required' => true, 
+                'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
+                'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
+                'constraints' => [
+                    new Image([
+                        // 'maxSize' => '2M', 
+                        // 'maxWidth' => 1800, 
+                        // 'maxHeight' => 1000, 
+
+                        // 'minWidth' => 1200, 
+                        // 'minHeight' => 600, 
+
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            'image/webp',
+                        ],
+                    ]),
+                ],
+            ])
+
+            ->add('titlePreview', TextType::class, [
+                'mapped' => false, 
+                'label' => 'Preview title : ',
+                // 'required' => true, 
+            ])
+
+            ->add('altDescriptionPreview', TextType::class, [
+                'mapped' => false, 
+                'label' => 'Preview little description  : ',
+                // 'required' => true, 
+            ])
+
+
+
+
+            ->add('banner', FileType::class, [
+                'label' => false,
+                'mapped' => false,
+                // 'required' => true, 
+                'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
+                'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
+                'constraints' => [
+                    new Image([
+                        // 'maxSize' => '2M', 
+                        // 'maxWidth' => 1800, 
+                        // 'maxHeight' => 1000, 
+
+                        // 'minWidth' => 1200, 
+                        // 'minHeight' => 600, 
+
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/jpg',
+                            'image/webp',
+                        ],
+                    ]),
+                ],
+            ])
+
+            ->add('titleBanner', TextType::class, [
+                'mapped' => false, 
+                'label' => 'Banner title : ',
+                // 'required' => true, 
+            ])
+
+            ->add('altDescriptionBanner', TextType::class, [
+                'mapped' => false, 
+                'label' => 'Banner little description : ',
+                // 'required' => true, 
+            ])
+
+
+
 
             ->add('Create', SubmitType::class);
         ;

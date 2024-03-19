@@ -1,85 +1,120 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}add Events!{% endblock %}
+{% block title %}
+    {% if edit %}
+        Edit an Event
+    {% else %}
+        Create an Event
+    {% endif %}
+{% endblock %}
+
+{% block meta %}add/edit event{% endblock %}
 
 {% block body %}
 
-   
-
-    {% if edit %}
-        <h1>Edit Event:</h1>
-    {% else %}
-        <h1>Add Event:</h1>
-    {% endif %}
-
-    {{ form_start(formAddEvent) }}
-
-        {{ form_row(formAddEvent.name) }}
-        {{ form_row(formAddEvent.description) }}
-        {{ form_row(formAddEvent.status) }}
-        {{ form_row(formAddEvent.type) }}
-        {{ form_row(formAddEvent.nbRooms) }}
-        {{ form_row(formAddEvent.startDate) }}
-        {{ form_row(formAddEvent.endDate) }}
-        {{ form_row(formAddEvent.areaCategories) }}
-        
-        <p>PREVIEW</p>
-        
-        {{ form_row(formAddEvent.titlePreview) }}
-        {{ form_row(formAddEvent.altDescriptionPreview) }}
-        {{ form_row(formAddEvent.preview) }}
-
-
-        <p>BANNER</p>
-       
-        {{ form_row(formAddEvent.titleBanner) }}
-        {{ form_row(formAddEvent.altDescriptionBanner) }}
-        {{ form_row(formAddEvent.banner) }}
-
-
-    {{ form_row(formAddEvent.Create) }}
-
-{{ form_end(formAddEvent) }}
-
-{% if edit %}
-
-
-{% for picture in picturesGallery  %}
-<div id="gallery-img">
-
-        <div id="selectedImage">
-            <img src="{{asset('images/artists/' ~ area.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
-
-                <div class="actions">
-                    <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
-
-                </div>
+    <div class="banner">
+        <div class="content">
+            <p class="banner-title">Title</p>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
         </div>
+    </div>
 
-</div>
-{% endfor %}
-</div>
-
-
-
-    <h2>ajout d'images</h2>
-    <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
-    {% if canUploadImage %}
-        {{ form_start(formAddPictureGallery) }}
-        {{ form_errors(formAddPictureGallery) }}
-        {{ form_row(formAddPictureGallery.picture) }}
-        {{ form_row(formAddPictureGallery.title) }}
-        {{ form_row(formAddPictureGallery.altDescription) }}
-        <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
-        {{ form_end(formAddPictureGallery) }}
+    <div class="breadcrumb breadcrumb-dark">
+        <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
+    </div>
     
-    {% else %}
-        <p>Maximum image limit reached. Please delete some before adding more.</p>
-    {% endif %}
+    <section class="content dashboard create-event" id="dashboard-create-event">
+            {% if edit %}
+                <h1 class="text-n1">Edit an Event<span>_</span></h1>
+            {% else %}
+                <h1 class="text-n1">Create an Event<span>_</span></h1>
+            {% endif %}
 
+            <div class="admin-form">
+                
+                {{ form_start(formAddEvent) }}
+            
+                    {{ form_row(formAddEvent.name) }}
+                    <div class="description">
+                        {{ form_row(formAddEvent.description) }}
+                    </div>
+                    <div class="detail">
+                        {{ form_row(formAddEvent.detail) }}
+                    </div>
+                    {{ form_row(formAddEvent.quote) }}
+                    {{ form_row(formAddEvent.status) }}
+                    {{ form_row(formAddEvent.type) }}
+                    {{ form_row(formAddEvent.nbRooms) }}
+                    {{ form_row(formAddEvent.startDate) }}
+                    {{ form_row(formAddEvent.endDate) }}
+                    {{ form_row(formAddEvent.areaCategories) }}
+                    
+                    <p class="text-n2">IMAGE PREVIEW</p>
+                    
+                    {{ form_row(formAddEvent.titlePreview) }}
+                    {{ form_row(formAddEvent.altDescriptionPreview) }}
+                    {{ form_row(formAddEvent.preview) }}
+            
+            
+                    <p class="text-n2">IMAGE BANNER</p>
+                    
+                    {{ form_row(formAddEvent.titleBanner) }}
+                    {{ form_row(formAddEvent.altDescriptionBanner) }}
+                    {{ form_row(formAddEvent.banner) }}
+            
+            
+                    {{ form_row(formAddEvent.Create, { 'attr' : { 'class': 'btn btn6' } })}}
+            
+                {{ form_end(formAddEvent) }}
 
+            </div>
 
-{% endif %}
+            <div class="archived-gallery">
 
+                {% for picture in picturesGallery  %}
+                <div id="gallery-img">
+                
+                        <div id="selectedImage">
+                            <img src="{{asset('images/artists/' ~ area.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+                
+                                <div class="actions">
+                                    <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+                
+                                </div>
+                        </div>
+                
+                </div>
+                {% endfor %}
+                </div>
 
+            </div>
+
+            <div class="add-img-gallery-form">
+                
+                {% if edit %}
+
+                <h2>ajout d'images</h2>
+                <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
+                {% if canUploadImage %}
+                    {{ form_start(formAddPictureGallery) }}
+                    {{ form_errors(formAddPictureGallery) }}
+                    {{ form_row(formAddPictureGallery.picture) }}
+                    {{ form_row(formAddPictureGallery.title) }}
+                    {{ form_row(formAddPictureGallery.altDescription) }}
+                    <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
+                    {{ form_end(formAddPictureGallery) }}
+
+                {% else %}
+                    <p>Maximum image limit reached. Please delete some before adding more.</p>
+                {% endif %}
+
+                {% endif %}
+            </div>
+
+    </section>
+
+    
 {% endblock %}

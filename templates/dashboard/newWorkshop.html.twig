@@ -8,76 +8,151 @@
     {% endif %}
 {% endblock %}
 
-
-{% block meta %}add/edit Workshop{% endblock %}
+{% block meta %}add/edit workshop{% endblock %}
 
 {% block body %}
 
+    <div class="banner">
+        <div class="content">
+            <p class="banner-title">Title</p>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb breadcrumb-dark">
+        <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
+    </div>
+   
+    <section class="content dashboard create-event" id="dashboard-create-workshop">
+        {% if edit %}
+            <h1 class="text-n1">Edit an Exposition<span>_</span></h1>
+        {% else %}
+            <h1 class="text-n1">Create an Exposition<span>_</span></h1>
+        {% endif %}
+
+        <div class="admin-form">
+
+
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+        
+                {{ form_row(form.name) }}
+                <div class="description">
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="detail">
+                    {{ form_row(form.detail) }}
+                </div>
+                {{ form_row(form.quote) }}
+                {{ form_row(form.startDate) }}
+                {{ form_row(form.endDate) }}
+                {{ form_row(form.nbRooms) }}
+                {{ form_row(form.user) }}
+
+                <p class="text-n2">IMAGE PREVIEW</p>
+                
+                {{ form_row(form.titlePreview) }}
+                {{ form_row(form.altDescriptionPreview) }}
+                {{ form_row(form.preview) }}
+        
+        
+                <p class="text-n2">IMAGE BANNER</p>
+                
+                {{ form_row(form.titleBanner) }}
+                {{ form_row(form.altDescriptionBanner) }}
+                {{ form_row(form.banner) }}
+        
+                {# Constuire dynamiquement la liste des lessons existants à partir  de la collection de programme #}
+                <p class="text-n2">MODULES / LESSONS</p>
+        
+                {# <div>
+                    <div id="programme-fields-list"
+                        data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
+                        data-workshop="{{ workshopId }}">
+        
+                    </div>
+                </div> #}
+                {# {{ form_row(form.programmes) }} #}
+        
+                <div class="form-group row ">
+                    <div class="col-form-label col-sm-2">&nbsp;</div>
+                    <div id="programme-fields-list" class="col-sm-10 remove-collection-widget"
+                        data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
+                        data-workshop="{{workshopId}}"
+                        data-widget-tags="{{ '<p></p>'|e }}"
+                        data-widget-counter="{{ form.programmes|length }}">
+                    {% for programmeField in form.programmes %}
+                        <p>
+                            {{ form_errors(programmeField) }}
+                            {{ form_widget(programmeField, {'attr': {'class': 'borders'}}) }}
+                        </p>
+                    {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row flex-action">
+                    <button type="button" 
+                        class=" add-another-collection-widget button"
+                        data-list-selector="#programme-fields-list">Add a new lesson</button>
+                </div>
+            
+                {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
+                {% do form.programmes.setRendered %}
+        
+                {{ form_row(form.Create, { 'attr' : { 'class': 'btn btn6' } })}}
+        
+            {{ form_end(form) }}
+        </div>
+
+        <div class="archived-gallery">
+
+            {# {% for picture in picturesGallery  %}
+            <div id="gallery-img">
+            
+                    <div id="selectedImage">
+                        <img src="{{asset('images/artists/' ~ area.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+            
+                            <div class="actions">
+                                <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+            
+                            </div>
+                    </div>
+            
+            </div>
+            {% endfor %} #}
+            </div>
+
+        </div>
+
+        <div class="add-img-gallery-form">
+            
+            {% if edit %}
+
+            <h2>ajout d'images</h2>
+            <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
+            {% if canUploadImage %}
+                {{ form_start(formAddPictureGallery) }}
+                {{ form_errors(formAddPictureGallery) }}
+                {{ form_row(formAddPictureGallery.picture) }}
+                {{ form_row(formAddPictureGallery.title) }}
+                {{ form_row(formAddPictureGallery.altDescription) }}
+                <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
+                {{ form_end(formAddPictureGallery) }}
+
+            {% else %}
+                <p>Maximum image limit reached. Please delete some before adding more.</p>
+            {% endif %}
+
+            {% endif %}
+        </div>
+
+
+    </section>
    
 
-    {% if edit %}
-        <h1>Edit Workshop:</h1>
-    {% else %}
-        <h1>Add Workshop:</h1>
-    {% endif %}
 
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
-
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.detail) }}
-        {# {{ form_row(form.status) }} #}
-        {# {{ form_row(form.type) }} #}
-        {{ form_row(form.startDate) }}
-        {{ form_row(form.endDate) }}
-        {{ form_row(form.nbRooms) }}
-        {{ form_row(form.picture) }}
-        {{ form_row(form.user) }}
-
-        {# Constuire dynamiquement la liste des lessons existants à partir  de la collection de programme #}
-        <h2>Programme du workshop: </h2>
-
-        {# <div>
-            <div id="programme-fields-list"
-                data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
-                data-workshop="{{ workshopId }}">
-
-            </div>
-        </div> #}
-        {# {{ form_row(form.programmes) }} #}
-
-        <div class="form-group row ">
-            <div class="col-form-label col-sm-2">&nbsp;</div>
-            <div id="programme-fields-list" class="col-sm-10 remove-collection-widget"
-                data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
-                data-workshop="{{workshopId}}"
-                data-widget-tags="{{ '<p></p>'|e }}"
-                data-widget-counter="{{ form.programmes|length }}">
-            {% for programmeField in form.programmes %}
-                <p>
-                    {{ form_errors(programmeField) }}
-                    {{ form_widget(programmeField, {'attr': {'class': 'borders'}}) }}
-                </p>
-            {% endfor %}
-            </div>
-        </div>
-        <div class="form-group row flex-action">
-            <button type="button" 
-                class="add-another-collection-widget button"
-                data-list-selector="#programme-fields-list">Add a new lesson</button>
-        </div>
-    
-     
-    
-        {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
-        {% do form.programmes.setRendered %}
-
-
-
-        {{ form_row(form.Create) }}
-
-    {{ form_end(form) }}
 
 
 {% endblock %}

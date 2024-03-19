@@ -1,38 +1,119 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}detail expo{% endblock %}
-{% block meta %}detail expo{% endblock %}
+{% block title %}{% endblock %}
+{% block meta %}{% endblock %}
 
 {% block body %}
 
-    <h1>detail expo(admin!)</h1>
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">Dashboard</h1>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
 
-    <p>{{workshop.name}}</p>
-    {# {{ dump(workshop) }} #}
+<div class="breadcrumb breadcrumb-dark">
+    <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
+</div>
 
+<section class="content dashboard" id="dashboard-detail">
+    <h1 class="text-n1">{{workshop.name}}<span>_</span></h1>
+        <div id="info">
+            <p>Status : 
+                <span class="status {{ workshop.status == 'OPEN' ? 'open' : 
+                                    (workshop.status == 'CLOSED' ? 'closed' : 
+                                    (workshop.status == 'PENDING' ? 'pending' : 
+                                    (workshop.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                    {{ workshop.status }}
+                </span>
+            </p>
+            <p>Date :  {{workshop.startDate|formatDate}} - {{workshop.startDate|date('H:i')}} </p>
+            <p>Capacity : {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}} - Remaining : {{workshop.nbRegistrationRemaining}} </p>
 
-    <p>Participants list:</p>
+            <div class="text">
+                <p>Description : </p>
+                <p>{{workshop.description}}</p>
+            </div>
+            <div class="text">
+                <p>Detail : </p>
+                <p>{{workshop.detail}}</p>
+            </div>
+            
+            <p>Quote : {{workshop.quote}}</p>
 
-    <ul>
-        {% for participant in workshop.workshopRegistrations %}
-            <li>
-                <p>{{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.registrationDate|formatDate}} </p>
-         
-
-                <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ participant.id}}"></i></a>
-                <div class="delete-container" id="{{participant.id}}" style="display:none">
-                    <p>Are you sure you want to delete this participation? This cannot be undone.</p>
-                    <div>
-                        <p><a href="{{ path('delete_registration', {'id': participant.id }) }}"><i class="ri-check-line"></i> Confirm</a></p>
-                        <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
-                    </div>
+            <div id="actions">
+                <a href="{{ path('edit_workshop', {slug : workshop.slug}) }}"><i class="fa-solid fa-pen-to-square"></i>edit</a>
+                <a href="#"><i class="fa-regular fa-circle-xmark delete-trigger2"></i>delete</a>
+            </div>
+            
+            <div class="delete-container2" style="display:none">
+                <p>Are you sure you want to delete this entry? This cannot be undone.</p>
+                <div>
+                    <p><a href="{{ path('delete_workshop', {slug : workshop.slug}) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                    <p class="close-confirmation-btn2"><i class="ri-close-fill "></i> Cancel</p>
                 </div>
+            </div>
+
+            <h2 class="text-n2">Program<span>_</span></h2>
+
+            <div id="modules">
+                
+                <ul>
+                    {% for module in workshop.programmes %}
+                        <li>
+                            <p>{{module.lesson.name}} -  
+                                {{module.startDate|formatDate}} - {{module.startDate|date('H:i')}}
+                                {{module.startDate|formatDate}} - {{module.startDate|date('H:i')}}
+                            </p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <h2 class="text-n2" >Participants list<span>_</span></h2>
+            
+        <div id="participants">
+            <ul>
+                {% for participant in workshop.workshopRegistrations %}
+                    <li>
+                        <p>
+                            {{ participant.firstname}} - {{ participant.lastname}} -  {{ participant.registrationDate|formatDate}} 
+                            <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ participant.id}}"></i></a>
+                        </p>
+                        
+                        <div class="delete-container" id="{{participant.id}}" style="display:none">
+                            <p>Are you sure you want to delete this participation? This cannot be undone.</p>
+                            <div>
+                                <p><a href="{{ path('delete_registration', {'id': participant.id }) }}"><i class="ri-check-line"></i> Confirm</a></p>
+                                <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
 
 
-            </li>
-        {% endfor %}
-    </ul>
 
+</section>
+
+<script>
+    $(document).ready(function() {
+
+        $('.delete-trigger2').click(function() {
+            event.preventDefault();
+            $('.delete-container2').slideToggle();
+        });
     
+        $('.close-confirmation-btn2').click(function() {
+            $('.delete-container2').slideToggle();
+        });
+    });
+</script>
 
 {% endblock %}

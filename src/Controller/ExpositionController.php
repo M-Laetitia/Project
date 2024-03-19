@@ -261,26 +261,18 @@ class ExpositionController extends AbstractController
         ]);
     }
 
-    // ^ show detail expo (admin)
-    #[Route('/dashboard/expo/{id}', name: 'show_expo_admin')]
-    public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
-    {
-   
-        return $this->render('dashboard/showExpo.html.twig', [
-            'area' => $area,
-
-        ]);
-    }
-
 
     // ^create new expo (admin)
-    #[Route('/dashboard/new/expo', name:'new_expo')]
-    #[Route('/dashboard/{id}/edit/expo', name:'edit_expo')]
+    #[Route('/dashboard/expo/new', name:'new_expo')]
+    #[Route('/dashboard/expo/{slug}/edit', name:'edit_expo')]
     #[IsGranted("ROLE_ADMIN")]
     public function new_edit_Expo(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
     {
+
+    
         $isNewEvent = !$area;
 
+        
         if(!$area) {
             $area = new Area();
         }
@@ -308,9 +300,22 @@ class ExpositionController extends AbstractController
         ]);
     }
 
-    // ^ Delete Expo (admin)
 
-    #[Route('/dashboard/{id}/delete/expo', name: 'delete_expo')]
+    // ^ show detail expo (admin)
+    #[Route('/dashboard/expo/{slug}', name: 'show_expo_admin')]
+    public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    {
+   
+        return $this->render('dashboard/showExpo.html.twig', [
+            'area' => $area,
+
+        ]);
+    }
+
+
+
+    // ^ Delete Expo (admin)
+    #[Route('/dashboard/expo/{slug}/delete/', name: 'delete_expo')]
     #[isGranted("ROLE_ADMIN")]
     public function delete_expo(Area $area, EntityManagerInterface $entityManager) :Response 
     {

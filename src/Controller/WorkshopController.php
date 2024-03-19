@@ -66,19 +66,9 @@ class WorkshopController extends AbstractController
         ]);
     }
 
-    // ^ show workshop (admin)
-    #[Route('/dashboard/show/{slug}/workshop/', name: 'show_workshop_admin')]
-    public function show_admin(Workshop $workshop = null): Response
-    {
-
-        return $this->render('dashboard/showWorkshop.html.twig', [
-            'workshop' => $workshop,
-        ]);
-    }
-   
     // ^ Create/Edit workshop (admin)
-    #[Route('/dashboard/new/workshop', name:'new_workshop')]
-    #[Route('/dashboard/{slug}/edit/workshop', name:'edit_workshop')]
+    #[Route('/dashboard/workshop/new/', name:'new_workshop')]
+    #[Route('/dashboard/workshop/{slug}/edit', name:'edit_workshop')]
     public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager ) : Response
     {
 
@@ -125,8 +115,19 @@ class WorkshopController extends AbstractController
         ]);
     }
 
+
+    // ^ show workshop (admin)
+    #[Route('/dashboard/workshop/{slug}', name: 'show_workshop_admin')]
+    public function show_admin(Workshop $workshop = null): Response
+    {
+
+        return $this->render('dashboard/showWorkshop.html.twig', [
+            'workshop' => $workshop,
+        ]);
+    }
+   
     // ^ Delete workshop (admin)
-    #[Route('/dashboard/{slug}/delete/workshop', name:'delete_workshop')] 
+    #[Route('/dashboard/workshop/{slug}/delete', name:'delete_workshop')] 
     public function delete(Workshop $workshop, EntityManagerInterface $entityManager) :Response
     {
 

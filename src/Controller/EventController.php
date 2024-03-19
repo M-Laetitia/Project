@@ -88,49 +88,9 @@ class EventController extends AbstractController
         return $jsonResponse;
     }
 
-    // ^ show event (admin)
-    #[Route('/dashboard/event/{slug}', name: 'show_event_admin')]
-    #[IsGranted("ROLE_ADMIN")]
-    public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
-    {
-   
-        return $this->render('dashboard/showEvent.html.twig', [
-            'area' => $area,
-        ]);
-    }
-
-    // ^ show event (user)
-    // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
-    #[Route('archived/event/{slug}', name: 'show_archived_event')]
-    #[Route('/event/{slug}', name: 'show_event')]
-    public function show(Area $area = null, User $user = null,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
-    {
-
-   
-        $areaId = $area->getId();
-
-        if($user = $security->getUser()) {
-            $userId = $user->getId();
-            $existingParticipation = [];
-            $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
-            $existingParticipation = $hasExistingParticipation !== null;
-
-            return $this->render('event/show.html.twig', [
-                'area' => $area,
-                'existingParticipation' => $existingParticipation
-            ]);
-
-        }
-        
-        return $this->render('event/show.html.twig', [
-            'area' => $area,
-
-        ]);
-    }
-
-    // ^ new:edit event (admin)
-    #[Route('/dashboard/new/event', name:'new_event')]
-    #[Route('/dashboard/{id}/edit/event', name:'edit_event')]
+    // ^ new/edit event (admin)
+    #[Route('/dashboard/event/new', name:'new_event')]
+    #[Route('/dashboard/event/{slug}/edit', name:'edit_event')]
     #[IsGranted("ROLE_ADMIN")]
     public function new_edit(Area $area = null, Request $request, PictureRepository $pictureRepo, PictureService $pictureService, EntityManagerInterface $entityManager ) : Response
     {
@@ -287,9 +247,51 @@ class EventController extends AbstractController
         ]);
     }
 
-    // ^ Delete Event (admin)
+    // ^ show event (admin)
+    #[Route('/dashboard/event/{slug}', name: 'show_event_admin')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function show_admin(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    {
+        
+        return $this->render('dashboard/showEvent.html.twig', [
+            'area' => $area,
+        ]);
+    }
+    
 
-    #[Route('/dashboard/{id}/delete/event', name: 'delete_event')]
+    
+    // ^ show event (user)
+    // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
+    #[Route('archived/event/{slug}', name: 'show_archived_event')]
+    #[Route('/event/{slug}', name: 'show_event')]
+    public function show(Area $area = null, User $user = null,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    {
+
+   
+        $areaId = $area->getId();
+
+        if($user = $security->getUser()) {
+            $userId = $user->getId();
+            $existingParticipation = [];
+            $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
+            $existingParticipation = $hasExistingParticipation !== null;
+
+            return $this->render('event/show.html.twig', [
+                'area' => $area,
+                'existingParticipation' => $existingParticipation
+            ]);
+
+        }
+        
+        return $this->render('event/show.html.twig', [
+            'area' => $area,
+
+        ]);
+    }
+
+
+    // ^ Delete Event (admin)
+    #[Route('/dashboard/event/{slug}/delete', name: 'delete_event')]
     #[IsGranted("ROLE_ADMIN")]
     public function delete_event(Area $area, EntityManagerInterface $entityManager) :Response 
     {

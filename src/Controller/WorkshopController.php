@@ -67,7 +67,7 @@ class WorkshopController extends AbstractController
     }
 
     // ^ Create/Edit workshop (admin)
-    #[Route('/dashboard/workshop/new/', name:'new_workshop')]
+    #[Route('/dashboard/workshop/new/', name:'new_workshop' , priority:1)]
     #[Route('/dashboard/workshop/{slug}/edit', name:'edit_workshop')]
     public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager ) : Response
     {

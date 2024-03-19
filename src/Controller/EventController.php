@@ -89,7 +89,7 @@ class EventController extends AbstractController
     }
 
     // ^ new/edit event (admin)
-    #[Route('/dashboard/event/new', name:'new_event')]
+    #[Route('/dashboard/event/new', name:'new_event', priority:1)]
     #[Route('/dashboard/event/{slug}/edit', name:'edit_event')]
     #[IsGranted("ROLE_ADMIN")]
     public function new_edit(Area $area = null, Request $request, PictureRepository $pictureRepo, PictureService $pictureService, EntityManagerInterface $entityManager ) : Response

@@ -166,7 +166,7 @@ class ExpositionController extends AbstractController
     }
 
     // ^ Show detail expo (user)
-    #[Route('/exposition/{slug}', name: 'show_exposition')]
+    #[Route('/exposition/{slug}', name: 'show_exposition' )]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService ): Response 
     {
 
@@ -263,7 +263,7 @@ class ExpositionController extends AbstractController
 
 
     // ^create new expo (admin)
-    #[Route('/dashboard/expo/new', name:'new_expo')]
+    #[Route('/dashboard/expo/new', name:'new_expo' , priority:1)]
     #[Route('/dashboard/expo/{slug}/edit', name:'edit_expo')]
     #[IsGranted("ROLE_ADMIN")]
     public function new_edit_Expo(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response

@@ -113,3 +113,58 @@
         }
     }
 }
+
+
+//~  ---------------------------------- */
+//~   ██████ ██████  ███████  █████  ████████ ███████ 
+//~  ██      ██   ██ ██      ██   ██    ██    ██      
+//~  ██      ██████  █████   ███████    ██    █████   
+//~  ██      ██   ██ ██      ██   ██    ██    ██      
+//~   ██████ ██   ██ ███████ ██   ██    ██    ███████    
+//~ ---------------------------------- */
+
+.create-event {
+    h1 {
+        span {
+            color: $secondary-color;
+        }
+    }
+
+    .admin-form {
+        form {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.6rem;
+
+            .description, .detail {
+                div {
+                    display: flex;
+                    flex-direction: column;
+
+                     textarea {
+                        width: 60%;
+                        resize: vertical;
+                     }
+                }
+            }
+
+            .description{
+                div {
+                     textarea {
+                        width: 60%;
+                        min-height: 7rem; 
+                        resize: vertical; 
+                     }
+                }
+            }
+        }
+    }
+}
+
+#dashboard-create-workshop {
+    .add-another-collection-widget {
+        border: 1px solid $secondary-color;
+        letter-spacing: 0.1rem;
+    }
+}

@@ -41,6 +41,9 @@ class Studio
     #[ORM\Column(length: 150, nullable: true)]
     private ?string $title = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $equipment = null;
+
     public function __toString() 
     {
         return $this->name; 
@@ -182,6 +185,18 @@ class Studio
     public function setTitle(?string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getEquipment(): ?array
+    {
+        return $this->equipment;
+    }
+
+    public function setEquipment(?array $equipment): static
+    {
+        $this->equipment = $equipment;
 
         return $this;
     }

@@ -1,36 +1,85 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}detail studio{% endblock %}
-{% block meta %}detail studio{% endblock %}
+{% block title %}{% endblock %}
+{% block meta %}{% endblock %}
 
 {% block body %}
 
-    <h1>detail studio(admin)</h1>
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">Dashboard</h1>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
 
-    <p>Name: {{ studio.name }}</p>
-    <p>Description: {{ studio.description }}</p>
-    <p>Capacity: {{ studio.nbRooms}} </p>
+<div class="breadcrumb breadcrumb-dark">
+    <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
+</div>
 
-    <p>Time Slot</p>
+<section class="content dashboard" id="dashboard-detail">
+    <h1 class="text-n1">{{studio.name}}<span>_</span></h1>
+            <div id="info">
+                <div class="text">
+                    <p>Description : </p>
+                    <p>{{studio.description}}</p>
+                </div>
+                <p>Capacity : {{ studio.nbRooms}}</p>
 
-    <ul>
-        {% for timeslot in studio.timeslots %}
-        <li><p>{{ timeslot.startDate|formatDate}}  - {{ timeslot.endDate|formatDate}} - {{ timeslot.user}}</p></li>
+                <div id="actions">
+                    {# <a href="{{ path('edit_studio', {slug : studio.slug}) }}"> #}
+                    <i class="fa-solid fa-pen-to-square"></i>edit</a>
+                    <a href="#"><i class="fa-regular fa-circle-xmark delete-trigger2"></i>delete</a>
+                </div>
+                
+                <div class="delete-container2" style="display:none">
+                    <p>Are you sure you want to delete this entry? This cannot be undone.</p>
+                    <div>
+                        {# <p><a href="{{ path('delete_studio', {slug : studio.slug}) }}"><i class="ri-check-line"></i> Confirm</a></p> #}
+                        <p class="close-confirmation-btn2"><i class="ri-close-fill "></i> Cancel</p>
+                    </div>
+                </div>
 
-            <ul>
-                <p>List registrations:</p>
-                {% for registration in timeslot.workshopRegistrations %}
-                    <li>{{ registration.firstname}} - {{ registration.lastname}} - {{ registration.registrationDate|formatDate}}  -
-                        <a href="{{ path('delete_timeslot_registration', {'id': registration.id })}}">DELETE</a>
-                    </li>
-                {% endfor %}
-            </ul>
+            </div>
+
+            <h2 class="text-n1">Timeslots<span>_</span></h2>
+
+            <div id="participants">
+                <ul>
+                    {% for timeslot in studio.timeslots %}
+                    <li><p>{{ timeslot.startDate|formatDate}}  - {{ timeslot.endDate|formatDate}} - {{ timeslot.user}}</p></li>
             
-        {% endfor %}
+                        <ul>
+                            <p>List registrations:</p>
+                            {% for registration in timeslot.workshopRegistrations %}
+                                <li>{{ registration.firstname}} - {{ registration.lastname}} - {{ registration.registrationDate|formatDate}}  -
+                                    <a href="{{ path('delete_timeslot_registration', {'id': registration.id })}}">DELETE</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        
+                    {% endfor %}
+            
+                </ul>
 
-    </ul>
+            </div>
 
-    {# {{ dump(studio)}} #}
-    {# montrer inscription par timeslot #}
+</section>
+
+<script>
+    $(document).ready(function() {
+
+        $('.delete-trigger2').click(function() {
+            event.preventDefault();
+            $('.delete-container2').slideToggle();
+        });
+    
+        $('.close-confirmation-btn2').click(function() {
+            $('.delete-container2').slideToggle();
+        });
+    });
+</script>
 
 {% endblock %}

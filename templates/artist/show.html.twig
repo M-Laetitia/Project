@@ -54,22 +54,25 @@
             {% endfor %}
         </figure>
 
-        <div id="quote">
-                {% for artistData in artist %}
-                    {% if artistData.artistInfos.quote is defined %}
-                        <span id="quote-style"><</span>
-                        <p id="quote-text">
-                        {{ artistData.artistInfos.quote }}</p>
-                        <span id="quote-style">></span>
-                        
-                    {% else %}
-                        <span id="quote-style"></span>
-                        <p></p>
-                        <span id="quote-style"></span>
-                    {% endif %}
-                {% endfor %}
-            </p>
-        </div>
+
+        
+        {% for artistData in artist %}
+            {% if artistData.artistInfos.quote is defined %}
+                <div id="quote">
+                    <span id="quote-style"><</span>
+                    <p id="quote-text">
+                    {{ artistData.artistInfos.quote }}</p>
+                    <span id="quote-style">></span>
+                </div>
+            {% else %}
+            <div style="visibility:hidden" id="quote">
+                <span></span>
+                <p></p>
+                <span></span>
+            </div>
+            {% endif %}
+        {% endfor %}
+    
     </header>
 
     <section id="artist-detail">

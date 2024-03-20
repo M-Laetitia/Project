@@ -103,67 +103,6 @@ class UserController extends AbstractController
     }
 
 
-    // ^ EDIT USER
-    #[Route('/profile/user/{id}/edit', name: 'edit_user')]
-    #[IsGranted("ROLE_USER")]
-    public function new_edit(User $user = null, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher) : Response
-    {
-
-        // Check if the user is connected
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->redirectToRoute('app_login');
-        }
-
-
-        // FORM TO EDIT USERNAME, EMAIL, AVATAR
-        $form = $this->createForm(UserEditType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // // edit avatar ------------------------------
-            // $avatarFile = $form->get('avatar')->getData();
-            // if ($avatarFile) {
-
-            //     $oldAvatar = $user->getAvatar();
-            //     if ($oldAvatar) {
-            //         $oldAvatarPath = $this->getParameter('avatars_directory').'/'.$oldAvatar;
-            //         if (file_exists($oldAvatarPath)) {
-            //             $user->setAvatar(null);
-            //             $entityManager->persist($user);
-            //             $entityManager->flush();
-            //         }
-            //     }
-
-            //     $newFilename = uniqid().'.'.$avatarFile->guessExtension();
-
-            //     try {
-            //         $avatarFile->move(
-            //             $this->getParameter('avatars_directory'),
-            //             $newFilename
-            //         );
-            //     } catch (FileException $e) {
-            //     }
-            //     $user->setAvatar($newFilename);
-            //     $entityManager->flush();
-            // }
-            // // end edit avatar ------------------------
-
-            $user = $form->getData();
-            // $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Your profile has been updated.');
-            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
-        }
-
-
-        return $this->render('user/edit.html.twig', [
-            'formEditUser' => $form,
-            'edit' => $user->getId(),
-           
-        ]);
-
-    }
 
     // ^ EDIT PASSWORD USER
     #[Route('/profile/user/{id}/editPassword', name: 'editPassword_user')]

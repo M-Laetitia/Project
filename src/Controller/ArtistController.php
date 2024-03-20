@@ -57,6 +57,7 @@ class ArtistController extends AbstractController
     //     ]);
     // }
 
+    // ^ Get artist role
     #[Route('/artist/new', name: 'get_role_artist')]
     public function newArtist(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager,  Request $request): Response
     {
@@ -132,7 +133,7 @@ class ArtistController extends AbstractController
 
     }
 
-
+    // ^ artist list
     #[Route('/artist', name: 'app_artist')]
     public function index(UserRepository $userRepository, Request $request, SessionInterface $session): Response
     {
@@ -699,111 +700,6 @@ class ArtistController extends AbstractController
         ]);
     }
 
-
-    #[Route('/artist/{slug}/new', name: 'new_artist')]
-    #[Route('/artist/{slug}/edit', name: 'edit_artist')]
-    // error avec Picture $picture / Si 'int $pictureId' , en ajustant le typehint de Picture à int dans la signature de la méthode,  Symfony va s'attendre à recevoir l'ID de l'imgen tant que paramètre, plutôt qu'une instance d'entité complète. 
-    public function new_edit(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager, PictureService $pictureService ) : Response 
-    {
-        // dd($user);
-        $user = $security->getUser();
-
-        // if (!$user instanceof User) {
-        //     return $this->redirectToRoute('app_home');
-        // }
-
-        $form = $this->createForm(ArtistType::class, $user);
-        $form->handleRequest($request);
-        $userRoles = $user->getRoles(); // Récupérer les rôles actuels
-
-        if ($form->isSubmitted() && $form->isValid() ) {
-            // Ajouter le rôle "ROLE_ARTIST" si ce n'est pas déjà présent
-            if (!in_array('ROLE_ARTIST', $userRoles, true)) {
-                $userRoles[] = 'ROLE_ARTIST';
-            }
-
-            // ^Json infos
-            // Récupérer les valeurs pour le champ artistInfos (json)
-            $email = $form->get('emailPro')->getData();
-            $discipline =$form->get('discipline')->getData();
-            // $artistName =$form->get('artistName')->getData();
-
-            // Récupérer ou initialiser artistInfos
-            $artistInfos = $user->getArtistInfos() ?? [];
-
-            // Définir les champs et leurs valeurs
-            $fields = [
-                'emailPro' => $email,
-                'discipline' => $discipline,
-
-            ];
-
-            // Récupérer ou initialiser artistInfos
-            // $artistInfos = array_merge($artistInfos, $fields);
-            $artistInfos = $user->getArtistInfos() ?? [];
-
-            // Mettez à jour artistInfos dans l'entité User
-            $user->setArtistInfos($artistInfos);
-
-           
-            // ^ pictures
-            // récupérer les images téléchargées
-            $picture = $form->get('pictures')->getData();
-            // dd($pictures);
-
-
-                // on définit le dossier de destination
-                $userId = $user->getId();
-                $folder = $userId;
-
-                // on appelle le service d'ajout
-                if ($picture !== null) 
-                {
-                    $file = $pictureService->add($picture, $folder, 300, 300);
-                    $altDescription = $form->get('altDescription')->getData();
-                    $img = new Picture();
-                    $img->setPath($file);
-                    $img->setAltDescription($altDescription);
-                    $img->setType('work');
-                    $img->setUser($user);
-                    $entityManager->persist($img);
-                    $entityManager->flush();
-
-                    $this->addFlash('success', 'Images ajoutées avec succès!');
-                }
-                
-            
-            // ^ -----------
-
-          
-            // Mise à jour des rôles dans l'entité User
-
-            $user->setRoles($userRoles);
-            $user = $form->getData();
-            $entityManager->persist($user);
-            $user->setSlug($area->generateSlug());
-            $entityManager->flush();
-
-            // Déconnexion et reconnexion manuelles de l'utilisateur
-            // $firewallName = 'main'; 
-            // $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
-            // $this->get('security.token_storage')->setToken($token);
-
-            // Message flash
-            $this->addFlash('success', 'Profil artist successfully created');
-
-            return $this->redirectToRoute('app_home');
-        }
-
-        return $this->render('artist/new.html.twig', [
-            'formAddArtist'=> $form,
-            'edit' => $user->getId(),
-            'userRoles' => $userRoles,
-            'user' => $user
-        ]);
-
-
-    }
     
     // ^ Delete Picture
     #[Route('/delete/picture/{id}', name: 'delete_picture')]

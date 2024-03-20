@@ -715,4 +715,66 @@ html {
   height: 100%;
 }
 
+.create-event h1 span {
+  color: #eeaf42;
+}
+.create-event .admin-form form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.6rem;
+}
+.create-event .admin-form form .description div, .create-event .admin-form form .detail div {
+  display: flex;
+  flex-direction: column;
+}
+.create-event .admin-form form .description div textarea, .create-event .admin-form form .detail div textarea {
+  width: 60%;
+  resize: vertical;
+}
+.create-event .admin-form form .description div textarea {
+  width: 60%;
+  min-height: 7rem;
+  resize: vertical;
+}
+
+#dashboard-create-workshop .add-another-collection-widget {
+  border: 1px solid #eeaf42;
+  letter-spacing: 0.1rem;
+}
+
+#dashboard-detail h1, #dashboard-detail h2 {
+  margin-bottom: 0.6rem;
+}
+#dashboard-detail h1 span, #dashboard-detail h2 span {
+  color: #eeaf42;
+}
+#dashboard-detail #info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid #207E93;
+  padding: 1.5rem 0rem 1.5rem 1rem;
+  row-gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+#dashboard-detail .text {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+#dashboard-detail .text p:nth-child(2) {
+  background-color: #e0e0e0;
+  padding: 0.6rem;
+  text-align: justify;
+}
+#dashboard-detail #actions {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1.2rem;
+}
+#dashboard-detail #actions i {
+  margin-right: 0.1rem;
+}
+
 /*# sourceMappingURL=managePages.css.map */

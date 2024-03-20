@@ -32,7 +32,7 @@
     }
     
     #studios-container {
-
+        
         .odd {
             .studio-content {
                 grid-template-columns: 34% 17% 49%;
@@ -60,12 +60,21 @@
                 margin: auto;
                 color: $main-white-color;
                 position: relative;
+                z-index: 1;
 
                 figure {
+                    overflow: hidden;
                     img {
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
+                        transition: ease-in-out 0.4s;
+                        cursor: pointer;
+
+                        &:hover {
+                            // transform: scale(1.1) translateX(20px);
+                            // filter: grayscale(0.5);
+                        }
                     }
                 }
 
@@ -103,6 +112,68 @@
                     }
                 }
             }
+        }
+        .color01, .color02, .color03 {
+            position: relative;
+            &:after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 0;
+                top: 0;
+                left: 0;
+                background-size: 100%;
+                opacity: 0.4;
+            }
+        }
+
+        .color01 {
+            position: relative;
+                &:after {
+                    background-image: url("../images/test02.png"); ;
+
+                }
+            .info-studio {
+                color: $main-black-color!important;
+                
+
+                .separator {
+                    border-bottom: 1px solid $main-black-color!important;
+                }
+
+                .underscore {
+                    color: $main-white-color!important;
+                }
+            }
+            
+            .button {
+                background-color: $main-black-color;
+                border: 1px solid $main-black-color;
+                color: $secondary-color;
+
+                &:hover {
+                    background-color: $secondary-color;
+                    border: 1px solid $main-black-color;
+                    color:  $main-black-color;;
+                }
+            }
+        }
+
+        .color02 {
+            position: relative;
+                &:after {
+                    background-image: url("../images/test01.png");
+                    transform: scaleX(-1);
+                }
+        }
+
+        .color03 {
+            position: relative;
+                &:after {
+                    background-image: url("../images/test03.png");
+
+                }
         }
     }
 }

@@ -691,11 +691,17 @@ html {
   margin: auto;
   color: #F9F9F9;
   position: relative;
+  z-index: 1;
+}
+#studios-index #studios-container .studio-container .studio-content figure {
+  overflow: hidden;
 }
 #studios-index #studios-container .studio-container .studio-content figure img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: ease-in-out 0.4s;
+  cursor: pointer;
 }
 #studios-index #studios-container .studio-container .studio-content .info-studio .subtitle {
   margin-bottom: 3rem;
@@ -723,6 +729,58 @@ html {
 #studios-index #studios-container .studio-container .studio-content .info-studio .btn6 {
   position: absolute;
   bottom: 0;
+}
+#studios-index #studios-container .color01, #studios-index #studios-container .color02, #studios-index #studios-container .color03 {
+  position: relative;
+}
+#studios-index #studios-container .color01:after, #studios-index #studios-container .color02:after, #studios-index #studios-container .color03:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  background-size: 100%;
+  opacity: 0.4;
+}
+#studios-index #studios-container .color01 {
+  position: relative;
+}
+#studios-index #studios-container .color01:after {
+  background-image: url("../images/test02.png");
+}
+#studios-index #studios-container .color01 .info-studio {
+  color: #151515 !important;
+}
+#studios-index #studios-container .color01 .info-studio .separator {
+  border-bottom: 1px solid #151515 !important;
+}
+#studios-index #studios-container .color01 .info-studio .underscore {
+  color: #F9F9F9 !important;
+}
+#studios-index #studios-container .color01 .button {
+  background-color: #151515;
+  border: 1px solid #151515;
+  color: #eeaf42;
+}
+#studios-index #studios-container .color01 .button:hover {
+  background-color: #eeaf42;
+  border: 1px solid #151515;
+  color: #151515;
+}
+#studios-index #studios-container .color02 {
+  position: relative;
+}
+#studios-index #studios-container .color02:after {
+  background-image: url("../images/test01.png");
+  transform: scaleX(-1);
+}
+#studios-index #studios-container .color03 {
+  position: relative;
+}
+#studios-index #studios-container .color03:after {
+  background-image: url("../images/test03.png");
 }
 
 @media screen and (min-width: 320px) and (max-width: 900px) {

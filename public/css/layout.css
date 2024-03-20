@@ -1322,6 +1322,17 @@ footer #name-rights {
   width: 500px;
   height: 500px;
   margin: 3rem 0;
+  position: relative;
+}
+#error404-page picture img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#error404-page picture #test02 {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 #error404-page p {
   color: #F9F9F9;

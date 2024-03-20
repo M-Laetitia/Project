@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `area` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area : ~11 rows (environ)
+-- Listage des données de la table project.area : ~14 rows (environ)
 REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`, `slug`) VALUES
 	(1, 'Expo 01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-03-15 15:54:00', '2024-03-15 18:54:00', 4, 'EXPO', 'OPEN', 'expo01'),
 	(2, 'Expo 02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', NULL, NULL, '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'PENDING', 'expo02'),
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `area_area_category` (
   CONSTRAINT `FK_DC7F5F32BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area_area_category : ~9 rows (environ)
+-- Listage des données de la table project.area_area_category : ~12 rows (environ)
 REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(3, 1),
 	(4, 2),
@@ -264,7 +264,7 @@ CREATE TABLE IF NOT EXISTS `picture` (
   CONSTRAINT `FK_16DB4F89BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.picture : ~15 rows (environ)
+-- Listage des données de la table project.picture : ~17 rows (environ)
 REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `area_id`, `user_id`, `is_selected`) VALUES
 	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', NULL, 19, NULL),
 	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', NULL, 19, NULL),
@@ -333,15 +333,16 @@ CREATE TABLE IF NOT EXISTS `studio` (
   `nb_rooms` int NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `equipment` json DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.studio : ~4 rows (environ)
-REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`, `title`) VALUES
-	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio01', NULL),
-	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02', NULL),
-	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03', NULL),
-	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie', NULL);
+REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`, `title`, `equipment`) VALUES
+	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio-calliope', 'incididunt ut labore et dolore magna', '["test", "test02", "test03"]'),
+	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02', 'incididunt ut labore et dolore magna', NULL),
+	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03', 'incididunt ut labore et dolore magna', NULL),
+	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie', 'incididunt ut labore et dolore magna', NULL);
 
 -- Listage de la structure de table project. subscription
 CREATE TABLE IF NOT EXISTS `subscription` (

@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://www.example.com/foo.html</loc>
-    <lastmod>2022-06-04</lastmod>
+    <loc>https://127.0.0.1:8000/landingPage</loc>
   </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/home</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/artist</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/event</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/workshop</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/exposition</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/studio</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/calendar</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/artist/new</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/login</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/register</loc>
+  </url>
+
+  <url>
+    <loc>https://127.0.0.1:8000/subscription
+  </url>
+  
+  
+
+
 </urlset>

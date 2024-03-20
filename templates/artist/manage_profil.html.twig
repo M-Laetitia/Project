@@ -174,7 +174,8 @@
         <h2 class="text-n2">Socials medias<span>_</span></h2>
         <div class="sections-artist">
 
-            {% if artist.contacts is defined %}
+
+            {% if artist.contacts is not empty %}
                 {% for contact in artist.contacts %}
                 
                     <p><span>{{ contact.name }} :</span> <a href="{{ contact.url }}">{{ contact.url }}</a></p>

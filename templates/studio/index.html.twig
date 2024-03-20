@@ -92,47 +92,41 @@
     document.addEventListener("DOMContentLoaded", function() {
 
         gsap.from('#studio-links', { opacity: 0, duration: 1.2, delay: 0.6 });
-        gsap.from('#studios-container', { opacity: 0, duration: 1.2, delay: 0.6 });
+        gsap.from('.studio-container', {opacity: 0, duration: 0.6, delay: 0.6 });
 
-        // Define an array 'colors' containing color codes.
+        gsap.from('.info-studio', { opacity: 0, duration: 1.2, delay: 0.6, ease: 'power4.out' });
+        gsap.from('figure', {opacity: 0, duration: 1.2, delay: 0.6, ease: 'power4.out' });
+
+
+        // array of colors associated with their respective classes
+        const colorClasses = {
+            '#eeaf42': 'color01',
+            '#151515': 'color02',
+            '#207E93': 'color03'
+        }; 
+        
+        // array of colors to be applied
         const colors = ['#eeaf42', '#151515', '#207E93','#151515']; 
         const eventItems = document.querySelectorAll('.studio-container');
         const eventLinks = document.querySelectorAll('.event-link');
-    
+        
+        // Loop through each element in 'eventItems'
         eventItems.forEach((item, index) => {
-        //The modulo operator '%' is used with the length of the 'colors' array to ensure that if the 'index' exceeds the number of available colors, it starts again from the beginning of the array
-        item.style.backgroundColor = colors[index % colors.length];
+            // Get the color for the current index in the 'colors' array
+            const color = colors[index % colors.length];
+            // Set the background color of the current element to the chosen color
+            item.style.backgroundColor = color;
+        
+            // Get the corresponding class for the color from the 'colorClasses' object
+            const colorClass = colorClasses[color];
 
+            // If a class is found for the color, add it to the current element
+            
+            item.classList.add(colorClass);
+            
+        });
 
-        // change color text / btn / etc
-        const studioDivs = document.querySelectorAll('.studio-container')
-
-
-        const textStudio = document.querySelectorAll('.studio-container p')
-        console.log('studio text', textStudio)
-    
-            // parcourir chaque div
-            studioDivs.forEach(function(studioDiv) {
-                // récupérer la couleur du bg
-                var backgroundColor = window.getComputedStyle(studioDiv).getPropertyValue("background-color");
-                
-
-                console.log("couleur studio" , backgroundColor)
-
-                textStudio.forEach(function(textStudio) {
-                    // vérif de la couleur
-                    if (backgroundColor.includes("21")) {
-                        //appliquer style en fonction de la couleur
-                        textStudio.style.color = "red";
-                    } else {
-                        // mettre couleur par défaut
-                        textStudio.style.color = "black";
-                    }
-                });
-            });
-
-
-        eventLinks.forEach((link, index) => {
+            eventLinks.forEach((link, index) => {
             link.addEventListener('click', function(event) {
                 // Get the index of the clicked event
                 const indexClicked = Array.from(eventLinks).indexOf(this);
@@ -143,7 +137,7 @@
                     // Store the color for use in the details page
                 sessionStorage.setItem('selectedEventColor', color);
             });
-        });
+        
         });
     });
         

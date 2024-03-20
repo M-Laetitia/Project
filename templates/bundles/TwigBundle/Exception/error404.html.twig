@@ -50,7 +50,7 @@
             <h1 class="text-n1">Page not found</h1>
         
             <picture>
-                {# <img src="{{ asset('images/error404.jpg') }}" alt="Little yellow robot with error 404"> #}
+                <img src="{{ asset('images/404test.png') }}" alt="Little yellow robot with error 404">
             </picture>
         
             <p>
@@ -68,8 +68,17 @@
         
     </body>
 
+    <script src= "{{ asset('js/gsap.min.js') }}"></script>
     
+<script>
 
+
+gsap.fromTo("#background-img", { x: "100%",  opacity: 0  }, { x: "0%",  opacity: 1 , duration: 2, ease: "power2.out" }); 
+gsap.fromTo("picture", { opacity: 0 }, { opacity: 1, duration: 1, delay: 0.8 }); 
+gsap.fromTo(".text-n1", { opacity: 0, y: "-100px" }, { opacity: 1, y: "0", duration: 1, delay: 0.8, ease: "power2.out" }); 
+gsap.fromTo("p", { opacity: 0 }, { opacity: 1, duration: 1, delay: 1.2}); 
+
+</script>
 
 </html>
 

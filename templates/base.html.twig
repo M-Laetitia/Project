@@ -229,9 +229,8 @@
             {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
             <a href="{{ path('manage_profil', {slug: app.user.slug }) }}"><i class="fa-solid fa-palette"></i></a>
             {% elseif is_granted('IS_AUTHENTICATED_FULLY') %}
-            {# If a user is logged in but does not have the "ROLE_ARTIST" role, redirect to create a new artist #}
-            <a href="{{ path('new_artist', {slug: app.user.slug }) }}">Join us (for artists)</a>
-            {% else %}
+
+        
             {# else, add something eventually or not #}
             {% endif %}
 

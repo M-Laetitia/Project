@@ -26,7 +26,7 @@ class PaymentController extends AbstractController
     }
 
     // ^ show subscriptions
-    #[Route('/payment', name: 'app_subscription')]
+    #[Route('/subscription', name: 'app_subscription')]
     public function index(SubscriptionTypeRepository $subscriptionTypeRepository, Security $security): Response
     {
 

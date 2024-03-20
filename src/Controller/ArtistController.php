@@ -261,7 +261,7 @@ class ArtistController extends AbstractController
     }
 
     // ^ artist page -manage  (ROLE ARTIST)
-    #[Route('/artist/{slug}/manage', name: 'manage_artist')]
+    #[Route('/role_artist/{slug}/manage', name: 'manage_artist')]
     #[IsGranted("ROLE_ARTIST")]
     public function manage(User $user = null, Security $security, EntityManagerInterface $entityManager,  Request $request): Response 
     {
@@ -320,7 +320,7 @@ class ArtistController extends AbstractController
 
 
     // ^ artist page -manage  (ROLE ARTIST)  NEW !!!!
-    #[Route('/artist/{slug}/artist_profile', name: 'manage_profil')]
+    #[Route('/role_artist/{slug}/artist_profile', name: 'manage_profil')]
     #[IsGranted("ROLE_ARTIST")]
     public function manageArtistProfil(User $user = null, Security $security, EntityManagerInterface $entityManager, ContactRepository $contactRepo , PictureRepository $pictureRepo, PictureService $pictureService,  Request $request): Response 
     {

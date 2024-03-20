@@ -74,7 +74,8 @@ class StudioController extends AbstractController
     }
 
     // ^ list art studios / planning (supervisor + admin)
-    #[Route('/studio/dashboard', name: 'studio_dashboard')]
+    #[Route('/supervisor/studio/dashboard', name: 'studio_dashboard')]
+    #[IsGranted("ROLE_SUPERVISOR")]
     public function index_dashboard(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository, Security $security): Response
     {
 
@@ -115,7 +116,8 @@ class StudioController extends AbstractController
     }
 
     // ^ Create timeslot (supervisor)
-    #[Route('/studio/dashboard/{studioId}/{selectedDate}', name: 'new_timeslot')]
+    #[Route('/supervisor/studio/dashboard/{studioId}/{selectedDate}', name: 'new_timeslot')]
+    #[IsGranted("ROLE_SUPERVISOR")]
     public function new(Timeslot $timeslot = null, Request $request, $studioId, $selectedDate, TimeslotRepository $tsr, StudioRepository $studioRepository, EntityManagerInterface $entityManager, TimeSlotAvailabilityRepository $timeslotRepository, Security $security): Response
     {
 
@@ -219,7 +221,7 @@ class StudioController extends AbstractController
 
     
      // ^ planning art studio (supervisor only)
-     #[Route('/studio/{id}/planning', name: 'show_planning')]
+     #[Route('/supervisor/studio/{id}/planning', name: 'show_planning')]
      #[isGranted("ROLE_SUPERVISOR")]
      public function index_planning(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository, Security $security): Response
      {
@@ -249,7 +251,7 @@ class StudioController extends AbstractController
      }
 
     // ^ delete timeslot (supervisor)
-    #[Route('/studio/{id}/planning/delete', name: 'delete_timeslot')]
+    #[Route('/supervisor/studio/{id}/planning/delete', name: 'delete_timeslot')]
     #[isGranted("ROLE_SUPERVISOR")]
     public function delete_timeslot(Timeslot $timeslot, EntityManagerInterface $entityManager, Security $security) : Response
     {
@@ -263,7 +265,7 @@ class StudioController extends AbstractController
 
     // ! throw?
     // ^ Delete registration for timeslot - studio (admin)
-    #[Route('/studio/{id}/registration/delete', name: 'delete_timeslot_registration')]
+    #[Route('/supervisor/studio/{id}/registration/delete', name: 'delete_timeslot_registration')]
     #[isGranted("ROLE_SUPERVISOR")]
     public function delete_timeslot_registration(WorkshopRegistration $workshopRegistration, EntityManagerInterface $entityManager, Security $security) : Response
     {

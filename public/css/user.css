@@ -1344,4 +1344,33 @@ html {
   color: red !important;
 }
 
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  #detail-subscription-payment #details {
+    margin-right: 0rem;
+  }
+  #card-button {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  #detail-subscription-payment #details {
+    margin-right: 0rem;
+  }
+  #card-button {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  #detail-subscription-payment #details {
+    margin-right: 0rem;
+  }
+  #myForm {
+    display: flex;
+    flex-direction: column;
+  }
+  #card-button {
+    width: 60%;
+  }
+}
+
 /*# sourceMappingURL=user.css.map */

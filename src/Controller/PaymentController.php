@@ -51,13 +51,14 @@ class PaymentController extends AbstractController
             $subscriptionType = $this->getDoctrine()->getRepository(SubscriptionType::class)->find($subscriptionTypeId);
         }
 
-        $form = $this->createForm(SubscriptionPaymentType::class , $subscription);
-        $form->handleRequest($request); 
+        // $form = $this->createForm(SubscriptionPaymentType::class , $subscription);
+        // $form->handleRequest($request); 
         $clientSecret = null;
 
         // STRIPE:
         // récupérer montant subscription
         $total = $subscriptionType->getPrice();
+        ;
         // STRIPE:
         require_once('../vendor/autoload.php');
         Stripe::setApiKey($this->stripeSecretKey);
@@ -71,54 +72,60 @@ class PaymentController extends AbstractController
         //  dump($clientSecret);die;
 
 
+        if ($request->isMethod('POST') ) {
+            // dd($request);
+            $firstName = $request->request->get('firstName');
+            $lastName = $request->request->get('lastName');
+            $address = $request->request->get('address');
 
-        if ($form->isSubmitted() && $form->isValid() ) {
-            // ^Json infos
-            // dump('test');die;
-            // Récupérer les valeurs pour le champ infosUser (json)
-            $firstname = $form->get('firstname')->getData();
-            $lastname =$form->get('lastname')->getData();
-            $address =$form->get('address')->getData();
+            $safeFirstName = htmlspecialchars($firstName, ENT_QUOTES, 'UTF-8');
+            $safeLastName = htmlspecialchars($lastName, ENT_QUOTES, 'UTF-8');
+            $safeAddress = htmlspecialchars($address, ENT_QUOTES, 'UTF-8');
+   
+
+            if (!empty($safeFirstName) || !empty($safeLastName) || !empty($safeAddress)) {
+                
+                $fields = [
+                   'firstName' => $safeFirstName,
+                   'lastName' => $safeLastName,
+                   'address' => $safeAddress,
+               ];
+    
+               $name = $subscriptionType->getName();
+               $price = $subscriptionType->getPrice();
+               $duration = $subscriptionType->getDuration();
+    
+               $subscriptionInfo = [
+                'name' => $name,
+                'price' => $price,
+                'duration' => $duration,
+                ];
+    
+               // remplir les autres champs:
+               $subscription = new Subscription();
+                // $subscription = $form->getData();
+               $subscription->setUser($user);
+               $subscription->setInfosUser($fields);
+               $subscription->setPaymentDate(new \DateTimeImmutable());
+               $subscription->setisActive("1");
+               $subscription->setInfosSubscription($subscriptionInfo);
+               $subscription->setSubscriptionType($subscriptionType);
+               $subscription->setTotal($total);
+    
+               $entityManager->persist($subscription);
+               $entityManager->flush();
+    
+               
+                $this->addFlash('success', 'Transaction successful. You have successfully subscribed');
+                return $this->redirectToRoute('show_user', ['slug' => $user->getSlug()]);
+            }
+
             
-            // Définir les champs et leurs valeurs
-            $fields = [
-               'firstname' => $firstname,
-               'lastname' => $lastname,
-               'address' => $address,
-           ];
-
-           $name = $subscriptionType->getName();
-           $price = $subscriptionType->getPrice();
-           $duration = $subscriptionType->getDuration();
-
-           $subscriptionInfo = [
-            'name' => $name,
-            'price' => $price,
-            'duration' => $duration,
-            ];
-
-
-           // remplir les autres champs:
-           $subscription = new Subscription();
-            // $subscription = $form->getData();
-           $subscription->setUser($user);
-           $subscription->setInfosUser($fields);
-           $subscription->setPaymentDate(new \DateTimeImmutable());
-           $subscription->setisActive("1");
-           $subscription->setInfosSubscription($subscriptionInfo);
-           $subscription->setSubscriptionType($subscriptionType);
-           $subscription->setTotal($total);
-
-           $entityManager->persist($subscription);
-           $entityManager->flush();
-
-            $this->addFlash('success', 'success');
-            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('payment/payment.html.twig', [
             'subscriptionType' => $subscriptionType,
-            'formSubscriptionPayment' => $form,
+            // 'formSubscriptionPayment' => $form,
             'clientSecret' => $clientSecret,
     
         ]);

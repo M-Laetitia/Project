@@ -47,17 +47,17 @@
     <body id="error404-page">
         <div id="content">
         
-            <h1 class="text-n1">Page not found</h1>
+            <h1 class="text-n1">Access denied</h1>
         
             <picture>
-                <img src="{{ asset('images/404test.png') }}" alt="The negative drawing of a statue, overlaid with the words 'error' and '404', with yellow colored accents.">
+                <img src="" alt="">
             </picture>
         
             <p>
-                There's nothing to see here. <br>
-                It seems you've wandered off into lost lands. <br>
-                Please  <a href="{{ path('app_home') }}">go back</a> to where you belong. <br>
-        
+                There's nothing you are allowed to see here. <br>
+                It appears you're trying to access forbidden territory. <br>
+                {# You may have ventured into restricted territory. #}
+                Please  <a href="{{ path('app_home') }}">return</a> to where you belong. <br>      
             </p>
         </div>
 
@@ -79,6 +79,7 @@ gsap.fromTo(".text-n1", { opacity: 0, y: "-100px" }, { opacity: 1, y: "0", durat
 gsap.fromTo("p", { opacity: 0 }, { opacity: 1, duration: 1, delay: 1.2}); 
 
 </script>
+
 
 </html>
 

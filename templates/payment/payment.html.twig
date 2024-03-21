@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Subscription{% endblock %}
-{% block meta %}Subscription{% endblock %}
+{% block title %}Payment - MOSAIC{% endblock %}
+{% block meta %}Complete your transaction securely with Stripe on MOSAIC. Enjoy hassle-free payments for memberships, event registrations, workshops, and studio rentals. Join our community and unlock exclusive benefits. Make your payment now!{% endblock %}
 
 {% block javascripts %}
 
@@ -54,13 +54,13 @@
     </div>
     
     
-    <section class="content payment-subscription" id="register-user">
+    <section class="content register-user " id="payment-subscription">
         <div id="register-container">
             <div id="separator"></div>
     
-            <div class="left-register" id="l-participation"></div>
+            <div class="left-register" id="l-payment"></div>
     
-            <div class="right-register" id="r-participation">
+            <div class="right-register" id="r-payment">
                 <div id="detail-subscription-payment">
                     <h2>Proceed to payment<span class="underscore">_</span></h2>
       
@@ -91,7 +91,7 @@
                             <button style="display: block;" class="btn btn6" id="confirmation-payement-btn">Subscribe</button>
                         </div>
 
-                        <div id="confirmation-modal-payment">
+                        <div style="display:none;" id="confirmation-modal-payment">
 
                             <p>Are you sure you want to proceed with the payment? Please confirm your order details before finalising your purchase.
                             </p>

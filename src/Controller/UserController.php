@@ -31,7 +31,8 @@ class UserController extends AbstractController
     }
 
     // ^ SHOW USER
-    #[Route('/user/{slug}', name: 'show_user')]
+    #[Route('/profile/user/{slug}', name: 'show_user')]
+    #[IsGranted("ROLE_USER")]
     public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
 
     if(!$user) {
@@ -102,69 +103,10 @@ class UserController extends AbstractController
     }
 
 
-    // ^ EDIT USER
-    #[Route('/user/{id}/edit', name: 'edit_user')]
-    public function new_edit(User $user = null, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher) : Response
-    {
-
-        // Check if the user is connected
-        $user = $this->getUser();
-        if (!$user instanceof User) {
-            return $this->redirectToRoute('app_login');
-        }
-
-
-        // FORM TO EDIT USERNAME, EMAIL, AVATAR
-        $form = $this->createForm(UserEditType::class, $user);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // // edit avatar ------------------------------
-            // $avatarFile = $form->get('avatar')->getData();
-            // if ($avatarFile) {
-
-            //     $oldAvatar = $user->getAvatar();
-            //     if ($oldAvatar) {
-            //         $oldAvatarPath = $this->getParameter('avatars_directory').'/'.$oldAvatar;
-            //         if (file_exists($oldAvatarPath)) {
-            //             $user->setAvatar(null);
-            //             $entityManager->persist($user);
-            //             $entityManager->flush();
-            //         }
-            //     }
-
-            //     $newFilename = uniqid().'.'.$avatarFile->guessExtension();
-
-            //     try {
-            //         $avatarFile->move(
-            //             $this->getParameter('avatars_directory'),
-            //             $newFilename
-            //         );
-            //     } catch (FileException $e) {
-            //     }
-            //     $user->setAvatar($newFilename);
-            //     $entityManager->flush();
-            // }
-            // // end edit avatar ------------------------
-
-            $user = $form->getData();
-            // $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'Your profile has been updated.');
-            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
-        }
-
-
-        return $this->render('user/edit.html.twig', [
-            'formEditUser' => $form,
-            'edit' => $user->getId(),
-           
-        ]);
-
-    }
 
     // ^ EDIT PASSWORD USER
-    #[Route('/user/{id}/editPassword', name: 'editPassword_user')]
+    #[Route('/profile/user/{id}/editPassword', name: 'editPassword_user')]
+    #[IsGranted("ROLE_USER")]
     public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         // check that the user is logged in
@@ -201,7 +143,11 @@ class UserController extends AbstractController
     }
 
     // ^ DELETE USER
-    #[Route('/user/{id}/delete', name: 'delete_user')]
+
+    #[Route('/admin/user/{id}/delete', name: 'delete_user_admin')]
+    #[IsGranted("ROLE_ADMIN")]
+    #[Route('/profile/user/{id}/delete', name: 'delete_user')]
+    #[IsGranted("ROLE_USER")]
     public function delete(User $user, EntityManagerInterface $entityManager, Security $security, SessionInterface $session) : Response {
 
         $user = $security->getUser();

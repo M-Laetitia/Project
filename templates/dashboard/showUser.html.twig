@@ -28,7 +28,7 @@
     <h1>User : {{user}}</h1>
 
     {% if is_granted('ROLE_ADMIN') %}
-    <p>Actions:</p><a href=" {{ path('delete_user', {'id': app.user.id }) }}">delete</a>
+    <p>Actions:</p><a href=" {{ path('delete_user_admin', {'id': app.user.id }) }}">delete</a>
     
     {% endif %}
     

@@ -37,7 +37,9 @@ class ArtistStatusType extends AbstractType
                     'Illustration' => 'illustration',
                     'Photography' => 'photography',
                     'Graphism' => 'graphism',
-                    'Craftsman' => 'craftsman',
+                    'Design' => 'design',
+                    'Craft' => 'craft',
+                    'Textile' => 'textile',
                     'Other' => 'Other',
                 ],
                 'choice_attr' => function($choice, $key, $value) {

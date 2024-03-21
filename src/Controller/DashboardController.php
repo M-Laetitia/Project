@@ -18,12 +18,11 @@ class DashboardController extends AbstractController
 {
 
     // ^ main page with all event/expo/workshop/studio
-    #[Route('/dashboard', name: 'app_dashboard')]
+    #[Route('/admin/dashboard', name: 'app_dashboard')]
     #[IsGranted("ROLE_ADMIN")]
     public function index(WorkshopRepository $workshopRepository, AreaRepository $areaRepository, StudioRepository $studioRepository): Response
     {
 
-        // $events = $eventRepository->findBy([]);
         $workshops = $workshopRepository->findBy([]);
         $events = $areaRepository->findBy(['type' => 'EVENT']);
         $expositions = $areaRepository->findBy(['type' => 'EXPO']);
@@ -55,7 +54,6 @@ class DashboardController extends AbstractController
         ]);
 
         return $this->render('dashboard/index.html.twig', [
-            // 'controller_name' => 'DashboardController',
             'events' => $events,
             'expositions' => $expositions,
             'workshops' => $workshops,
@@ -73,7 +71,7 @@ class DashboardController extends AbstractController
     }
 
     // ^ list users
-    #[Route('/dashboard/index', name: 'list_users')]
+    #[Route('/admin/dashboard/index', name: 'list_users')]
     #[IsGranted("ROLE_ADMIN")]
     public function list_users(UserRepository $userRepository, Request $request, SessionInterface $session): Response
     {
@@ -133,7 +131,7 @@ class DashboardController extends AbstractController
     }
 
     // ^ detail user
-    #[Route('/dashboard/admin/{slug}/detail_user', name: 'detail_user_admin')]
+    #[Route('/admin/dashboard/user/{slug}/detail_user', name: 'detail_user_admin')]
     #[IsGranted("ROLE_ADMIN")]
     public function show_user(User $user): Response
     {

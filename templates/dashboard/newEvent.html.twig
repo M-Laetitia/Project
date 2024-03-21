@@ -56,13 +56,13 @@
 
                     
                     {% if edit %}
-                    <div>
+                    <div class="event-images">
                         {% if previewExists %}
-                            <div style="width: 600px; height: 200px; background-color: grey;">
-                                <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ previewExists ~ '') }}" alt="Banner">
+                            <div>
+                                <img  src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ previewExists ~ '') }}" alt="Banner">
                             </div>
                         {% else %}
-                        <div style="width: 500px; height: 100px; background-color: grey;">
+                            <div>
                                 <!-- Div sans image -->
                             </div>
                         {% endif %}
@@ -79,13 +79,13 @@
                     <p class="text-n2">IMAGE BANNER</p>
 
                     {% if edit %}
-                    <div>
+                    <div class="event-images">
                         {% if bannerExists %}
-                            <div style="width: 600px; height: 200px; background-color: grey;">
-                                <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+                            <div>
+                                <img src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
                             </div>
                         {% else %}
-                        <div style="width: 500px; height: 100px; background-color: grey;">
+                            <div>
                                 <!-- Div sans image -->
                             </div>
                         {% endif %}
@@ -97,44 +97,43 @@
                     {{ form_row(formAddEvent.titleBanner) }}
                     {{ form_row(formAddEvent.altDescriptionBanner) }}
                     {{ form_row(formAddEvent.banner) }}
-            
-                    {% if  edit %}
-                        <button id="btn-save-banner" class="btn btn6 " type="submit">Edit</button>
-                    {% else %}
-                        <button id="btn-save-banner" class="btn btn6 " type="submit">Create</button>
-                    {% endif %}
+        
+                    <div>
+                        {% if  edit %}
+                            <button id="btn-save-banner" class="btn btn6 btn-edit-event " type="submit">Edit</button>
+                        {% else %}
+                            <button id="btn-save-banner" class="btn btn6  btn-edit-event" type="submit">Create</button>
+                        {% endif %}
+
+                    </div>
                     
                     {# {{ form_row(formAddEvent.Create, { 'attr' : { 'class': 'btn btn6' } })}} #}
             
                 {{ form_end(formAddEvent) }}
 
+                <p class="text-n2">EVENT GALLERY</p>
+
             </div>
 
-            <div class="archived-gallery">
-
-                {% for picture in picturesGallery  %}
-                <div id="gallery-img">
-                
-                        <div id="selectedImage">
+            <div class="sections-artist">
+                <div id="gallery-artist">
+                    {% for picture in picturesGallery  %}
+                        <div id="gallery-img">
                             <img src="{{asset('images/artists/' ~ area.name ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
-                
-                                <div class="actions">
-                                    <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
-                
-                                </div>
+                            <div class="actions">
+                                <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+            
+                            </div>
                         </div>
-                
+                    {% endfor %}
                 </div>
-                {% endfor %}
-                </div>
-
             </div>
 
             <div class="add-img-gallery-form">
                 
                 {% if edit %}
 
-                <h2>ajout d'images</h2>
+                <h2>Add images</h2>
                 <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
                 {% if canUploadImage %}
                     {{ form_start(formAddPictureGallery) }}
@@ -142,7 +141,7 @@
                     {{ form_row(formAddPictureGallery.picture) }}
                     {{ form_row(formAddPictureGallery.title) }}
                     {{ form_row(formAddPictureGallery.altDescription) }}
-                    <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
+                    <button class="btn btn6 btn-artist-profil" type="submit">Add</button>
                     {{ form_end(formAddPictureGallery) }}
 
                 {% else %}

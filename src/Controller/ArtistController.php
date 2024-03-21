@@ -57,6 +57,7 @@ class ArtistController extends AbstractController
     //     ]);
     // }
 
+    //^ get artist role
     #[Route('/artist/new', name: 'get_role_artist')]
     public function newArtist(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager,  Request $request): Response
     {
@@ -132,7 +133,7 @@ class ArtistController extends AbstractController
 
     }
 
-
+    //^ show artists list 
     #[Route('/artist', name: 'app_artist')]
     public function index(UserRepository $userRepository, Request $request, SessionInterface $session): Response
     {
@@ -239,11 +240,12 @@ class ArtistController extends AbstractController
         
 
     // ^ show artist detail (all)
-    #[Route('/artist/{slug}-{id}', name: 'show_artist')]
-    public function show(UserRepository $userRepository, EntityManagerInterface $entityManager, string $slug, int $id): Response {
+    #[Route('/artist/{slug}', name: 'show_artist')]
+    public function show(UserRepository $userRepository, EntityManagerInterface $entityManager, string $slug): Response {
 
         // get the artist
-        $artist = $userRepository->findBy(['id' => $id]);
+
+        $artist = $userRepository->findOneBy(['slug' => $slug]);
         // check if the artist exists
         if (!$artist) {
             // if not, redirect to the error page
@@ -400,11 +402,7 @@ class ArtistController extends AbstractController
             $city = $form->get('city')->getData();
             $postalCode = $form->get('postalCode')->getData();
 
-            // $artistWebsite = $form->get('website')->getData();
-            // $artistQuote = $form->get('quote')->getData();
-            // $artistShop = $form->get('shop')->getData();
- 
-            // dd($artistDribbble);
+
             // Vérifier les valeurs existantes avant de les mettre à jour
             $fields = [];
 

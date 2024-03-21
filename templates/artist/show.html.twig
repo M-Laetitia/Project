@@ -2,26 +2,22 @@
 
 
 {% block title %}
-    Discover {% for artistData in artist %} {{ artistData.artistInfos.artistName }} {% endfor %} - MOSAIC
+    Discover {{ artist.artistInfos.artistName }} - MOSAIC
 {% endblock %} 
 
 {% block meta %}
-    Explore the artistic journey of {% for artistData in artist %}{{ artistData.artistInfos.artistName }}{% endfor %} on MOSAIC. Discover their unique vision, biography, and stunning artwork gallery. Immerse yourself in their creativity and be inspired. 
+    Explore the artistic journey of {{ artist.artistInfos.artistName}} on MOSAIC. Discover their unique vision, biography, and stunning artwork gallery. Immerse yourself in their creativity and be inspired. 
 {% endblock %}
 {% block body %}
 
 <div class="banner">
     <div class="content">
         <h1 class="banner-title">
-            {% for artistData in artist %}
-                {{ artistData.artistInfos.artistName }}
-            {% endfor %}
+                {{ artist.artistInfos.artistName }}
         </h1>
         <div class="subtitle">
             <p class="banner-text">
-            {% for artistData in artist %}
-                {{ artistData.artistInfos.discipline }}
-            {% endfor %}
+                {{ artist.artistInfos.discipline }}
             </p>
             <div class="underscore-blink"> </div>
         </div>
@@ -30,36 +26,31 @@
 
 <div class="breadcrumb breadcrumb-dark">
     <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_artist') }}">All Artists</a> > 
-        {% for artistData in artist %}
-            {{ artistData.artistInfos.artistName }}
-        {% endfor %} </p>
+        {{ artist.artistInfos.artistName }}</p>
 </div>
 
 
 <section class="" id="artist-show">
     <header id="header">
         <figure>
-            {% for user in artist %}
                 {% set bannerImage = null %}
-                {% for image in user.pictures %}
+                {% for image in artist.pictures %}
                     {% if image.type == "banner" %}
                         {% set bannerImage = image %}
                     {% endif %}
                 {% endfor %}
                 {% if bannerImage %}
-                    <img src="{{ asset('images/artists/' ~ user.id ~ '/banner/' ~ bannerImage.path) }}" alt="{{ bannerImage.altDescription }}">
+                    <img src="{{ asset('images/artists/' ~ artist.id ~ '/banner/' ~ bannerImage.path) }}" alt="{{ bannerImage.altDescription }}">
                 {% else %}
                     
                 {% endif %}
-            {% endfor %}
         </figure>
 
         <div id="quote">
-                {% for artistData in artist %}
-                    {% if artistData.artistInfos.quote is defined %}
+                    {% if artist.artistInfos.quote is defined %}
                         <span id="quote-style"><</span>
                         <p id="quote-text">
-                        {{ artistData.artistInfos.quote }}</p>
+                        {{ artist.artistInfos.quote }}</p>
                         <span id="quote-style">></span>
                         
                     {% else %}
@@ -67,7 +58,6 @@
                         <p></p>
                         <span id="quote-style"></span>
                     {% endif %}
-                {% endfor %}
             </p>
         </div>
     </header>
@@ -76,12 +66,12 @@
         <div id="about">
             <h3 class="text-n1"> <span id="about-text">About the </span class="underscore">artist<span>_</span></h3>
             <p>
-                {% for artistData in artist %}
-                    {% if artistData.artistInfos.bio is defined %}
-                    {{ artistData.artistInfos.bio }}
+                
+                    {% if artist.artistInfos.bio is defined %}
+                    {{ artist.artistInfos.bio }}
                     {% else %}
                     {% endif %}
-                {% endfor %}
+                
             </p>
         </div>
 
@@ -89,41 +79,41 @@
             <p class="text-n2">Info<span>_</span></p>
             <div id="list-infos">
                 <div id="list-info">
-                    {% for artistData in artist %}
+                    
                         <p><span>Category :</span> 
-                            {% if artistData.artistInfos.category is defined %}
-                            {{ artistData.artistInfos.category }}
+                            {% if artist.artistInfos.category is defined %}
+                            {{ artist.artistInfos.category }}
                             {% else %}
                             {% endif %}
                         </p>
                         <p><span>Website :</span> 
-                            {% if artistData.artistInfos.website is defined %}
-                            <a href="http://{{ artistData.artistInfos.website }}">{{ artistData.artistInfos.website }}</a>
+                            {% if artist.artistInfos.website is defined %}
+                            <a href="http://{{ artist.artistInfos.website }}">{{ artist.artistInfos.website }}</a>
                             {% else %}
                             {% endif %}
                         </p>
                         <p><span>Shop :</span> 
-                            {% if artistData.artistInfos.shop is defined %}
-                            {{ artistData.artistInfos.shop }}
+                            {% if artist.artistInfos.shop is defined %}
+                            {{ artist.artistInfos.shop }}
                             {% else %}
                             {% endif %}
                         </p>
                         <p><span>Contact :</span> 
-                            {% if artistData.artistInfos.emailPro is defined %}
-                            {{ artistData.artistInfos.emailPro }}
+                            {% if artist.artistInfos.emailPro is defined %}
+                            {{ artist.artistInfos.emailPro }}
                             {% else %}
                             {% endif %}
                         </p>
-                    {% endfor %}
+                    
                 </div>
                 <div id="socials">
-                    {% for user in artist %}
-                        {% if  user.contacts|length > 0 %}
-                            {% for contact in user.contacts %}
+
+                        {% if  artist.contacts|length > 0 %}
+                            {% for contact in artist.contacts %}
                             <a href="{{ contact.url }}">{{ contact.icon|raw }}</a>
                             {% endfor %}
                         {% endif %}
-                    {% endfor %}
+
                 </div>
             </div>
         </div>
@@ -132,15 +122,14 @@
     <section id="gallery">
         <h3  id="text-gallery"class="text-n2">Dive into their art<span>_</span></h3>
         <div id="images">
-            {% for user in artist %}
             {% set hasWorkImage = false %}
-            {% for image in user.pictures %}
+            {% for image in artist.pictures %}
                 {% if image.type == "work" %}
 
             <div class="artist-container ">
                 <figure>
                     <div id="hover2">
-                        <img src="{{asset('images/artists/' ~ user.id ~'/works/mini/500x500-') ~ image.path }}" alt="{{image.altDescription}}">
+                        <img src="{{asset('images/artists/' ~ artist.id ~'/works/mini/500x500-') ~ image.path }}" alt="{{image.altDescription}}">
                         {% set hasWorkImage = true %}
                         <p id="text2"> {{image.title}}<span>_</span> </p>
                     </div>
@@ -152,7 +141,7 @@
             {% if not hasWorkImage %}
                 <p>Their gallery is empty for the moment. :( </p>
             {% endif %}
-            {% endfor %}
+
         </div>
     </section>
 

@@ -44,6 +44,9 @@ class Studio
     #[ORM\Column(nullable: true)]
     private ?array $equipment = null;
 
+    #[ORM\OneToMany(mappedBy: 'studio', targetEntity: Picture::class)]
+    private Collection $pictures;
+
     public function __toString() 
     {
         return $this->name; 
@@ -52,6 +55,7 @@ class Studio
     public function __construct()
     {
         $this->timeslots = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +201,36 @@ class Studio
     public function setEquipment(?array $equipment): static
     {
         $this->equipment = $equipment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setStudio($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getStudio() === $this) {
+                $picture->setStudio(null);
+            }
+        }
 
         return $this;
     }

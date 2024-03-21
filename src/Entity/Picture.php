@@ -38,6 +38,9 @@ class Picture
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Area $area = null;
 
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Studio $studio = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +126,18 @@ class Picture
     public function setArea(?Area $area): static
     {
         $this->area = $area;
+
+        return $this;
+    }
+
+    public function getStudio(): ?Studio
+    {
+        return $this->studio;
+    }
+
+    public function setStudio(?Studio $studio): static
+    {
+        $this->studio = $studio;
 
         return $this;
     }

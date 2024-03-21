@@ -100,11 +100,23 @@ class EventController extends AbstractController
             $area = new Area();
         }
 
-
         $maxImagesAllowed = 12;
         $areaId = $area->getId();
         $numberOfImages = count($pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']));
         $canUploadImage = $numberOfImages < $maxImagesAllowed;
+
+
+        $bannerExists = null;
+        $existingBanner = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'banner']); 
+        if ($existingBanner) {
+            $bannerExists =  $existingBanner->getPath();
+        }
+
+        $previewExists = null;
+        $existingPreview = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'preview']); 
+        if ($existingPreview) {
+            $previewExists =  $existingPreview->getPath();
+        }
 
         $form= $this->createForm(EventType::class, $area);
         $form->handleRequest($request);
@@ -130,8 +142,10 @@ class EventController extends AbstractController
             $bannerTitle = $form->get('titleBanner')->getData();
             $bannerAlt = $form->get('altDescriptionBanner')->getData();
             $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            
 
             if ($bannerFile) {
+                $oldBanner = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'banner']); 
                 if (!in_array($bannerFile->getMimeType(), $allowedMimeTypes)) {
                     $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
                     return $this->redirectToRoute('new_event');
@@ -143,6 +157,19 @@ class EventController extends AbstractController
                 }
 
                 $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                if ($oldBanner) {
+                    $oldBannerName = $oldBanner->getPath();
+                    $bannerDirectory = 'images/activity/event/' . $areaId . '/banner';
+                    $absoluteOldBannerPath = $this->getParameter('kernel.project_dir') . '/public/' . $bannerDirectory . '/' . $oldBannerName;
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldBannerPath)) {
+                        $filesystem->remove($absoluteOldBannerPath);
+                    }
+                    $oldBanner->setPath($newFilename);
+
+                } else {
+                    // Si aucune bannière existante, créer le dossier "banner"
 
                 $filesystem = new Filesystem();
                 $filesystem->mkdir($bannerDirectory);
@@ -154,6 +181,7 @@ class EventController extends AbstractController
                 $picture->setType('banner');
                 $picture->setPath($newFilename);
                 $entityManager->persist($picture);
+                }
                 
                 // Déplacer la nouvelle image vers le dossier "banner"
                 $bannerFile->move($bannerDirectory, $newFilename);
@@ -168,9 +196,10 @@ class EventController extends AbstractController
             $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
             if ($previewFile) {
+                $oldPreview = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'preview']); 
                 if (!in_array($previewFile->getMimeType(), $allowedMimeTypes)) {
                     $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
-                    return $this->redirectToRoute('new_event');
+                    return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
                 }
                 $maxSize = 2 * 1024 * 1024; // 2 Mo
                 if ($previewFile->getSize() > $maxSize) {
@@ -180,6 +209,20 @@ class EventController extends AbstractController
 
                 $newFilename = md5(uniqid(rand(), true)) . '.webp';
                 $areaId = $area->getId();
+
+                if ($oldPreview) {
+                    $oldPreviewName = $oldPreview->getPath();
+                    $previewDirectory = 'images/activity/event/' . $areaId . '/banner';
+                    $absoluteOldPreviewPath = $this->getParameter('kernel.project_dir') . '/public/' . $previewDirectory . '/' . $oldPreviewName;
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldPreviewPath)) {
+                        $filesystem->remove($absoluteOldPreviewPath);
+                    }
+                    $oldPreview->setPath($newFilename);
+
+                } else {
+
 
                 $filesystem = new Filesystem();
                 $filesystem->mkdir($bannerDirectory);
@@ -191,6 +234,7 @@ class EventController extends AbstractController
                 $picture->setType('preview');
                 $picture->setPath($newFilename);
                 $entityManager->persist($picture);
+                }
                 
                 // Déplacer la nouvelle image vers le dossier "banner"
                 $previewFile->move($bannerDirectory, $newFilename);
@@ -201,7 +245,7 @@ class EventController extends AbstractController
 
             $message = $isNewEvent ? 'Event created successfully!' : 'Event edited successfully!';
             $this->addFlash('success', $message);
-            return $this->redirectToRoute('app_dashboard');
+            return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
         }
 
 
@@ -226,7 +270,7 @@ class EventController extends AbstractController
                   $entityManager->flush();   
                   
                   $this->addFlash('success', 'Your picture has been successfully added');
-                  return $this->redirectToRoute('edit_event', ['id' => $area->getId()]);
+                  return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
               }           
           
 
@@ -244,6 +288,9 @@ class EventController extends AbstractController
             'formAddPictureGallery' => $formPicture,
             'picturesGallery' => $picturesGallery,
             'area' =>$area,
+
+            'bannerExists' => $bannerExists,
+            'previewExists' => $previewExists,
         ]);
     }
 

@@ -53,6 +53,23 @@
                     {{ form_row(formAddEvent.areaCategories) }}
                     
                     <p class="text-n2">IMAGE PREVIEW</p>
+
+                    
+                    {% if edit %}
+                    <div>
+                        {% if previewExists %}
+                            <div style="width: 600px; height: 200px; background-color: grey;">
+                                <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ previewExists ~ '') }}" alt="Banner">
+                            </div>
+                        {% else %}
+                        <div style="width: 500px; height: 100px; background-color: grey;">
+                                <!-- Div sans image -->
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    
                     
                     {{ form_row(formAddEvent.titlePreview) }}
                     {{ form_row(formAddEvent.altDescriptionPreview) }}
@@ -60,13 +77,34 @@
             
             
                     <p class="text-n2">IMAGE BANNER</p>
+
+                    {% if edit %}
+                    <div>
+                        {% if bannerExists %}
+                            <div style="width: 600px; height: 200px; background-color: grey;">
+                                <img style="width:100%; height: 100%; object-fit:cover;" src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+                            </div>
+                        {% else %}
+                        <div style="width: 500px; height: 100px; background-color: grey;">
+                                <!-- Div sans image -->
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    
                     
                     {{ form_row(formAddEvent.titleBanner) }}
                     {{ form_row(formAddEvent.altDescriptionBanner) }}
                     {{ form_row(formAddEvent.banner) }}
             
-            
-                    {{ form_row(formAddEvent.Create, { 'attr' : { 'class': 'btn btn6' } })}}
+                    {% if  edit %}
+                        <button id="btn-save-banner" class="btn btn6 " type="submit">Edit</button>
+                    {% else %}
+                        <button id="btn-save-banner" class="btn btn6 " type="submit">Create</button>
+                    {% endif %}
+                    
+                    {# {{ form_row(formAddEvent.Create, { 'attr' : { 'class': 'btn btn6' } })}} #}
             
                 {{ form_end(formAddEvent) }}
 
@@ -78,7 +116,7 @@
                 <div id="gallery-img">
                 
                         <div id="selectedImage">
-                            <img src="{{asset('images/artists/' ~ area.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+                            <img src="{{asset('images/artists/' ~ area.name ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
                 
                                 <div class="actions">
                                     <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>

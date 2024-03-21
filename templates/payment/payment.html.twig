@@ -79,39 +79,28 @@
                 {# changer nom id #}
                 <div id="client-secret" data-client-secret="{{ clientSecret }}"></div>
     
-                {{ form_start(formSubscriptionPayment, {'attr': {'id': 'subscription-form'}}) }}
-                        {{ form_errors(formSubscriptionPayment)}}
-                        {{ form_row(formSubscriptionPayment.firstname)}}
-                        {{ form_row(formSubscriptionPayment.lastname)}}
-                        {{ form_row(formSubscriptionPayment.address)}}
-                        <div id="card-elements" class="stripe-card-elements"></div>
-                        <div id="card-errors" role="alter"></div>
-    
-                        <div>
-                            <button style="display: block;" class="btn btn6" id="confirmation-payement-btn">Subscribe</button>
-                        </div>
 
-                        <div style="display:none;" id="confirmation-modal-payment">
+                <form id="myForm" action="{{ path('subscription_payment', { 'id' : subscriptionType.id  }) }}" method="post">
 
-                            <p>Are you sure you want to proceed with the payment? Please confirm your order details before finalising your purchase.
-                            </p>
+                    <div id="errors"></div>
 
-                            <div id="action-btn">
-                                
-                                <div id="confirm-btn">
-                                    <i class=" icon-confirm fa-solid fa-check "></i>
-                                    {{ form_row(formSubscriptionPayment.Subscribe) }}
-                                </div>
+                    <input type="text" id="firstName" name="firstName" placeholder="prénom">
+                    <input type="text" id="lastName" name="lastName" placeholder="nom">
 
-                                <div id="cancel-btn">
-                                    <i class="fa-solid fa-xmark "></i>
-                                    <p style="cursor: pointer;" class="icon-cancel">cancel</p>
-                                </div>
-                            </div>
-                        </div>
+                    <input type="text" id="address" name="address" placeholder="addresse">
+            
+                    <!-- info de la carte elle-même-->
+                    <div id="card-elements"></div>
+            
+                    <!-- contiendra les erreurs relatives à la carte-->
+                    <div id="card-errors" role="alter"></div>
+            
+                    <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
+                    <button id="card-button" type="button" data-secret="<?= $intent['client_secret']?>">Procéder au paiement</button>
+                </form>
 
-                        
-                {{ form_end(formSubscriptionPayment)}}
+
+                
                 </div>
             </div>
 
@@ -124,6 +113,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
 {# <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> #}
 
@@ -170,28 +160,22 @@
 
       });
 
-      const inputs = document.querySelectorAll('input');
-      console.log("check", inputs)
-      const value = inputs.value;
-      console.log("check2", value)
-
+      
     window.onload = () => {
 
         let stripe = Stripe('pk_test_51OOfxmFInhPlxmzGb5udco2DCaiaaH3PlKcFjVz4GK1xy7qYYFUkzDpkfoyBfhF8e70X3n6x5JpZL616aIrL5VvN0095RLpWkN')
 
         let elements = stripe.elements();
-        let redirect = "/home/test_stripe"
+        let redirect = "/subscription"
+        let cardHolderFirstNameDiv = document.getElementById("firstName");
+        let cardHolderLastNameDiv = document.getElementById("lastName");
 
-        let cardHolderFirstNameDiv = document.getElementById("subscription_payment_firstname");
-        let cardHolderLastNameDiv = document.getElementById("subscription_payment_lastname");
 
-
+        // objets de la page
+        let cardHolderName = cardHolderFirstNameDiv.value + ' ' + cardHolderLastNameDiv.value; 
+        let cardButton = document.getElementById("card-button")
         let clientSecretDiv = document.getElementById("client-secret")
         let clientSecret = clientSecretDiv.dataset.clientSecret;
-        console.log("client secret :", clientSecret);
-        
-        var subscriptionForm = document.getElementById('subscription-form');
-
 
         let card = elements.create("card")
         card.mount("#card-elements")
@@ -205,20 +189,14 @@
             }
         })
 
-        const cardButton = document.querySelector('.card-button');
+        
         cardButton.addEventListener('click', (e) => {
-            e.preventDefault(); 
- 
-            let cardHolderName = cardHolderFirstNameDiv.value + ' ' + cardHolderLastNameDiv.value; 
-            console.log("client secret" , clientSecret)
             stripe.handleCardPayment(
                 
                 clientSecret, card,  {
                     payment_method_data: {
                         billing_details : { name: cardHolderName}
-                        
                     }
-                    
                 }
             
             ).then((result) => {
@@ -226,17 +204,17 @@
                 if(result.error) {
                     document.getElementById("errors").innerText = result.error.message 
                  }else{
-                    //redirection
-                    subscriptionForm.submit();
+                    document.getElementById("myForm").submit();
+                    //document.location.href = redirect
                 }
-                
             })
         })
-
     }
 </script>
 
-<script src="https://js.stripe.com/v3/"></script>
+
+
+{# <script src="https://js.stripe.com/v3/"></script> #}
 
 
 {% endblock %}

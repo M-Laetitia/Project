@@ -737,6 +737,19 @@ html {
   min-height: 7rem;
   resize: vertical;
 }
+.create-event .admin-form .btn-edit-event {
+  width: 10rem;
+}
+.create-event .event-images div {
+  background-color: grey;
+  width: 25rem;
+  height: 15rem;
+  overflow: hidden;
+}
+.create-event .event-images div img {
+  height: 100%;
+  width: 100%;
+}
 
 #dashboard-create-workshop .add-another-collection-widget {
   border: 1px solid #eeaf42;

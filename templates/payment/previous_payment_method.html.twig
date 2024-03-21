@@ -1,0 +1,240 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment - MOSAIC{% endblock %}
+{% block meta %}Complete your transaction securely with Stripe on MOSAIC. Enjoy hassle-free payments for memberships, event registrations, workshops, and studio rentals. Join our community and unlock exclusive benefits. Make your payment now!{% endblock %}
+
+{% block javascripts %}
+
+	<script src="https://js.stripe.com/v3/"></script>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">subscription / payment</h1>
+        <div class="subtitle">
+            <p class="banner-text">Subtitle</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #151515;
+        position: relative;
+
+    }
+
+    body::after {
+        content: "";
+        background-color: #151515;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        visibility: hidden;
+        opacity: 0.8;
+    }
+
+    body.has-after::after {
+        visibility: visible; 
+    }
+
+
+</style>
+
+<div id="test02">
+    <div class="breadcrumb breadcrumb-light">
+        <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_subscription') }}">All Subscriptions</a> >{{subscriptionType}}
+    </div>
+    
+    
+    <section class="content register-user " id="payment-subscription">
+        <div id="register-container">
+            <div id="separator"></div>
+    
+            <div class="left-register" id="l-payment"></div>
+    
+            <div class="right-register" id="r-payment">
+                <div id="detail-subscription-payment">
+                    <h2>Proceed to payment<span class="underscore">_</span></h2>
+      
+                    <div id="details">
+                        <p>Subscription choosen :</p>
+                        <p>Type : {{subscriptionType}}</p>
+                        <p>Price : {{subscriptionType.price}} euros</p>
+                        <p>Duration : {{subscriptionType.duration}} days</p>
+                    </div>
+                        
+                </div>
+    
+                {# <p>Make the payment</p> #}
+                <div id="form-register">
+    
+                {# changer nom id #}
+                <div id="client-secret" data-client-secret="{{ clientSecret }}"></div>
+    
+                {{ form_start(formSubscriptionPayment, {'attr': {'id': 'subscription-form'}}) }}
+                        {{ form_errors(formSubscriptionPayment)}}
+                        {{ form_row(formSubscriptionPayment.firstname)}}
+                        {{ form_row(formSubscriptionPayment.lastname)}}
+                        {{ form_row(formSubscriptionPayment.address)}}
+                        <div id="card-elements" class="stripe-card-elements"></div>
+                        <div id="card-errors" role="alter"></div>
+                        {{ form_row(formSubscriptionPayment.Subscribe) }}
+
+
+                        {# <div>
+                            <button style="display: block;" class="btn btn6" id="confirmation-payement-btn">Subscribe</button>
+                        </div>
+
+                        <div style="display:none;" id="confirmation-modal-payment">
+
+                            <p>Are you sure you want to proceed with the payment? Please confirm your order details before finalising your purchase.
+                            </p>
+
+                            <div id="action-btn">
+                                
+                                <div id="confirm-btn">
+                                    <i class=" icon-confirm fa-solid fa-check "></i>
+                                    
+                                </div>
+
+                                <div id="cancel-btn">
+                                    <i class="fa-solid fa-xmark "></i>
+                                    <p style="cursor: pointer;" class="icon-cancel">cancel</p>
+                                </div>
+                            </div>
+                        </div> #}
+
+                        
+                {{ form_end(formSubscriptionPayment)}}
+                </div>
+            </div>
+
+    
+            {# <button id="deleteButton">Delete File</button> #}
+            
+
+    </section>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://js.stripe.com/v3/"></script>
+
+{# <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> #}
+
+<script>
+
+    /*const deleteButton = document.getElementById('deleteButton');
+
+    deleteButton.addEventListener('click', () => {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
+      });
+    });*/
+
+    
+
+    // add overlay on body to hide page content for confirmation modale
+    $(document).ready(function() {
+        
+         // Lorsque le bouton est cliqué, afficher l'overlay et la fenêtre modale
+         $('#confirmation-payement-btn').click(function() {
+            $('body').addClass('has-after');
+            $('#confirmation-modal-payment').css('visibility', 'visible');
+        });
+
+       
+        // Lorsque le bouton d'annulation est cliqué, masquer l'overlay et la fenêtre modale
+        $('.icon-cancel').click(function() {
+            $('body').removeClass('has-after');
+            $('#confirmation-modal-payment').css('visibility', 'hidden');
+        });
+
+      });
+
+      const inputs = document.querySelectorAll('input');
+      console.log("check", inputs)
+      const value = inputs.value;
+      console.log("check2", value)
+
+    window.onload = () => {
+
+        let stripe = Stripe('pk_test_51OOfxmFInhPlxmzGb5udco2DCaiaaH3PlKcFjVz4GK1xy7qYYFUkzDpkfoyBfhF8e70X3n6x5JpZL616aIrL5VvN0095RLpWkN')
+
+        let elements = stripe.elements();
+        let redirect = "/home/test_stripe"
+        let cardHolderFirstNameDiv = document.getElementById("subscription_payment_firstname");
+        let cardHolderLastNameDiv = document.getElementById("subscription_payment_lastname");
+
+        let clientSecretDiv = document.getElementById("client-secret")
+        let clientSecret = clientSecretDiv.dataset.clientSecret;
+        console.log("client secret :", clientSecret);
+        var subscriptionForm = document.getElementById('subscription-form');
+        
+
+        let card = elements.create("card")
+        card.mount("#card-elements")
+
+        card.addEventListener("change", (e) => {
+            let displayError = document.getElementById('card-errors')
+            if(e.error) {
+                displayError.textContent = e.error.message
+            } else {
+                displayError.textContent = "";
+            }
+        })
+
+        const cardButton = document.querySelector('.card-button');
+        cardButton.addEventListener('click', (e) => {
+            
+ 
+            let cardHolderName = cardHolderFirstNameDiv.value + ' ' + cardHolderLastNameDiv.value; 
+            console.log("client secret" , clientSecret)
+            stripe.handleCardPayment(
+                
+                clientSecret, card,  {
+                    payment_method_data: {
+                        billing_details : { name: cardHolderName}
+                    }
+                }
+            
+            ).then((result) => {
+                // vérifier si erreur ou pas
+                if(result.error) {
+                    document.getElementById("errors").innerText = result.error.message 
+                 }else{
+                    //redirection
+                    subscriptionForm.submit();
+                }
+            })
+        })
+    }
+</script>
+
+
+
+{# <script src="https://js.stripe.com/v3/"></script> #}
+
+
+{% endblock %}

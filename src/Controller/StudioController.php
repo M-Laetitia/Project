@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Studio;
 use App\Entity\Timeslot;
+use App\Form\StudioType;
 use App\Form\TimeSlotType;
 use App\Service\MailerService;
+use App\Service\PictureService;
 use App\Entity\WorkshopRegistration;
 use App\Repository\StudioRepository;
+use App\Repository\PictureRepository;
 use App\Repository\TimeslotRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -283,6 +286,51 @@ class StudioController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('show_studio_admin', ['id' => $studioId]);
+    }
+
+    // ^ new/edit event (admin)
+    #[Route('/dashboard/studio/new', name:'new_studio', priority:1)]
+    #[Route('/dashboard/studio/{slug}/edit', name:'edit_studio')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function new_studio(Studio $studio = null, Request $request, PictureRepository $pictureRepo, PictureService $pictureService, EntityManagerInterface $entityManager ) : Response
+    {
+        $isNewStudio = !$studio;
+
+        if(!$studio) {
+            $studio = new Studio();
+        }
+
+        $form= $this->createForm(StudioType::class, $studio);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) {
+
+            // Retrieve the data entered in the text field from the request
+            $inputEquipment =  $form->get('equipment')->getData();
+            // Split the data using comma as delimiter to obtain a list of words
+            $words = explode(',', $inputEquipment);
+            // Remove spaces before and after each word
+            $words = array_map('trim', $words);
+
+            
+            $studio = $form->getData();
+            $studio->setSlug($studio->generateSlug());
+            $studio->setEquipment($words);
+
+            $entityManager->persist($studio);
+            $entityManager->flush();
+
+            $message = $isNewStudio ? 'Studio created successfully!' : 'Studio edited successfully!';
+            $this->addFlash('success', $message);
+            return $this->redirectToRoute('edit_studio', ['slug' => $studio->getSlug()]);
+
+        }
+
+        return $this->render('dashboard/newStudio.html.twig', [
+            'studio' =>$studio,
+            'edit' =>$studio->getId(),
+            'formAddStudio' => $form,
+        ]);
     }
 
  

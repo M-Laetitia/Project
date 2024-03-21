@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Area;
 use App\Entity\User;
 use App\Form\ExpositionType;
+use App\Form\PictureFormType;
 use App\Service\MailerService;
 use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
 use App\Form\AreaParticipationType;
 use App\Form\ExpositionProposalType;
+use App\Repository\PictureRepository;
 use App\Controller\ExpositionController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -266,19 +268,37 @@ class ExpositionController extends AbstractController
     #[Route('/dashboard/expo/new', name:'new_expo' , priority:1)]
     #[Route('/dashboard/expo/{slug}/edit', name:'edit_expo')]
     #[IsGranted("ROLE_ADMIN")]
-    public function new_edit_Expo(Area $area = null, Request $request, EntityManagerInterface $entityManager ) : Response
+    public function new_edit_Expo(Area $area = null, Request $request, PictureRepository $pictureRepo, EntityManagerInterface $entityManager ) : Response
     {
-
-    
         $isNewEvent = !$area;
 
-        
         if(!$area) {
             $area = new Area();
         }
 
+        $maxImagesAllowed = 12;
+        $areaId = $area->getId();
+        $numberOfImages = count($pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']));
+        $canUploadImage = $numberOfImages < $maxImagesAllowed;
+
+        $bannerExists = null;
+        $existingBanner = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'banner']); 
+        if ($existingBanner) {
+            $bannerExists =  $existingBanner->getPath();
+        }
+
+        $previewExists = null;
+        $existingPreview = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'preview']); 
+        if ($existingPreview) {
+            $previewExists =  $existingPreview->getPath();
+        }
+
+
         $form= $this->createForm(ExpositionType::class, $area);
         $form->handleRequest($request);
+
+        $formPicture = $this->createForm(PictureFormType::class);      
+        $formPicture->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
 
@@ -288,15 +308,163 @@ class ExpositionController extends AbstractController
             $area->setSlug($area->generateSlug());
             $entityManager->flush();
 
+            $areaId = $area->getId();
+            $bannerDirectory = 'images/activity/exposition/' . $areaId . '/banner';
+
+            // ^ BANNER IMAGE
+            $bannerFile = $form->get('banner')->getData();
+            $bannerTitle = $form->get('titleBanner')->getData();
+            $bannerAlt = $form->get('altDescriptionBanner')->getData();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            
+
+            if ($bannerFile) {
+                $oldBanner = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'banner']); 
+                if (!in_array($bannerFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('new_expo');
+                }
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($bannerFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('new_expo');
+                }
+
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                if ($oldBanner) {
+                    $oldBannerName = $oldBanner->getPath();
+                    $bannerDirectory = 'images/activity/exposition/' . $areaId . '/banner';
+                    $absoluteOldBannerPath = $this->getParameter('kernel.project_dir') . '/public/' . $bannerDirectory . '/' . $oldBannerName;
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldBannerPath)) {
+                        $filesystem->remove($absoluteOldBannerPath);
+                    }
+                    $oldBanner->setPath($newFilename);
+
+                } else {
+                    // Si aucune bannière existante, créer le dossier "banner"
+
+                $filesystem = new Filesystem();
+                $filesystem->mkdir($bannerDirectory);
+
+                $picture = new Picture();
+                $picture->setTitle($bannerTitle);
+                $picture->setAltDescription($bannerAlt);
+                $picture->setArea($area);
+                $picture->setType('banner');
+                $picture->setPath($newFilename);
+                $entityManager->persist($picture);
+                }
+                
+                // Déplacer la nouvelle image vers le dossier "banner"
+                $bannerFile->move($bannerDirectory, $newFilename);
+                $entityManager->flush();
+            }
+
+            // ^ PREVIEW IMAGE
+
+            $previewFile = $form->get('preview')->getData();
+            $previewTitle = $form->get('titlePreview')->getData();
+            $previewAlt = $form->get('altDescriptionPreview')->getData();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            if ($previewFile) {
+                $oldPreview = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'preview']); 
+                if (!in_array($previewFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('edit_expo', ['slug' => $area->getSlug()]);
+                }
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($previewFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('new_expo');
+                }
+
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                $areaId = $area->getId();
+
+                if ($oldPreview) {
+                    $oldPreviewName = $oldPreview->getPath();
+                    $previewDirectory = 'images/activity/exoosition/' . $areaId . '/banner';
+                    $absoluteOldPreviewPath = $this->getParameter('kernel.project_dir') . '/public/' . $previewDirectory . '/' . $oldPreviewName;
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldPreviewPath)) {
+                        $filesystem->remove($absoluteOldPreviewPath);
+                    }
+                    $oldPreview->setPath($newFilename);
+
+                } else {
+
+
+                $filesystem = new Filesystem();
+                $filesystem->mkdir($bannerDirectory);
+
+                $picture = new Picture();
+                $picture->setTitle($previewTitle);
+                $picture->setAltDescription($previewAlt);
+                $picture->setArea($area);
+                $picture->setType('preview');
+                $picture->setPath($newFilename);
+                $entityManager->persist($picture);
+                }
+                
+                // Déplacer la nouvelle image vers le dossier "banner"
+                $previewFile->move($bannerDirectory, $newFilename);
+                $entityManager->flush();
+            }
+
+
+
             $message = $isNewEvent ? 'Exposition created successfully!' : 'Exposition edited successfully!';
             $this->addFlash('success', $message);
-            return $this->redirectToRoute('app_dashboard');
+            return $this->redirectToRoute('edit_exposition', ['slug' => $area->getSlug()]);
         }
+
+         // ^ GALLERY IMAGES
+         $picturesGallery = $pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']); 
+
+         $folder = $area->getName();
+         
+         
+         if ($formPicture->isSubmitted() && $formPicture->isValid() && $numberOfImages < $maxImagesAllowed ) {
+             $pictureFile = $formPicture->get('picture')->getData();
+              // on appelle le service d'ajout
+             if ($pictureFile !== null) 
+             {
+                 $file = $pictureService->add($pictureFile, $folder, 500, 500);
+                 $img = new Picture();
+                 $img = $formPicture->getData();
+                 $img->setPath($file);
+                 $img->setType('picture');
+                 $img->setArea($area);
+                 $entityManager->persist($img);
+                 $entityManager->flush();   
+                 
+                 $this->addFlash('success', 'Your picture has been successfully added');
+                 return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
+             }           
+         
+
+           } else {
+               // $this->addFlash('error', 'Maximum image limit reached. Please delete some before adding more.');
+               // return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+           }
+
 
     
         return $this->render('dashboard/newExpo.html.twig', [
             'formAddExpo' => $form,
             'edit' =>$area->getId(),
+            'maxImagesAllowed' => $maxImagesAllowed,
+            'canUploadImage' => $canUploadImage,
+            'bannerExists' => $bannerExists,
+            'picturesGallery' => $picturesGallery,
+            'previewExists' => $previewExists,
+            'formAddPictureGallery' => $formPicture,
+
+
         ]);
     }
 

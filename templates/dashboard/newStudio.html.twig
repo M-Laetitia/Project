@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if edit %}
+        Edit Studio
+    {% else %}
+        Add Studio
+    {% endif %}
+{% endblock %}
+
+{% block meta %}add/edit studio{% endblock %}
+
+{% block body %}
+
+    <div class="banner">
+        <div class="content">
+            <p class="banner-title">Title</p>
+            <div class="subtitle">
+                <p class="banner-text">Subtitle</p>
+                <div class="underscore-blink"> </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb breadcrumb-dark">
+        <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
+    </div>
+   
+    <section class="content dashboard create-event" id="dashboard-create-expo">
+        {% if edit %}
+            <h1 class="text-n1">Edit a Studio<span>_</span></h1>
+        {% else %}
+            <h1 class="text-n1">Create a Studio<span>_</span></h1>
+        {% endif %}
+
+
+        
+        <div class="admin-form">
+                
+            {{ form_start(formAddStudio) }}
+        
+                {{ form_row(formAddStudio.name) }}
+
+                <div class="description">
+                    {{ form_row(formAddStudio.description) }}
+                </div>
+                <div class="detail">
+                    {{ form_row(formAddStudio.detail) }}
+                </div>
+
+                {{ form_row(formAddStudio.nbRooms) }}
+                {{ form_row(formAddStudio.title) }}
+
+                Equipement list:
+                <ul>
+                    {% if studio.equipment is defined %}
+                {% for equipmentItem in studio.equipment %}
+                    <li>{{ equipmentItem }}</li>
+                {% endfor %}
+            {% endif %}
+                </ul>
+                
+
+                <p>Enter equipment separated by a comma</p>
+
+                {{ form_row(formAddStudio.equipment) }}
+                
+    
+                <div>
+                    {% if  edit %}
+                        <button id="btn-save-banner" class="btn btn6 btn-edit-event " type="submit">Edit</button>
+                    {% else %}
+                        <button id="btn-save-banner" class="btn btn6  btn-edit-event" type="submit">Create</button>
+                    {% endif %}
+
+                </div>
+                
+                {# {{ form_row(formAddEvent.Create, { 'attr' : { 'class': 'btn btn6' } })}} #}
+        
+            {{ form_end(formAddStudio) }}
+
+            <p class="text-n2">EVENT GALLERY</p>
+
+        </div>
+
+
+        
+
+    </section>
+
+{% endblock %}

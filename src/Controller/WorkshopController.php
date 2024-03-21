@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Workshop;
 use App\Form\WorkshopType;
+use App\Form\PictureFormType;
 use App\Repository\UserRepository;
+use App\Repository\PictureRepository;
 use App\Repository\WorkshopRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,15 +71,34 @@ class WorkshopController extends AbstractController
     // ^ Create/Edit workshop (admin)
     #[Route('/dashboard/workshop/new/', name:'new_workshop' , priority:1)]
     #[Route('/dashboard/workshop/{slug}/edit', name:'edit_workshop')]
-    public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager ) : Response
+    public function new_edit(Workshop $workshop = null, Request $request, UserRepository $userRepository, PictureRepository $pictureRepo, EntityManagerInterface $entityManager ) : Response
     {
 
         // Fetch users with the specified role
         $users = $userRepository->findUsersbyRole("ROLE_SUPERVISOR");
         
         // dump($users);die;
+        $isNewEvent = !$workshop;
         if(!$workshop) {
             $workshop = new Workshop();
+        }
+
+        $maxImagesAllowed = 12;
+        $workshopId = $workshop->getId();
+        $numberOfImages = count($pictureRepo->findBy(['workshop' => $workshopId, 'type' => 'picture']));
+        $canUploadImage = $numberOfImages < $maxImagesAllowed;
+
+
+        $bannerExists = null;
+        $existingBanner = $pictureRepo->findOneBy(['workshop' => $workshopId, 'type' => 'banner']); 
+        if ($existingBanner) {
+            $bannerExists =  $existingBanner->getPath();
+        }
+
+        $previewExists = null;
+        $existingPreview = $pictureRepo->findOneBy(['workshop' => $workshopId, 'type' => 'preview']); 
+        if ($existingPreview) {
+            $previewExists =  $existingPreview->getPath();
         }
 
         $form = $this->createForm(WorkshopType::class, $workshop, [
@@ -86,16 +107,11 @@ class WorkshopController extends AbstractController
 
         $form->handleRequest($request);
 
+        $formPicture = $this->createForm(PictureFormType::class);      
+        $formPicture->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid() ) {
             
-            // dump($workshop);die;
-
-            // // Transform the workshop data to Workshop entity
-            // $workshopId = $data['workshop'];
-            // $workshop = $this->entityManager->getRepository(Workshop::class)->find($workshopId);
-
-            // // Set the Workshop entity back to the form data
-            // $data['workshop'] = $workshop;
 
             $workshop->setStatus('OPEN');
             $workshop = $form->getData();
@@ -103,14 +119,165 @@ class WorkshopController extends AbstractController
             $entityManager->persist($workshop);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard');
+            $workshopId = $workshop->getId();
+            $bannerDirectory = 'images/activity/workshop/' . $workshopId . '/banner';
+
+
+            // ^ BANNER IMAGE
+            $bannerFile = $form->get('banner')->getData();
+            $bannerTitle = $form->get('titleBanner')->getData();
+            $bannerAlt = $form->get('altDescriptionBanner')->getData();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            
+
+            if ($bannerFile) {
+                $oldBanner = $pictureRepo->findOneBy(['workshop' => $workshopId, 'type' => 'banner']); 
+                if (!in_array($bannerFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('new_workshop');
+                }
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($bannerFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('new_workshop');
+                }
+
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                if ($oldBanner) {
+                    $oldBannerName = $oldBanner->getPath();
+                    $bannerDirectory = 'images/activity/workshop/' . $workshopId . '/banner';
+                    $absoluteOldBannerPath = $this->getParameter('kernel.project_dir') . '/public/' . $bannerDirectory . '/' . $oldBannerName;
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldBannerPath)) {
+                        $filesystem->remove($absoluteOldBannerPath);
+                    }
+                    $oldBanner->setPath($newFilename);
+
+                } else {
+                    // Si aucune bannière existante, créer le dossier "banner"
+
+                $filesystem = new Filesystem();
+                $filesystem->mkdir($bannerDirectory);
+
+                $picture = new Picture();
+                $picture->setTitle($bannerTitle);
+                $picture->setAltDescription($bannerAlt);
+                $picture->setWorkshop($workshop);
+                $picture->setType('banner');
+                $picture->setPath($newFilename);
+                $entityManager->persist($picture);
+                }
+                
+                // Déplacer la nouvelle image vers le dossier "banner"
+                $bannerFile->move($bannerDirectory, $newFilename);
+                $entityManager->flush();
+            }
+
+            // ^ PREVIEW IMAGE
+
+            $previewFile = $form->get('preview')->getData();
+            $previewTitle = $form->get('titlePreview')->getData();
+            $previewAlt = $form->get('altDescriptionPreview')->getData();
+            $allowedMimeTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+            if ($previewFile) {
+                $oldPreview = $pictureRepo->findOneBy(['workshop' => $workshopId, 'type' => 'preview']); 
+                if (!in_array($previewFile->getMimeType(), $allowedMimeTypes)) {
+                    $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
+                    return $this->redirectToRoute('edit_workshop', ['slug' => $workshop->getSlug()]);
+                }
+                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                if ($previewFile->getSize() > $maxSize) {
+                    $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
+                    return $this->redirectToRoute('new_workshop');
+                }
+
+                $newFilename = md5(uniqid(rand(), true)) . '.webp';
+                $workshopId = $workshop->getId();
+
+                if ($oldPreview) {
+                    $oldPreviewName = $oldPreview->getPath();
+                    $previewDirectory = 'images/activity/workshop/' . $workshopId . '/banner';
+                    $absoluteOldPreviewPath = $this->getParameter('kernel.project_dir') . '/public/' . $previewDirectory . '/' . $oldPreviewName;
+
+                    $filesystem = new Filesystem();
+                    if ($filesystem->exists($absoluteOldPreviewPath)) {
+                        $filesystem->remove($absoluteOldPreviewPath);
+                    }
+                    $oldPreview->setPath($newFilename);
+
+                } else {
+
+
+                $filesystem = new Filesystem();
+                $filesystem->mkdir($bannerDirectory);
+
+                $picture = new Picture();
+                $picture->setTitle($previewTitle);
+                $picture->setAltDescription($previewAlt);
+                $picture->setWorkshop($workshop);
+                $picture->setType('preview');
+                $picture->setPath($newFilename);
+                $entityManager->persist($picture);
+                }
+                
+                // Déplacer la nouvelle image vers le dossier "banner"
+                $previewFile->move($bannerDirectory, $newFilename);
+                $entityManager->flush();
+            }
+
+          
+
+            $message = $isNewEvent ? 'Workshop created successfully!' : 'Workshop edited successfully!';
+            $this->addFlash('success', $message);
+            return $this->redirectToRoute('edit_workshop', ['slug' => $workshop->getSlug()]);
         }
+
+          // ^ GALLERY IMAGES
+          $picturesGallery = $pictureRepo->findBy(['workshop' => $workshopId, 'type' => 'picture']); 
+
+          $folder = $workshop->getName();
+          
+          
+          if ($formPicture->isSubmitted() && $formPicture->isValid() && $numberOfImages < $maxImagesAllowed ) {
+              $pictureFile = $formPicture->get('picture')->getData();
+               // on appelle le service d'ajout
+              if ($pictureFile !== null) 
+              {
+                  $file = $pictureService->add($pictureFile, $folder, 500, 500);
+                  $img = new Picture();
+                  $img = $formPicture->getData();
+                  $img->setPath($file);
+                  $img->setType('picture');
+                  $img->setWorkshop($workshop);
+                  $entityManager->persist($img);
+                  $entityManager->flush();   
+                  
+                  $this->addFlash('success', 'Your picture has been successfully added');
+                  return $this->redirectToRoute('edit_workshop', ['slug' => $workshop->getSlug()]);
+              }           
+          
+
+            } else {
+                // $this->addFlash('error', 'Maximum image limit reached. Please delete some before adding more.');
+                // return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+            }
+
 
     
         return $this->render('dashboard/newWorkshop.html.twig', [
             'form' => $form,
             'edit' =>$workshop->getId(),
             'workshopId' => $workshop->getId(),
+
+            'maxImagesAllowed' => $maxImagesAllowed,
+            'canUploadImage' => $canUploadImage,
+            'formAddPictureGallery' => $formPicture,
+            'picturesGallery' => $picturesGallery,
+
+            'bannerExists' => $bannerExists,
+            'previewExists' => $previewExists,
            
         ]);
     }

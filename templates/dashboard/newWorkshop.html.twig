@@ -53,6 +53,20 @@
                 {{ form_row(form.user) }}
 
                 <p class="text-n2">IMAGE PREVIEW</p>
+
+                {% if edit %}
+                <div class="event-images">
+                    {% if previewExists %}
+                        <div>
+                            <img  src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ previewExists ~ '') }}" alt="Banner">
+                        </div>
+                    {% else %}
+                        <div>
+                            <!-- Div sans image -->
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
                 
                 {{ form_row(form.titlePreview) }}
                 {{ form_row(form.altDescriptionPreview) }}
@@ -60,6 +74,21 @@
         
         
                 <p class="text-n2">IMAGE BANNER</p>
+
+
+                {% if edit %}
+                <div class="event-images">
+                    {% if bannerExists %}
+                        <div>
+                            <img src="{{ asset('images/activity/event/' ~ area.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+                        </div>
+                    {% else %}
+                        <div>
+                            <!-- Div sans image -->
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
                 
                 {{ form_row(form.titleBanner) }}
                 {{ form_row(form.altDescriptionBanner) }}
@@ -100,19 +129,28 @@
             
                 {# empêche l'apparition d'une légende "programmes", si la collection est vide (en cas de création d'une nouvelle session) #}
                 {% do form.programmes.setRendered %}
+
+                <div>
+                    {% if  edit %}
+                        <button id="btn-save-banner" class="btn btn6 btn-edit-event " type="submit">Edit</button>
+                    {% else %}
+                        <button id="btn-save-banner" class="btn btn6  btn-edit-event" type="submit">Create</button>
+                    {% endif %}
+
+                </div>
         
-                {{ form_row(form.Create, { 'attr' : { 'class': 'btn btn6' } })}}
+                {# {{ form_row(form.Create, { 'attr' : { 'class': 'btn btn6' } })}} #}
         
             {{ form_end(form) }}
         </div>
 
         <div class="archived-gallery">
 
-            {# {% for picture in picturesGallery  %}
+            {% for picture in picturesGallery  %}
             <div id="gallery-img">
             
                     <div id="selectedImage">
-                        <img src="{{asset('images/artists/' ~ area.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+                        <img src="{{asset('images/artists/' ~ workshop.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
             
                             <div class="actions">
                                 <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
@@ -121,32 +159,32 @@
                     </div>
             
             </div>
-            {% endfor %} #}
+            {% endfor %}
+            </div>
+            <div class="add-img-gallery-form">
+                
+                {% if edit %}
+    
+                <h2>add images: </h2>
+                <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
+                {% if canUploadImage %}
+                    {{ form_start(formAddPictureGallery) }}
+                    {{ form_errors(formAddPictureGallery) }}
+                    {{ form_row(formAddPictureGallery.picture) }}
+                    {{ form_row(formAddPictureGallery.title) }}
+                    {{ form_row(formAddPictureGallery.altDescription) }}
+                    <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
+                    {{ form_end(formAddPictureGallery) }}
+    
+                {% else %}
+                    <p>Maximum image limit reached. Please delete some before adding more.</p>
+                {% endif %}
+    
+                {% endif %}
             </div>
 
         </div>
 
-        <div class="add-img-gallery-form">
-            
-            {% if edit %}
-
-            <h2>ajout d'images</h2>
-            <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
-            {% if canUploadImage %}
-                {{ form_start(formAddPictureGallery) }}
-                {{ form_errors(formAddPictureGallery) }}
-                {{ form_row(formAddPictureGallery.picture) }}
-                {{ form_row(formAddPictureGallery.title) }}
-                {{ form_row(formAddPictureGallery.altDescription) }}
-                <button class="btn btn6 btn-artist-profil" type="submit">ADD</button>
-                {{ form_end(formAddPictureGallery) }}
-
-            {% else %}
-                <p>Maximum image limit reached. Please delete some before adding more.</p>
-            {% endif %}
-
-            {% endif %}
-        </div>
 
 
     </section>

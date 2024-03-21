@@ -167,8 +167,6 @@ class WorkshopType extends AbstractType
             ])
 
 
-
-
             ->add('banner', FileType::class, [
                 'label' => false,
                 'mapped' => false,
@@ -207,9 +205,7 @@ class WorkshopType extends AbstractType
             ])
 
 
-
-
-            ->add('Create', SubmitType::class);
+            // ->add('Create', SubmitType::class);
         ;
     }
 

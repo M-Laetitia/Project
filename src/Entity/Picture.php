@@ -41,6 +41,9 @@ class Picture
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     private ?Studio $studio = null;
 
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Workshop $workshop = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +141,18 @@ class Picture
     public function setStudio(?Studio $studio): static
     {
         $this->studio = $studio;
+
+        return $this;
+    }
+
+    public function getWorkshop(): ?Workshop
+    {
+        return $this->workshop;
+    }
+
+    public function setWorkshop(?Workshop $workshop): static
+    {
+        $this->workshop = $workshop;
 
         return $this;
     }

@@ -97,12 +97,16 @@ class Workshop
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $quote = null;
 
+    #[ORM\OneToMany(mappedBy: 'workshop', targetEntity: Picture::class)]
+    private Collection $pictures;
+
 
 
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
         $this->workshopRegistrations = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function __toString()
@@ -319,6 +323,36 @@ class Workshop
     public function setQuote(?string $quote): static
     {
         $this->quote = $quote;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getWorkshop() === $this) {
+                $picture->setWorkshop(null);
+            }
+        }
 
         return $this;
     }

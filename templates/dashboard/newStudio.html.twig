@@ -64,6 +64,46 @@
                 <p>Enter equipment separated by a comma</p>
 
                 {{ form_row(formAddStudio.equipment) }}
+
+                <p class="text-n2">IMAGE PREVIEW</p>
+                {% if edit %}
+                <div class="event-images">
+                    {% if previewExists %}
+                        <div>
+                            <img  src="{{ asset('images/activity/event/' ~ studio.id ~ '/banner/' ~ previewExists ~ '') }}" alt="Banner">
+                        </div>
+                    {% else %}
+                        <div>
+                            <!-- Div sans image -->
+                        </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {{ form_row(formAddStudio.titlePreview) }}
+                {{ form_row(formAddStudio.altDescriptionPreview) }}
+                {{ form_row(formAddStudio.preview) }}
+
+                <p class="text-n2">IMAGE BANNER</p>
+
+                    {% if edit %}
+                    <div class="event-images">
+                        {% if bannerExists %}
+                            <div>
+                                <img src="{{ asset('images/activity/event/' ~ studio.id ~ '/banner/' ~ bannerExists ~ '') }}" alt="Banner">
+                            </div>
+                        {% else %}
+                            <div>
+                                <!-- Div sans image -->
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+
+                    
+                    
+                    {{ form_row(formAddStudio.titleBanner) }}
+                    {{ form_row(formAddStudio.altDescriptionBanner) }}
+                    {{ form_row(formAddStudio.banner) }}
                 
     
                 <div>
@@ -79,11 +119,49 @@
         
             {{ form_end(formAddStudio) }}
 
-            <p class="text-n2">EVENT GALLERY</p>
+            
 
         </div>
 
+        {% if edit %}
+        <p class="text-n2">STUDIO GALLERY</p>
+        {% endif %}
 
+        <div class="sections-artist">
+            <div id="gallery-artist">
+                {% for picture in picturesGallery  %}
+                    <div id="gallery-img">
+                        <img src="{{asset('images/artists/' ~ studio.name ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
+                        <div class="actions">
+                            <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
+        
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="add-img-gallery-form">
+            
+            {% if edit %}
+
+            <h2>Add images</h2>
+            <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
+            {% if canUploadImage %}
+                {{ form_start(formAddPictureGallery) }}
+                {{ form_errors(formAddPictureGallery) }}
+                {{ form_row(formAddPictureGallery.picture) }}
+                {{ form_row(formAddPictureGallery.title) }}
+                {{ form_row(formAddPictureGallery.altDescription) }}
+                <button class="btn btn6 btn-artist-profil" type="submit">Add</button>
+                {{ form_end(formAddPictureGallery) }}
+
+            {% else %}
+                <p>Maximum image limit reached. Please delete some before adding more.</p>
+            {% endif %}
+
+            {% endif %}
+        </div>
         
 
     </section>

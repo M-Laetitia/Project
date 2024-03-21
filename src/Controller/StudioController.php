@@ -6,6 +6,7 @@ use App\Entity\Studio;
 use App\Entity\Timeslot;
 use App\Form\StudioType;
 use App\Form\TimeSlotType;
+use App\Form\PictureFormType;
 use App\Service\MailerService;
 use App\Service\PictureService;
 use App\Entity\WorkshopRegistration;
@@ -300,8 +301,30 @@ class StudioController extends AbstractController
             $studio = new Studio();
         }
 
+        $maxImagesAllowed = 12;
+        $studioId = $studio->getId();
+        $numberOfImages = count($pictureRepo->findBy(['studio' => $studioId, 'type' => 'picture']));
+        $canUploadImage = $numberOfImages < $maxImagesAllowed;
+
+
+        $bannerExists = null;
+        $existingBanner = $pictureRepo->findOneBy(['studio' => $studioId, 'type' => 'banner']); 
+        if ($existingBanner) {
+            $bannerExists =  $existingBanner->getPath();
+        }
+
+        $previewExists = null;
+        $existingPreview = $pictureRepo->findOneBy(['studio' => $studioId, 'type' => 'preview']); 
+        if ($existingPreview) {
+            $previewExists =  $existingPreview->getPath();
+        }
+
         $form= $this->createForm(StudioType::class, $studio);
         $form->handleRequest($request);
+
+        $formPicture = $this->createForm(PictureFormType::class);      
+        $formPicture->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid() ) {
 
@@ -326,10 +349,48 @@ class StudioController extends AbstractController
 
         }
 
+         // ^ GALLERY IMAGES
+         $picturesGallery = $pictureRepo->findBy(['area' => $studioId, 'type' => 'picture']); 
+
+         $folder = $studio->getName();
+         
+         
+         if ($formPicture->isSubmitted() && $formPicture->isValid() && $numberOfImages < $maxImagesAllowed ) {
+             $pictureFile = $formPicture->get('picture')->getData();
+              // on appelle le service d'ajout
+             if ($pictureFile !== null) 
+             {
+                 $file = $pictureService->add($pictureFile, $folder, 500, 500);
+                 $img = new Picture();
+                 $img = $formPicture->getData();
+                 $img->setPath($file);
+                 $img->setType('picture');
+                 $img->setStudio($studio);
+                 $entityManager->persist($img);
+                 $entityManager->flush();   
+                 
+                 $this->addFlash('success', 'Your picture has been successfully added');
+                 return $this->redirectToRoute('edit_studio', ['slug' => $studio->getSlug()]);
+             }           
+         
+
+           } else {
+               // $this->addFlash('error', 'Maximum image limit reached. Please delete some before adding more.');
+               // return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
+           }
+
         return $this->render('dashboard/newStudio.html.twig', [
             'studio' =>$studio,
             'edit' =>$studio->getId(),
             'formAddStudio' => $form,
+
+            'maxImagesAllowed' => $maxImagesAllowed,
+            'canUploadImage' => $canUploadImage,
+            'formAddPictureGallery' => $formPicture,
+            'picturesGallery' => $picturesGallery,
+
+            'bannerExists' => $bannerExists,
+            'previewExists' => $previewExists,
         ]);
     }
 

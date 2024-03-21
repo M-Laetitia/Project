@@ -49,6 +49,7 @@
     <h2></h2>
     {% endif %}
 
+  
 
     {# FILTER / SEARCH #}
 
@@ -95,7 +96,7 @@
                                 {% for picture in artist.pictures %}
                                     {% if picture.type == 'work' and picture.IsSelected == 1 %}
                                             {% set hasSelectedPicture = true %}
-                                            <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}">
+                                            <a href="{{ path('show_artist', {slug: artist.slug}) }}">
                                                 <img src="{{ asset('images/artists/' ~ artist.id ~ '/works/mini/500x500-' ~ picture.path) }}" alt="{{ picture.altDescription }}">
                                             </a>
                                     
@@ -106,7 +107,7 @@
                                     {# Si pas d'image sélectionnée, afficher la 1° image dispo #}
                                     {% set firstWorkPicture = artist.pictures|filter(picture => picture.type == 'work')|first %}
                                     {% if firstWorkPicture is defined %}
-                                        <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}">
+                                        <a href="{{ path('show_artist', {slug: artist.slug}) }}">
                                             <img src="{{ asset('images/artists/' ~ artist.id ~ '/works/mini/500x500-' ~ firstWorkPicture.path) }}" alt="{{ firstWorkPicture.altDescription }}">
                                         </a>
                                     {% else %}
@@ -116,7 +117,7 @@
                                 {% else %}
                                     {# afficher image par défaut? #}
                             {% endif %}
-                            <a href="{{ path('show_artist', {slug: artist.slug, id: artist.id}) }}"><p id="text2">{{ artist }} <span>_</span> </p></a>
+                            <a href="{{ path('show_artist', {slug: artist.slug}) }}"><p id="text2">{{ artist }} <span>_</span> </p></a>
                         </div>
                     </figure>
 

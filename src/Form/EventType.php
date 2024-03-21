@@ -102,7 +102,7 @@ class EventType extends AbstractType
             ->add('preview', FileType::class, [
                 'label' => false,
                 'mapped' => false,
-                // 'required' => true, 
+                'required' => false, 
                 'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
                 'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
                 'constraints' => [
@@ -127,22 +127,20 @@ class EventType extends AbstractType
             ->add('titlePreview', TextType::class, [
                 'mapped' => false, 
                 'label' => 'Preview title : ',
-                // 'required' => true, 
+                'required' => false, 
             ])
 
             ->add('altDescriptionPreview', TextType::class, [
                 'mapped' => false, 
                 'label' => 'Preview little description  : ',
-                // 'required' => true, 
+                'required' => false, 
             ])
-
-
 
 
             ->add('banner', FileType::class, [
                 'label' => false,
                 'mapped' => false,
-                // 'required' => true, 
+                'required' => false, 
                 'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
                 'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
                 'constraints' => [
@@ -167,16 +165,16 @@ class EventType extends AbstractType
             ->add('titleBanner', TextType::class, [
                 'mapped' => false, 
                 'label' => 'Banner title : ',
-                // 'required' => true, 
+                'required' => false, 
             ])
 
             ->add('altDescriptionBanner', TextType::class, [
                 'mapped' => false, 
                 'label' => 'Banner little description : ',
-                // 'required' => true, 
+                'required' => false, 
             ])
 
-            ->add('Create', SubmitType::class);
+            // ->add('Create', SubmitType::class);
         ;
     }
 

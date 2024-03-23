@@ -46,7 +46,6 @@ class EventController extends AbstractController
                 'slug' => $event->getSlug(),
             ];
         }
-
         // $response = new JsonResponse($formattedEvents);
         // dump($formattedEvents);die;
 
@@ -311,10 +310,16 @@ class EventController extends AbstractController
     // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
     #[Route('archived/event/{slug}', name: 'show_archived_event')]
     #[Route('/event/{slug}', name: 'show_event')]
-    public function show(Area $area = null, User $user = null,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
+    public function show(Area $area = null, User $user = null, AreaRepository $areaRepository,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
 
-   
+        $area = $areaRepository->findOneBy(['slug' => $slug]);
+        // check if the area (= event) exists
+        if (!$area) {
+            // if not, redirect to the error page
+            return $this->render('error/error404.html.twig', [], new Response('', Response::HTTP_NOT_FOUND));
+        }
+
         $areaId = $area->getId();
 
         if($user = $security->getUser()) {
@@ -329,7 +334,7 @@ class EventController extends AbstractController
             ]);
 
         }
-        
+
         return $this->render('event/show.html.twig', [
             'area' => $area,
 

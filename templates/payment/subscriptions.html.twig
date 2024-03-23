@@ -108,38 +108,10 @@
 
 
 
-
-
-{# <section class="content" id="subscription-page">
-    {% for subscription in subscriptions %}
-        <div class="subscription-card" id="{{ subscription.id }}">
-            <h2 class="text-n2">{{ subscription.name }}</h2>
-
-            <div class="image">
-            </div>
-
-            <p class="">{{ subscription.price}} €</p>
-            <p>per {{ subscription.dueDate}}</p>
-
-            <div class="subscription-btn">
-                <div class="btn btn6">SUBSCRIBE</div>
-            </div>
-
-        </div>
-    {% endfor %}
-</section> #}
-
-
-
-
-
-
-  {# {% if user.subscriptions is not empty %} #}
   <script src= "{{ asset('js/gsap.min.js') }}"></script>
    
 <script>
     const subscriptionCards = document.querySelectorAll('.subscription-card');
-    //text-subscription
 
     gsap.from('#text-subscription', 1.2, {opacity: 0, delay: 0.6 });
     

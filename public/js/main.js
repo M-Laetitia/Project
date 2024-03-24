@@ -1,6 +1,6 @@
 // ^ Make add flash message disappear after 5s
 
-if(document.querySelector('.alter')) {
+if(document.querySelector('.alert')) {
     $(document).ready(function() {
         setTimeout(function() {
             $('.alert').slideUp(3000); // 1000 millisecondes for the animation's duration

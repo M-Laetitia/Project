@@ -58,7 +58,9 @@
         <div id="register-container">
             <div id="separator"></div>
     
-            <div class="left-register" id="l-payment"></div>
+            <div class="left-register" id="l-payment">
+                <img src="{{ asset('images/visuals/participations01.webp') }}" alt="White hands on a black background, with intertwined threads and yellow floral patterns on the sides.">
+            </div>
     
             <div class="right-register" id="r-payment">
                 <div id="detail-subscription-payment">
@@ -84,10 +86,10 @@
 
                     <div id="errors"></div>
 
-                    <input type="text" id="firstName" name="firstName" placeholder="prénom">
-                    <input type="text" id="lastName" name="lastName" placeholder="nom">
+                    <input type="text" id="firstName" name="firstName" placeholder="First name">
+                    <input type="text" id="lastName" name="lastName" placeholder="Last name">
 
-                    <input type="text" id="address" name="address" placeholder="addresse">
+                    <input type="text" id="address" name="address" placeholder="Address">
             
                     <!-- info de la carte elle-même-->
                     <div id="card-elements"></div>
@@ -96,7 +98,7 @@
                     <div id="card-errors" role="alter"></div>
             
                     <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
-                    <button id="card-button" type="button" data-secret="<?= $intent['client_secret']?>">Procéder au paiement</button>
+                    <button class="btn btn6" id="card-button" type="button" data-secret="<?= $intent['client_secret']?>">Subscribe</button>
                 </form>
 
 

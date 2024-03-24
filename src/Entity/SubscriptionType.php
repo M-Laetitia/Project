@@ -31,6 +31,9 @@ class SubscriptionType
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $dueDate = null;
 
+    #[ORM\Column(length: 50)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->subscription = new ArrayCollection();
@@ -120,6 +123,18 @@ class SubscriptionType
     public function setDueDate(?string $dueDate): static
     {
         $this->dueDate = $dueDate;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }

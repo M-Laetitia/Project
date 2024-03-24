@@ -73,7 +73,7 @@
                                 <p>per {{ subscription.dueDate}}</p>
                     
                                 <div class="subscription-btn">
-                                    <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><div class="btn btn6">SUBSCRIBE</div></a> 
+                                    <a href="{{ path('subscription_payment', {slug: subscription.slug}) }}"><div class="btn btn6">SUBSCRIBE</div></a> 
                                 </div>
                     
                             </div>
@@ -96,7 +96,7 @@
                             <p>per {{ subscription.dueDate}}</p>
                 
                             <div class="subscription-btn">
-                                <a href="{{ path('subscription_payment', {'id': subscription.id}) }}"><div class="btn btn6">SUBSCRIBE</div></a> 
+                                <a href="{{ path('subscription_payment', {slug: subscription.slug}) }}"><div class="btn btn6">SUBSCRIBE</div></a> 
                             </div>
                 
                         </div>

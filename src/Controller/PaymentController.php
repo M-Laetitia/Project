@@ -40,7 +40,7 @@ class PaymentController extends AbstractController
     }
 
     // ^ payment page
-    #[Route('/payment/{id}', name: 'subscription_payment')]
+    #[Route('/payment/{slug}', name: 'subscription_payment')]
     public function index_payment(SubscriptionType $subscriptionType = null, Subscription $subscription = null, Request $request, Security $security, EntityManagerInterface $entityManager ): Response
     {
         $user = $security->getUser();

@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `area` (
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.area : ~14 rows (environ)
 REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`, `slug`) VALUES
@@ -50,7 +50,8 @@ REPLACE INTO `area` (`id`, `name`, `description`, `detail`, `quote`, `start_date
 	(16, 'event 30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, NULL, '2025-12-23 23:15:17', '2025-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'event30'),
 	(17, 'testimage', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-03-09 19:21:00', '2024-03-31 19:21:00', 23, 'EVENT', 'OPEN', 'testimage'),
 	(18, 'testimage', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-03-09 19:21:00', '2024-03-31 19:21:00', 23, 'EVENT', 'OPEN', 'testimage'),
-	(19, 'test1121212', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-04-05 19:28:00', '2024-04-12 19:29:00', 15, 'EVENT', 'OPEN', 'test1121212');
+	(19, 'test1121212', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-04-05 19:28:00', '2024-04-12 19:29:00', 15, 'EVENT', 'OPEN', 'test1121212'),
+	(20, 'test220', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzz', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzz', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzz', '2024-03-24 08:01:00', '2024-04-02 08:02:00', 6, 'EVENT', 'OPEN', 'test220');
 
 -- Listage de la structure de table project. area_area_category
 CREATE TABLE IF NOT EXISTS `area_area_category` (
@@ -76,7 +77,8 @@ REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(15, 2),
 	(17, 2),
 	(18, 2),
-	(19, 2);
+	(19, 2),
+	(20, 2);
 
 -- Listage de la structure de table project. area_category
 CREATE TABLE IF NOT EXISTS `area_category` (
@@ -254,35 +256,43 @@ CREATE TABLE IF NOT EXISTS `picture` (
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `alt_description` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `area_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `is_selected` tinyint(1) DEFAULT NULL,
+  `area_id` int DEFAULT NULL,
+  `studio_id` int DEFAULT NULL,
+  `workshop_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_16DB4F89A76ED395` (`user_id`),
   KEY `IDX_16DB4F89BD0F409C` (`area_id`),
+  KEY `IDX_16DB4F89446F285F` (`studio_id`),
+  KEY `IDX_16DB4F891FDCE57C` (`workshop_id`),
+  CONSTRAINT `FK_16DB4F891FDCE57C` FOREIGN KEY (`workshop_id`) REFERENCES `workshop` (`id`),
+  CONSTRAINT `FK_16DB4F89446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`),
   CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_16DB4F89BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.picture : ~17 rows (environ)
-REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `area_id`, `user_id`, `is_selected`) VALUES
-	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', NULL, 19, NULL),
-	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', NULL, 19, NULL),
-	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', NULL, 19, NULL),
-	(45, 'bbbb6666', '080923a66169dbd79bb882bb4f90d65a.webp', 'aaaaaannnnnnn', 'banner', NULL, 8, 0),
-	(47, 'Vertige', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 'description', 'work', NULL, 8, 0),
-	(48, 'In Disguise', '45c6cb6f5f11307813f82c4f1be6b611.webp', 'description', 'work', NULL, 8, 1),
-	(49, 'Blossom', '9ae8bd3821888e44e06897584044a2d3.webp', 'description', 'work', NULL, 8, 0),
-	(50, 'Little witch', 'a36bd41b21eba83732e7b632745b24ba.webp', 'description', 'work', NULL, 8, 0),
-	(51, 'Past Memories', 'cdc02e2367126fb1bdf0579dde839a3c.webp', 'descrption', 'work', NULL, 8, 0),
-	(52, 'Envol', '7cd353d4dfb494d3f0c4dcc2e0745b08.webp', 'description', 'work', NULL, 8, 0),
-	(53, 'Regret', '88b25aa06df98c8ca9c00a61d656a060.webp', 'description', 'work', NULL, 8, 0),
-	(54, 'Murmure', 'bd878c2d4b9c8abd9dd998351055da10.webp', 'description', 'work', NULL, 8, 0),
-	(55, 'Puppet', '4aa7f4672aa08e986c70c7f039947216.webp', 'description', 'work', NULL, 8, 0),
-	(56, 'Ghost', '25ca203c9a9224b0d406a8c790eba075.webp', 'description', 'work', NULL, 8, 0),
-	(57, 'Earth', 'fd34f797b7c139e935f5456499f4896f.webp', 'description', 'work', NULL, 8, 0),
-	(58, 'Renaissance', 'ee89ace162fc06434e19e00f623f1942.webp', 'description', 'work', NULL, 8, 0),
-	(63, 'aaaaaaaa', '520d65d44e55cbee16485c3318ddcc9c.webp', 'eezzeezezzze', 'picture', 4, NULL, NULL);
+-- Listage des données de la table project.picture : ~19 rows (environ)
+REPLACE INTO `picture` (`id`, `title`, `path`, `alt_description`, `type`, `user_id`, `is_selected`, `area_id`, `studio_id`, `workshop_id`) VALUES
+	(33, 'zeezezez', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 'eezzeezezzze', 'banner', 19, NULL, NULL, NULL, NULL),
+	(38, 'aaaaaaaa', '84589384a2766ed0ead4af48a4c99c16.jpg', 'eezzeezezzze', 'work', 19, NULL, NULL, NULL, NULL),
+	(44, 'aaaaaaaa', '5165187b7a3f2020a03f560f966e0a98.jpg', 'eezzeezezzze', 'work', 19, NULL, NULL, NULL, NULL),
+	(45, 'bbbb6666', '080923a66169dbd79bb882bb4f90d65a.webp', 'aaaaaannnnnnn', 'banner', 8, 0, NULL, NULL, NULL),
+	(47, 'Vertige', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(48, 'In Disguise', '45c6cb6f5f11307813f82c4f1be6b611.webp', 'description', 'work', 8, 1, NULL, NULL, NULL),
+	(49, 'Blossom', '9ae8bd3821888e44e06897584044a2d3.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(50, 'Little witch', 'a36bd41b21eba83732e7b632745b24ba.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(51, 'Past Memories', 'cdc02e2367126fb1bdf0579dde839a3c.webp', 'descrption', 'work', 8, 0, NULL, NULL, NULL),
+	(52, 'Envol', '7cd353d4dfb494d3f0c4dcc2e0745b08.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(53, 'Regret', '88b25aa06df98c8ca9c00a61d656a060.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(54, 'Murmure', 'bd878c2d4b9c8abd9dd998351055da10.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(55, 'Puppet', '4aa7f4672aa08e986c70c7f039947216.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(56, 'Ghost', '25ca203c9a9224b0d406a8c790eba075.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(57, 'Earth', 'fd34f797b7c139e935f5456499f4896f.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(58, 'Renaissance', 'ee89ace162fc06434e19e00f623f1942.webp', 'description', 'work', 8, 0, NULL, NULL, NULL),
+	(64, 'bbbbbbbb', '04d017ba0495119ebb5eb1d0e6c2f319.webp', 'bbbbbbbbb', 'banner', NULL, NULL, 20, NULL, NULL),
+	(65, 'aaaaa', '5aa381cdb872deee3a3c507c0f225329.webp', 'aaaaaaaaaaaa', 'preview', NULL, NULL, 20, NULL, NULL),
+	(67, 'aaaaa', '2b16053a0734a46fc98bd18a4f9689b7.webp', 'aaaaaaa', 'picture', NULL, NULL, 20, NULL, NULL);
 
 -- Listage de la structure de table project. programme
 CREATE TABLE IF NOT EXISTS `programme` (
@@ -339,7 +349,7 @@ CREATE TABLE IF NOT EXISTS `studio` (
 
 -- Listage des données de la table project.studio : ~4 rows (environ)
 REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`, `title`, `equipment`) VALUES
-	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, NULL, 2, 'studio-calliope', 'incididunt ut labore et dolore magna', '["test", "test02", "test03"]'),
+	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'bloupupupupupupu', NULL, 5, 'studio-calliope', 'incididunt ut labore et dolore magna', '["1", "2", "3"]'),
 	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02', 'incididunt ut labore et dolore magna', NULL),
 	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03', 'incididunt ut labore et dolore magna', NULL),
 	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie', 'incididunt ut labore et dolore magna', NULL);
@@ -359,13 +369,15 @@ CREATE TABLE IF NOT EXISTS `subscription` (
   KEY `IDX_A3C664D3B6596C08` (`subscription_type_id`),
   CONSTRAINT `FK_A3C664D3A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_A3C664D3B6596C08` FOREIGN KEY (`subscription_type_id`) REFERENCES `subscription_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.subscription : ~3 rows (environ)
+-- Listage des données de la table project.subscription : ~6 rows (environ)
 REPLACE INTO `subscription` (`id`, `user_id`, `subscription_type_id`, `payment_date`, `infos_user`, `infos_subscription`, `total`, `is_active`) VALUES
-	(1, 8, 1, '2024-03-01 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 1),
+	(1, 21, 1, '2024-03-01 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
 	(3, 19, 1, '2021-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
-	(4, 19, 1, '2023-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 02", "price": "60.00", "duration": 60}', 60.00, 0);
+	(4, 19, 1, '2023-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 02", "price": "60.00", "duration": 60}', 60.00, 0),
+	(83, 8, 1, '2024-03-21 12:13:06', '{"address": "zzaazaz", "lastname": "aaz", "firstname": "azzaaz"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
+	(84, 8, 2, '2024-03-21 13:48:43', '{"address": null, "lastName": null, "firstName": null}', '{"name": "Type 02", "price": "75.00", "duration": 90}', 75.00, 0);
 
 -- Listage de la structure de table project. subscription_type
 CREATE TABLE IF NOT EXISTS `subscription_type` (
@@ -374,14 +386,15 @@ CREATE TABLE IF NOT EXISTS `subscription_type` (
   `price` decimal(5,2) NOT NULL,
   `duration` int NOT NULL,
   `due_date` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.subscription_type : ~3 rows (environ)
-REPLACE INTO `subscription_type` (`id`, `name`, `price`, `duration`, `due_date`) VALUES
-	(1, 'Type 01', 30.00, 30, 'month'),
-	(2, 'Type 02', 75.00, 90, 'trimester'),
-	(3, 'Type 03', 280.00, 365, 'year');
+REPLACE INTO `subscription_type` (`id`, `name`, `price`, `duration`, `due_date`, `slug`) VALUES
+	(1, 'Type 01', 30.00, 30, 'month', 'type01'),
+	(2, 'Type 02', 75.00, 90, 'trimester', 'type02'),
+	(3, 'Type 03', 280.00, 365, 'year', 'type03');
 
 -- Listage de la structure de table project. timeslot
 CREATE TABLE IF NOT EXISTS `timeslot` (

@@ -21,6 +21,20 @@ class PictureRepository extends ServiceEntityRepository
         parent::__construct($registry, Picture::class);
     }
 
+    public function getArchivedEventPictures()
+    {
+        $qb = $this->createQueryBuilder('p')
+        ->select('p')
+        ->where('p.type = :type')
+        ->andWhere('p.area IS NOT NULL OR p.workshop IS NOT NULL')
+        ->setParameter('type', 'picture')
+        ->orderBy('RAND()')
+        ->setMaxResults(6)
+        ->getQuery();
+
+        return $qb->getResult();
+    }
+
 //    /**
 //     * @return Picture[] Returns an array of Picture objects
 //     */

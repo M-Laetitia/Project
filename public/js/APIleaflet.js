@@ -9,7 +9,7 @@
 // Center the map view by default on Strasbourg
 var map = L.map('map').setView([48.5734, 7.7521], 13);
 
-// ^ initialisation de la carte avec Leaflet 
+// ^ Initialization of the map using Leaflet
 var Stadia_StamenToner = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.{ext}', {
 	minZoom: 0,
 	maxZoom: 20,
@@ -25,7 +25,7 @@ var Icon = L.icon({
     popupAnchor:  [-3, -46] // point from which the popup should open relative to the iconAnchor
 });
 
-// ^ récupérer les élèments nécessaires concernant l'artiste - l'adresse + son nom et son activité
+// ^ Retrieve the necessary elements regarding the artist - the address + their name and activity
 const adressElements = document.querySelectorAll(".address");
 console.log('map', adressElements )
 adressElements.forEach(function(addressElement) {
@@ -45,7 +45,7 @@ adressElements.forEach(function(addressElement) {
     }
 })
 
-// ^ Fonction pour géocoder une adresse et placer un marqueur
+// ^ Geocode an address and place a marker
 function geocodeAndMarker(address, name, activity) {
     // get the ID or the slug of the artist
     adressElements.forEach(function(addressElement) {

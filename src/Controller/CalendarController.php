@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Area;
 use App\Form\SearchCalendarType;
 use App\Repository\AreaRepository;
+use App\Repository\PictureRepository;
 use App\Repository\WorkshopRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -342,4 +343,33 @@ class CalendarController extends AbstractController
              'latestEvents' => $latestEvents,
         ]);
     }
+
+    public function getEventPicturesPaths(PictureRepository $pictureRepository) :response 
+    {
+
+        $pictures = $pictureRepository->getArchivedEventPictures();
+        $picturesPaths = [];
+    
+        foreach ($pictures as $picture) {
+            $fileName = $picture['path'];
+            $areaId = $picture['area'];
+            $workshopId = $picture['workshop'];
+    
+          // vérifier si l'image est associé à un area ou un workshop
+            if ($areaId !== null) {
+                $filePath = 'images/artists/' . $areaId . '/works/' . $fileName;
+            } elseif ($workshopId !== null) {
+                $filePath = 'images/artists/' . $workshopId . '/works/'  . $fileName;
+            } else {
+                // si associé à rien
+                $filePath = '';
+            }
+
+            // Ajouter le chemin au tableau des chemins
+            $picturesPaths[] = $filePath;
+            }
+    
+        return $picturesPaths;
+    }
 }
+

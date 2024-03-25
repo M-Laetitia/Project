@@ -21,7 +21,7 @@
                 data-country="{{ artist.artistInfos.address.country }}"
             {% endif %}
            data-name="{{ artist.artistInfos.artistName }}"
-           data-id="{{ artist.id }}"
+           data-slug="{{ artist.slug}}"
            data-activity="{{ artist.artistInfos.discipline }}">
         </p>
     {% endfor %}
@@ -29,8 +29,6 @@
     </div>
 
     {# Penser à rajouter les crédits ! #}
-
-
 
 
     <div id="map"></div>
@@ -41,10 +39,6 @@
 
     <script src="{{asset('js/APIleaflet.js')}}"></script>
 
-    <script>
-        
-
-    </script>
     
         
 {% endblock %}

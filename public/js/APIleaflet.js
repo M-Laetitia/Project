@@ -28,7 +28,7 @@ var Icon = L.icon({
 
 
 const adressElements = document.querySelectorAll(".address");
-
+console.log('map', adressElements )
 adressElements.forEach(function(addressElement) {
     const street = addressElement.getAttribute('data-street');
     const city = addressElement.getAttribute('data-city');
@@ -36,7 +36,6 @@ adressElements.forEach(function(addressElement) {
     const country = addressElement.getAttribute('data-country');
     const name = addressElement.getAttribute('data-name');
     const activity = addressElement.getAttribute('data-activity');
-    
 
     const address = `${street}, ${city} ${postalCode},${country}`;
     
@@ -51,7 +50,8 @@ function geocodeAndMark(address, name, activity) {
 
     // get the ID of the artist
     adressElements.forEach(function(addressElement) {
-    const artistId = addressElement.getAttribute('data-id');
+       
+    const artistId = addressElement.getAttribute('data-slug');
   
     // Utilisation du service Nominatim pour géocoder l'adresse
     fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(address))

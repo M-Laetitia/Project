@@ -411,10 +411,7 @@ class EventController extends AbstractController
     public function getPastContent(Request $request, AreaRepository $areaRepository)
     {
         $pastContent = $areaRepository->getAllPastContent();
-        // dd($pastContent);
-
-        // dd($pastEvents);
-
+        
         // Convert objects to associative arrays
         $pastContentArray = [];
         foreach ($pastContent as $content) {

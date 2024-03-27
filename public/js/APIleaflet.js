@@ -9,7 +9,7 @@
 // Center the map view by default on Strasbourg
 var map = L.map('map').setView([48.5734, 7.7521], 13);
 
-// ^ Initialization of the map using Leaflet
+//  Initialization of the map using Leaflet
 var Stadia_StamenToner = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.{ext}', {
 	minZoom: 0,
 	maxZoom: 20,
@@ -17,7 +17,7 @@ var Stadia_StamenToner = L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_
 	ext: 'png'
 }).addTo(map);
 
-// ^ custom Icon
+//  custom Icon
 var Icon = L.icon({
     iconUrl: '../images/markerMap.png',
     iconSize:     [45, 45], // size of the icon
@@ -25,7 +25,7 @@ var Icon = L.icon({
     popupAnchor:  [-3, -46] // point from which the popup should open relative to the iconAnchor
 });
 
-// ^ Retrieve the necessary elements regarding the artist - the address + their name and activity
+//  Retrieve the necessary elements regarding the artist - the address + their name and activity
 const adressElements = document.querySelectorAll(".address");
 console.log('map', adressElements )
 adressElements.forEach(function(addressElement) {
@@ -45,7 +45,7 @@ adressElements.forEach(function(addressElement) {
     }
 })
 
-// ^ Geocode an address and place a marker
+//  Geocode an address and place a marker
 function geocodeAndMarker(address, name, activity) {
     // get the ID or the slug of the artist
     adressElements.forEach(function(addressElement) {
@@ -81,17 +81,3 @@ function geocodeAndMarker(address, name, activity) {
         .catch(error => console.error('Geocoding error:', error));
     });
 }
-
-
-
-// // ^ custom Icon
-// var Icon = L.icon({
-//     iconUrl: '../images/markerMap.png',
-//     // shadowUrl: 'leaf-shadow.png',
-
-//     iconSize:     [45, 45], // size of the icon
-//     // shadowSize:   [50, 64], // size of the shadow
-//     iconAnchor:   [25, 40], // point of the icon which will correspond to marker's location
-//     // shadowAnchor: [4, 62],  // the same for the shadow
-//     popupAnchor:  [-3, -46] // point from which the popup should open relative to the iconAnchor
-// });

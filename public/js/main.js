@@ -162,15 +162,15 @@ if (document.querySelector('.ri-eye-close-fill')) {
 // });
 
 
-// ^ Artist edit infos toggle
+//  Artist edit infos toggle
 if (document.querySelector('edit-info-btn')) {
-
     $(document).ready(function() {
         $('.edit-info-btn').click(function(){
             $(".edit-infos").slideToggle();
         });
     })
 }
+
 
 // ^ see past events toggle
 
@@ -352,34 +352,32 @@ if(document.getElementById("register-user-page")) {
         }
     });
 
-     //^ check regex for password
+     //  check RegEx for password
      $('#registration_form_plainPassword_first').keyup(function() {
+        
         var password = $(this).val();
-        
-        // Check length criterion
-        var lengthCriterion = password.length >= 12;
-        updateCriterionStyle($('#lengthCriterion'), lengthCriterion);
-        
-        // Check special character criterion
-        var specialCharCriterion = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-        updateCriterionStyle($('#specialCharCriterion'), specialCharCriterion);
-        
-        // Check number criterion
-        var numberCriterion = /\d/.test(password);
-        updateCriterionStyle($('#numberCriterion'), numberCriterion);
-        
-        // Check uppercase criterion
-        var uppercaseCriterion = /[A-Z]/.test(password);
-        updateCriterionStyle($('#uppercaseCriterion'), uppercaseCriterion);
+        // Check length criteria
+        var lengthCriteria = password.length >= 12;
+        updateCriteriaStyle($('#lengthCriteria'), lengthCriteria);
+        // Check special character criteria
+        var specialCharCriteria = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        updateCriteriaStyle($('#specialCharCriteria'), specialCharCriteria);
+        // Check number criteria
+        var numberCriteria = /\d/.test(password);
+        updateCriteriaStyle($('#numberCriteria'), numberCriteria);
+        // Check uppercase criteria
+        var uppercaseCriteria = /[A-Z]/.test(password);
+        updateCriteriaStyle($('#uppercaseCriteria'), uppercaseCriteria);
     });
     
-    function updateCriterionStyle($criterion, isValid) {
+    function updateCriteriaStyle($criteria, isValid) {
         if (isValid) {
-            $criterion.addClass('valid').removeClass('invalid');
+            $criteria.addClass('valid').removeClass('invalid');
         } else {
-            $criterion.addClass('invalid').removeClass('valid');
+            $criteria.addClass('invalid').removeClass('valid');
         }
     }
+
 
     //^ show / hide password
     document.addEventListener('DOMContentLoaded', function() {

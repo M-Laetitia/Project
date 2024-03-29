@@ -60,10 +60,10 @@
                         <p class="checkMessages" id="passwordMatchMessage"></p>
 
                         <div id="passwordCriteria">
-                            <div id="lengthCriterion" class="password-criterion">At least 12 characters</div>
-                            <div id="specialCharCriterion" class="password-criterion">At least one special character</div>
-                            <div id="numberCriterion" class="password-criterion">At least one number</div>
-                            <div id="uppercaseCriterion" class="password-criterion">At least one uppercase letter</div>
+                            <div id="lengthCriteria" class="password-criteria">At least 12 characters</div>
+                            <div id="specialCharCriteria" class="password-criteria">At least one special character</div>
+                            <div id="numberCriteria" class="password-criteria">At least one number</div>
+                            <div id="uppercaseCriteria" class="password-criteria">At least one uppercase letter</div>
                         </div>
                         
                     <div id="terms-register">
@@ -91,28 +91,26 @@
     </section>
     
     <script>
+
         $(document).ready(function() {
             $('#registration_form_username, #registration_form_information').keyup(function() {
                 var username = $('#registration_form_username').val();
                 var email = $('#registration_form_information').val();
-
-                 // check is the inputs fields are empty
+                // check is the inputs fields are empty
                 if (username === '' && email === '') {
                     $('#checkUsername').empty(); // delete message
                     $('#checkEmail').empty(); // delete message
                     return; 
                 }
-  
-                    $.ajax({
-                        url: '/check-credentials',
-                        method: 'POST',
-                        data: {username: username, email: email},
-                        dataType: 'json',
-                        success: function(response) {
-                            $('#checkUsername').text(response.usernameMessage);
-                            $('#checkEmail').text(response.emailMessage);
+                $.ajax({
+                    url: '/check-credentials',
+                    method: 'POST',
+                    data: {username: username, email: email},
+                    dataType: 'json',
+                    success: function(response) {
+                    $('#checkUsername').text(response.usernameMessage);
+                    $('#checkEmail').text(response.emailMessage);
                     }
-                    
                 });
             });
         });

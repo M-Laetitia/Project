@@ -137,6 +137,8 @@ class ArtistController extends AbstractController
     #[Route('/artist', name: 'app_artist')]
     public function index(UserRepository $userRepository, Request $request, SessionInterface $session): Response
     {
+
+        $artists = $userRepository->findAll(['isPublished' => 1]);
         $formArtistSearch = $this->createForm(SearchArtistType::class);
         $formArtistSearch->handleRequest($request);
         $searchResults = [];
@@ -187,7 +189,7 @@ class ArtistController extends AbstractController
         }
     
         return $this->render('artist/index.html.twig', [
-            'artists' => $searchResults ?: $userRepository->findArtistUsers(), // Use all artists if no search result
+            'artists' => $artists, // Use all artists if no search result
             'formArtistSearch' => $formArtistSearch->createView(),
             'searchResults' => $searchResults ? true : false, // Set to true if there are search results, otherwise false
             'disciplines' => $disciplines,
@@ -241,23 +243,47 @@ class ArtistController extends AbstractController
 
     // ^ show artist detail (all)
     #[Route('/artist/{slug}', name: 'show_artist')]
-    public function show(UserRepository $userRepository, EntityManagerInterface $entityManager, string $slug): Response {
+    public function show(UserRepository $userRepository, EntityManagerInterface $entityManager, Request $request, string $slug): Response {
 
-        // get the artist
 
-        $artist = $userRepository->findOneBy(['slug' => $slug]);
+        $artist = $userRepository->findOneBy(['slug' => $slug, 'isPublished' => 1]);
         // check if the artist exists
         if (!$artist) {
             // if not, redirect to the error page
             return $this->render('error/error404.html.twig', [], new Response('', Response::HTTP_NOT_FOUND));
         }
 
-        // forcer la récupération des contacts de l'user
-        // foreach ($artist as $user) {
-        //     $user->getContacts()->initialize();
-        // }
+
+
+        $formPage = $this->createForm(PublishedArtistPageType::class);
+        $formPage->handleRequest($request);
+
+
+        if ($formPage->isSubmitted() && $formPage->isValid() ) {
+
+            if ($this->isGranted('ROLE_ADMIN')) {
+                if ($artist->getIsPublished() == 1) {
+                    $artist->setIsPublished(-1);
+                    $message = 'Artist page successfully moderated!';
+                } else {
+                    $artist->setIsPublished(1);
+                    $message = 'Artist page successfully published!';
+                }
+    
+                $entityManager->persist($artist);
+                $entityManager->flush();
+                $this->addFlash('success', $message);
+                return $this->redirectToRoute('app_artist');
+
+            } else {
+                $this->addFlash('error', 'You do not have permission to censor this artist page.');
+                return $this->redirectToRoute('app_artist');
+            }
+        }
+        
         return $this->render('artist/show.html.twig', [
             'artist' => $artist,
+            'formPublishPageArtist' => $formPage,
 
         ]);
     }
@@ -637,7 +663,7 @@ class ArtistController extends AbstractController
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
 
-        // ^ pictures (gallery) upload
+        // pictures (gallery) upload
         $picturesGallery = $pictureRepo->findBy(['user' => $artistId, 'type' => 'work']); 
 
         $formPicture = $this->createForm(PictureFormType::class);      
@@ -645,16 +671,15 @@ class ArtistController extends AbstractController
 
         $maxImagesAllowed = 12;
         $numberOfImages = count($pictureRepo->findBy(['user' => $artistId, 'type' => 'work']));
-        // vérifier si l'user peut upload une image, renvoie true ou false 
+        // check if the suer car upload  an img or not , return true or false 
         $canUploadImage = $numberOfImages < $maxImagesAllowed;
-        // dd($canUploadImage);
 
-            // on définit le dossier de destination
+            // we define the destination folder
             $folder = $artistId;
             
             if ($formPicture->isSubmitted() && $formPicture->isValid() && $numberOfImages < $maxImagesAllowed ) {
                 $pictureFile = $formPicture->get('picture')->getData();
-                 // on appelle le service d'ajout
+                 // we all the add picture service
                 if ($pictureFile !== null) 
                 {
                     $file = $pictureService->add($pictureFile, $folder, 500, 500);

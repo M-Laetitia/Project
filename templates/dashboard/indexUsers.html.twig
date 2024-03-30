@@ -19,6 +19,8 @@ ajouter pagination #}
     </div>
 </div>
 
+ {# {{dump(users)}} #}
+
 <div class="breadcrumb breadcrumb-dark">
     <p><a href="{{ path('app_dashboard') }}">Dashboard </a> > All Users</p>
 </div>
@@ -81,11 +83,6 @@ ajouter pagination #}
                  <p>  Username : <a href="{{ path('detail_user_admin', {slug : user.slug}) }}">{{user}}</a></p>
                  <p>Email: {{user.Email}}</p>
                  <p>Registration date: {{user.registrationDate|formatDate}}</p>
-
-                 {# {% if user.getSimpleRoles|length > 0 %} #}
-                 <!-- Afficher la ligne de rôle uniquement si l'utilisateur est autre qu'un simple user -->
-                 {# <p>Role: {{ user.getSimpleRoles|join(', ')}}</p>
-                 {% endif %} #}
         
                  <div class="roles-user">
                      {% if 'admin' in user.getSimpleRoles %}
@@ -98,6 +95,27 @@ ajouter pagination #}
 
                      {% if 'artist' in user.getSimpleRoles %}
                          <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
+                         {% if user.isPublished == 1 %}
+                            <p><a href="{{ path('show_artist' , {slug : user.slug}) }}">Artist page</a></p>
+                         {% elseif user.isPublished == -1 %}
+                            <p>Artist page moderated -  
+                                <div id="admin-moderation">
+                                    
+                                        {% if app.user.id == user.id %}
+                                        {# an admin can't moderate their own artist page #}
+                                        {% else %}
+                                            {{ form_start(formPublishPageArtist) }}
+                                                {% if user.isPublished == 1 %}
+                                                    <button class="btn btn6 btn-artist-profil" type="submit">Moderate</button>
+                                                {% elseif user.isPublished == -1 %}
+                                                    <button class="btn btn6 btn-artist-profil" type="submit">Publish</button>
+                                                {% endif %}
+                                            {{ form_end(formPublishPageArtist) }}
+                                        {% endif %}
+                                    
+                                </div>
+                            </p>
+                         {% endif %}
                      {% endif %}
             
             

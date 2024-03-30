@@ -27,7 +27,24 @@
 <div class="breadcrumb breadcrumb-dark">
     <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_artist') }}">All Artists</a> > 
         {{ artist.artistInfos.artistName }}</p>
+
+        <div id="admin-moderation">
+            {% if is_granted('ROLE_ADMIN') %}
+                {% if app.user.id == artist.id %}
+                {# an admin can't moderate their own artist page #}
+                {% else %}
+                    {{ form_start(formPublishPageArtist) }}
+                        {% if artist.isPublished == 1 %}
+                            <button class="btn btn6 btn-artist-profil" type="submit">Moderate</button>
+                        {% elseif artist.isPublished == -1 %}
+                            <button class="btn btn6 btn-artist-profil" type="submit">Publish</button>
+                        {% endif %}
+                    {{ form_end(formPublishPageArtist) }}
+                {% endif %}
+            {% endif %}
+        </div>
 </div>
+
 
 
 <section class="" id="artist-show">
@@ -144,6 +161,8 @@
 
         </div>
     </section>
+
+
 
 </section>
 

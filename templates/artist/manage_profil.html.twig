@@ -68,7 +68,7 @@
             {% if artist.artistInfos.website is defined %}
                 <p><span>Website :</span>  {{ artist.artistInfos.website }}</p>
             {% else %}
-                <p><span>Website :</span> : </p>
+                <p><span>Website :</span> </p>
             {% endif %}
 
             <p><i class="fa-solid fa-pen-to-square"></i> Edit</p>
@@ -302,25 +302,40 @@
                         
                     </div>
             </div>
-            
-            {{ form_start(formPublishPageArtist) }}
+
+            {% if  artist.isPublished == -1 %}
+                <div>
+                    <button class="btn btn-off btn-artist-profil" style="color:white;" type="submit">Publish</button>
+                   <p>You can not publish your page. It has been moderated by an administrator, its content did not meet our terms of use. To learn more please <a href="">contact us</a></p> 
+                </div>
+                
+            {% else %}
+                {{ form_start(formPublishPageArtist) }}
                 {% if artist.isPublished == 1 %}
                     <button class="btn btn6 btn-artist-profil" type="submit">Unpublish</button>
                 {% else %}
                     <button class="btn btn6 btn-artist-profil" type="submit">Publish</button>
                 {% endif %}
             {{ form_end(formPublishPageArtist) }}
+            {% endif %}
+            
+            
     </div>
 
 </section>    
 
 <script>
+
+
     $(document).ready(function() {
         $('.fa-pen-to-square').click(function() {
             $(this).closest('p').next('.forms-artist').slideToggle();
         });
     });
+
+
 </script>
 
 {% endblock %}
+
 

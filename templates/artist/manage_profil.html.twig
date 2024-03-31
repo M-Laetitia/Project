@@ -303,22 +303,25 @@
                     </div>
             </div>
 
-            {% if  artist.isPublished == -1 %}
-                <div>
-                    <button class="btn btn-off btn-artist-profil" style="color:white;" type="submit">Publish</button>
-                   <p>You can not publish your page. It has been moderated by an administrator, its content did not meet our terms of use. To learn more please <a href="">contact us</a></p> 
-                </div>
-                
-            {% else %}
-                {{ form_start(formPublishPageArtist) }}
-                {% if artist.isPublished == 1 %}
-                    <button class="btn btn6 btn-artist-profil" type="submit">Unpublish</button>
+            <div id="publish">
+
+                {% if  artist.isPublished == -1 %}
+                    <div>
+                        <button class="btn btn-off btn-artist-profil" style="color:white;" type="submit">Publish</button>
+                       <p>You can not publish your page. It has been moderated by an administrator, its content did not meet our terms of use. <br> To learn more please <a href="#">contact us</a>.</p> 
+                    </div>
+                    
                 {% else %}
-                    <button class="btn btn6 btn-artist-profil" type="submit">Publish</button>
+                    {{ form_start(formPublishPageArtist) }}
+                    {% if artist.isPublished == 1 %}
+                        <button class="btn btn6 btn-artist-profil" type="submit">Unpublish</button>
+                    {% else %}
+                        <button class="btn btn6 btn-artist-profil" type="submit">Publish</button>
+                    {% endif %}
+                {{ form_end(formPublishPageArtist) }}
                 {% endif %}
-            {{ form_end(formPublishPageArtist) }}
-            {% endif %}
-            
+                
+            </div>
             
     </div>
 

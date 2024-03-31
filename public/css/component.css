@@ -187,6 +187,28 @@ html {
   cursor: default;
 }
 
+.btn-red {
+  border: 1px solid #eeaf42;
+  background-color: #F14D4C;
+  color: #F9F9F9;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn-red:hover {
+  border: 1px solid #151515;
+  background-color: #151515;
+}
+
+.btn-blue {
+  border: 1px solid #eeaf42;
+  background-color: #207E93;
+  color: #F9F9F9;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn-blue:hover {
+  border: 1px solid #151515;
+  background-color: #151515;
+}
+
 /*  ---------------------------------- */
 /*  ---------------------------------- */
 .underscore {

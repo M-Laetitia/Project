@@ -330,6 +330,28 @@ html {
   cursor: default;
 }
 
+.btn-red {
+  border: 1px solid #eeaf42;
+  background-color: #F14D4C;
+  color: #F9F9F9;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn-red:hover {
+  border: 1px solid #151515;
+  background-color: #151515;
+}
+
+.btn-blue {
+  border: 1px solid #eeaf42;
+  background-color: #207E93;
+  color: #F9F9F9;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn-blue:hover {
+  border: 1px solid #151515;
+  background-color: #151515;
+}
+
 /*  ---------------------------------- */
 /*  ---------------------------------- */
 .underscore {
@@ -653,10 +675,83 @@ html {
 }
 
 .dashboard {
-  color: #F9F9F9;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
   color: #151515;
-  padding: 3rem;
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+.dashboard .separator-line {
+  width: 100%;
+  height: 1px;
+  background-color: #207E93;
+  margin-top: 0.5rem;
+}
+.dashboard #menu-left {
+  background-color: #151515;
+  color: #F9F9F9;
+  text-transform: capitalize;
+  width: 500px;
+  padding: 2rem 3rem 3rem 3rem;
+}
+.dashboard #menu-left #logo-name {
+  display: flex;
+  align-items: center;
+  height: 90px;
+}
+.dashboard #menu-left #logo-name figure {
+  width: 70px;
+  height: 70px;
+  margin-right: 1rem;
+}
+.dashboard #menu-left #logo-name figure img {
+  width: 100%;
+  height: 100%;
+}
+.dashboard #menu-left #logo-name p {
+  letter-spacing: 0.3rem;
+}
+.dashboard #menu-left #list-menu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  row-gap: 1.2rem;
+}
+.dashboard #menu-left #list-menu div {
+  display: flex;
+  padding: 1rem;
+  font-size: 1.2rem;
+  transition: ease 0.3s;
+}
+.dashboard #menu-left #list-menu div i {
+  margin-right: 0.3rem;
+}
+.dashboard #menu-left #list-menu div:hover {
+  background-color: #eeaf42;
+  color: #151515;
+  cursor: pointer;
+}
+.dashboard #menu-left #bottom {
+  height: 150px;
+}
+.dashboard #content {
+  width: 100%;
+}
+.dashboard #content #top-title {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2.6rem 3rem 0rem 3rem;
+  background-image: url("../images/banner.webp");
+}
+.dashboard #content #top-title p {
+  text-transform: uppercase;
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+.dashboard #content #top-title .separator-line {
+  margin-top: 1.1rem;
 }
 
 #dashboard-main .separator {
@@ -704,6 +799,10 @@ html {
 #dashboard-users-list .roles-user {
   display: flex;
   column-gap: 0.6rem;
+}
+#dashboard-users-list .btn-blue, #dashboard-users-list .btn-red {
+  margin: 0;
+  padding: 0.2rem;
 }
 
 #dashboard-user-detail picture {

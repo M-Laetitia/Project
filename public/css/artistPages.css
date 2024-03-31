@@ -330,6 +330,28 @@ html {
   cursor: default;
 }
 
+.btn-red {
+  border: 1px solid #eeaf42;
+  background-color: #F14D4C;
+  color: #F9F9F9;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn-red:hover {
+  border: 1px solid #151515;
+  background-color: #151515;
+}
+
+.btn-blue {
+  border: 1px solid #eeaf42;
+  background-color: #207E93;
+  color: #F9F9F9;
+  transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
+}
+.btn-blue:hover {
+  border: 1px solid #151515;
+  background-color: #151515;
+}
+
 /*  ---------------------------------- */
 /*  ---------------------------------- */
 .underscore {
@@ -880,6 +902,7 @@ img {
   display: grid;
   grid-template-columns: 70% 30%;
   margin-bottom: 7rem;
+  opacity: 0;
 }
 #artist-show #artist-detail #about {
   padding-right: 5rem;
@@ -1335,10 +1358,18 @@ img {
   border: 1px solid grey;
 }
 #artist_profile #gallery-artist #NotSelectedImg:hover {
-  border: 2px solid #eeaf42;
+  border: 3px solid #eeaf42;
 }
 #artist_profile #gallery-artist #selectedImage img {
   border: 3px solid #eeaf42;
+}
+
+#publish p {
+  font-weight: 600;
+  color: #F14D4C;
+}
+#publish p a {
+  color: #151515;
 }
 
 /*# sourceMappingURL=artistPages.css.map */

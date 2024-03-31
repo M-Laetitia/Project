@@ -3,6 +3,7 @@
 {% block title %}Explore Our Artist Community - MOSAIC{% endblock %}
 {% block meta %}Dive into our vibrant artist community on MOSAIC. Discover talented artists from various disciplines and explore their captivating works. Use filters to search by name or artistic discipline, and embark on a journey of discovering new forms of art. Start exploring now!{% endblock %}
 
+
 {% block body %}
 
     <div class="banner">
@@ -15,16 +16,20 @@
         </div>
     </div>
     
-    <div id="popup-role-artist">
-        <p>Do you want to be a part of the artist communauty?</p>
-        <div>
-            <p><a href="{{ path('get_role_artist') }}">Learn more</a></p>
-            <p id="close-popup-btn">Not now</p>
+    {% if is_granted('ROLE_ARTIST') %}
+        {# don't show the popup to become an artist #}
+    {% else %}
+        <div id="popup-role-artist">
+            <p>Do you want to be a part of the artist communauty?</p>
+            <div>
+                <p><a href="{{ path('get_role_artist') }}">Learn more</a></p>
+                <p id="close-popup-btn">Not now</p>
+            </div>
+            <div id="star">
+                <i class="fa-solid fa-star"></i>
+            </div>
         </div>
-        <div id="star">
-            <i class="fa-solid fa-star"></i>
-        </div>
-    </div>
+    {% endif %}
 
     <section class="content" id="artists-index">
         <div class="categories">
@@ -147,8 +152,8 @@
                 });
             });
 
-            // display popup after 6s
-            gsap.to('#popup-role-artist', 0.6, {right: 0, opacity: 1, delay: 6});
+            // display popup after 4s
+            gsap.to('#popup-role-artist', 0.4, {right: 0, opacity: 1, delay: 6});
 
             //close popup for artist role
             $('#close-popup-btn').click(function(){

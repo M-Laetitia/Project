@@ -66,7 +66,7 @@ function geocodeAndMarker(address, name, activity) {
                 // Create the popup with HTML content
                 var popupContent = document.createElement('div');
                 popupContent.appendChild(artistLink);
-                popupContent.innerHTML += `<br>${activity}<br>Address: ${address}`;
+                popupContent.innerHTML += `<br>${activity}<br><address>Address: ${address}</address>`;
                 // Add the popup to the marker
                 marker.bindPopup(popupContent);
                 // Attach a click event to the marker to open the popup when clicked

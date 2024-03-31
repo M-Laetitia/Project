@@ -7,7 +7,9 @@ use App\Form\SearchUserType;
 use App\Repository\AreaRepository;
 use App\Repository\UserRepository;
 use App\Repository\StudioRepository;
+use App\Form\PublishedArtistPageType;
 use App\Repository\WorkshopRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,7 +75,7 @@ class DashboardController extends AbstractController
     // ^ list users
     #[Route('/admin/dashboard/index', name: 'list_users')]
     #[IsGranted("ROLE_ADMIN")]
-    public function list_users(UserRepository $userRepository, Request $request, SessionInterface $session): Response
+    public function list_users(UserRepository $userRepository, Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
 
         $formUserSearch = $this->createForm(SearchUserType::class);
@@ -81,6 +83,7 @@ class DashboardController extends AbstractController
         $searchResults = [];
         $role = $request->query->get('role');
         $sortBy = $request->query->get('sortBy');
+        $artists = $userRepository->findBy(['roles' => 'ROLE_ARTIST']);
         // dd($role);
 
         $redirectToSamePage = false; // Flag to determine if redirection is needed
@@ -120,6 +123,10 @@ class DashboardController extends AbstractController
             $searchResults = $session->get('searchResults');
             $session->remove('searchResults'); // Remove search results from session after use
         }
+
+
+      
+
     
         // $users = $userRepository->findBy([], ['username' => 'ASC']);
         return $this->render('dashboard/indexUsers.html.twig', [
@@ -127,16 +134,48 @@ class DashboardController extends AbstractController
             'users' => $searchResults ?: $userRepository->findBy([], ['username' => 'ASC']), // Use all users if no search result
             'formUserSearch' => $formUserSearch->createView(),
             'searchResults' => $searchResults ? true : false, // Set to true if there are search results, otherwise false
+            
         ]);
     }
 
     // ^ detail user
     #[Route('/admin/dashboard/user/{slug}/detail_user', name: 'detail_user_admin')]
     #[IsGranted("ROLE_ADMIN")]
-    public function show_user(User $user): Response
+    public function show_user(User $user, Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $formPage = $this->createForm(PublishedArtistPageType::class);
+        $formPage->handleRequest($request);
+
+
+        if ($formPage->isSubmitted() && $formPage->isValid() ) {
+
+                if ($this->isGranted('ROLE_ADMIN')) {
+                        if ($user->getIsPublished() == 1) {
+                            $user->setIsPublished(-1);
+                            $message = 'Artist page successfully moderated!';
+                        } else {
+                            $user->setIsPublished(1);
+                            $message = 'Artist page successfully published!';
+                        }
+                        $entityManager->persist($user);
+                        $entityManager->flush();
+                        $this->addFlash('success', $message);
+                        return $this->redirectToRoute('detail_user_admin',  ['slug' => $user->getSlug()]);
+
+                    
+                } else {
+                    $this->addFlash('error', 'You do not have permission to censor this artist page.');
+                    return $this->redirectToRoute('app_home');
+
+                }
+            
+        }
+
+
         return $this->render('dashboard/showUser.html.twig', [
             'user' => $user,
+            'formPublishPageArtist' => $formPage,
         ]);
     }
 

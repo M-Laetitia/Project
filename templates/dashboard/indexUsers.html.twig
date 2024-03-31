@@ -5,25 +5,192 @@
 
 {% block body %}
 
-{# ajouter reset pour la recherche
-ajouter hover
-ajouter pagination #}
 
-<div class="banner">
-    <div class="content">
-        <h1 class="banner-title">Users list</h1>
-        <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
-            <div class="underscore-blink"> </div>
+<section class="dashboard" id="dashboard-users">
+
+    <div id="menu-left">
+        <div id="logo-name">
+            <figure>
+               <img src="{{ asset('images/logo150.png')}}" alt="logo of the website"> 
+            </figure>      
+            <p class="text-n1">MOSAIC</p>
         </div>
+
+        <div class="separator-line"></div>
+
+        <div id="list-menu">
+            <div><i class="ri-dashboard-fill"></i><p><a href="{{ path('app_dashboard') }}">dashboard</a></p></div>
+            <div class="is-active"><i class="ri-team-fill "></i><p><a href="{{ path('list_users') }}">Community</a></p></div>
+            <div><i class="ri-artboard-2-fill"></i><p>events</p> </div>
+            <div><i class="ri-artboard-fill"></i><p>expositions</p></div>
+            <div><i class="ri-palette-fill"></i><p>workshops</p></div>
+            <div><i class="ri-home-heart-fill"></i><p>studios</p></div>
+            <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
+            <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div>
+        </div>
+
+        <div id="bottom"></div>
+
     </div>
-</div>
 
- {# {{dump(users)}} #}
+    <div id="content">
 
-<div class="breadcrumb breadcrumb-dark">
-    <p><a href="{{ path('app_dashboard') }}">Dashboard </a> > All Users</p>
-</div>
+        <div id="top-title">
+            <p class="text-n1">Community<span>_</span></p>
+            <div class="separator-line"></div>
+        </div>
+
+        <div class="container-all dashboard-communauty">
+            <div class="container" id="admin-users">
+                <p class="text-n2">Administrators</p>
+                <div class="table-user head">
+                    <p>Username</p>
+                    <p>Email</p>
+                    <p>Registration date</p>
+                    <p>Roles</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for user in users %}
+                    {% if "ROLE_ADMIN" in user.roles and app.user.id != user.id %}
+                            <p class="even">{{user}}</p>
+                            <p class="odd">{{user.email}}</p>
+                            <p class="even">{{user.registrationDate|formatDate}}</p>
+
+                            <div class="roles-user odd">
+                                {% if 'admin' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-gear"></i> Admin</p>
+                                {% endif %}
+           
+                                {% if 'supervisor' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-user-tie"></i> Supervisor</p>
+                                {% endif %}
+
+                                {% if 'artist' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
+                                    <p>
+                                        {% if user.isPublished == 1 %}
+                                            <i class="ri-eye-fill"></i>
+                                        {% elseif user.isPublished == -1 %}
+                                            <i class="ri-eye-off-fill"></i>
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="actions even">
+                                <p><a href="{{ path('detail_user_admin', {slug : user.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('delete_user_admin', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                        {% endif %}
+                        
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="container" id="supervisor-users">
+                <p class="text-n2">Supervisors</p>
+                <div class="table-user head">
+                    <p >Username</p>
+                    <p>Email</p>
+                    <p>Registration date</p>
+                    <p>Roles</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for user in users %}
+                    {% if "ROLE_SUPERVISOR" in user.roles and app.user.id != user.id %}
+                            <p class="even">{{user}}</p>
+                            <p class="odd">{{user.email}}</p>
+                            <p class="even">{{user.registrationDate|formatDate}}</p>
+
+                            <div class="roles-user odd">
+                                {% if 'admin' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-gear"></i> Admin</p>
+                                {% endif %}
+           
+                                {% if 'supervisor' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-user-tie"></i> Supervisor</p>
+                                {% endif %}
+
+                                {% if 'artist' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
+                                    <p>
+                                        {% if user.isPublished == 1 %}
+                                            <i class="ri-eye-fill"></i>
+                                        {% elseif user.isPublished == -1 %}
+                                            <i class="ri-eye-off-fill"></i>
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="actions even">
+                                <p><a href="{{ path('detail_user_admin', {slug : user.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('delete_user_admin', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                        {% endif %}
+                        
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="container" id="supervisor-users">
+                <p class="text-n2">Users</p>
+                <div class="table-user head">
+                    <p>Username</p>
+                    <p>Email</p>
+                    <p>Registration date</p>
+                    <p>Roles</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for user in users %}
+                    {% if "ROLE_ADMIN" not in user.roles and "ROLE_SUPERVISOR" not in user.roles and app.user.id != user.id %}
+                            <p class="even">{{user}}</p>
+                            <p class="odd">{{user.email}}</p>
+                            <p class="even">{{user.registrationDate|formatDate}}</p>
+
+                            <div class="roles-user odd">
+                                {% if 'admin' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-gear"></i> Admin</p>
+                                {% endif %}
+           
+                                {% if 'supervisor' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-user-tie"></i> Supervisor</p>
+                                {% endif %}
+
+                                {% if 'artist' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
+                                    <p>
+                                        {% if user.isPublished == 1 %}
+                                            <i class="ri-eye-fill"></i>
+                                        {% elseif user.isPublished == -1 %}
+                                            <i class="ri-eye-off-fill"></i>
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="actions even">
+                                <p><a href="{{ path('detail_user_admin', {slug : user.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('delete_user_admin', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                        {% endif %}
+                        
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+</section>
 
 <section class="content dashboard" id="dashboard-users-list">
 
@@ -84,60 +251,7 @@ ajouter pagination #}
                  <p>Email: {{user.Email}}</p>
                  <p>Registration date: {{user.registrationDate|formatDate}}</p>
         
-                 <div class="roles-user">
-                     {% if 'admin' in user.getSimpleRoles %}
-                         <p class="artist-icon"><i class="fa-solid fa-gear"></i> Admin</p>
-                     {% endif %}
-
-                     {% if 'supervisor' in user.getSimpleRoles %}
-                         <p class="artist-icon"><i class="fa-solid fa-user-tie"></i> Supervisor</p>
-                     {% endif %}
-
-                     {% if 'artist' in user.getSimpleRoles %}
-                         <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
-                         {% if user.isPublished == 1 %}
-                            <p><a href="{{ path('show_artist' , {slug : user.slug}) }}">Artist page</a> <i class="fa-solid fa-eye"></i></p>
-
-                            <div id="admin-moderation">
-                                    
-                                {% if app.user.id == user.id %}
-                                {# an admin can't moderate their own artist page #}
-                                {% else %}
-                                    {{ form_start(formPublishPageArtist) }}
-                                        {% if user.isPublished == 1 %}
-                                            <button class="btn btn-red btn-artist-profil" type="submit">Moderate</button>
-                                        {% elseif user.isPublished == -1 %}
-                                            <button class="btn btn-blue btn-artist-profil" type="submit">Publish</button>
-                                        {% endif %}
-                                    {{ form_end(formPublishPageArtist) }}
-                                {% endif %}
-                            
-                            </div>
-
-
-                         {% elseif user.isPublished == -1 %}
-                            <p>Artist page   <i class="fa-solid fa-eye-slash"></i> <p>
-                                <div id="admin-moderation">
-                                    
-                                        {% if app.user.id == user.id %}
-                                        {# an admin can't moderate their own artist page #}
-                                        {% else %}
-                                            {{ form_start(formPublishPageArtist) }}
-                                                {% if user.isPublished == 1 %}
-                                                    <button class="btn btn-red btn-artist-profil" type="submit">Moderate</button>
-                                                {% elseif user.isPublished == -1 %}
-                                                    <button class="btn btn-blue btn-artist-profil" type="submit">Publish</button>
-                                                {% endif %}
-                                            {{ form_end(formPublishPageArtist) }}
-                                        {% endif %}
-                                    
-                                </div>
-                            </p>
-                         {% endif %}
-                     {% endif %}
-            
-            
-                 </div>
+                
         
                  <div class="separator"></div>
                 

@@ -18,10 +18,163 @@
 //? ---------------------------------- */
 
 .dashboard {
-    color: #F9F9F9;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
     color: $main-black-color;
-    padding: 3rem;
+    display: flex;
+    width: 90%;
+    margin: auto;
+    margin-top: 13rem;
+
+    .separator-line {
+        width: 100%;
+        height: 1px;
+        background-color: $secondary-color3;
+        margin-top: 0.5rem;
+    }
+
+    #menu-left {
+        background-color: $main-black-color;
+        color: $main-white-color;
+        text-transform: capitalize;
+        width: 500px;
+        padding: 2rem 3rem 3rem 3rem;
+
+        #logo-name {
+            display: flex;
+            align-items: center;
+            height: 90px;
+            figure {
+                width: 70px;
+                height: 70px;
+                margin-right: 1rem;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            p {
+                letter-spacing: $letter-spacing-title;
+            }
+        }
+
+       
+        #list-menu {
+            display: flex;
+            flex-direction: column;
+            margin-top: 3rem;
+            row-gap: 1.2rem;
+
+            div {
+                display: flex;
+                // background-color: blue;
+                padding:1rem ;
+                font-size: 1.2rem;
+                transition: ease 0.3s;
+
+                i {
+                    margin-right: 0.3rem;
+                }
+
+                &:hover {
+                    background-color: $secondary-color;
+                    color: $main-black-color;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        #bottom {
+            height: 150px;
+        }
+    }
+
+    #content {
+        width: 100%;
+
+        #top-title {
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 2.6rem 3rem 0rem 3rem;
+            background-image: url("../images/banner.webp");
+
+
+            p {
+                text-transform: uppercase;
+                height: 70px;
+                display: flex;
+                align-items: center;
+
+                span {
+                    color: $secondary-color;
+                }
+            }
+
+            .separator-line {
+                margin-top: 1.1rem;
+            }
+        }
+
+        .container-all {
+            padding: 3rem;
+            // margin: 1px solid black;
+
+            .container {
+                margin-bottom: 3rem;
+                .table-user {
+                    display: grid;
+                    grid-template-columns: 20% 20% 20% 30% 10%;
+                    width: 100%;
+                    border: 1px solid $main-black-color;
+                    p {
+                        padding: 0.6rem 0.3rem;
+                    }
+
+                    
+                }
+
+                .head {
+                    background-color: $main-black-color;
+                    color: $main-white-color;
+                    p {
+                        border-right: 1px solid $secondary-color;
+                    }
+                }
+
+                .body {
+                    p {
+                        border-right: 1px solid $main-black-color;
+                    }
+
+                    .even:nth-child(even) {
+                        background-color: #e5e5e5;
+                    }
+
+                    .odd:nth-child(odd) {
+                        background-color: #e5e5e5;
+                    }
+                  
+
+                    .actions {
+                        display: flex;
+                        p {
+                           border: none !important; 
+                        }
+                        
+                    }
+                }
+
+                
+            }
+        }
+    }
+
+    .is-active {
+        background-color: $secondary-color;
+        color: $main-black-color;
+    }
     
 }
 
@@ -56,6 +209,19 @@
 //~   ██████  ███████ ███████ ██   ██ ███████     ███████ ██ ███████    ██    
 //~ ---------------------------------- */
 
+.dashboard-communauty {
+    .roles-user {
+        display: flex;
+        column-gap: 0.6rem;
+        border-right: 1px solid $main-black-color;
+        p {
+            border: none !important;
+        }
+    }
+}
+
+
+
 #dashboard-users-list {
     #search {
         margin: 0rem 0rem 2rem 0rem;
@@ -88,9 +254,11 @@
         margin: 1.7rem 0;
     }
 
-    .roles-user {
-        display: flex;
-        column-gap: 0.6rem;
+   
+
+    .btn-blue, .btn-red {
+        margin: 0;
+        padding: 0.2rem;
     }
 }
 
@@ -102,14 +270,113 @@
 //&   ██████  ███████ ███████ ██   ██    
 //& ---------------------------------- */
 
-#dashboard-user-detail {
-    picture {
-        width: 8rem;
-        height: 8rem;
+.dashboard-user {
+    #info-user {
+        margin-top: 1rem;
+        display: flex;
+        column-gap: 3rem;
+        margin-bottom: 3rem;
 
-        img {
-            width: 100%;
-            height: 100%;
+        #infos {
+            width: 25rem;
+            p {
+                margin-bottom: 0.2rem;
+            }
+            #moderate {
+                display: flex;
+
+                button {
+                    padding: 0.2rem;
+                    margin: 0rem 0 0 0.3rem;
+                }
+            }
+        }
+
+        #avatar {
+            picture {
+                width: 12rem;
+                height: 12rem;
+                object-fit: cover;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+    
+
+    }
+    
+    #delete-confirmation {
+        width: 50%;
+        margin: 1rem 0 ;
+        padding: 0.5rem;
+        border: 1px solid $secondary-color4;
+
+        #actions {
+            display: flex;
+            flex-direction: row;
+            margin: 0.6rem 0 ;
+
+            div {
+                @include center-flexbox();
+                margin-right: 1rem;
+                width: 10rem;
+                i {
+                    margin-right: 0.3rem;
+                }
+
+            }
+        }
+    }
+
+    .container-activity {
+       h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.3rem;
+        margin-top: 1rem;
+       }
+       
+       .table {
+        width: 70%;
+        display: grid;
+        grid-template-columns: 30% 30% 30% 10%;        
+       }
+       .table-head {
+        background-color: $main-black-color;
+        color: $main-white-color;
+        p{
+            border-right: 1px solid $secondary-color;
+            padding: 0.3rem;
+        }
+        }
+
+        .table-body {
+        background-color: $main-white-color;
+        color: $main-black-color;
+        width: 70%;
+
+        .lines {
+
+            border-left: 1px solid $main-black-color;
+            display: grid;
+            grid-template-columns: 30% 30% 30% 10%;  
+            
+            p{
+                border-right: 1px solid $main-black-color;
+                padding: 0 0.3rem  0.3rem 0.3rem;
+           
+            }
+        }
+
+        .lines:nth-child(even) {
+            background-color: #e5e5e5;
+        }
+        
+        }
+        .table-body:last-child {
+            border-bottom: 1px solid $main-black-color;
+
         }
     }
 }
@@ -124,6 +391,12 @@
 //~ ---------------------------------- */
 
 .create-event {
+    margin: auto;
+    margin-top: 0!important;
+    width: $content-width;
+    display: block;
+    padding: 3rem;
+
     h1 {
         span {
             color: $secondary-color;

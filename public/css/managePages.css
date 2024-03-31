@@ -680,6 +680,7 @@ html {
   display: flex;
   width: 90%;
   margin: auto;
+  margin-top: 13rem;
 }
 .dashboard .separator-line {
   width: 100%;
@@ -750,8 +751,52 @@ html {
   display: flex;
   align-items: center;
 }
+.dashboard #content #top-title p span {
+  color: #eeaf42;
+}
 .dashboard #content #top-title .separator-line {
   margin-top: 1.1rem;
+}
+.dashboard #content .container-all {
+  padding: 3rem;
+}
+.dashboard #content .container-all .container {
+  margin-bottom: 3rem;
+}
+.dashboard #content .container-all .container .table-user {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 30% 10%;
+  width: 100%;
+  border: 1px solid #151515;
+}
+.dashboard #content .container-all .container .table-user p {
+  padding: 0.6rem 0.3rem;
+}
+.dashboard #content .container-all .container .head {
+  background-color: #151515;
+  color: #F9F9F9;
+}
+.dashboard #content .container-all .container .head p {
+  border-right: 1px solid #eeaf42;
+}
+.dashboard #content .container-all .container .body p {
+  border-right: 1px solid #151515;
+}
+.dashboard #content .container-all .container .body .even:nth-child(even) {
+  background-color: #e5e5e5;
+}
+.dashboard #content .container-all .container .body .odd:nth-child(odd) {
+  background-color: #e5e5e5;
+}
+.dashboard #content .container-all .container .body .actions {
+  display: flex;
+}
+.dashboard #content .container-all .container .body .actions p {
+  border: none !important;
+}
+.dashboard .is-active {
+  background-color: #eeaf42;
+  color: #151515;
 }
 
 #dashboard-main .separator {
@@ -767,6 +812,15 @@ html {
   border-left: 4px solid #207E93;
   padding: 1.5rem 0rem 1.5rem 1rem;
   display: none;
+}
+
+.dashboard-communauty .roles-user {
+  display: flex;
+  column-gap: 0.6rem;
+  border-right: 1px solid #151515;
+}
+.dashboard-communauty .roles-user p {
+  border: none !important;
 }
 
 #dashboard-users-list #search {
@@ -796,24 +850,106 @@ html {
   height: 2px;
   margin: 1.7rem 0;
 }
-#dashboard-users-list .roles-user {
-  display: flex;
-  column-gap: 0.6rem;
-}
 #dashboard-users-list .btn-blue, #dashboard-users-list .btn-red {
   margin: 0;
   padding: 0.2rem;
 }
 
-#dashboard-user-detail picture {
-  width: 8rem;
-  height: 8rem;
+.dashboard-user #info-user {
+  margin-top: 1rem;
+  display: flex;
+  column-gap: 3rem;
+  margin-bottom: 3rem;
 }
-#dashboard-user-detail picture img {
+.dashboard-user #info-user #infos {
+  width: 25rem;
+}
+.dashboard-user #info-user #infos p {
+  margin-bottom: 0.2rem;
+}
+.dashboard-user #info-user #infos #moderate {
+  display: flex;
+}
+.dashboard-user #info-user #infos #moderate button {
+  padding: 0.2rem;
+  margin: 0rem 0 0 0.3rem;
+}
+.dashboard-user #info-user #avatar picture {
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+}
+.dashboard-user #info-user #avatar picture img {
   width: 100%;
   height: 100%;
 }
+.dashboard-user #delete-confirmation {
+  width: 50%;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border: 1px solid #F14D4C;
+}
+.dashboard-user #delete-confirmation #actions {
+  display: flex;
+  flex-direction: row;
+  margin: 0.6rem 0;
+}
+.dashboard-user #delete-confirmation #actions div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  width: 10rem;
+}
+.dashboard-user #delete-confirmation #actions div i {
+  margin-right: 0.3rem;
+}
+.dashboard-user .container-activity h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+  margin-top: 1rem;
+}
+.dashboard-user .container-activity .table {
+  width: 70%;
+  display: grid;
+  grid-template-columns: 30% 30% 30% 10%;
+}
+.dashboard-user .container-activity .table-head {
+  background-color: #151515;
+  color: #F9F9F9;
+}
+.dashboard-user .container-activity .table-head p {
+  border-right: 1px solid #eeaf42;
+  padding: 0.3rem;
+}
+.dashboard-user .container-activity .table-body {
+  background-color: #F9F9F9;
+  color: #151515;
+  width: 70%;
+}
+.dashboard-user .container-activity .table-body .lines {
+  border-left: 1px solid #151515;
+  display: grid;
+  grid-template-columns: 30% 30% 30% 10%;
+}
+.dashboard-user .container-activity .table-body .lines p {
+  border-right: 1px solid #151515;
+  padding: 0 0.3rem 0.3rem 0.3rem;
+}
+.dashboard-user .container-activity .table-body .lines:nth-child(even) {
+  background-color: #e5e5e5;
+}
+.dashboard-user .container-activity .table-body:last-child {
+  border-bottom: 1px solid #151515;
+}
 
+.create-event {
+  margin: auto;
+  margin-top: 0 !important;
+  width: 70%;
+  display: block;
+  padding: 3rem;
+}
 .create-event h1 span {
   color: #eeaf42;
 }

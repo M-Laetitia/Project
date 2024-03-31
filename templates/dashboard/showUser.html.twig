@@ -47,154 +47,240 @@
     
             <div class="container-all dashboard-user">
 
-                <p><a href="{{ path('list_users') }}">go back to all users</a></p>
+                <p><a href="{{ path('list_users') }}"> <i class="ri-arrow-left-double-fill"></i> Go back to all users</a></p>
                 <p class="text-n1">{{user}}</p>
 
                 {% if is_granted('ROLE_ADMIN') %}
-                <p>Actions:</p><a href=" {{ path('delete_user_admin', {'id': app.user.id }) }}">delete</a>
+                <p class="btn-confirmation"><a href="#"> <i class="fa-solid fa-circle-xmark"></i> Delete user</a></p>
+                
+
+                <div id="delete-confirmation" style="display: none;">
+                    <p>Are you sure to want to delete this user? This action cannot be undone.</p>
+                    <div id="actions">
+                        <div>
+                                <i class="fa-solid fa-circle-check"></i>
+                                <p>
+                                <a href=" {{ path('delete_user_admin', {'id': app.user.id }) }}">confirm</a></p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-circle-xmark btn-confirmation"></i>
+                            <p>cancel</p>
+                        </div>
+                        
+                    </div>
+                </div>
                 {% endif %}
 
-                <h2>Informations:</h2>
+                <h2 class="text-n2">Informations:</h2>
+
+                <div id="info-user">
+                    <div id="infos">
+                        <p>Email : {{ user.email}}</p>
+                        <p>Registration date : {{ user.registrationDate|formatDate}}</p>
+                        <p>Member since : {{ user.durationSinceRegistration}} </p>
+                        <p>Last login date : {{ user.lastLoginDate|formatDate}} </p>
+        
+                        {% if user.getSimpleRoles|length > 0 %}
+                        <p>Role : {{ user.getSimpleRoles|join(', ') }} </p>
+                        {% else %}
+                            <p>Role: no role</p>
+                        {% endif %}
+
+                        {# page artist + modération #}
+                        <div id="moderate">
+                            {% if "ROLE_ARTIST" in user.roles  %}
+                                <p>Artist page : 
+                                {% if user.isPublished == 0 %}
+                                    Not published</p>
+                                {% elseif user.isPublished == 1  %}
+                                    <a href="{{ path('show_artist', {slug: user.slug}) }}">Published</a></p>
+                                {% elseif user.isPublished == -1  %}
+                                    Moderated</p>
+                                {% endif %}
+                            {% endif %}
     
-                <p>Email: {{ user.email}}</p>
-                <p>Registration date: {{ user.registrationDate|formatDate}}</p>
-                <p>Member since: {{ user.durationSinceRegistration}} </p>
-                <p>Last login date: {{ user.lastLoginDate|formatDate}} </p>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ form_start(formPublishPageArtist) }}
+                                    {% if user.isPublished == 1 %}
+                                        <button class="btn btn-red btn-artist-profil" type="submit">Moderate</button>
+                                    {% elseif user.isPublished == -1 %}
+                                        <button class="btn btn-blue btn-artist-profil" type="submit">Publish</button>
+                                    {% endif %}
+                                {{ form_end(formPublishPageArtist) }}
+                            {% endif %}
 
+                        </div>
+                    </div>
 
-                {% if user.getSimpleRoles|length > 0 %}
-                <p>Role: {{ user.getSimpleRoles|join(', ') }} </p>
-                {% else %}
-                    <p>Role: no role</p>
-                {% endif %}
-            
-                <p>Avatar :
-                         <picture>
-                             {% if user.avatar %}
-                             <img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="user's avatar">
-                             {% else %}
-                                 <img src="{{ asset('images/visuals/defaultPicture.png') }}" alt="default image for avatar">
-                             {% endif %}
-                         </picture>
-                </p>
+                    <div id="avatar">
+                            <picture>
+                                {% if user.avatar %}
+                                <img src="{{ asset('images/avatars/' ~ user.avatar) }}" alt="user's avatar">
+                                {% else %}
+                                    <img src="{{ asset('images/visuals/defaultPicture.png') }}" alt="default image for avatar">
+                                {% endif %}
+                            </picture>
+                    </div>
+                </div>
+    
+                
+                <h2 class="text-n2" style="margin-bottom: 2rem;">Activity :</h2>  
+                
+                <div class="container-activity">
+                    <h3>Events :</h3>
 
-                {% if "ROLE_ARTIST" in user.roles  %}
-                    <p>Artist page : 
-                    {% if user.isPublished == 0 %}
-                        Not published</p>
-                    {% elseif user.isPublished == 1  %}
-                        published</p>
-                    {% elseif user.isPublished == -1  %}
-                        moderated</p>
-                    {% endif %}
-                {% endif %}
+                    <div class="table table-head">
+                        <p>Name  </p>
+                        <p>Inscription date </p>
+                        <p>Event date </p>
+                        <p>Status </p>
+                    </div>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    {{ form_start(formPublishPageArtist) }}
-                        {% if user.isPublished == 1 %}
-                            <button class="btn btn-red btn-artist-profil" type="submit">Moderate</button>
-                        {% elseif user.isPublished == -1 %}
-                            <button class="btn btn-blue btn-artist-profil" type="submit">Publish</button>
-                        {% endif %}
-                    {{ form_end(formPublishPageArtist) }}
-                {% endif %}
+                    <div class=" table-body">
 
+                        {% for participation in user.areaParticipations %}
+                            {% if participation.area.type == 'EVENT' %}
+                                <div class="lines">
+                                    {% if participation.area.status == 'ARCHIVED' %}
+                                        <p><a href="{{ path('show_archived_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a></p>
+                                    {% else %}
+                                        <p><a href="{{ path('show_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a></p>
+                                    {% endif %}
+                                    <p>{{ participation.inscriptionDate|formatDate}}</p>
+                                    <p>{{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+                                    <p>{{ participation.area.status}}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+    
+                </div>
+
+                <div class="container-activity">
+                    <h3>Expositions :</h3>
+
+                    <div class="table table-head">
+                        <p>Name </p>
+                        <p>Inscription date </p>
+                        <p>Exposition date </p>
+                        <p>Status </p>
+                    </div>
+
+                    <div class=" table-body">
+
+                        {% for participation in user.areaParticipations %}
+                            {% if participation.area.type == 'EXPO' %}
+                                <div class="lines">
+                                    {% if participation.area.status == 'ARCHIVED' %}
+                                        <p><a href="{{ path('show_archived_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a></p>
+                                    {% else %}
+                                        <p><a href="{{ path('show_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a></p>
+                                    {% endif %}
+                                    <p>{{ participation.inscriptionDate|formatDate}}</p>
+                                    <p>{{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
+                                    <p>{{ participation.area.status}}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+    
+                </div>
+              
+                <div class="container-activity">
+                    <h3>Workshops :</h3>
+
+                    <div class="table table-head">
+                        <p>Name </p>
+                        <p>Inscription date </p>
+                        <p>Workshop date </p>
+                        <p>Status </p>
+                    </div>
+
+                    <div class=" table-body">
+
+                        {% for participation in user.workshopRegistrations %}
+                                <div class="lines">
+                                    {% if participation.workshop != null %}
+                                        {% if participation.workshop.status == 'ARCHIVED' %}
+                                            <p><a href="{{ path('show_workshop', {slug : participation.workshop.slug })}}">{{ participation.workshop.name}} </a></p>
+                                        {% else %}
+                                            <p><a href="{{ path('show_workshop', {slug : participation.workshop.slug })}}">{{ participation.workshop.name}} </a></p>
+                                        {% endif %}
+                                        <p>{{ participation.registrationDate|formatDate}}</p>
+                                        <p>{{ participation.workshop.startDate|formatDate}} {{ participation.workshop.endDate|formatDate}}</p>
+                                        <p>{{ participation.workshop.status}}</p>
+                                    {% endif %}
+                                    
+                                </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
                 
-                <h2>Activity :</h2>  
-                
-                <p>Events :</p>
-                <ul>
-                    {% for participation in user.areaParticipations %}
-                         {% if participation.area.type == 'EVENT' %}
-                         
-                        <li>
-                            <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
-                            <p> <a href="{{ path('show_event', {slug : participation.area.slug })}}">{{ participation.area.name}} </a>
-                             - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-                
-                <p>Expositions :</p>
-                <ul>
-                    {% for participation in user.areaParticipations %}
-                         {% if participation.area.type == 'EXPO' %}
-                         
-                        <li>
-                            <p>Inscription Date: {{ participation.inscriptionDate|formatDate}}</p>
-                            <p><a href="{{ path('show_exposition', {'slug':  participation.area.slug }) }}">{{ participation.area.name}}</a> - {{ participation.area.startDate|formatDate}} {{ participation.area.endDate|formatDate}}</p>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+                <div class="container-activity">
+                    <h3>Studios :</h3>
+
+                    <div class="table table-head">
+                        <p>Name </p>
+                        <p>Inscription date </p>
+                        <p>Timeslot </p>
+                        <p>Date </p>
+                    </div>
+
+                    <div class=" table-body">
+
+                        {% for participation in user.workshopRegistrations %}
+                                <div class="lines">
+                                    {% if participation.timeslot != null %}
+                                            <p><a href="{{ path('show_studio', {slug : participation.timeslot.studio.slug })}}">{{participation.timeslot.studio.name}} </a></p>
+                                        <p>{{ participation.registrationDate|formatDate}}</p>
+                                        <p>{{participation.timeslot.startDate|date('H:i')}} - {{participation.timeslot.endDate|date('H:i')}}</p>
+                                        <p>{{participation.timeslot.startDate|formatDate}}</p>
+                                    {% endif %}
+                                    
+                                </div>
+                        {% endfor %}
+                    </div>
+    
+                </div>
                 
                 
-                <p>Studios :</p>
-                <ul>
-                    {% for participation in user.workshopRegistrations %}
-                         {% if participation.timeslot != null %}
-                         
-                        <li>
-                             <p>registration date: {{ participation.registrationDate|formatDate}}</p>
-                             <p>{{participation.timeslot.studio.name}}</p>
-                             <p>time slot: {{participation.timeslot.startDate|formatDate}} - {{participation.timeslot.endDate|formatDate}}</p>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-                
-                <p>Workshop :</p>
-                <ul>
-                    {% for participation in user.workshopRegistrations %}
-                         {% if participation.workshop != null %}
-                         
-                         <li>
-                             
-                             <p>registration date: {{ participation.registrationDate|formatDate}}</p>
-                             <p><a href="{{ path('show_workshop', {'slug' : participation.workshop.slug})}}">{{participation.workshop.name}}</a></p>
-                             <p>Date: {{participation.workshop.startDate|formatDate}} - {{participation.workshop.endDate|formatDate}}</p>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-                
-                <p>Subscriptions :</p>
+                <p class="text-n2">Subscriptions :</p>
                 
                 {% if  user.subscriptions is not empty %}
                 
-                <p class="text-n2">Active<span>_</span></p>
-                    {% for subscription in user.subscriptions %}
-                        {% if subscription.isActive == 1 %}
-                            <div id="active">
-                                <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
-            
-                                {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
-            
-                                <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
-            
-                                <p><span>Remaining days :</span> {{ subscription.daysRemaining.remaining }}</p>
-                            </div>
-                        {% endif %}
+                    <p>Active : </p>
+                        {% for subscription in user.subscriptions %}
+                            {% if subscription.isActive == 1 %}
+                                <div id="active">
+                                    <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
+                
+                                    {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+                
+                                    <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
+                
+                                    <p><span>Remaining days :</span> {{ subscription.daysRemaining.remaining }}</p>
+                                </div>
+                            {% endif %}
                         {% endfor %}    
-                    
-                        <p class="text-n2" style="margin-top: 1.2rem;" >History<span>_</span></p>
-                    {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
-                        {% if subscription.isActive == 0 %}
-                        <div id="inactive">
-            
-                            <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
-            
-            
-                            {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
-            
-                            <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
-                            
-                            <div></div>
-                            
-                        </div>
-                        {% endif %}
-                    {% endfor %}
+                        
+                        <p style="margin-top: 1.2rem;" >History : </p>
+                        {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
+                            {% if subscription.isActive == 0 %}
+                            <div id="inactive">
+                
+                                <p><span>Description :</span> {{ subscription.infosSubscription.name }} - {{ subscription.infosSubscription.price }} € - {{ subscription.infosSubscription.duration }} days</p>
+                
+                
+                                {% set endDate = subscription.paymentDate|date_modify('+' ~ subscription.infosSubscription.duration ~ ' days') %}
+                
+                                <p><span>Payment date :</span> {{ subscription.paymentDate|formatDate }} | <span>End date :</span> {{ endDate|formatDate }}</p>
+                                
+                                <div></div>
+                                
+                            </div>
+                            {% endif %}
+                        {% endfor %}
             
                 {% endif %}
 
@@ -206,22 +292,12 @@
             
     </section>
 
-
-    
-
-
-    
-    
-
-
-
-
-   
-
-   
-
-
-
-
+<script>
+    $(document).ready(function() {
+        $('.btn-confirmation').click(function(){
+            $("#delete-confirmation").slideToggle();
+        });
+    })
+</script>
 
 {% endblock %}

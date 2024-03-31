@@ -64,7 +64,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     // ^ find users by username
-    public function findUserByUsername($criteria)
+    public function findUserByUsername(string  $criteria)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.username LIKE :username')
@@ -100,14 +100,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-
-
-    // ^ find artists by username
-    public function findArtistByUsername($criteria)
+    //  Find artists by username
+    public function findArtistByUsername( string $criteria) // Takes a criteria parameter of type string.
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.username LIKE :username')
-            ->setParameter('username', '%' . $criteria . '%')
+            ->andWhere('u.username LIKE :username') // The username is inserted into the query using a parameter named :username.
+            ->setParameter('username', '%' . $criteria . '%') // The :username parameter is set with the searched username, with % to match parts of the event name.
             ->andWhere('u.roles LIKE :artistRole')
             ->setParameter('artistRole', '%"ROLE_ARTIST"%')
             ->getQuery()
@@ -115,9 +113,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-
     //^ get artists filtered by discipline
-    public function findArtistByDiscipline($criteria) 
+    public function findArtistByDiscipline( string $criteria) 
     {
         $allUsers = $this->findAll();
         $artists = [];

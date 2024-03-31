@@ -94,7 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $slug = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $isPublished = null;
+    private ?int $isPublished = null;
 
 
 
@@ -651,12 +651,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $slugify->slugify($this->getUsername());
     }
 
-    public function getIsPublished(): ?bool
+    public function getIsPublished(): ?int
     {
         return $this->isPublished;
     }
 
-    public function setIsPublished(?bool $isPublished): static
+    public function setIsPublished(?int $isPublished): static
     {
         $this->isPublished = $isPublished;
 

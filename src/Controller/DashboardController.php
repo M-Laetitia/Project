@@ -84,10 +84,8 @@ class DashboardController extends AbstractController
         $role = $request->query->get('role');
         $sortBy = $request->query->get('sortBy');
         $artists = $userRepository->findBy(['roles' => 'ROLE_ARTIST']);
-        // dd($role);
 
         $redirectToSamePage = false; // Flag to determine if redirection is needed
-
         if ($role) {
             $searchResults = $userRepository->findUsersbyRole($role);
             $redirectToSamePage = true;
@@ -124,10 +122,6 @@ class DashboardController extends AbstractController
             $session->remove('searchResults'); // Remove search results from session after use
         }
 
-
-      
-
-    
         // $users = $userRepository->findBy([], ['username' => 'ASC']);
         return $this->render('dashboard/indexUsers.html.twig', [
             // 'users' => $users,
@@ -178,6 +172,36 @@ class DashboardController extends AbstractController
             'formPublishPageArtist' => $formPage,
         ]);
     }
+
+    // ^ list events
+     #[Route('/admin/dashboard/events', name: 'list_events')]
+     #[IsGranted("ROLE_ADMIN")]
+     public function indexEvents(WorkshopRepository $workshopRepository, AreaRepository $areaRepository, StudioRepository $studioRepository): Response
+     {
+ 
+   
+        $events = $areaRepository->findBy(['type' => 'EVENT']);
+ 
+        $ongoingEvents = $areaRepository->findBy([
+             'type' => 'EVENT',
+             'status' => ['OPEN', 'PENDING', 'CLOSED'],
+        ]);
+        $pastEvents = $areaRepository->findBy([
+            'type' => 'EVENT',
+            'status' => ['ARCHIVED'],
+        ]);
+
+         
+ 
+         return $this->render('dashboard/indexEvents.html.twig', [
+             'events' => $events,
+
+
+             'ongoingEvents' => $ongoingEvents,
+             'pastEvents' => $pastEvents,
+
+         ]);
+     }
 
     // //^ search user (by username)
     // #[Route('/artist/search/username/{username}', name: 'app_artist_search_username', methods: ['GET'])]

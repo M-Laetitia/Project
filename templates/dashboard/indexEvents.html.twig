@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Users list - MOSAIC{% endblock %}
-{% block meta %}Manage users with the admin panel on MOSAIC, through a comprehensive list of users, search by name or filter by role, alphabetical order, or registration date. Access detailed user profiles easily.{% endblock %}
+{% block title %}Events list - MOSAIC{% endblock %}
+{% block meta %}{% endblock %}
 
 {% block body %}
 
 
-<section class="dashboard" id="dashboard-users">
+<section class="dashboard" id="dashboard-events">
 
     <div id="menu-left">
         <div id="logo-name">
@@ -19,11 +19,11 @@
         <div class="separator-line"></div>
 
         <div id="list-menu">
-            <div><i class="ri-dashboard-fill"></i><p><a href="{{ path('app_dashboard') }}">dashboard</a></p></div>
-            <div ><i class="ri-team-fill "></i><p><a href="{{ path('list_users') }}">Community</a></p></div>
-            <div class="is-active"><i class="ri-artboard-2-fill"></i><p><a href="{{ path('list_events') }}">events</a></p> </div>
-            <div><i class="ri-artboard-fill"></i><p>expositions</p></div>
-            <div><i class="ri-palette-fill"></i><p>workshops</p></div>
+            <a href="{{ path('app_dashboard') }}"><div><i class="ri-dashboard-fill"></i><p>dashboard</p></div></a>
+            <a href="{{ path('list_users') }}"><div ><i class="ri-team-fill "></i><p>Community</p></div></a>
+            <a href="{{ path('list_events') }}"><div class="is-active"><i class="ri-artboard-2-fill"></i><p>events</p> </div></a>
+            <a href="{{ path('list_expos') }}"> <div><i class="ri-artboard-2-fill"></i><p>expositions</p> </div></a>
+            <a href="{{ path('list_workshops') }}"> <div><i class="ri-artboard-2-fill"></i><p>workshops</p> </div></a>
             <div><i class="ri-home-heart-fill"></i><p>studios</p></div>
             <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
             <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div>
@@ -40,98 +40,89 @@
             <div class="separator-line"></div>
         </div>
 
-        <div class="container-all dashboard-communauty">
-        {# EVENTS #}
-        <div id="events">
-            <div>
-                <p><a class="btn btn6" href="{{ path('new_event') }}"><i class="fa-solid fa-plus"></i> New Event</a></p>
+
+        <div class="container-all dashboard-events">
+            <div class="container" id="supervisor-users">
+                <p class="text-n2">Ongoing and future Events</p>
+                <div class="table-user head" >
+                    <p>Name</p>
+                    <p>Date</p>
+                    <p>Capacity</p>
+                    <p>Status</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for event in ongoingEvents %}                   
+                            <p class="even">{{event.name}}</p>
+                            <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
+                            <p class="even">{{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
+                            {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
+
+                            <p class="odd">
+                               
+                                <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                    (event.status == 'CLOSED' ? 'closed' : 
+                                                    (event.status == 'PENDING' ? 'pending' : 
+                                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                    {{ event.status }} 
+                                </span>
+                               {# {{ event.access }}  #}
+                            </p>
+
+                            <div class="actions even">
+                                <p><a href="{{ path('show_expo_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                <p><a href="{{ path('delete_event', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                                               
+                    {% endfor %}
+                </div>
+
             </div>
-            <p class="text-n3">Current and future Events  <span> <i class="fa-solid fa-circle-chevron-down"></i></span></p>
 
-                <div class="ongoing">
-                    {% for event in ongoingEvents %}
-                    <div class="element">
-                        <p>
-                            <a href="{{ path('show_event_admin', {slug : event.slug  }) }}"><span class="name">✦ {{event.name}}</span></a>
-                            <span class="status {{ event.status == 'OPEN' ? 'open' : 
-                                                (event.status == 'CLOSED' ? 'closed' : 
-                                                (event.status == 'PENDING' ? 'pending' : 
-                                                (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                                {{ event.status }}
-                            </span>
-                        
-                        </p>
+        </div>
 
-                        <p>{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
-                
-                        
-                        <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}} - Remaining: {{event.nbReversationRemaining}}</p>
+        <div class="container-all dashboard-events">
+            <div class="container" id="supervisor-users">
+                <p class="text-n2">Past Events</p>
+                <div class="table-user head" >
+                    <p>Name</p>
+                    <p>Date</p>
+                    <p>Capacity</p>
+                    <p>Status</p>
+                    <p>Actions</p>
+                </div>
 
-                        
-                        <div class="actions"> 
-                            <a href="{{ path('show_event_admin', {slug : event.slug }) }}"><i class="ri-eye-close-fill"></i></a>
-                            <a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="ri-file-edit-fill"></i></a> 
-                            <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ event.id}}"></i></a>
-                        </div>
+                <div class="table-user body">
+                    {% for event in pastEvents %}                   
+                            <p class="even">{{event.name}}</p>
+                            <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
+                            <p class="even">{{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
+                            {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
 
-                        
+                            <p class="odd">
+                               
+                                <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                    (event.status == 'CLOSED' ? 'closed' : 
+                                                    (event.status == 'PENDING' ? 'pending' : 
+                                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                    {{ event.status }} 
+                                </span>
+                               {# {{ event.access }}  #}
+                            </p>
 
-                        <div class="delete-container" id="{{event.id}}" style="display:none">
-                            <p>Are you sure you want to delete this entry? This cannot be undone.</p>
-                            <div>
-                                <p><a href="{{ path('delete_event', {slug : event.slug}) }}"><i class="ri-check-line"></i> Confirm</a></p>
-                                <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
+                            <div class="actions even">
+                                <p><a href="{{ path('show_expo_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                <p><a href="{{ path('delete_event', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="separator"></div>
+                                               
                     {% endfor %}
                 </div>
 
-                <p class="text-n3">Past Events  <span> <i class="fa-solid fa-circle-chevron-down"></i></span></p>
+            </div>
 
-                <div class="past-ones">
-                    {% for event in pastEvents %}
-                    <div class="element">
-                        <p>
-                            <a href="{{ path('show_event_admin', {slug : event.slug  }) }}"><span class="name">✦ {{event.name}}</span></a>
-                            <span class="status {{ event.status == 'OPEN' ? 'open' : 
-                                                (event.status == 'CLOSED' ? 'closed' : 
-                                                (event.status == 'PENDING' ? 'pending' : 
-                                                (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                                {{ event.status }}
-                            </span>
-                        
-                        </p>
-
-                        <p>{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
-                
-                        
-                        <p>Capacity: {{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
-
-                        <div class="actions"> 
-                            <a href="{{ path('show_event_admin', {slug : event.slug }) }}"><i class="ri-eye-close-fill"></i></a>
-                            <a href="{{ path('edit_event', {'id' : event.id }) }}"><i class="ri-file-edit-fill"></i></a> 
-                            <a href=""><i class="ri-close-circle-fill delete-btn" data-target="{{ event.slug}}"></i></a>
-                        </div>
-
-                    
-
-                        <div class="delete-container" id="{{event.slug}}" style="display:none">
-                            <p>Are you sure you want to delete this entry? This cannot be undone.</p>
-                            <div>
-                                <p><a href="{{ path('delete_event', {slug : event.slug}) }}"><i class="ri-check-line"></i> Confirm</a></p>
-                                <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="separator"></div>
-                    {% endfor %}
-                </div>
-
-            <div>
         </div>
 
 
@@ -139,17 +130,6 @@
 
     
 </section>
-<script>
-    $(document).ready(function() {
-        $('.fa-circle-chevron-down').click(function() {
-            $(this).closest('p').next('.ongoing').slideToggle();
-        });
-
-        $('.fa-circle-chevron-down').click(function() {
-            $(this).closest('p').next('.past-ones').slideToggle();
-        });
-    });
-</script>
 
 
 

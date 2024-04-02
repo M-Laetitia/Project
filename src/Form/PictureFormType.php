@@ -19,13 +19,12 @@ class PictureFormType extends AbstractType
 
           ->add('picture', FileType::class, [
                 'label' => false,
-                // 'mapped' => false,
                 'required' => true, 
-                'property_path' => 'path', // le champ "picture" dans le form est lié à la propriété "path" de l'entité Picture
-                'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 2M, and the accepted formats are png, jpeg, jpg, and webp.',
+                'property_path' => 'path', // The "picture" field in the form is linked to the "path" property of the Picture entity.
+                'invalid_message' => 'The image must have a maximum width of 1800 and a minimum of 1600, a maximum height of 1000 and a minimum of 600, its size must not exceed 5M, and the accepted formats are png, jpeg, jpg, and webp.',
                 'constraints' => [
                     new Image([
-                        // 'maxSize' => '2M', 
+                        // 'maxSize' => '5M', 
                         // 'maxWidth' => 1800, 
                         // 'maxHeight' => 1000, 
 

@@ -30,7 +30,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    // ^ SHOW USER
+    // ^ SHOW USER - profile
     #[Route('/profile/user/{slug}', name: 'show_user')]
     #[IsGranted("ROLE_USER")]
     public function show(User $user = null, Security $security, Request $request, EntityManagerInterface $entityManager): Response {
@@ -118,7 +118,6 @@ class UserController extends AbstractController
         // Create and instand of DTO (Data Transfer Object) to handle the password modification
         $changePasswordModel = new ChangePasswordModel();
 
-       
         $form = $this->createForm(ChangePasswordType::class, $changePasswordModel);
         $form->handleRequest($request);
 

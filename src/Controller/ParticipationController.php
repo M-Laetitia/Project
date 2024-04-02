@@ -127,7 +127,7 @@ class ParticipationController extends AbstractController
 
             //send the email
             $userEmail = $user->getEmail();
-            //  sprintf en PHP est utilisée pour formater une chaîne selon un modèle spécifié. Les %s dans la chaîne de format sont des spécificateurs de format qui indiquent à la fonction sprintf où insérer les valeurs correspondantes dans la chaîne résultante.
+            //  sprintf = formatting a string according to a specified pattern.
             $expositionDetails = sprintf(
                 "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
                 $area->getName(),
@@ -135,7 +135,7 @@ class ParticipationController extends AbstractController
                 $area->getEndDate()->format('Y-m-d H:i:s'),
                 $area->getDescription()
             );
-
+            // call the mailer Service
             $mailerService->sendEventParticipationConfirmation($userEmail, $expositionDetails);
 
             $nbReversationRemaining = $area->getNbReversationRemaining();
@@ -408,11 +408,7 @@ class ParticipationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() ) {
 
-
-
-
             $expositionProposal = $form->getData();
-
             $expositionProposal->setProposalDate(new \DateTimeImmutable());
             $expositionProposal->setStatus('pending');
             $expositionProposal->setUser($user);
@@ -420,21 +416,19 @@ class ParticipationController extends AbstractController
             $entityManager->persist($expositionProposal);
             $entityManager->flush();
 
-            $nbProposalRemaining = $area->getNbExpositionProposals();
-            // dump($nbProposalRemaining);die;
-            if ( $nbProposalRemaining < 3 && $area->getStatus() !== 'PENDING') {
+            $nbExpoProposals = $area->getNbExpositionProposals();
+            // dump($nbExpoProposals);die;
+            if ( $nbExpoProposals < 3 && $area->getStatus() !== 'PENDING') {
                 // Update the status to "closed"
                 $area->setStatus('PENDING');
                 $entityManager->flush();
-            } elseif ($nbProposalRemaining >= 3 && $area->getStatus() !== 'OPEN') {
+            } elseif ($nbExpoProposals >= 3 && $area->getStatus() !== 'OPEN') {
                 $area->setStatus('OPEN');
                 $entityManager->flush();
             }
 
-            // send the email
-            // $username = $user->getUsername();
+            // send the email when an artist make a proposal
             $userEmail = $user->getEmail();
-            // $registrationDate = new \DateTimeImmutable();
             $expositionDetails = sprintf(
                 "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
                 $area->getName(),
@@ -443,35 +437,26 @@ class ParticipationController extends AbstractController
                 $area->getDescription()
             );
             $mailerService->sendExpositionProposalConfirmation($userEmail, $expositionDetails);
-            // ---------  
 
-
-            // Send email to confirm exposition ----------
+            // send an email to notify artists that the exhibition will take place
             // Initialize an array to store associated users
             $usersToNotify = [];
-            if ( $nbProposalRemaining == 3 ) {
-                // get 'id' in the Area entity
+            if ( $nbExpoProposals == 3 ) {
                 $expo = $expositionProposal->getArea();
                 $expoId = $expo->getId();
                 $proposals = $expo->getExpositionProposals();
-                
-                
-                
+
                 foreach ($proposals as $proposal){
                     $user = $proposal->getUser();
-                    
-
-                    // Vérifier si l'utilisateur existe et a un e-mail
+                    // check is the user exists and has an email address
                     if ($user && $user->getEmail()) {
                         $usersToNotify[] = $user->getEmail();
                     }
                 }
-                 // Send email
-                 $mailerService->sendExpositionConfirmation($expo, $usersToNotify);
+                // Send email
+                $mailerService->sendExpositionConfirmation($expo, $usersToNotify);
             }
-            // -----------------------------------
-
-
+            
             $this->addFlash('success', 'Your request to participate in this exhibition has been successfully processed. A confirmation e-mail has been sent to you.');
             return $this->redirectToRoute('app_exposition');
         }

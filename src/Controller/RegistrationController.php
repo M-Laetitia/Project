@@ -48,16 +48,13 @@ class RegistrationController extends AbstractController
             // Get the value of the "formation" field directly from the form (formation = email / honey pot)
             $formation = $form->get('information')->getData();
             
-             // Check if the email address already exists
+            // Check if the email address already exists
             $existingUser = $userRepository->findOneBy(['email' => $formation]);
-
             if ($existingUser) {
                 // The email address already exists, display an error message and redirect
                 $this->addFlash('error', 'This mail already exists');
                 return $this->redirectToRoute('app_register');
             }
-
-
             // check if username already exists
             $username = $form->get('username')->getData();
             $normalizedUsername = strtolower($username);
@@ -128,7 +125,6 @@ class RegistrationController extends AbstractController
     #[Route('/check-credentials', name: 'check-credentials', methods: ['POST'])]
     public function checkCredentials(Request $request, UserRepository $userRepository)
     {
-
         $username = $request->request->get('username');
         // username to lowercase
         $normalizedUsername = strtolower($username);

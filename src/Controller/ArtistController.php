@@ -663,7 +663,7 @@ class ArtistController extends AbstractController
             return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);
         }
 
-        // pictures (gallery) upload
+        //^ pictures (gallery) upload
         $picturesGallery = $pictureRepo->findBy(['user' => $artistId, 'type' => 'work']); 
 
         $formPicture = $this->createForm(PictureFormType::class);      
@@ -746,16 +746,14 @@ class ArtistController extends AbstractController
         return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
     }
 
-    // ^ Select Picture
+    // Select Picture
     #[Route('/select-picture/{id}', name: 'select_picture', methods: ['GET'])]
     public function selectPicture(Security $security, Picture $picture, EntityManagerInterface $entityManager): Response
     {
         $user = $security->getUser();
-
         // Retrieve all images of the user/artist
         $pictures = $user->getPictures();
 
-        
         //  Loop through these images
         foreach ($pictures as $pic) {
             // Update the selection status based on the selected image
@@ -765,9 +763,7 @@ class ArtistController extends AbstractController
                 $pic->setIsSelected(0);
             }
         }
-
         $entityManager->flush();
-
         return $this->redirectToRoute('manage_profil', ['slug' => $user->getSlug()]);
 
     }

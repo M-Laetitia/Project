@@ -26,6 +26,9 @@ class EventController extends AbstractController
     #[Route('/event', name: 'app_event')]
     public function index(AreaRepository $areaRepository): Response
     {
+
+        
+
         $ongoingEvents = $areaRepository->findBy([
             'type' => 'EVENT',
             'status' => ['OPEN', 'PENDING', 'CLOSED'],
@@ -87,36 +90,20 @@ class EventController extends AbstractController
         return $jsonResponse;
     }
 
-    // ^ new/edit event (admin)
+    //^  new/edit event (admin)
     #[Route('/dashboard/event/new', name:'new_event', priority:1)]
-    #[Route('/dashboard/event/{slug}/edit', name:'edit_event')]
+    #[Route('/dashboard/event/edit/{id}', name:'edit_event', priority:1)]
     #[IsGranted("ROLE_ADMIN")]
     public function new_edit(Area $area = null, Request $request, PictureRepository $pictureRepo, PictureService $pictureService, EntityManagerInterface $entityManager ) : Response
     {
         $isNewEvent = !$area;
-
         if(!$area) {
             $area = new Area();
         }
 
-        $maxImagesAllowed = 12;
-        $areaId = $area->getId();
-        $numberOfImages = count($pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']));
-        $canUploadImage = $numberOfImages < $maxImagesAllowed;
-
-
         $bannerExists = null;
-        $existingBanner = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'banner']); 
-        if ($existingBanner) {
-            $bannerExists =  $existingBanner->getPath();
-        }
-
         $previewExists = null;
-        $existingPreview = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'preview']); 
-        if ($existingPreview) {
-            $previewExists =  $existingPreview->getPath();
-        }
-
+        $areaId = $area->getId();
         $form= $this->createForm(EventType::class, $area);
         $form->handleRequest($request);
 
@@ -124,12 +111,9 @@ class EventController extends AbstractController
         $formPicture->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
-
-
             $area->setType('EVENT');
             $area = $form->getData();
             $area->setSlug($area->generateSlug());
-
             $entityManager->persist($area);
             $entityManager->flush();
 
@@ -250,6 +234,10 @@ class EventController extends AbstractController
 
           // ^ GALLERY IMAGES
           $picturesGallery = $pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']); 
+          $maxImagesAllowed = 12;
+          $numberOfImages = count($pictureRepo->findBy(['area' => $areaId, 'type' => 'picture']));
+          // check if the suer car upload  an img or not , return true or false 
+          $canUploadImage = $numberOfImages < $maxImagesAllowed;
 
           $folder = $area->getName();
           
@@ -313,7 +301,7 @@ class EventController extends AbstractController
     public function show(Area $area = null, User $user = null, AreaRepository $areaRepository,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
 
-        $area = $areaRepository->findOneBy(['slug' => $slug]);
+        $area = $areaRepository->findOneBy(['slug' => $area->getslug()]);
         // check if the area (= event) exists
         if (!$area) {
             // if not, redirect to the error page

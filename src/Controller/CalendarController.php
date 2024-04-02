@@ -140,12 +140,11 @@ class CalendarController extends AbstractController
              $errors = $validator->validate($keyword, new Length(['min' => 4]));
 
              if (count($errors) > 0) {
-                // gerer l'erreur
+                // 
             } else {
                 $resultsForArea = $areaRepository->searchByKeyword($keyword);
                 $resultsForWorkshop = $workshopRepository->searchByKeyword($keyword);
-    
-                // Fusionner les résultats des deux recherches
+                // merge the results
                 $resultsByKeywords = array_merge($resultsForArea, $resultsForWorkshop);
     
                 $noResultsFound = empty($results);

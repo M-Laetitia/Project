@@ -48,7 +48,7 @@ class AreaRepository extends ServiceEntityRepository
         // ->getQuery();
 
         // $query = $qb->getQuery();
-        // $query->getResult();
+        // $query->getSingleScalarResult();
 
 
         $qb = $this->createQueryBuilder('a')
@@ -66,18 +66,18 @@ class AreaRepository extends ServiceEntityRepository
     }
 
 
-    // ^ search (keyword)
-    public function searchByKeyword(string $keyword) { 
-
+    // ^ search event (keyword)
+    public function searchByKeyword(string $keyword) {  // Takes a keyword parameter of type string.
         $qb = $this->createQueryBuilder('a')
-        ->where('a.name LIKE :keyword')
+        ->where('a.name LIKE :keyword') // The keyword is inserted into the query using a parameter named :keyword.
         ->andWhere('a.status IN (:statuses)')
-        ->setParameter('keyword', '%'.$keyword.'%')
+        ->setParameter('keyword', '%'.$keyword.'%') // The :keyword parameter is set with the searched keyword, with % to match parts of the event name.
         ->setParameter('statuses', ['OPEN', 'CLOSED', 'PENDING'])
         ->getQuery();
 
         return $qb->getResult();
     }
+  
 
     // ^ search (period)
 

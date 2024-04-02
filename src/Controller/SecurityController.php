@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use GuzzleHttp\Client;
+use League\OAuth2\Client\Provider\Google;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use League\OAuth2\Client\Provider\Google;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class SecurityController extends AbstractController
 {
@@ -19,6 +20,15 @@ class SecurityController extends AbstractController
         //     return $this->redirectToRoute('target_path');
         // }
 
+         // Si l'exception est levée dans l'authenticator
+         $error = $authenticationUtils->getLastAuthenticationError();
+         if ($error instanceof CustomUserMessageAuthenticationException) {
+             $this->addFlash('error', 'Your account is not verified, you are not authorized to log in');
+             return $this->redirectToRoute('app_login');
+        }
+    
+        
+    
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Workhops list - MOSAIC{% endblock %}
+{% block meta %}{% endblock %}
+{% block noindex %}noindex{% endblock %}
+
+{% block body %}
+
+
+<section class="dashboard" id="dashboard-events">
+
+    <div id="menu-left">
+        <div id="logo-name">
+            <figure>
+               <img src="{{ asset('images/logo150.png')}}" alt="logo of the website"> 
+            </figure>      
+            <p class="text-n1">MOSAIC</p>
+        </div>
+
+        <div class="separator-line"></div>
+
+        <div id="list-menu">
+            <a href="{{ path('app_dashboard') }}"><div><i class="ri-dashboard-fill"></i><p>dashboard</p></div></a>
+            <a href="{{ path('list_users') }}"><div><i class="ri-team-fill "></i><p>Community</p></div></a>
+            <a href="{{ path('list_events') }}"> <div><i class="ri-artboard-2-fill"></i><p>events</p> </div></a>
+            <a href="{{ path('list_expos') }}"><div><i class="ri-artboard-2-fill"></i><p>expositions</p> </div></a>
+            <a href="{{ path('list_workshops') }}"><div class="is-active"><i class="ri-artboard-2-fill"></i><p>workshops</p> </div></a>
+            <div><i class="ri-home-heart-fill"></i><p>studios</p></div>
+            <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
+            <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div>
+        </div>
+
+        <div id="bottom"></div>
+
+    </div>
+
+    <div id="content">
+
+        <div id="top-title">
+            <p class="text-n1">Workshops<span>_</span></p>
+            <div class="separator-line"></div>
+        </div>
+
+
+        <div class="container-all dashboard-events">
+            <div class="container" id="supervisor-users">
+                <p class="text-n2">Ongoing and future Workshops</p>
+                <div class="table-user head" >
+                    <p>Name</p>
+                    <p>Date</p>
+                    <p>Capacity</p>
+                    <p>Status</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for event in ongoingEvents %}                   
+                            <p class="even">{{event.name}}</p>
+                            <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
+                            <p class="even">{{event.nbRegistrationMade}}  /  {{event.nbRooms}}</p>
+                            {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
+
+                            <p class="odd">
+                               
+                                <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                    (event.status == 'CLOSED' ? 'closed' : 
+                                                    (event.status == 'PENDING' ? 'pending' : 
+                                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                    {{ event.status }} 
+                                </span>
+                               {# {{ event.access }}  #}
+                            </p>
+
+                            <div class="actions even">
+                                <p><a href="{{ path('show_workshop_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('edit_workshop', {slug : event.slug}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                <p><a href="{{ path('delete_workshop', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                                               
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container-all dashboard-events">
+            <div class="container" id="supervisor-users">
+                <p class="text-n2">Past Workshops</p>
+                <div class="table-user head" >
+                    <p>Name</p>
+                    <p>Date</p>
+                    <p>Capacity</p>
+                    <p>Status</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for event in pastEvents %}                   
+                            <p class="even">{{event.name}}</p>
+                            <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
+                            <p class="even">{{event.nbRegistrationMade}}  /  {{event.nbRooms}}</p>
+                            {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
+
+                            <p class="odd">
+                               
+                                <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                    (event.status == 'CLOSED' ? 'closed' : 
+                                                    (event.status == 'PENDING' ? 'pending' : 
+                                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                    {{ event.status }} 
+                                </span>
+                               {# {{ event.access }}  #}
+                            </p>
+
+                            <div class="actions even">
+                                <p><a href="{{ path('show_expo_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                <p><a href="{{ path('delete_event', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                                               
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    
+</section>
+
+
+
+{% endblock %}

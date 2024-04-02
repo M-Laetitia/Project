@@ -57,9 +57,32 @@ $transition-len: 0.35s;
   color: $main-black-color;
   transition: all $transition-len cubic-bezier($transition-bezier);
   cursor: default;
-  
-
 }
+
+.btn-red {
+  border:1px solid $secondary-color; 
+  background-color: $secondary-color4;
+  color: $main-white-color;
+  transition: all $transition-len cubic-bezier($transition-bezier);
+  &:hover {
+    border:1px solid $main-black-color; 
+    background-color: $main-black-color;
+    
+  }
+}
+
+.btn-blue {
+  border:1px solid $secondary-color; 
+  background-color: $secondary-color3;
+  color: $main-white-color;
+  transition: all $transition-len cubic-bezier($transition-bezier);
+  &:hover {
+    border:1px solid $main-black-color; 
+    background-color: $main-black-color;
+    
+  }
+}
+
 
 /*  ---------------------------------- */
 //   █████  ███    ██ ██ ███    ███  █████  ████████ ██  ██████  ███    ██ 

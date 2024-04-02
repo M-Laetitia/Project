@@ -342,6 +342,15 @@
         }
     }
 }
+#check-here {
+    color: $secondary-color;
+    font-weight: 500;
+    transition: ease 0.3s;
+    &:hover {
+        color: $secondary-color4;
+    }
+}
+
 
 //&  ---------------------------------
 //&   ██████  ██    ██ ███████ ██████  ██ ███████ ███████ 

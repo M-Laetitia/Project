@@ -44,15 +44,15 @@ $letter-spacing-text : 0.05rem;
 
 $line-height-text: 1.3rem;
 
-$fs-text: clamp(0.6rem, 2vw, 0.9rem);
-$fs-regular: clamp(1.2rem, 3vw, 1.5rem);
-$fs-medium: clamp(2.5rem, 5vw, 3rem);
-$fs-big: clamp(3rem, 7vw, 4rem);
+// $fs-text: clamp(0.6rem, 2vw, 0.9rem);
+// $fs-regular: clamp(1.2rem, 3vw, 1.5rem);
+// $fs-medium: clamp(2.5rem, 5vw, 3rem);
+// $fs-big: clamp(3rem, 7vw, 4rem);
 
-// $fs-text: 0.9rem;
-// $fs-regular: 1.5rem;
-// $fs-medium: 3rem;
-// $fs-big: 4rem;
+$fs-text: 0.9rem;
+$fs-regular: 1.5rem;
+$fs-medium: 3rem;
+$fs-big: 4rem;
 
 // SIZING PROPERTIES
 $nav-size: 6rem ; 

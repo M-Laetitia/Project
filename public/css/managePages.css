@@ -855,6 +855,17 @@ html {
   padding: 0.2rem;
 }
 
+#dashboard-events .container-all .container .table-user {
+  display: grid;
+  grid-template-columns: 32% 30% 8% 20% 10% !important;
+  width: 100%;
+  border: 1px solid #151515;
+}
+
+#dashboard-events #content .container-all .container {
+  margin-bottom: 0rem;
+}
+
 .dashboard-user #info-user {
   margin-top: 1rem;
   display: flex;

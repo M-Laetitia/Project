@@ -888,7 +888,7 @@ html {
 #subscription-page p {
   color: #F9F9F9;
   font-weight: 500;
-  margin-bottom: 2rem;
+  margin-bottom: 0.6rem;
   text-align: center;
   flex-wrap: wrap;
 }
@@ -914,7 +914,7 @@ html {
   border-right: 1px solid #272727;
   border-top: 1px solid #272727;
   border-bottom: 1px solid #eeaf42;
-  padding-bottom: 2rem;
+  padding-bottom: 0.5rem;
   cursor: pointer;
   transition: scale ease-in-out 0.3;
   opacity: 0;
@@ -941,14 +941,13 @@ html {
   transition: ease-in-out 0.3s;
 }
 #subscription-page .subscription-card .image {
-  width: 50%;
-  height: 14rem;
+  width: 90%;
+  height: 20rem;
   margin: auto;
-  margin-bottom: 2rem;
 }
 #subscription-page .subscription-card .image img {
   width: 100%;
-  height: 100%;
+  object-fit: cover;
 }
 #subscription-page .subscription-card p {
   color: #eeaf42;

@@ -221,7 +221,6 @@
 }
 
 
-
 #dashboard-users-list {
     #search {
         margin: 0rem 0rem 2rem 0rem;
@@ -260,6 +259,25 @@
         margin: 0;
         padding: 0.2rem;
     }
+}
+
+//~  ---------------------------------- */
+//~ ---------EVENT LIST --------------------- */ 
+//~ ---------------------------------- */
+//~ ---------------------------------- */
+//~ ---------------------------------- */
+
+
+
+#dashboard-events .container-all .container .table-user {
+    display: grid;
+    grid-template-columns: 32% 30% 8% 20% 10% !important;
+    width: 100%;
+    border: 1px solid #151515;
+}
+
+#dashboard-events #content .container-all .container {
+    margin-bottom: 0rem; 
 }
 
 //&  ---------------------------------- */

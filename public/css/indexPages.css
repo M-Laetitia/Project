@@ -912,6 +912,15 @@ html {
   color: #4c4545;
 }
 
+#check-here {
+  color: #eeaf42;
+  font-weight: 500;
+  transition: ease 0.3s;
+}
+#check-here:hover {
+  color: #F14D4C;
+}
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   #event-show #header {
     height: 25rem;

@@ -10,7 +10,7 @@
     <div class="content">
         <h1 class="banner-title">OUR EXPOSITIONS</h1>
         <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
+            <p class="banner-text">Be amazed</p>
             <div class="underscore-blink"> </div>
         </div>
     </div>
@@ -45,12 +45,12 @@
                         </span>
 
                     </p>
+                    <p><span>Acces : </span> {{expo.access}}</p>
                     <p><span>Capacity : </span> {{expo.nbReversationMade}}  /  {{expo.nbRooms}}</p>
 
                 </div>
                 <div id="btn-event">
                     <div class="button btn6"><a href="{{ path('show_exposition', { slug : expo.slug  }) }}">SEE MORE</a></div>
-                    
                 </div>
             </div>
         </div>

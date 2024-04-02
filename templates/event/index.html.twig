@@ -9,7 +9,7 @@
     <div class="content">
         <h1 class="banner-title">OUR EVENTS</h1>
         <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
+            <p class="banner-text">Be curious</p>
             <div class="underscore-blink"> </div>
         </div>
     </div>
@@ -43,11 +43,12 @@
                         </span>
 
                     </p>
+                    <p><span>Acces : </span> {{event.access}}</p>
                     <p><span>Capacity : </span> {{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
 
                 </div>
                 <div id="btn-event">
-                    <div class="button btn6"><a href="{{ path('show_event', { slug : event.slug  }) }}">SEE MORE</a></div>
+                    <div class="button btn6"><a href="{{ path('show_event', { slug : event.slug  }) }}">LEARN MORE</a></div>
                     
                 </div>
             </div>
@@ -58,7 +59,7 @@
   
 
 <div class="past-event-title">
-    <h2>See past events </h2> 
+    <h3>See past events </h3> 
     <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
 </div>
 

@@ -59,6 +59,9 @@ class Area
     #[ORM\OneToMany(mappedBy: 'area', targetEntity: Picture::class)]
     private Collection $pictures;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $access = null;
+
 
 
     public function __construct()
@@ -120,6 +123,11 @@ class Area
         $this->startDate = $startDate;
 
         return $this;
+    }
+
+    public function getFormattedStartDate(): ?string
+    {
+        return $this->startDate ? $this->startDate->format('d.m.Y') : null;
     }
 
     public function getEndDate(): ?\DateTimeInterface
@@ -326,6 +334,18 @@ class Area
                 $picture->setArea(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAccess(): ?string
+    {
+        return $this->access;
+    }
+
+    public function setAccess(?string $access): static
+    {
+        $this->access = $access;
 
         return $this;
     }

@@ -31,7 +31,6 @@
 
    <div id="pdf-content">
         <h1>SUBSCRIPTION HISTORY</h1>
-        
         <h2>Active subscription</h2>
 
         <table>
@@ -51,8 +50,6 @@
 
                 {% for subscription in user.subscriptions %}
                 {% if subscription.isActive == 1 %}
-
-     
                     <tr>
                         <td>{{ subscription.infosUser.firstname }} {{ subscription.infosUser.lastname }}</td>
                         <td>{{ subscription.infosUser.address }}</td>
@@ -69,7 +66,6 @@
                 {% endfor %}
             </tbody>
         </table>
-
 
         <h2>Previous subscriptions</h2>
 
@@ -90,8 +86,6 @@
 
                 {% for subscription in user.subscriptions|sort((a, b) => b.paymentDate <=> a.paymentDate) %}
                     {% if subscription.isActive == 0 %}
-
-     
                     <tr>
                         <td>{{ subscription.infosUser.firstname }} {{ subscription.infosUser.lastname }}</td>
                         <td>{{ subscription.infosUser.address }}</td>
@@ -114,9 +108,7 @@
                 </tr>
             </tfoot>
         </table>
-
     </div>
-
 </html>
 
 

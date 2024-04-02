@@ -84,7 +84,6 @@
         <ul>
             {% for result in results %}
                 <li>{{ result.name }}</li>
-                <!-- Affichez d'autres détails du résultat selon votre besoin -->
             {% endfor %}
         </ul>
     {% elseif noResultsFound %}
@@ -94,8 +93,7 @@
     {% if resultsByKeywords is not empty %}
         <ul>
             {% for result in resultsByKeywords %}
-            <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
-                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            <li>{{ result.name|e }}</li> {# Utiliser |e pour échapper les données pour prévenir les attaques XSS #}
             {% endfor %}
         </ul>
     {% elseif noResultsFound %}
@@ -105,8 +103,7 @@
     {% if resultsByStatus is not empty %}
         <ul>
             {% for result in resultsByStatus %}
-            <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
-                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            <li>{{ result.name|e }}</li> {# Utiliser |e pour échapper les données pour prévenir les attaques XSS #}
             {% endfor %}
         </ul>
     {% elseif noResultsFound %}
@@ -116,8 +113,7 @@
     {% if resultsByPeriod is not empty %}
         <ul>
             {% for result in resultsByPeriod %}
-            <li>{{ result.name|e }}</li> {# Utilisez |e pour échapper les données pour prévenir les attaques XSS #}
-                <!-- Affichez d'autres détails du résultat selon votre besoin -->
+            <li>{{ result.name|e }}</li> {# Utiliser |e pour échapper les données pour prévenir les attaques XSS #}
             {% endfor %}
         </ul>
     {% elseif noResultsFound %}

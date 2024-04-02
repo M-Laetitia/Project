@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /supervisor/
+Disallow: /role_artist/

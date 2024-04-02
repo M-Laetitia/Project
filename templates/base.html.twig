@@ -169,11 +169,27 @@
 
             </div>
 
+
             <div id="burger-menu">
                 <div id="burger-icon">MENU</div>
             </div>
 
+
+            <div id="user-interface">
+                {% if app.user %}
+                <a href="{{ path('show_user', {slug: app.user.slug }) }}"><p><i class="ri-user-4-fill"></i></p></a>
+                
+                {% else %}
+                    <a href=" {{ path('app_register') }}"><p><i class="ri-user-add-fill"></i></p></a>
+                    <a href="{{ path('app_login') }}"><p><i class="ri-login-circle-fill"></i></p></a>
+                {% endif %}
+
+                
+            </div>
+
+
             <div class="nav-menu">
+                
                 <a href="#">
                     <div></div>
                     <div></div>
@@ -234,15 +250,12 @@
         
             {# else, add something eventually or not #}
             {% endif %}
-
-
             {% if app.user %}
-                <a href="{{ path('show_user', {slug: app.user.slug }) }}"><i class="fa-solid fa-circle-user"></i></a>
-                <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a>
-            {% else %}
-                <a href=" {{ path('app_register') }}">register</a>
-                <a href="{{ path('app_login') }}">login</a>
+            <a href="{{ path('app_subscription')}}"><i class="ri-bard-fill"></i></a>
             {% endif %}
+
+
+            
         </div>
   
 

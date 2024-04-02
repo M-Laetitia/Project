@@ -38,7 +38,7 @@
                     <p id="text-subscription" class="text-n2">You already have an ongoing subscription.</p>
                     <div class="subscription-cards ongoing-subscription">
                         {% for subscription in subscriptions %}
-                            <div class="subscription-card" id="{{ subscription.id }}">
+                            <div class="subscription-card card{{ subscription.id }}" id="{{ subscription.id }}">
                                 <h2 class="text-n2">{{ subscription.name }}</h2>
                     
                                 <div class="image">
@@ -67,6 +67,7 @@
                                 <h2 class="text-n2">{{ subscription.name }}</h2>
                     
                                 <div class="image">
+                                    <img src="{{ asset('/images/visuals/subscription_' ~ subscription.id ~ '-2.png')}}" alt="">
                                 </div>
                     
                                 <p class="">{{ subscription.price}} €</p>
@@ -86,7 +87,7 @@
             <section class="content" id="subscription-page">
                 <div class="subscription-cards">
                     {% for subscription in subscriptions %}
-                        <div class="subscription-card" id="{{ subscription.id }}">
+                        <div class="subscription-card card{{ subscription.id }}" id="{{ subscription.id }}">
                             <h2 class="text-n2">{{ subscription.name }}</h2>
                 
                             <div class="image">

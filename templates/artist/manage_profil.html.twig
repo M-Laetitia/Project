@@ -308,7 +308,7 @@
                 {% if  artist.isPublished == -1 %}
                     <div>
                         <button class="btn btn-off btn-artist-profil" style="color:white;" type="submit">Publish</button>
-                       <p>You can not publish your page. It has been moderated by an administrator, its content did not meet our terms of use. <br> To learn more please <a href="#">contact us</a>.</p> 
+                       <p>You can not publish your page. It has been moderated by an administrator, its content did not meet our terms of use. <br> To learn more please <a href="{{ path('app_contact')}}">contact us</a>.</p> 
                     </div>
                     
                 {% else %}

@@ -10,6 +10,7 @@ use App\Repository\StudioRepository;
 use App\Form\PublishedArtistPageType;
 use App\Repository\WorkshopRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -75,7 +76,7 @@ class DashboardController extends AbstractController
     // ^ list users
     #[Route('/admin/dashboard/index', name: 'list_users')]
     #[IsGranted("ROLE_ADMIN")]
-    public function list_users(UserRepository $userRepository, Request $request, SessionInterface $session, EntityManagerInterface $entityManager): Response
+    public function list_users(UserRepository $userRepository, Request $request, SessionInterface $session, EntityManagerInterface $entityManager, PaginatorInterface $paginator): Response
     {
 
         $formUserSearch = $this->createForm(SearchUserType::class);
@@ -84,6 +85,16 @@ class DashboardController extends AbstractController
         $role = $request->query->get('role');
         $sortBy = $request->query->get('sortBy');
         $artists = $userRepository->findBy(['roles' => 'ROLE_ARTIST']);
+
+        $datas = $userRepository->findBy([], ['username' => 'ASC']);
+
+        $users = $paginator->paginate(
+            $datas, // Query with the datas to paginate (= users)
+            $request->query->getInt('page', 1), // number of the current page
+            6 // nb of results per page
+        );
+    
+    
 
         $redirectToSamePage = false; // Flag to determine if redirection is needed
         if ($role) {
@@ -125,7 +136,7 @@ class DashboardController extends AbstractController
         // $users = $userRepository->findBy([], ['username' => 'ASC']);
         return $this->render('dashboard/indexUsers.html.twig', [
             // 'users' => $users,
-            'users' => $searchResults ?: $userRepository->findBy([], ['username' => 'ASC']), // Use all users if no search result
+            'users' => $searchResults ?: $users, // Use all users if no search result
             'formUserSearch' => $formUserSearch->createView(),
             'searchResults' => $searchResults ? true : false, // Set to true if there are search results, otherwise false
             

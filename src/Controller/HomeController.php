@@ -114,6 +114,17 @@ class HomeController extends AbstractController
           ]);
       }
 
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
+    {
+
+        $user = $security->getUser();
+        return $this->render('home/contact.html.twig', [
+
+        ]);
+    }
+
+
       
 
 

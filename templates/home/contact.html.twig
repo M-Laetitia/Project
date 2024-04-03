@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+{% block meta %}Test home!{% endblock %}
+
+
+
+{% block body %}
+
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">contact us</h1>
+        <div class="subtitle">
+            <p class="banner-text">Be chatty</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {background-color: #151515;}
+</style>
+
+<section class="content register-user" id="contact-page">
+    <div id="register-container">
+        <div id="separator"></div>
+
+        <div class="left-register" id="l-contact">
+            <div id="text">
+                <p>Let's discuss on something <span>great</span> together<span>_</span></p>
+            </div>
+            <div id="contact-infos">
+                <address><span><i class="ri-mail-fill"></i></span> mosaic@contact.com</address>
+                <address><span><i class="ri-cellphone-fill"></i></span>+123 456 789</address>
+                <address><span><i class="ri-map-pin-fill"></i></span>10 rue des Arts 67200 Strasbourg</address>
+            </div>
+
+            <div class="socials" id="footer-socials">
+                <a href="#"><i class="fa-brands fa-facebook "></i></a>
+                <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div> 
+
+        </div>
+
+        <div class="right-register" id="r-contact">
+            <div id="title-register">
+                <h2>Contact us<span class="underscore">_</span></h2>
+                <p><span id="name">Send us a message.</span></p>
+            </div>
+
+            <div id="form-register">
+
+               <form action="#">
+
+                <div>
+                    <label for="">Your name</label>
+                    <input type="text">
+                </div>
+
+                <div>
+                    <label for="">Your email</label>
+                    <input type="text">
+                </div>
+
+                <div>
+                    <label for="message">Your message</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+
+                <div>
+                    <button class="btn btn6"><i class="ri-send-plane-fill"></i> Send message</button>
+                </div>
+               </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+     
+{% endblock %}

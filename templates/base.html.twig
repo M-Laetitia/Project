@@ -174,19 +174,40 @@
                 <div id="burger-icon">MENU</div>
             </div>
 
-
+              
             <div id="user-interface">
                 {% if app.user %}
-                <a href="{{ path('show_user', {slug: app.user.slug }) }}"><p><i class="ri-user-4-fill"></i></p></a>
-                
+                    <div class="dropdown">
+                        <span><i class="ri-user-4-fill"></i></span>
+                        <div class="dropdown-content">
+                            <p><a href="{{ path('show_user', {slug: app.user.slug }) }}">PROFIL</a></p>
+
+                            {% if is_granted('ROLE_ARTIST') %}
+                            <p><a href="{{ path('manage_profil', {slug: app.user.slug }) }}">ARTIST PAGE</a></p>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <p><a href="{{ path('app_dashboard')}}">DASHBOARD</a></p>
+                            {% endif %}
+                            
+                            {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
+                            <p><a href="{{ path('studio_dashboard')}}">PLANNING</a></p>
+                            {% endif %}
+
+                            <p><a href=" {{ path('app_logout') }}"><i class="fa-solid fa-right-from-bracket"></i> LOGOUT</a></p>
+                        </div>
+                    </div>
                 {% else %}
-                    <a href=" {{ path('app_register') }}"><p><i class="ri-user-add-fill"></i></p></a>
-                    <a href="{{ path('app_login') }}"><p><i class="ri-login-circle-fill"></i></p></a>
+                <div class="dropdown">
+                    <span><i class="ri-user-4-fill"></i></span>
+                    <div class="dropdown-content">
+                        <p><a href="{{ path('app_login') }}">login</a></p>
+                        <p><a href="{{ path('app_register') }}">register</a></p>
+                    </div>
+                </div>
                 {% endif %}
-
-                
             </div>
-
+            
 
             <div class="nav-menu">
                 
@@ -227,19 +248,7 @@
             <a href="{{ path('app_langindPage') }}">landing page</a>
       
 
-            {% if is_granted('ROLE_ARTIST') %}
-            <a href="{{ path('manage_profil', {slug: app.user.slug }) }}">NEW PAGE</a>
-            {% endif %}
-
-
-            {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_dashboard')}}"><i class="ri-dashboard-fill"></i></a>
-            {% endif %}
             
-            
-            {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
-            <a href="{{ path('studio_dashboard')}}"><i  class="ri-table-fill"></i></a>
-            {% endif %}
             
             
             {% if is_granted('ROLE_ARTIST') %}
@@ -299,7 +308,7 @@
                 <div id="footer-links">
                     <a href="#">HOME</a>
                     <a href="#">ABOUT</a>
-                    <a href="#">CONTACT</a>
+                    <a href="{{ path('app_contact')}}">CONTACT</a>
                 </div>
     
                 <div id="footer-links-conditions">

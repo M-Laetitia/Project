@@ -41,7 +41,104 @@
         </div>
 
         <div class="container-all dashboard-communauty">
-            <div class="container" id="admin-users">
+
+            <div id="search">
+                <h3 class="text-n2">Search<span>_</span></h3>
+                <div id="by-username">
+                    {{ form_start(formUserSearch, {'method': 'POST'}) }}
+                    {{ form_errors(formUserSearch)}}
+                 
+                    {{ form_row(formUserSearch.username, {
+                     'attr': {'minlength': 3}
+                     }) }}
+                 
+                    <button class="btn6" type="submit">Search</button>
+                    {{ form_end(formUserSearch) }}
+                </div>
+        
+                <div id="by-role">
+                    <form method="GET" action="{{ path('list_users') }}">
+                        <label for="role">By role</label>
+                        <select id="role" name="role">
+                                <option value="" disabled selected>Choose a role</option>
+                                <option value="ROLE_ADMIN">admin</option>
+                                <option value="ROLE_ARTIST">artist</option>
+                                <option value="ROLE_SUPERVISOR">supervisor</option>
+                                {# <option value=user>USER</option> #}
+                        </select>    
+                        <button class="btn6" type="submit">Filter</button>
+                        </form>
+                </div>
+        
+                <div id="sort-by">
+                    <form method="GET" action="{{ path('list_users') }}">
+                        <label for="sortBy">Sort by</label>
+                        <select id="sortBy" name="sortBy">
+                            <option value="" disabled selected>Choose a filter</option>
+                            <option value="username_asc">Username (A-Z)</option>
+                            <option value="username_desc">Username (Z-A)</option>
+                            <option value="createdAt_asc">Date of Registration (Oldest first)</option>
+                            <option value="createdAt_desc">Date of Registration (Newest first)</option>
+                        </select>
+                        <button class="btn6" type="submit">Filter</button>
+                        </form>
+                </div>
+            </div>
+        
+                {% if searchResults %}
+                    <h2 class="text-n2">Search results</h2>
+                {% else %}
+                    <h2 class="text-n2">All users</h2>
+                {% endif %} 
+            
+            <div class="container" id="all-users">
+                <div class="table-user head">
+                    <p>Username</p>
+                    <p>Email</p>
+                    <p>Registration date</p>
+                    <p>Roles</p>
+                    <p>Actions</p>
+                </div>
+
+                <div class="table-user body">
+                    {% for user in users %}
+                            <p class="even">{{user}}</p>
+                            <p class="odd">{{user.email}}</p>
+                            <p class="even">{{user.registrationDate|formatDate}}</p>
+
+                            <div class="roles-user odd">
+                                {% if 'admin' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-gear"></i> Admin</p>
+                                {% endif %}
+           
+                                {% if 'supervisor' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fa-solid fa-user-tie"></i> Supervisor</p>
+                                {% endif %}
+
+                                {% if 'artist' in user.getSimpleRoles %}
+                                    <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
+                                    <p>
+                                        {% if user.isPublished == 1 %}
+                                            <i class="ri-eye-fill"></i>
+                                        {% elseif user.isPublished == -1 %}
+                                            <i class="ri-eye-off-fill"></i>
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="actions even">
+                                <p><a href="{{ path('detail_user_admin', {slug : user.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                <p><a href="{{ path('delete_user_admin', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                            </div>
+                    {% endfor %}
+                   
+                </div>
+                <br>
+                {{ knp_pagination_render(users) }}
+            </div>
+
+
+            {# <div class="container" id="admin-users">
                 <p class="text-n2">Administrators</p>
                 <div class="table-user head">
                     <p>Username</p>
@@ -135,137 +232,21 @@
                     {% endfor %}
                 </div>
 
-            </div>
+            </div> #}
 
-            <div class="container" id="supervisor-users">
-                <p class="text-n2">Users</p>
-                <div class="table-user head">
-                    <p>Username</p>
-                    <p>Email</p>
-                    <p>Registration date</p>
-                    <p>Roles</p>
-                    <p>Actions</p>
-                </div>
-
-                <div class="table-user body">
-                    {% for user in users %}
-                    {% if "ROLE_ADMIN" not in user.roles and "ROLE_SUPERVISOR" not in user.roles and app.user.id != user.id %}
-                            <p class="even">{{user}}</p>
-                            <p class="odd">{{user.email}}</p>
-                            <p class="even">{{user.registrationDate|formatDate}}</p>
-
-                            <div class="roles-user odd">
-                                {% if 'admin' in user.getSimpleRoles %}
-                                    <p class="artist-icon"><i class="fa-solid fa-gear"></i> Admin</p>
-                                {% endif %}
            
-                                {% if 'supervisor' in user.getSimpleRoles %}
-                                    <p class="artist-icon"><i class="fa-solid fa-user-tie"></i> Supervisor</p>
-                                {% endif %}
-
-                                {% if 'artist' in user.getSimpleRoles %}
-                                    <p class="artist-icon"><i class="fas fa-paint-brush"></i> Artist</p>
-                                    <p>
-                                        {% if user.isPublished == 1 %}
-                                            <i class="ri-eye-fill"></i>
-                                        {% elseif user.isPublished == -1 %}
-                                            <i class="ri-eye-off-fill"></i>
-                                        {% endif %}
-                                    </p>
-                                {% endif %}
-                            </div>
-                            <div class="actions even">
-                                <p><a href="{{ path('detail_user_admin', {slug : user.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
-                                <p><a href="{{ path('delete_user_admin', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
-                            </div>
-                        {% endif %}
-                        
-                    {% endfor %}
-                </div>
-
-            </div>
-
         </div>
-
     </div>
 
-    
+    {# {% if "ROLE_ADMIN" not in user.roles and "ROLE_SUPERVISOR" not in user.roles and app.user.id != user.id %} #}
 </section>
 
 <section class="content dashboard" id="dashboard-users-list">
 
-    <div id="search">
-        <h3 class="text-n2">Search<span>_</span></h3>
-        <div id="by-username">
-            {{ form_start(formUserSearch, {'method': 'POST'}) }}
-            {{ form_errors(formUserSearch)}}
-         
-            {{ form_row(formUserSearch.username, {
-             'attr': {'minlength': 3}
-             }) }}
-         
-            <button class="btn6" type="submit">Search</button>
-            {{ form_end(formUserSearch) }}
-        </div>
-
-        <div id="by-role">
-            <form method="GET" action="{{ path('list_users') }}">
-                <label for="role">By role : </label>
-                <select id="role" name="role">
-                        <option value="" disabled selected>Choose a role</option>
-                        <option value="ROLE_ADMIN">admin</option>
-                        <option value="ROLE_ARTIST">artist</option>
-                        <option value="ROLE_SUPERVISOR">supervisor</option>
-                        {# <option value=user>USER</option> #}
-                </select>    
-                <button class="btn6" type="submit">Filter</button>
-                </form>
-        </div>
-
-        <div id="sort-by">
-            <form method="GET" action="{{ path('list_users') }}">
-                <label for="sortBy">Sort by : </label>
-                <select id="sortBy" name="sortBy">
-                    <option value="" disabled selected>Choose a filter</option>
-                    <option value="username_asc">Username (A-Z)</option>
-                    <option value="username_desc">Username (Z-A)</option>
-                    <option value="createdAt_asc">Date of Registration (Oldest first)</option>
-                    <option value="createdAt_desc">Date of Registration (Newest first)</option>
-                </select>
-                <button class="btn6" type="submit">Filter</button>
-                </form>
-        </div>
-    </div>
-
-        {% if searchResults %}
-            <h2 class="text-n2">Search results</h2>
-        {% else %}
-            <h2 class="text-n2">All users</h2>
-        {% endif %}
-
-    <div id="list-all-users">
-        <ul>
-            {% for user in users %}
-            <li>
-                 <p>  Username : <a href="{{ path('detail_user_admin', {slug : user.slug}) }}">{{user}}</a></p>
-                 <p>Email: {{user.Email}}</p>
-                 <p>Registration date: {{user.registrationDate|formatDate}}</p>
-        
-                
-        
-                 <div class="separator"></div>
-                
-            </li>
-            {% endfor %}
-        
-        </ul>
-
-    </div>
+    
 
 </section>
 
 
-
-   <div id="search-results"></div>
 
 {% endblock %}

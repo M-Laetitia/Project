@@ -1,5 +1,46 @@
 /* ---------------------------------- */
 /* ---------------------------------- */
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/Raleway-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url("../fonts/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/Poppins-Bold.ttf");
+}
 .text-n1 {
   font-weight: 700;
   font-size: 1.85rem;
@@ -143,6 +184,47 @@ html {
 
 /* ---------------------------------- */
 /* ---------------------------------- */
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/Raleway-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url("../fonts/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/Poppins-Bold.ttf");
+}
 .text-n1 {
   font-weight: 700;
   font-size: 1.85rem;
@@ -312,7 +394,8 @@ html {
 .btn6 {
   border: 1px solid #eeaf42;
   background-color: #eeaf42;
-  color: #F9F9F9;
+  color: #151515;
+  font-weight: 600;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
   cursor: pointer;
 }

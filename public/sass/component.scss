@@ -40,7 +40,8 @@ $transition-len: 0.35s;
 .btn6 {
   border:1px solid $secondary-color; 
   background-color: $secondary-color;
-  color: $main-white-color;
+  color: $main-black-color;
+  font-weight: 600;
 
   transition: all $transition-len cubic-bezier($transition-bezier);
   cursor: pointer;

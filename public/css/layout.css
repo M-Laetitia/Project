@@ -1,6 +1,47 @@
 @charset "UTF-8";
 /* ---------------------------------- */
 /* ---------------------------------- */
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/Raleway-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url("../fonts/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/Poppins-Bold.ttf");
+}
 .text-n1 {
   font-weight: 700;
   font-size: 1.85rem;
@@ -144,6 +185,47 @@ html {
 
 /* ---------------------------------- */
 /* ---------------------------------- */
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-display: swap;
+  src: url("../fonts/Raleway-VariableFont_wght.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src: url("../fonts/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("../fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("../fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url("../fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("../fonts/Poppins-Bold.ttf");
+}
 .text-n1 {
   font-weight: 700;
   font-size: 1.85rem;
@@ -313,7 +395,8 @@ html {
 .btn6 {
   border: 1px solid #eeaf42;
   background-color: #eeaf42;
-  color: #F9F9F9;
+  color: #151515;
+  font-weight: 600;
   transition: all 0.35s cubic-bezier(0.8, 1, 0, 1);
   cursor: pointer;
 }
@@ -961,6 +1044,7 @@ nav {
   grid-template-columns: 15% 77% 4% 4%;
   letter-spacing: 0.3rem;
   z-index: 10;
+  justify-items: start;
 }
 nav .name-app {
   font-size: 2rem;
@@ -1057,12 +1141,41 @@ nav .nav-menu a:hover div:nth-child(3) {
   align-items: center;
   justify-content: center;
 }
-#user-interface p i {
+#user-interface span .ri-user-4-fill {
   font-size: 1.8rem;
   cursor: pointer;
   transition: ease-in-out 0.3s;
 }
-#user-interface p i:hover {
+#user-interface span .ri-user-4-fill:hover {
+  color: #eeaf42;
+}
+#user-interface .dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 2.1rem;
+  cursor: pointer;
+  z-index: 2;
+}
+#user-interface .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #151515;
+  width: 15rem;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 2;
+  transform: translateX(-6rem);
+}
+#user-interface .dropdown-content p {
+  transition: ease-in-out 0.3s;
+  letter-spacing: 0.15rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+#user-interface .dropdown:hover .dropdown-content {
+  display: block;
+}
+#user-interface .dropdown-content a:hover {
   color: #eeaf42;
 }
 
@@ -1078,6 +1191,37 @@ nav .nav-menu a:hover div:nth-child(3) {
   color: #eeaf42;
 }
 
+@media (min-width: 340px) and (max-width: 678px) {
+  nav {
+    grid-template-columns: 58% 21% 13% 8% !important;
+  }
+  .banner {
+    background-image: url("../images/visuals/banner_small.webp");
+  }
+}
+@media (min-width: 678px) and (max-width: 965px) {
+  nav {
+    grid-template-columns: 77% 9% 9% 5%;
+  }
+  .banner {
+    background-image: url("../images/visuals/banner_medium.webp");
+  }
+}
+@media (min-width: 965px) and (max-width: 1200px) {
+  nav {
+    grid-template-columns: 81% 7% 7% 5%;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1400px) {
+  nav .nav-links {
+    margin-right: 5rem;
+  }
+}
+@media (min-width: 1401px) {
+  nav {
+    grid-template-columns: 39% 55% 3% 3%;
+  }
+}
 @media screen and (max-width: 1200px) {
   nav #burger-menu {
     display: flex;
@@ -1121,32 +1265,7 @@ nav .nav-menu a:hover div:nth-child(3) {
     transform: translateY(0px) !important;
   }
   nav {
-    grid-template-columns: 50% 38% 12%;
-  }
-}
-@media (min-width: 965px) and (max-width: 1200px) {
-  nav {
-    grid-template-columns: 81% 7% 7% 5%;
-  }
-}
-@media (min-width: 678px) and (max-width: 965px) {
-  nav {
     grid-template-columns: 77% 9% 9% 5%;
-  }
-}
-@media (min-width: 340px) and (max-width: 678px) {
-  nav {
-    grid-template-columns: 58% 18% 16% 8%;
-  }
-}
-@media (min-width: 1200px) and (max-width: 1400px) {
-  nav .nav-links {
-    margin-right: 5rem;
-  }
-}
-@media (min-width: 1401px) {
-  nav {
-    grid-template-columns: 24% 70% 3% 3%;
   }
 }
 /*  ---------------------------------- */

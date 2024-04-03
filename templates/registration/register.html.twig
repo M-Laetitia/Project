@@ -69,7 +69,7 @@
                     <div id="terms-register">
                         {{ form_label(registrationForm.agreeTerms) }}
                         <p>
-                            <a href="#">Terms of use</a> <span>|</span> <a href="#">Privacy Policy</a>
+                            <a href="{{ path('app_terms_of_use')}}">Terms of use</a> <span>|</span> <a href="{{ path('app_privacy_policy')}}">Privacy Policy</a>
                             {{ form_errors(registrationForm.agreeTerms) }}
                             {{ form_widget(registrationForm.agreeTerms) }}
                         </div>

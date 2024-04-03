@@ -84,43 +84,60 @@ class HomeController extends AbstractController
         ]);
     }
 
-      // ^ test stripe
-      #[Route('/home/test_stripe', name: 'test_stripe')]
-      public function index_stripe(): Response
-      {
-
-          return $this->render('home/stripeTest.html.twig', [
-             
-          ]);
-      }
-
-      // ^ test stripe payment php
-      #[Route('/home/payment', name: 'test_payment')]
-      public function index_payment(): Response
-      {
-
-          return $this->render('home/payment.php', [
-             
-          ]);
-      }
-
-      // ^ test style
-      #[Route('/home/style', name: 'test_style')]
-      public function index_style(): Response
-      {
-
-          return $this->render('home/testStyle.html.twig', [
-             
-          ]);
-      }
-
-    #[Route('/contact', name: 'app_contact')]
-    public function contact(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
+    // ^ test stripe
+    #[Route('/home/test_stripe', name: 'test_stripe')]
+    public function index_stripe(): Response
     {
 
-        $user = $security->getUser();
-        return $this->render('home/contact.html.twig', [
+        return $this->render('home/stripeTest.html.twig', [
+            
+        ]);
+    }
 
+    // ^ test stripe payment php
+    #[Route('/home/payment', name: 'test_payment')]
+    public function index_payment(): Response
+    {
+
+        return $this->render('home/payment.php', [
+            
+        ]);
+    }
+
+    // ^ test style
+    #[Route('/home/style', name: 'test_style')]
+    public function index_style(): Response
+    {
+
+        return $this->render('home/testStyle.html.twig', [
+            
+        ]);
+    }
+
+    // ^ contact
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(): Response
+    {
+
+        return $this->render('home/contact.html.twig', [
+        ]);
+    }
+
+    // ^ Privacy policy
+    #[Route('/privacy-policy', name: 'app_privacy_policy')]
+    public function privacyPolicy(): Response
+    {
+
+        return $this->render('home/privacyPolicy.html.twig', [
+        ]);
+    }
+
+    // ^ Terms of Use
+    #[Route('/terms-of-use', name: 'app_terms_of_use')]
+    public function termsOfUse(): Response
+    {
+
+        return $this->render('home/termsOfUse.html.twig', [
         ]);
     }
 

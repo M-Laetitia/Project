@@ -2,8 +2,6 @@
 @import 'component';
 
 
-
-
 // ---------------------------------
 //  ██     ██  ██████  ██████  ██   ██ ███████ ██   ██  ██████  ██████        ███████ ██   ██  ██████  ██     ██ 
 //  ██     ██ ██    ██ ██   ██ ██  ██  ██      ██   ██ ██    ██ ██   ██       ██      ██   ██ ██    ██ ██     ██ 
@@ -11,7 +9,6 @@
 //  ██ ███ ██ ██    ██ ██   ██ ██  ██       ██ ██   ██ ██    ██ ██                 ██ ██   ██ ██    ██ ██ ███ ██ 
 //   ███ ███   ██████  ██   ██ ██   ██ ███████ ██   ██  ██████  ██            ███████ ██   ██  ██████   ███ ███ 
 // ---------------------------------
-
 
 #list-info-workshop {
     div {
@@ -21,7 +18,6 @@
         width: 70%;
         align-items: center;
     }
-
     .status {
         height: 30px;
         display: flex;
@@ -32,8 +28,7 @@
 }
 
 #modules-workshop {
-    // background-color: red;
-    width: 70%;
+
     margin: auto;
     margin-top: 3rem;
     font-size: 1.1rem;
@@ -45,21 +40,13 @@
 
     #modules-list {
         margin-top: 1rem;
-        // background-color: red;
-        // width: 100%;
-        // height: 300px;
-
         .module-details {
             display: grid;
             grid-template-columns:18% minmax(auto, 1fr) 74%;
-            // align-items: center;
             align-items: end;
             margin-bottom: 0.8rem;
 
-            div  {
-                // display: grid;
-                // grid-template-columns: 7% 0% 93%;
-                
+            div  {              
                 p:nth-child(1) {
                     color: $secondary-color;
                     font-weight: $medium;
@@ -85,7 +72,6 @@
     -webkit-background-clip:text;
     color:$secondary-color;
     transition: color .2s ease-in-out;
-
 }
 
 #link-subscription:hover {
@@ -96,8 +82,6 @@
     50%{background-position:right}
     100%{background-position:left}
   }
-
-
 
 
 // ---------------------------------
@@ -112,34 +96,33 @@
     width: $content-width;
     height: 800px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-    // border: 1px solid $grey-light;
 
-        #calendar-container {
-            display: grid;
-            grid-template-columns: 70% 30%;
-            width: 100%;
+    #calendar-container {
+        display: grid;
+        grid-template-columns: 70% 30%;
+        width: 100%;
+        height: 100%;
+
+        #calendar-content {
+            padding: 3rem 5rem;
             height: 100%;
+        }
 
-            #calendar-content {
-                padding: 3rem 5rem;
-                height: 100%;
+        #aside {
+            background-color: green;
+            height: 100%;
+            display: grid;
+            grid-template-rows: 40% 60%;
+
+            #top-aside {
+                background-color: $main-black-color;
             }
 
-            #aside {
-                background-color: green;
-                height: 100%;
-                display: grid;
-                grid-template-rows: 40% 60%;
-
-                #top-aside {
-                    background-color: $main-black-color;
-                }
-
-                #bottom-aside {
-                    background-color: $secondary-color;
-                }
+            #bottom-aside {
+                background-color: $secondary-color;
             }
         }
+    }
     
 }
 
@@ -170,7 +153,6 @@
     vertical-align: middle;
     column-gap: 25rem;
     transform: translate(20px 20px );
- 
 }
 
 
@@ -178,7 +160,7 @@
     background-color: $secondary-color;
     border: none;
     color: $main-white-color;
-    // border-radius: 50%;
+
 }
 
 .fc .fc-col-header-cell-cushion {
@@ -187,12 +169,10 @@
     text-transform: uppercase;
     font-weight: $semi-bold;
     color: $secondary-color3;
-
 }
 
 .fc .fc-scrollgrid-section, .fc .fc-scrollgrid-section table, .fc .fc-scrollgrid-section > td {
     height: 1px;
-    // background-color: red;
     
 }
 
@@ -203,15 +183,13 @@
 
 .fc-theme-standard td, .fc-theme-standard th {
     border: none;
-    // background-color: red;
-    
+   
 }
 
 .fc .fc-daygrid-day-frame {
     min-height: 100%;
     position: relative;
-    
-    
+  
 }
 
 .fc .fc-daygrid-day-top {

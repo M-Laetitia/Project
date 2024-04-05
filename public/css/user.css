@@ -1063,6 +1063,9 @@ html {
 }
 #profil-user #bottom #content #delete-account {
   display: none;
+  margin-bottom: 2.6rem;
+  border: 3px solid #F14D4C;
+  padding: 1rem;
 }
 #profil-user #bottom #content #delete-account .confirm a:hover {
   color: #207E93;
@@ -1376,9 +1379,7 @@ html {
     margin-right: 2rem;
   }
   #profil-user #middle {
-    margin: 8rem 1rem 6rem 1rem;
-    justify-content: center;
-    width: 100%;
+    margin: 8rem 4rem 3rem 4rem;
   }
   #profil-user #middle #right #activity {
     width: 20rem;

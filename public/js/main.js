@@ -1,12 +1,20 @@
 // ^ Make add flash message disappear after 5s
 
-if(document.querySelector('.alert')) {
-    $(document).ready(function() {
-        setTimeout(function() {
-            $('.alert').slideUp(3000); // 1000 millisecondes for the animation's duration
-        }, 2000); // delay
-    });
-}
+// if(document.querySelector('.alert')) {
+//     $(document).ready(function() {
+//         setTimeout(function() {
+//             $('.alert').slideUp(5000); // 1000 millisecondes for the animation's duration
+//         }, 2000); // delay
+//     });
+// }
+
+$(document).ready(function() {
+    var alertBox = $('.alert');
+    alertBox.css('top', '0'); 
+    setTimeout(function() {
+      alertBox.css('top', '-8rem'); 
+    }, 4000); 
+  });
 
 
 // ^ Artist page Carousel 

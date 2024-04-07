@@ -66,6 +66,39 @@ body {
     margin: auto;
 }
 
+.alert {
+    padding: 1rem;
+    position: absolute;
+    z-index: 100;
+    right: 50%;
+    transform: translate(50%, 0%);
+    top: -8rem;
+    margin: 0;
+    @include center-flexbox();
+    height: 7rem;
+    box-shadow: $box-shadow ;
+    min-width: 25rem;
+    transition: ease-in-out 1s;
+    i {
+        margin-right: 1.3rem;
+        font-size: 2rem;
+    }
+    p {
+        font-size: 1.2rem;
+    }
+}
+
+.alert-success {
+    background-color: $secondary-color;
+    color: $main-black-color;   
+}
+  
+.alert-error {
+    background-color: $main-black-color;
+    color: $main-white-color; 
+    
+}
+
 //&  ---------------------------------- */
 //&  ██████   █████  ███    ██ ███    ██ ███████ ██████  
 //~  ██   ██ ██   ██ ████   ██ ████   ██ ██      ██   ██ 

@@ -58,8 +58,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Welcome on!{% endblock %}</title>
         <meta name="description" content="{% block meta %}Description!{% endblock %}">
+
+
         <meta name="robots" content="{% block index %}index, follow{% endblock %}">
 
         <link rel="icon" href="{{ asset('images/visuals/favicon.png') }}" type="image/png" >
@@ -190,12 +192,10 @@
                             {% if is_granted('ROLE_ARTIST') %}
                             <p><a href="{{ path('manage_profil', {slug: app.user.slug }) }}">ARTIST PAGE</a></p>
                             {% endif %}
-
                             {% if is_granted('ROLE_ADMIN') %}
                             <p><a href="{{ path('app_dashboard')}}">DASHBOARD</a></p>
                             {% endif %}
-                            
-                            {% if is_granted('ROLE_SUPERVISOR') and is_granted('ROLE_ADMIN')  %}
+                            {% if is_granted('ROLE_SUPERVISOR') or is_granted('ROLE_ADMIN')  %}
                             <p><a href="{{ path('studio_dashboard')}}">PLANNING</a></p>
                             {% endif %}
 
@@ -206,8 +206,8 @@
                 <div class="dropdown">
                     <span><i class="ri-user-4-fill"></i></span>
                     <div class="dropdown-content">
-                        <p><a href="{{ path('app_login') }}">login</a></p>
-                        <p><a href="{{ path('app_register') }}">register</a></p>
+                        <p><a href="{{ path('app_login') }}">LOGIN</a></p>
+                        <p><a href="{{ path('app_register') }}">REGISTER</a></p>
                     </div>
                 </div>
                 {% endif %}
@@ -248,7 +248,7 @@
         //   ██████  ██████  ██   ████    ██    ███████ ██   ████    ██
         /*  ---------------------------------- */#}
 
-        <div class="roles" style="display:block;">
+        <div class="roles" style="display:none;">
         
             <a href="{{ path('app_langindPage') }}">landing page</a>
      
@@ -266,13 +266,15 @@
 
             {% for message in app.flashes('success') %}
             <div class="alert alert-success">
-                {{ message }}
+                <i class="fa-regular fa-circle-check"></i>
+                <p>Success ! {{ message }}</p>
             </div>
             {% endfor %} 
 
             {% for message in app.flashes('error') %}
             <div class="alert alert-error">
-                {{ message }}
+                <i class="fa-regular fa-circle-xmark"></i>
+                <p>Error ! {{ message }}</p> 
             </div>
             {% endfor %} 
         

@@ -69,8 +69,10 @@ class HomeController extends AbstractController
     {
 
         $user = $security->getUser();
+        $user = $security->getUser();
+        $artists = $userRepository->findArtistUsers();
         return $this->render('home/homePage.html.twig', [
-
+            'artists' => $artists,
         ]);
     }
 

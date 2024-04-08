@@ -38,11 +38,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     {
         $email = $request->request->get('email', '');
         $user = $this->userRepository->findOneBy(['email' => $email]);
-        
-
         if (!$user->isVerified()) {
-            
-            throw new CustomUserMessageAuthenticationException('Your account is not verified.');
+            throw new CustomUserMessageAuthenticationException('Your account is not verified. Please check your email before attempting to log in.');
         }
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $email);

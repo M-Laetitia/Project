@@ -247,7 +247,7 @@
             color : $main-white-color;
             opacity: 0;
 
-            #quote-style{
+            #quote-style, .quote-style{
                 color: $secondary-color3;
                 font-weight: $extra-bold;
                 font-size: 2rem;
@@ -258,6 +258,8 @@
                 margin: 0 1rem;
             }
         }
+
+       
     }
 
     #details-event {
@@ -350,6 +352,7 @@
         color: $secondary-color4;
     }
 }
+
 
 
 //&  ---------------------------------

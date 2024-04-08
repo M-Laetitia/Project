@@ -1,44 +1,168 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
-{% block meta %}Test home!{% endblock %}
+{% block title %}Home2{% endblock %}
+{% block meta %}Test home!2{% endblock %}
 
 {% block body %}
+    {# ------------------- 
+    //  ███████ ██      ██ ██████  ███████ ███████ 
+    //  ██      ██      ██ ██   ██ ██      ██      
+    //  ███████ ██      ██ ██   ██ █████   ███████ 
+    //       ██ ██      ██ ██   ██ ██           ██ 
+    //  ███████ ███████ ██ ██████  ███████ ███████
+    ------------------- #}
 
- 
-    <h1>Home</h1>
-
-    <p><a href="{{ path('test_stripe')}}">test stripe </a></p>
-    <p><a href="{{ path('test_style')}}">test style </a></p>
-    <div>
-        {% for artist in artists %}
-
-        <p class="address"
-            {% if artist.artistInfos.address is defined %}
-                data-street="{{ artist.artistInfos.address.street }}"
-                data-city="{{ artist.artistInfos.address.city }}"
-                data-postal-code="{{ artist.artistInfos.address.postalCode }}"
-                data-country="{{ artist.artistInfos.address.country }}"
-            {% endif %}
-           data-name="{{ artist.artistInfos.artistName }}"
-           data-slug="{{ artist.slug}}"
-           data-activity="{{ artist.artistInfos.discipline }}">
-        </p>
-    {% endfor %}
-
-    </div>
-
-    {# Penser à rajouter les crédits ! #}
-
-
-    <div id="map"></div>
-
-    {# API LEAFLET #}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-    <script src="{{asset('js/APIleaflet.js')}}"></script>
-
-    
+    <section id="slides-container">
         
+        <div id="slides">
+            <div class="slides-arrow left" ></div>
+            <div class="slide" id="slide1" >
+                <picture class="slide-picture">
+                    <img src="" alt="">
+                </picture>
+    
+                <div class="slide-text" >
+                    <h2>Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
+                    {# <div class="test">READ MORE</div> #}
+                    <div class="button btn6">READ MORE</div>
+                </div>
+    
+                {# <picture class="slide-picture">
+                    <img src="" alt="">
+                </picture> #}
+            </div>
+    
+            <div class="slide" id="slide2" style="display:none" >
+                <picture class="slide-picture">
+                    <img src="" alt="">
+                </picture>
+    
+                <div class="slide-text">
+                    <h2>Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
+                    <div class="button btn6">DISCOVER</div>
+                </div>
+    
+                {# <picture class="slide-picture">
+                    <img src="" alt="">
+                </picture> #}
+            </div>
+    
+            <div class="slide" id="slide3" style="display:none">
+                <picture class="slide-picture">
+                    <img src="" alt="">
+                </picture>
+    
+                <div class="slide-text">
+                    <h2>Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
+                    <div class="button btn6">DISCOVER</div>
+                </div>
+    
+                {# <picture class="slide-picture">
+                    <img src="" alt="">
+                </picture> #}
+            </div>
+            <div class="slides-arrow right"></div>
+        </div>
+        
+
+
+    </section>
+
+
+    {# ------------------- 
+    //  ███    ██ ███████ ██     ██ ███████ 
+    //  ████   ██ ██      ██     ██ ██      
+    //  ██ ██  ██ █████   ██  █  ██ ███████ 
+    //  ██  ██ ██ ██      ██ ███ ██      ██ 
+    //  ██   ████ ███████  ███ ███  ███████
+    ------------------- #}
+    <section id="news">
+
+    </section>
+
+
+    <section id="section-contact">
+
+    </section>
+
+    <section id="section-map">
+
+    </section>
+
+     {# Jquery #}
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+     <script src="{{ asset('js/main.js') }}"></script>
+     <script src="{{ asset('js/gwl.js') }}"></script> 
+
+     <script src= "{{ asset('js/gsap.min.js') }}"></script>
+   
+
+    <script>
+        $(document).ready(function(){
+            var currentSlide = 0;
+            var totalSlides = $('.slide').length;
+            var slideTransitionDelay = 800; // Delay before starting slide transitions
+            var slideTransitionInterval = 6000; // Interval between slide transitions
+        
+            // Function to animate slide elements
+            function animateSlideElements() {
+                gsap.from('.slide .slide-picture', 1.2, {opacity: 0, delay: 1.1 });
+                gsap.from('.slide .slide-text h2', 1.2, {opacity: 0, y: 200, delay: 1.5 });
+                gsap.from('.slide .slide-text p', 1.2, {opacity: 0, y: -60, delay: 2 });
+                gsap.from('.slide .slide-text .btn6', 1.2, {opacity: 0, x: -80, delay: 2.1 });
+        
+                $('.btn6').on('mouseenter', function() {
+                    gsap.to(this, { backgroundColor: '#151515', color: '#f0bd2f',  borderColor : '#f0bd2f', duration: 0.3 });
+                });
+                $('.btn6').on('mouseleave', function() {
+                    gsap.to(this, { backgroundColor: '#eeaf42', color: '#151515', borderColor : '#f0bd2f', duration: 0.3 });
+                });
+            }
+        
+            // Function to transition to the next slide
+            function nextSlide() {
+                // Hide the current slide
+                $('.slide').eq(currentSlide).hide();
+                // Calculate the index of the next slide (cycling back to 0 if reaching the end)
+                currentSlide = (currentSlide + 1) % totalSlides;
+                // Show the next slide
+                $('.slide').eq(currentSlide).show();
+                // Animate slide elements
+                animateSlideElements();
+                // Reset underscore visibility
+                $('.underscore-static').css('visibility', 'hidden');
+                setTimeout(function() {
+                    $('.underscore-static').css('visibility', 'visible');
+                }, 3500);
+            }
+        
+            // Hide all slides initially
+            $('.slide').hide();
+        
+            // After a delay, show the first slide and start changing slides at intervals
+            setTimeout(function() {
+                // Show the first slide
+                $('.slide').eq(0).show();
+                // Animate elements of the first slide
+                animateSlideElements();
+                // Set interval to call the nextSlide function
+                setInterval(nextSlide, slideTransitionInterval);
+                // Show underscore after a delay
+                setTimeout(function() {
+                    $('.underscore-static').css('visibility', 'visible');
+                }, slideTransitionDelay + 2000);
+            }, slideTransitionDelay);
+
+            
+        });
+
+
+
+            
+           
+    
+    </script>
 {% endblock %}

@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DashboardController extends AbstractController
 {
 
-    // ^ main page with all event/expo/workshop/studio
+    // ^ main page
     #[Route('/admin/dashboard', name: 'app_dashboard')]
     #[IsGranted("ROLE_ADMIN")]
     public function index(WorkshopRepository $workshopRepository, AreaRepository $areaRepository, StudioRepository $studioRepository): Response
@@ -86,13 +86,13 @@ class DashboardController extends AbstractController
         $sortBy = $request->query->get('sortBy');
         $artists = $userRepository->findBy(['roles' => 'ROLE_ARTIST']);
 
-        $datas = $userRepository->findBy([], ['username' => 'ASC']);
+        $users = $userRepository->findBy([], ['username' => 'ASC']);
 
-        $users = $paginator->paginate(
-            $datas, // Query with the datas to paginate (= users)
-            $request->query->getInt('page', 1), // number of the current page
-            6 // nb of results per page
-        );
+        // $users = $paginator->paginate(
+        //     $datas, // Query with the datas to paginate (= users)
+        //     $request->query->getInt('page', 1), // number of the current page
+        //     6 // nb of results per page
+        // );
     
     
 

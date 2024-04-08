@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         {# Tarte au citron #}
         {# <script src="/tarteaucitron/tarteaucitron.js"></script> #}
@@ -57,7 +57,7 @@
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
         <title>{% block title %}Welcome on!{% endblock %}</title>
         <meta name="description" content="{% block meta %}Description!{% endblock %}">
 
@@ -71,7 +71,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.6.0/remixicon.css" integrity="sha512-GL7EM8Lf8kU23I3kTio2kRWt8YRDVIQcSZjRVtVRfk05kB/QvkyafuTC94Ev0X6qk7Z0r5s06c1lsP1p/ezDYw==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
         {# Font awesome #}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
         {# 
         <link href="{{ asset('fontawesome/css/fontawesome.css') }}" rel="stylesheet" />
@@ -125,12 +125,12 @@
         <aside id="aboutUs">
             <div>
                 <h3>MOSAIC<span class="underscore">_</span></h3>
-                <p>Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulpuelit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.</p>
+                <p>Discover  <strong>a dynamic place for artists to connect</strong>, <em>showcase their work, and participate in events, exhibitions, and workshops.</em>  Our platform offers studio rentals and personalized artist profiles, fostering <em>collaboration and creativity</em>in a vibrant  <strong>community dedicated to the arts</strong>.</p>
                 <div class='button btn4'>LEARN MORE</div>
                 <div class="socials">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.twitter.com"><i class="fa-brands fa-square-twitter"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
         </aside>
@@ -146,7 +146,7 @@
         <nav class="page-header">
             <div class="name-app">
                 <p class="{% if app.request.attributes.get('_route') == 'app_homepage' %}active{% endif %}">
-                    <a href="{{ path('app_homepage') }}">MOSAIC</a>
+                    <a href="{{ path('app_home') }}">MOSAIC</a>
                 </p>
             </div>
 
@@ -180,7 +180,6 @@
             <div id="burger-menu">
                 <div id="burger-icon">MENU</div>
             </div>
-
               
             <div id="user-interface">
                 {% if app.user %}
@@ -204,7 +203,7 @@
                     </div>
                 {% else %}
                 <div class="dropdown">
-                    <span><i class="ri-user-4-fill"></i></span>
+                    <span ><i class="ri-login-circle-line"  ></i></span>
                     <div class="dropdown-content">
                         <p><a href="{{ path('app_login') }}">LOGIN</a></p>
                         <p><a href="{{ path('app_register') }}">REGISTER</a></p>
@@ -304,8 +303,8 @@
                 </div>
     
                 <div id="footer-links">
-                    <a href="#">HOME</a>
-                    <a href="#">ABOUT</a>
+                    <a href="{{ path('app_home')}}">HOME</a>
+                    <a href="{{ path('app_home')}}">ABOUT</a>
                     <a href="{{ path('app_contact')}}">CONTACT</a>
                 </div>
     
@@ -319,9 +318,9 @@
                 </div>
     
                 <div class="socials" id="footer-socials">
-                    <a href="#"><i class="fa-brands fa-facebook "></i></a>
-                    <a href="#"><i class="fa-brands fa-square-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com"><i class="fa-brands fa-facebook "></i></a>
+                    <a href="https://www.twitter.com"><i class="fa-brands fa-square-twitter"></i></a>
+                    <a href="https://www.instagram.com"><i class="fa-brands fa-instagram"></i></a>
                 </div> 
             </div>
 
@@ -342,7 +341,7 @@
     /*  ---------------------------------- */#}
 
     {# Jquery #}
-     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/gwl.js') }}"></script>
 
@@ -402,13 +401,6 @@
             
         });
 
-        // footer animation
-        /*gsap.from('#top-footer', {
-        duration: 1.2,
-        opacity: 0,
-        ease: "power4.out",
-        delay: 1.1
-        }); */
         setTimeout(function() {
             gsap.to(".name-app", {
                 keyframes: [

@@ -189,48 +189,48 @@
 
         
     </div>  
+    
+    <div id="modules-workshop" >
+        <p class="text-n2">Modules<span id="info-underscore">_</span></p>
+        <div id="modules-list">
+            {# initialize the counter to 1 #}
+            {% set counter = 1 %}
+            {% for programme in workshop.programmes %}
+            <div class="module-details">
+                <div>
+                    <p>0{{ counter }}.</p> 
+                    <p> </p>
+                    <p>{{ programme.lesson.name }} - </p>
+                </div>
+                {% set counter = counter + 1 %} {# Incrementing the module counter #}
+                {# Calculating the duration of this lesson in minutes #}
+                {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
+                {# Calculating hours and minutes for this lesson #}
+                {% set lessonHours = lessonDurationMinutes // 60 %}
+                {% set lessonRemainingMinutes = lessonDurationMinutes % 60 %}
+                
+                <p>{{programme.startDate|formatDate}}<span> | </span></p>  
+                <p>{{programme.startDate|date('H:i')}} - {{programme.endDate|date('H:i')}} 
+                    
+                {% if lessonRemainingMinutes == 0 %}
+                    {# If the remaining minutes are equal to 0, display only the number of hours #}
+                    ({{ lessonHours }}hrs) 
+                {% else %}
+                    {# Otherwise, display the number of hours and remaining minutes #}
+                    ({{ lessonHours }}hrs {{ lessonRemainingMinutes }}min)
+                {% endif %}
+                </p>
+            </div>
+            {% endfor %}
+    
+        </div>
+        
+        
+    
+    </div>
 
     
 </section>
-
-<div id="modules-workshop" >
-    <p class="text-n2">Modules<span id="info-underscore">_</span></p>
-    <div id="modules-list">
-        {# initialize the counter to 1 #}
-        {% set counter = 1 %}
-        {% for programme in workshop.programmes %}
-        <div class="module-details">
-            <div>
-                <p>0{{ counter }}.</p> 
-                <p> </p>
-                <p>{{ programme.lesson.name }} - </p>
-            </div>
-            {% set counter = counter + 1 %} {# Incrementing the module counter #}
-            {# Calculating the duration of this lesson in minutes #}
-            {% set lessonDurationMinutes = (programme.endDate.timestamp - programme.startDate.timestamp) / 60 %}
-            {# Calculating hours and minutes for this lesson #}
-            {% set lessonHours = lessonDurationMinutes // 60 %}
-            {% set lessonRemainingMinutes = lessonDurationMinutes % 60 %}
-            
-            <p>{{programme.startDate|formatDate}}<span> | </span></p>  
-            <p>{{programme.startDate|date('H:i')}} - {{programme.endDate|date('H:i')}} 
-                
-            {% if lessonRemainingMinutes == 0 %}
-                {# If the remaining minutes are equal to 0, display only the number of hours #}
-                ({{ lessonHours }}hrs) 
-            {% else %}
-                {# Otherwise, display the number of hours and remaining minutes #}
-                ({{ lessonHours }}hrs {{ lessonRemainingMinutes }}min)
-            {% endif %}
-            </p>
-        </div>
-        {% endfor %}
-
-    </div>
-    
-    
-
-</div>
 
 
 

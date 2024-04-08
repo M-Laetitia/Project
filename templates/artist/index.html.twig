@@ -53,6 +53,7 @@
 
   
 
+
     {# FILTER / SEARCH #}
     <div id="more-filters" style="display:none;" >
         <div class="form-search-username-discipline">
@@ -91,7 +92,7 @@
                 <div class="artist {{ artist.artistInfos.category }} artist-container">
 
                     <figure>
-                        <div id="hover2">
+                        <div class="hover2">
                             {% if artist.pictures is not empty %}
                                 {% set hasSelectedPicture = false %}
                                 {% for picture in artist.pictures %}

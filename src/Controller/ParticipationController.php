@@ -15,9 +15,11 @@ use App\Entity\WorkshopRegistration;
 use App\Form\ExpositionProposalType;
 use App\Form\WorkshopRegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\AreaParticipationPublicType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\AreaParticipationRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ExpositionProposalRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -109,18 +111,24 @@ class ParticipationController extends AbstractController
     public function newArea(AreaParticipation $areaParticipation = null, Area $area, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
     {
 
-
         $user = $security->getUser();
+
+        $validityDuration = new \DateInterval('PT2H'); // PT1H représente une durée d'1 heure
+        $currentDateTime = new \DateTimeImmutable();
+        $expirationDateTime = $currentDateTime->add($validityDuration);
 
         $form = $this->createForm(AreaParticipationType::class);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid() ) {
+
+            $csrf_token = bin2hex(random_bytes(32));
 
             $expoParticipation = $form->getData();
             $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
             $expoParticipation->setUser($user);
             $expoParticipation->setArea($area);
+            $expoParticipation->setCsrfToken($csrf_token);
+            $expoParticipation->setCsrfExpiresAt($expirationDateTime);
 
             $entityManager->persist($expoParticipation);
             $entityManager->flush();
@@ -148,18 +156,92 @@ class ParticipationController extends AbstractController
                 $entityManager->flush();
             }
 
-            // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
+
             $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
             return $this->redirectToRoute('app_event');
         
         }
 
+
+
+        $formPublic = $this->createForm(AreaParticipationPublicType::class);
+        $formPublic->handleRequest($request);
+        if ($formPublic->isSubmitted() && $formPublic->isValid() ) {
+
+            $csrf_token = bin2hex(random_bytes(32));
+            $expoParticipation = $formPublic->getData();
+
+            $expoParticipation->setInscriptionDate(new \DateTimeImmutable());
+            $expoParticipation->setArea($area);
+            $expoParticipation->setCsrfToken($csrf_token);
+            $expoParticipation->setCsrfExpiresAt($expirationDateTime);
+
+            $entityManager->persist($expoParticipation);
+            $entityManager->flush();
+
+            $participationId = $expoParticipation->getId();
+
+            //send the email
+            $userEmail = $expoParticipation->getEmail();
+            //  sprintf = formatting a string according to a specified pattern.
+            $expositionDetails = sprintf(
+                "Name: %s\r\nStartDate:  %s\r\nEndDate: %s\r\nDescription: %s\r\n", 
+                $area->getName(),
+                $area->getStartDate()->format('Y-m-d H:i:s'),
+                $area->getEndDate()->format('Y-m-d H:i:s'),
+                $area->getDescription()
+            );
+            // call the mailer Service
+            $mailerService->sendEventParticipationConfirmation($userEmail, $expositionDetails);
+
+            $nbReversationRemaining = $area->getNbReversationRemaining();
+            if ( $nbReversationRemaining == 0 && $area->getStatus() !== 'CLOSED') {
+                // Update the status to "closed"
+                $area->setStatus('CLOSED');
+                $entityManager->flush();
+            } elseif ($nbReversationRemaining > 0 && $area->getStatus() !== 'OPEN') {
+                $area->setStatus('OPEN');
+                $entityManager->flush();
+            }
+
+           
+            // return $this->redirectToRoute('confirmation_participation', ['id' => $participationId]);
+            $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
+            return $this->redirectToRoute('app_event');
+            
+        
+        }
+
+
         return $this->render('event/newParticipation.html.twig', [
             'formSendParticipation' => $form,
+            'formSendParticipationPublic' => $formPublic,
             'user' => $user,
             'area'=> $area, 
 
         ]);
+    }
+
+    // Confirmation page 
+    // ^ Confirmation participation page
+    #[Route('/confirmation-participation/{id}', name: 'confirmation_participation')]
+    public function participationConfirmation(Security $security, AreaParticipationRepository $areaParticipationRepo, Request $request,  int $id) :Response
+    {
+
+        $user = $security->getUser();
+        $participation = $areaParticipationRepo->find($id);
+        $token = $participation->getCsrfToken();
+        $tokenExpirationDate = $participation->getCsrfExpiresAt();
+        
+        $currentDateTime = new \DateTimeImmutable();
+        // if ($currentDateTime > $tokenExpirationDate) {
+        // } else {
+        //     return $this->redirectToRoute('app_home');
+        // }
+        return $this->render('event/confirmationParticipation.html.twig', [
+        ]);
+
+
     }
 
     // ^ Delete a participation  event (admin)

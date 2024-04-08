@@ -37,6 +37,7 @@
                 <p><span id="name">{{area.name}}</span><span id="pipe-separator">|</span> {{area.startDate|formatDate}} - {{area.startDate|date('H:i')}}</p>
             </div>
 
+            {% if app.user %}
             <div id="form-register">
 
                 {{ form_start(formSendParticipation)}}
@@ -46,9 +47,23 @@
                         {{ form_row(formSendParticipation.submit, { 'attr' : { 'class': 'btn btn6' } })}}
                 {{ form_end(formSendParticipation)}}
             </div>
+
+            {% else %}
+            <div id="form-register">
+                {{ form_start(formSendParticipationPublic)}}
+                    {{ form_errors(formSendParticipationPublic)}}
+                    {{ form_row(formSendParticipationPublic.firstname)}}
+                    {{ form_row(formSendParticipationPublic.lastname)}}
+                    {{ form_row(formSendParticipationPublic.email)}}
+                        {{ form_row(formSendParticipationPublic.submit, { 'attr' : { 'class': 'btn btn6' } })}}
+                {{ form_end(formSendParticipationPublic)}}
+            </div>
+            {% endif %}
         </div>
 
     </div>
 </section>
+
+
 
 {% endblock %}

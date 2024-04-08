@@ -28,9 +28,9 @@
    
     <section class="content dashboard create-event" id="dashboard-create-workshop">
         {% if edit %}
-            <h1 class="text-n1">Edit an Exposition<span>_</span></h1>
+            <h1 class="text-n1">Edit a workshop<span>_</span></h1>
         {% else %}
-            <h1 class="text-n1">Create an Exposition<span>_</span></h1>
+            <h1 class="text-n1">Create a workshop<span>_</span></h1>
         {% endif %}
 
         <div class="admin-form">
@@ -149,14 +149,14 @@
             {% for picture in picturesGallery  %}
             <div id="gallery-img">
             
-                    <div id="selectedImage">
+                    {# <div id="selectedImage">
                         <img src="{{asset('images/artists/' ~ workshop.id ~'/works/mini/500x500-') ~ picture.path }}" alt="{{picture.altDescription}}" width="150">
             
                             <div class="actions">
                                 <a href=" {{ path('delete_event_picture', {'id': picture.id }) }}"><i class="fa-solid fa-xmark"></i></a>
             
                             </div>
-                    </div>
+                    </div> #}
             
             </div>
             {% endfor %}

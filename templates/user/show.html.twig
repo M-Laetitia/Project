@@ -105,8 +105,9 @@
                             <p>Edit informations</p>
                         </div>
                         <div>
-                            <i class="fa-solid fa-unlock-keyhole"></i>
-                            <p>Change password</p>
+                            <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}"><i class="fa-solid fa-unlock-keyhole"></i></a>
+                            <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}"><p>Change password</p></a>
+                            
                         </div>
                         <div>
                             <i id="delete-account-btn" class="fa-solid fa-x"></i>
@@ -485,23 +486,6 @@
 
     
 
-    
-    <div id="avatar">
-        <div id="avatar-profil">
-            
-        </div>
-        
-       
-    </div>
-
-
-    <div>
-        
-        <a href=" {{ path('editPassword_user',{'id': app.user.id }) }}">change password</a>
-
-    </div>
-
-    
 
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

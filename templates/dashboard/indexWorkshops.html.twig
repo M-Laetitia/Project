@@ -23,11 +23,11 @@
             <a href="{{ path('app_dashboard') }}"><div><i class="ri-dashboard-fill"></i><p>dashboard</p></div></a>
             <a href="{{ path('list_users') }}"><div><i class="ri-team-fill "></i><p>Community</p></div></a>
             <a href="{{ path('list_events') }}"> <div><i class="ri-artboard-2-fill"></i><p>events</p> </div></a>
-            <a href="{{ path('list_expos') }}"><div><i class="ri-artboard-2-fill"></i><p>expositions</p> </div></a>
-            <a href="{{ path('list_workshops') }}"><div class="is-active"><i class="ri-artboard-2-fill"></i><p>workshops</p> </div></a>
+            <a href="{{ path('list_expos') }}"><div><i class="ri-artboard-fill"></i><p>expositions</p> </div></a>
+            <a href="{{ path('list_workshops') }}"><div class="is-active"><i class="ri-palette-fill"></i><p>workshops</p> </div></a>
             <div><i class="ri-home-heart-fill"></i><p>studios</p></div>
-            <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
-            <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div>
+            {# <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
+            <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div> #}
         </div>
 
         <div id="bottom"></div>
@@ -40,6 +40,10 @@
             <p class="text-n1">Workshops<span>_</span></p>
             <div class="separator-line"></div>
         </div>
+
+        <div id="action-create">
+            <p><a class="btn btn6" href="{{ path('new_workshop') }}"> NEW WORKSHOP</a></p>
+       </div>
 
 
         <div class="container-all dashboard-events">

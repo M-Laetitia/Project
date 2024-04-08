@@ -88,13 +88,24 @@ $semi-bold: 500;
 $medium: 400;
 $regular: 300;
 
-
-// FONT PROPERTIES
 $letter-spacing-title : 0.3rem;
 $letter-spacing-medium : 0.25rem;
 $letter-spacing-text : 0.05rem;
-
 $line-height-text: 1.3rem;
+
+@mixin text-l1() {
+  font-weight: $extra-bold;
+  font-size: $fs-medium;
+  letter-spacing: $letter-spacing-title;
+  color : $main-black-color;
+}
+
+@mixin text-l2() {
+  font-weight: $extra-bold;
+  font-size: $fs-regular;   
+  letter-spacing: $letter-spacing-medium;
+  color: $secondary-color2;
+}
 
 // $fs-text: clamp(0.6rem, 2vw, 0.9rem);
 // $fs-regular: clamp(1.2rem, 3vw, 1.5rem);
@@ -140,6 +151,8 @@ $transition-basic: ease-in-out 0.3s;
     align-items: center;
     justify-content: center;
 }
+
+
 
 
 // ^ MEDIA QUERIES 

@@ -372,6 +372,9 @@
 
                 #delete-account {
                     display: none;
+                    margin-bottom: 2.6rem;
+                    border: 3px solid $secondary-color4; 
+                    padding: 1rem;
 
                     .confirm {
                         a {    
@@ -747,6 +750,8 @@
   
 }
 
+
+
 // & LARGE SCREEN
 @media screen and (min-width:950px) and (max-width:1500px) { 
     #profil-user #top h2 {
@@ -758,9 +763,9 @@
     }
 
     #profil-user #middle {
-        margin: 8rem 1rem 6rem 1rem;
-        justify-content: center;
-        width: 100%;
+        margin: 8rem 4rem 3rem 4rem;
+        // justify-content: center;
+        // width: 100%;
     }
 
     #profil-user #middle #right #activity {
@@ -800,7 +805,28 @@
 
 }
 
-.payment-subscription {
+#card-errors {
+    padding-bottom: 0.3rem;
+}
+
+#myForm {
+
+    input {
+        color: white;
+    }
+
+    #accept-TOU {
+        display: block !important;
+        label {
+            text-transform: capitalize !important;
+            a {
+                color: $secondary-color;
+            }
+        }
+    }
+}
+
+#payment-subscription {
     position: relative;
     #confirmation-modal-payment {
         background-color: #ededed;
@@ -816,15 +842,31 @@
         padding: 2rem;
     }
 
+    // #form-register div {
+    //     margin-bottom: 0.6rem;
+    // }
+
+    #form-register {
+        margin-top: 2rem;
+        div {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 0.3rem !important;
+            margin-top: 0.3rem !important;
+
+            label {
+                padding-bottom: 0.3rem!important;
+            }
+        }
+    } 
+  
     #action-btn {
         column-gap: 4rem;
         margin-top: 1.5rem;
 
-
         div {
             // @include center-flexbox();
             column-gap:  0.6rem;
-            
 
             i {
                 @include center-flexbox();
@@ -837,24 +879,39 @@
                
             }
 
-            // .icon-confirm {
-            //     &:hover {
-            //     background-color: $secondary-color;
-            //     border: 1px solid $secondary-color;
-            //     color: $main-white-color;
-            //     }
-            // }
+            .icon-confirm {
+                &:hover {
+                background-color: $secondary-color;
+                border: 1px solid $secondary-color;
+                color: $main-white-color;
+                }
+            }
 
-            // .icon-cancel {
-            //     &:hover {
-            //     background-color: $main-black-color;
-            //     border: 1px solid $main-black-color;
-            //     color: $main-white-color;
-            //     }
-            // }
+            .icon-cancel {
+                &:hover {
+                background-color: $main-black-color;
+                border: 1px solid $main-black-color;
+                color: $main-white-color;
+                }
+            }
 
             
         }
+    }
+}
+
+
+#cancel-payment {
+    display: inline-block;
+    background-color: $main-black-color;
+    font-weight: 500;
+    transition: $transition-basic;
+    border: 1px solid $main-black-color;
+
+    &:hover {
+        background-color: $main-white-color;
+        color : $main-black-color;
+        border: 1px solid $main-black-color;
     }
 }
 
@@ -865,14 +922,10 @@
 }
 
 #card-elements {
-    color: green;
-    div {
-        background-color: red !important;
-    }
+    background-color: white;
+    margin-top: 1rem;
+    padding: 1rem;
 
-    .InputContainer .InputElement {
-        color: red !important;
-    }
 }
 
 // ^ MEDIA QUERIES 

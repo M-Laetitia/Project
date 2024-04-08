@@ -536,6 +536,14 @@ nav {
     .dropdown-content a:hover {
         color: $secondary-color;
     }
+
+    .ri-login-circle-line {
+        font-size: 1.8rem;
+        transition: $transition-basic;
+        &:hover {
+            color: $secondary-color;
+        }
+    }
     
 
 }

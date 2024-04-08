@@ -82,33 +82,53 @@
                 <div id="client-secret" data-client-secret="{{ clientSecret }}"></div>
     
 
-                <form id="myForm" action="{{ path('subscription_payment', { 'id' : subscriptionType.id  }) }}" method="post">
+                <form id="myForm" action="{{ path('subscription_payment', { slug : subscriptionType.slug  }) }}" method="post">
 
-                    <div id="errors"></div>
+                    <div>
+                        <label for="firstName">FIRST NAME</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First name">
+                    </div>
 
-                    <input type="text" id="firstName" name="firstName" placeholder="First name">
-                    <input type="text" id="lastName" name="lastName" placeholder="Last name">
+                    <div>
+                        <label for="firstName">LAST NAME</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last name">
+                    </div>
 
-                    <input type="text" id="address" name="address" placeholder="Address">
-            
+                    <div>
+                        <label for="firstName">ADDRESS</label>
+                        <input type="text" id="address" name="address" placeholder="Address">
+                    </div>
+
                     <!-- info de la carte elle-même-->
                     <div id="card-elements"></div>
-            
                     <!-- contiendra les erreurs relatives à la carte-->
                     <div id="card-errors" role="alter"></div>
+
+                    <div id="accept-TOU">
+                        <label for="terms_of_use">I accept the general <a href="{{ path('app_terms_of_use')}}">terms of use</a></label>
+                        <input type="checkbox" id="terms_of_use" name="terms_of_use" required>
+                    </div>
             
                     <!-- data-secret = numéro secret qui est envoyé par stripe qui est l'accumulation de l'id+ clef secrète -->
-                    <button class="btn btn6" id="card-button" type="button" data-secret="<?= $intent['client_secret']?>">Subscribe</button>
-                </form>
+                    <button id="confirmation-payement-btn" class="btn btn6">Subscribe</button>
 
+                    <div id="confirmation-modal-payment" style="visibility: hidden;">
+                        <p>Do you want to proceed with this payment?</p>
+                        <div>
+                            <div>
+                                <button id="confirm-payment" class="btn btn6" id="card-button" type="button" data-secret="<?= $intent['client_secret']?>">Confirm</button>
+                            </div>
+                            <div>
+                                <button id="cancel-payment" class="icon-cancel btn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
 
-                
+                    {# <button class="btn btn6" id="card-button" type="button" data-secret="<?= $intent['client_secret']?>">Subscribe</button> #}
+                </form>          
                 </div>
             </div>
-
-    
-            {# <button id="deleteButton">Delete File</button> #}
-            
+       
 
     </section>
 </div>
@@ -120,29 +140,6 @@
 {# <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> #}
 
 <script>
-
-    /*const deleteButton = document.getElementById('deleteButton');
-
-    deleteButton.addEventListener('click', () => {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
-        }
-      });
-    });*/
-
-    
 
     // add overlay on body to hide page content for confirmation modale
     $(document).ready(function() {
@@ -159,6 +156,7 @@
             $('body').removeClass('has-after');
             $('#confirmation-modal-payment').css('visibility', 'hidden');
         });
+
 
       });
 

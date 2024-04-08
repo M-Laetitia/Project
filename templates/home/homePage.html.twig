@@ -4,5 +4,41 @@
 {% block meta %}Test home!{% endblock %}
 
 {% block body %}
-     
+
+ 
+    <h1>Home</h1>
+
+    <p><a href="{{ path('test_stripe')}}">test stripe </a></p>
+    <p><a href="{{ path('test_style')}}">test style </a></p>
+    <div>
+        {% for artist in artists %}
+
+        <p class="address"
+            {% if artist.artistInfos.address is defined %}
+                data-street="{{ artist.artistInfos.address.street }}"
+                data-city="{{ artist.artistInfos.address.city }}"
+                data-postal-code="{{ artist.artistInfos.address.postalCode }}"
+                data-country="{{ artist.artistInfos.address.country }}"
+            {% endif %}
+           data-name="{{ artist.artistInfos.artistName }}"
+           data-slug="{{ artist.slug}}"
+           data-activity="{{ artist.artistInfos.discipline }}">
+        </p>
+    {% endfor %}
+
+    </div>
+
+    {# Penser à rajouter les crédits ! #}
+
+
+    <div id="map"></div>
+
+    {# API LEAFLET #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script src="{{asset('js/APIleaflet.js')}}"></script>
+
+    
+        
 {% endblock %}

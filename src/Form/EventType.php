@@ -11,12 +11,15 @@ use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 
 class EventType extends AbstractType
@@ -26,6 +29,17 @@ class EventType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Name : ',
+                'required' => true, 
+            ])
+            ->add('nbRooms', IntegerType::class, [
+                'constraints' => [
+                    new GreaterThan([
+                        'value' => 0,
+                        'message' => 'The number of place must be a number greater than zero.'
+                    ]),
+                ],
+                'attr' => ['min' => 0],
+                'label' => 'Capacity : ',
                 'required' => true, 
             ])
 
@@ -78,18 +92,6 @@ class EventType extends AbstractType
                 'required' => true, 
             ])
 
-
-            ->add('nbRooms', IntegerType::class, [
-                'constraints' => [
-                    new GreaterThan([
-                        'value' => 0,
-                        'message' => 'The number of place must be a number greater than zero.'
-                    ]),
-                ],
-                'attr' => ['min' => 0],
-                'label' => 'Capacity : ',
-                'required' => true, 
-            ])
 
             
             ->add('areaCategories', EntityType::class, [

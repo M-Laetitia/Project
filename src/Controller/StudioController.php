@@ -36,7 +36,7 @@ class StudioController extends AbstractController
         ]);
     }
 
-    // ! pb route à régler !!! conflit avec studio/dashboard'
+
     // ^ show art studio (user)
     #[Route('/studio/show/{slug}', name: 'show_studio')]
     public function show(Studio $studio =null, StudioRepository $studioRepository, WorkshopRegistrationRepository $workshopRegistrationRepository, Security $security): Response
@@ -74,6 +74,104 @@ class StudioController extends AbstractController
     {
         return $this->render('dashboard/showStudio.html.twig', [
             'studio' => $studio, 
+        ]);
+    }
+
+    // ^ Create timeslot (supervisor)
+    #[Route('/supervisor/studio/dashboard/{studioId}/{selectedDate}', name: 'new_timeslot')]
+    #[IsGranted("ROLE_SUPERVISOR")]
+    public function new(Timeslot $timeslot = null, Request $request, $studioId, $selectedDate, TimeslotRepository $tsr, StudioRepository $studioRepository, EntityManagerInterface $entityManager, TimeSlotAvailabilityRepository $timeslotRepository, Security $security): Response
+    {
+
+        $user = $security->getUser();
+        $studios = $studioRepository->findBy([]);
+        // foreach ($studios as $studio) {
+        //     $studioId = $studio->getId();
+        // }
+
+        $timeslotAvalaibles = $timeslotRepository->findAvailableTimeSlots($studioId, $selectedDate);
+
+        if(!$timeslot) {
+            $timeslot = new Timeslot();
+        }
+        // Récupérer les paramètres de l'URL
+        // $studioID = $request->attributes->get('studioId');    
+        $studio = $studioRepository->find($studioId);
+        
+
+        $form = $this->createForm(TimeSlotType::class, null, [
+            'studioId' => $request->attributes->get('studioId'),
+            'selectedDate' => $request->attributes->get('selectedDate'),
+        ]);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid() ) 
+        {
+            $day = $selectedDate;
+            $dayDate = \DateTime::createFromFormat('Y-m-d', $day);
+
+            $selectedTimeSlotAvailability = $form->get('TimeSlotAvailability')->getData();
+            $selectedTimeSlotAvailabilityId = $selectedTimeSlotAvailability->getId();
+            $timeslotSelected= $timeslotRepository->find($selectedTimeSlotAvailabilityId);
+
+            $selectedTimeSlotAvailability = $form->get('TimeSlotAvailability')->getData();
+            // Extraire l'heure de début et de fin de l'objet TimeSlotAvailability
+            $startDate = $selectedTimeSlotAvailability->getStartTime();
+            $endDate = $selectedTimeSlotAvailability->getEndTime();
+            
+            // Extraire l'heure sous forme de chaîne de caractères
+            $startTime = $startDate->format('H:i:s');
+            $endTime = $endDate->format('H:i:s');
+            
+            // Combiner la date sélectionnée avec les heures de début et de fin pour obtenir les DateTime complets
+            $startDateString = $day . ' ' . $startTime;
+            $endDateString = $day . ' ' . $endTime;
+            
+
+            // Convertir les chaînes de caractères en objets DateTime complets
+            $finalStartDate = \DateTime::createFromFormat('Y-m-d H:i:s', $startDateString);
+            $finalEndDate = \DateTime::createFromFormat('Y-m-d H:i:s', $endDateString);
+            
+            // var_dump($finalStartDate, $finalEndDate);die;
+            // dd($timeslotSelected);
+
+            // dd($studioId, $dayDate, $selectedTimeSlotAvailabilityId );
+
+            // check if a timeslot already exists for this date and studio 
+            $existingTimeslot = $tsr->findBy([
+                'studio' => $studioId,
+                'date' => $dayDate,  
+                'timeSlotAvailability' => $selectedTimeSlotAvailabilityId,
+            ]);
+            if ($existingTimeslot) {
+                $this->addFlash('error', 'This time slot is already booked. Please choose another time slot.');
+                return $this->redirectToRoute('studio_dashboard');
+            }
+
+            $timeslot->setUser($user);
+            $timeslot->setDate($dayDate);
+            $timeslot->setStudio($studio);
+            $timeslot->setStartDate($finalStartDate);
+            $timeslot->setEndDate($finalEndDate);
+            $timeslot->setTimeSlotAvailability($timeslotSelected);
+            
+            // $timeslot = $form->getData();
+
+            $entityManager->persist($timeslot);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('studio_dashboard');
+        }
+
+
+        return $this->render('studio/newTimeSlot.html.twig', [
+            'formAddTimeslot' => $form,
+            // 'studios' => $studios,
+            'user' => $user,
+            // 'findAvailableTimeSlots' => $findAvailableTimeSlots,
+            'timeslotAvalaibles' => $timeslotAvalaibles,
+
         ]);
     }
 
@@ -119,109 +217,7 @@ class StudioController extends AbstractController
         ]);
     }
 
-    // ^ Create timeslot (supervisor)
-    #[Route('/supervisor/studio/dashboard/{studioId}/{selectedDate}', name: 'new_timeslot')]
-    #[IsGranted("ROLE_SUPERVISOR")]
-    public function new(Timeslot $timeslot = null, Request $request, $studioId, $selectedDate, TimeslotRepository $tsr, StudioRepository $studioRepository, EntityManagerInterface $entityManager, TimeSlotAvailabilityRepository $timeslotRepository, Security $security): Response
-    {
 
-        $user = $security->getUser();
-        $studios = $studioRepository->findBy([]);
-        // foreach ($studios as $studio) {
-        //     $studioId = $studio->getId();
-        // }
-
-        $timeslotAvalaibles = $timeslotRepository->findAvailableTimeSlots($studioId, $selectedDate);
-
-        if(!$timeslot) {
-            $timeslot = new Timeslot();
-        }
-        // Récupérer les paramètres de l'URL
-        // $studioID = $request->attributes->get('studioId');    
-        $studio = $studioRepository->find($studioId);
-     
-
-        $form = $this->createForm(TimeSlotType::class, null, [
-            'studioId' => $request->attributes->get('studioId'),
-            'selectedDate' => $request->attributes->get('selectedDate'),
-        ]);
-       
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid() ) 
-        {
-            $day = $selectedDate;
-            $dayDate = \DateTime::createFromFormat('Y-m-d', $day);
-
-            $selectedTimeSlotAvailability = $form->get('TimeSlotAvailability')->getData();
-            $selectedTimeSlotAvailabilityId = $selectedTimeSlotAvailability->getId();
-            $timeslotSelected= $timeslotRepository->find($selectedTimeSlotAvailabilityId);
-
-            // dd($studioId,$dayDate, $selectedTimeSlotAvailabilityId );
-
-          
-
-         
-           $selectedTimeSlotAvailability = $form->get('TimeSlotAvailability')->getData();
-           // Extraire l'heure de début et de fin de l'objet TimeSlotAvailability
-            $startDate = $selectedTimeSlotAvailability->getStartTime();
-            $endDate = $selectedTimeSlotAvailability->getEndTime();
-           
-            // Extraire l'heure sous forme de chaîne de caractères
-            $startTime = $startDate->format('H:i:s');
-            $endTime = $endDate->format('H:i:s');
-           
-            // Combiner la date sélectionnée avec les heures de début et de fin pour obtenir les DateTime complets
-            $startDateString = $day . ' ' . $startTime;
-            $endDateString = $day . ' ' . $endTime;
-            
-
-            // Convertir les chaînes de caractères en objets DateTime complets
-            $finalStartDate = \DateTime::createFromFormat('Y-m-d H:i:s', $startDateString);
-            $finalEndDate = \DateTime::createFromFormat('Y-m-d H:i:s', $endDateString);
-            
-            // var_dump($finalStartDate, $finalEndDate);die;
-            // dd($timeslotSelected);
-
-            // dd($studioId, $dayDate, $selectedTimeSlotAvailabilityId );
-            // Vérifier si un créneau horaire existe déjà pour le même studio, la même date et la même heure
-
-            $existingTimeslot = $tsr->findBy([
-                'studio' => $studioId,
-                'date' => $dayDate,  
-                'timeSlotAvailability' => $selectedTimeSlotAvailabilityId,
-            ]);
-            if ($existingTimeslot) {
-                // Un créneau horaire existe déjà pour ces critères, renvoyer un message d'erreur
-                $this->addFlash('error', 'This time slot is already booked. Please choose another time slot.');
-                return $this->redirectToRoute('studio_dashboard');
-            }
-
-            $timeslot->setUser($user);
-            $timeslot->setDate($dayDate);
-            $timeslot->setStudio($studio);
-            $timeslot->setStartDate($finalStartDate);
-            $timeslot->setEndDate($finalEndDate);
-            $timeslot->setTimeSlotAvailability($timeslotSelected);
-            
-            // $timeslot = $form->getData();
-
-            $entityManager->persist($timeslot);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('studio_dashboard');
-        }
-
-
-        return $this->render('studio/newTimeSlot.html.twig', [
-            'formAddTimeslot' => $form,
-            // 'studios' => $studios,
-            'user' => $user,
-            // 'findAvailableTimeSlots' => $findAvailableTimeSlots,
-            'timeslotAvalaibles' => $timeslotAvalaibles,
-
-        ]);
-    }
 
     
      // ^ planning art studio (supervisor only)

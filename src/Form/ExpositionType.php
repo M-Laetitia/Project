@@ -68,13 +68,13 @@ class ExpositionType extends AbstractType
                 'required' => true, 
             ])
 
-            ->add('type', ChoiceType::class, [
+            ->add('access', ChoiceType::class, [
                 'choices' => [
                     'private' => 'private',
                     'public' => 'public',
                 ],
                 'multiple' => false,
-                'label' => 'Type : ',
+                'label' => 'Access : ',
                 'required' => true, 
             ])
             

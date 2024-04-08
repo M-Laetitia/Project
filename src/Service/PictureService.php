@@ -27,22 +27,12 @@ class PictureService
         }
 
         // Check the image format
-        // MIME (Multipurpose Internet Mail Extensions) types are identifiers for file formats and file types on the Internet. They are a standard way of indicating the nature and format of a document, file, or assortment of bytes.
         switch ($picture_infos['mime']) {
-            case 'image/png':
-                $picture_source = imagecreatefrompng($picture);
-                break;
-            case 'image/jpeg':
-                $picture_source = imagecreatefromjpeg($picture);
-                break;
-            case 'image/jpg':
-                $picture_source = imagecreatefromjpg($picture);
-                break;
-            case 'image/webp':
-                $picture_source = imagecreatefromwebp($picture);
-                break;
-            default:
-                throw new Exception('Incorrect image format');
+            case 'image/png':$picture_source = imagecreatefrompng($picture);break;
+            case 'image/jpeg':$picture_source = imagecreatefromjpeg($picture);break;
+            case 'image/jpg':$picture_source = imagecreatefromjpg($picture);break;
+            case 'image/webp':$picture_source = imagecreatefromwebp($picture);break;
+            default:throw new Exception('Incorrect image format');
         }
 
         // Check file size

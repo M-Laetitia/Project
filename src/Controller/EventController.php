@@ -182,7 +182,7 @@ class EventController extends AbstractController
                 $oldPreview = $pictureRepo->findOneBy(['area' => $areaId, 'type' => 'preview']); 
                 if (!in_array($previewFile->getMimeType(), $allowedMimeTypes)) {
                     $this->addFlash('error', 'Wrong image format. Formats authorized: jpg, jpeg, png, webp');
-                    return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
+                    return $this->redirectToRoute('show_event', ['slug' => $area->getSlug()]);
                 }
                 $maxSize = 2 * 1024 * 1024; // 2 Mo
                 if ($previewFile->getSize() > $maxSize) {
@@ -228,7 +228,7 @@ class EventController extends AbstractController
 
             $message = $isNewEvent ? 'Event created successfully!' : 'Event edited successfully!';
             $this->addFlash('success', $message);
-            return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
+            return $this->redirectToRoute('show_event', ['slug' => $area->getSlug()]);
         }
 
 
@@ -257,7 +257,7 @@ class EventController extends AbstractController
                   $entityManager->flush();   
                   
                   $this->addFlash('success', 'Your picture has been successfully added');
-                  return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
+                  return $this->redirectToRoute('show_event', ['slug' => $area->getSlug()]);
               }           
           
 

@@ -20,12 +20,6 @@ class AreaParticipation
     #[ORM\Column(length: 120)]
     private ?string $lastname = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $startDate = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $endDate = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $inscriptionDate = null;
 
@@ -36,6 +30,15 @@ class AreaParticipation
     #[ORM\ManyToOne(inversedBy: 'areaParticipations')]
     #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $csrf_token = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $csrf_expires_at = null;
 
     public function getId(): ?int
     {
@@ -62,30 +65,6 @@ class AreaParticipation
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getStartDate(): ?\DateTimeInterface
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(\DateTimeInterface $startDate): static
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(\DateTimeInterface $endDate): static
-    {
-        $this->endDate = $endDate;
 
         return $this;
     }
@@ -122,6 +101,42 @@ class AreaParticipation
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getCsrfToken(): ?string
+    {
+        return $this->csrf_token;
+    }
+
+    public function setCsrfToken(?string $csrf_token): static
+    {
+        $this->csrf_token = $csrf_token;
+
+        return $this;
+    }
+
+    public function getCsrfExpiresAt(): ?\DateTimeInterface
+    {
+        return $this->csrf_expires_at;
+    }
+
+    public function setCsrfExpiresAt(?\DateTimeInterface $csrf_expires_at): static
+    {
+        $this->csrf_expires_at = $csrf_expires_at;
 
         return $this;
     }

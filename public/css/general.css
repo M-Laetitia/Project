@@ -76,17 +76,7 @@
   border-bottom: 1px solid rgb(25, 24, 27);
 }
 
-.alert-success {
-  background-color: #8abe8c;
-  margin-top: 5rem;
-  padding: 1rem;
-}
 
-.alert-error {
-  background-color: #d83911;
-  margin-top: 5rem;
-  padding: 1rem;
-}
 
 .carousel {
   position: relative;

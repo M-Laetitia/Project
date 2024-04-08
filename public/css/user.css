@@ -500,6 +500,52 @@ html {
   color: #207E93;
 }
 
+.hover2 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.hover2 img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.hover2 img {
+  transition: all ease-in-out 0.3s;
+}
+
+.hover2:hover img {
+  opacity: 0.2;
+  transform: scale(1.1);
+}
+
+.hover2 #text2 {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s, top ease-in-out 0.5s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.hover2:hover #text2 {
+  opacity: 1;
+  top: 50%;
+}
+
+.hover2 #text2 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: #207E93;
+}
+
 @keyframes blink {
   50% {
     opacity: 0;
@@ -1401,10 +1447,27 @@ html {
   margin-bottom: 0.6rem;
 }
 
-.payment-subscription {
+#card-errors {
+  padding-bottom: 0.3rem;
+}
+
+#myForm input {
+  color: white;
+}
+#myForm #accept-TOU {
+  display: block !important;
+}
+#myForm #accept-TOU label {
+  text-transform: capitalize !important;
+}
+#myForm #accept-TOU label a {
+  color: #eeaf42;
+}
+
+#payment-subscription {
   position: relative;
 }
-.payment-subscription #confirmation-modal-payment {
+#payment-subscription #confirmation-modal-payment {
   background-color: #ededed;
   color: #151515;
   position: absolute;
@@ -1417,14 +1480,26 @@ html {
   visibility: hidden;
   padding: 2rem;
 }
-.payment-subscription #action-btn {
+#payment-subscription #form-register {
+  margin-top: 2rem;
+}
+#payment-subscription #form-register div {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.3rem !important;
+  margin-top: 0.3rem !important;
+}
+#payment-subscription #form-register div label {
+  padding-bottom: 0.3rem !important;
+}
+#payment-subscription #action-btn {
   column-gap: 4rem;
   margin-top: 1.5rem;
 }
-.payment-subscription #action-btn div {
+#payment-subscription #action-btn div {
   column-gap: 0.6rem;
 }
-.payment-subscription #action-btn div i {
+#payment-subscription #action-btn div i {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1435,19 +1510,38 @@ html {
   border: 1px solid #151515;
   transition: background-color ease 0.3s;
 }
+#payment-subscription #action-btn div .icon-confirm:hover {
+  background-color: #eeaf42;
+  border: 1px solid #eeaf42;
+  color: #F9F9F9;
+}
+#payment-subscription #action-btn div .icon-cancel:hover {
+  background-color: #151515;
+  border: 1px solid #151515;
+  color: #F9F9F9;
+}
+
+#cancel-payment {
+  display: inline-block;
+  background-color: #151515;
+  font-weight: 500;
+  transition: ease-in-out 0.3s;
+  border: 1px solid #151515;
+}
+#cancel-payment:hover {
+  background-color: #F9F9F9;
+  color: #151515;
+  border: 1px solid #151515;
+}
 
 #confirm-btn div {
   display: inline-block !important;
 }
 
 #card-elements {
-  color: green;
-}
-#card-elements div {
-  background-color: red !important;
-}
-#card-elements .InputContainer .InputElement {
-  color: red !important;
+  background-color: white;
+  margin-top: 1rem;
+  padding: 1rem;
 }
 
 @media screen and (min-width: 320px) and (max-width: 480px) {

@@ -501,6 +501,52 @@ html {
   color: #207E93;
 }
 
+.hover2 {
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.hover2 img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.hover2 img {
+  transition: all ease-in-out 0.3s;
+}
+
+.hover2:hover img {
+  opacity: 0.2;
+  transform: scale(1.1);
+}
+
+.hover2 #text2 {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity ease-in-out 0.3s, top ease-in-out 0.5s;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.hover2:hover #text2 {
+  opacity: 1;
+  top: 50%;
+}
+
+.hover2 #text2 span {
+  animation: blink 1s infinite;
+  font-weight: bold;
+  color: #207E93;
+}
+
 @keyframes blink {
   50% {
     opacity: 0;
@@ -815,6 +861,40 @@ body {
 .content {
   width: 70%;
   margin: auto;
+}
+
+.alert {
+  padding: 1rem;
+  position: absolute;
+  z-index: 100;
+  right: 50%;
+  transform: translate(50%, 0%);
+  top: -8rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  min-width: 25rem;
+  transition: ease-in-out 1s;
+}
+.alert i {
+  margin-right: 1.3rem;
+  font-size: 2rem;
+}
+.alert p {
+  font-size: 1.2rem;
+}
+
+.alert-success {
+  background-color: #eeaf42;
+  color: #151515;
+}
+
+.alert-error {
+  background-color: #151515;
+  color: #F9F9F9;
 }
 
 .banner {
@@ -1176,6 +1256,13 @@ nav .nav-menu a:hover div:nth-child(3) {
   display: block;
 }
 #user-interface .dropdown-content a:hover {
+  color: #eeaf42;
+}
+#user-interface .ri-login-circle-line {
+  font-size: 1.8rem;
+  transition: ease-in-out 0.3s;
+}
+#user-interface .ri-login-circle-line:hover {
   color: #eeaf42;
 }
 

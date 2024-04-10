@@ -141,14 +141,19 @@
                 var accentTexts = document.querySelectorAll('.accent-text');
             
                 // Parcourir tous les éléments avec la classe 'accent-text'
-                accentTexts.forEach(function(accentText) {
+                accentTexts.forEach(function(accentText, index) {
                     // Vérifier si l'élément est dans la vue de la fenêtre du navigateur
                     if (isElementInViewport(accentText)) {
-                        // L'élément est dans la vue, changer sa couleur
-                        accentText.style.color = '#eeaf42'; 
+                        // Changer la couleur du premier élément
+                        if (index === 0) {
+                            gsap.to(accentText, { color: '#eeaf42' }); // Couleur + durée de l'animation
+                        } else {
+                            // Changer la couleur du deuxième élément après un délai
+                            gsap.to(accentText, { color: '#eeaf42', delay: 0.3 }); // couleur +  durée de l'animation et délai
+                        }
                     } else {
                         // L'élément n'est pas dans la vue, rétablir sa couleur par défaut
-                        accentText.style.color = ''; // Rétablir la couleur par défaut
+                        accentText.style.color = ''; 
                     }
                 });
             }

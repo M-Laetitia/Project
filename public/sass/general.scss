@@ -450,50 +450,7 @@ $colorborder: rgba(0,0,0, 0.8);
 // LEAFLET API -------------------------------------------------
 // -------------------------------------------------------------
 
-#map {
-    height: 35rem;
-    // width: 35rem;
-    box-shadow: 7px 7px rgb(240, 189, 47),-7px -7px #737373 ;
-    // box-shadow: -7px 7px rgb(240, 189, 47), 7px -7px #737373 ;
-    transition: ease-in-out 0.3s;
-    
-    &:hover {
-        box-shadow: -7px 7px #737373 ,7px -7px rgb(240, 189, 47) ;
-    }
-}
 
-.leaflet-popup-content-wrapper {
-    border-bottom: 2px solid rgb(37, 149, 177);
-    transition: ease-in-out 0.3s;
-    &:hover {
-        border-color: rgb(240, 189, 47);
-    }
-
-    &:hover + .leaflet-popup-tip-container .leaflet-popup-tip {
-        background-color: rgb(240, 189, 47);
-    }
-}
-
-.leaflet-popup-tip-container {
-    .leaflet-popup-tip {
-        background-color:  rgb(37, 149, 177);
-        transition: ease-in-out 0.3s;
-    }
-}
-
-
-.leaflet-popup-content {
-    div a {
-        color: rgb(240, 189, 47);
-        font-weight: 600;
-        font-size: 18px;
-        transition: ease-in-out 0.3s;
-
-        &:hover {
-            color: rgb(37, 149, 177);
-        }
-    }
-}
 
 // .leaflet-container a {
 //     background-color: red !important;

@@ -76,7 +76,17 @@
   border-bottom: 1px solid rgb(25, 24, 27);
 }
 
+.alert-success {
+  background-color: #8abe8c;
+  margin-top: 5rem;
+  padding: 1rem;
+}
 
+.alert-error {
+  background-color: #d83911;
+  margin-top: 5rem;
+  padding: 1rem;
+}
 
 .carousel {
   position: relative;
@@ -334,41 +344,6 @@
 }
 .delete-container div p:hover {
   color: rgb(240, 189, 47);
-}
-
-#map {
-  height: 35rem;
-  box-shadow: 7px 7px rgb(240, 189, 47), -7px -7px #737373;
-  transition: ease-in-out 0.3s;
-}
-#map:hover {
-  box-shadow: -7px 7px #737373, 7px -7px rgb(240, 189, 47);
-}
-
-.leaflet-popup-content-wrapper {
-  border-bottom: 2px solid rgb(37, 149, 177);
-  transition: ease-in-out 0.3s;
-}
-.leaflet-popup-content-wrapper:hover {
-  border-color: rgb(240, 189, 47);
-}
-.leaflet-popup-content-wrapper:hover + .leaflet-popup-tip-container .leaflet-popup-tip {
-  background-color: rgb(240, 189, 47);
-}
-
-.leaflet-popup-tip-container .leaflet-popup-tip {
-  background-color: rgb(37, 149, 177);
-  transition: ease-in-out 0.3s;
-}
-
-.leaflet-popup-content div a {
-  color: rgb(240, 189, 47);
-  font-weight: 600;
-  font-size: 18px;
-  transition: ease-in-out 0.3s;
-}
-.leaflet-popup-content div a:hover {
-  color: rgb(37, 149, 177);
 }
 
 .studios-container .studio {

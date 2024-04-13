@@ -27,7 +27,7 @@
         height: 90%;
         margin: auto;
         display: grid;
-        grid-template-columns: 20% 40% 40%;
+        grid-template-columns: 20% 42% 38%;
         color: $main-white-color;
         // opacity: 0;
         position: absolute;
@@ -48,7 +48,11 @@
             flex-direction: column;
             margin: 2rem 2rem;
 
-            h2 {
+            .highlight-text {
+                color: $secondary-color;
+            }
+
+            .title-text {
                 font-size: 6.25rem;
                 font-weight: $extra-bold;
                 line-height: 6.25rem;
@@ -57,14 +61,17 @@
                     font-weight: $medium;
                     font-size: 140px;
                 }
+
+                
             }
 
             p {
-                font-size: 20px;
+                font-size: 1.7rem;
                 font-style: italic;
                 text-align: center;
                 margin-top: 3rem;
                 margin-bottom: 3rem;
+                letter-spacing: $letter-spacing-text;
             }
         }
     }
@@ -89,7 +96,7 @@
 
 #quote {
     background-color: $main-black-color;
-    width: 100%;
+    // width: 100%;
     position: relative;
    
     > div:nth-child(1) {
@@ -142,8 +149,8 @@
 }
 
 #carousel {
-    padding-top: 3rem ;
-    height: 100vh;
+    padding: 10rem 0 ;
+    // height: 100vh;
     #top {
         width: 70%;
         margin: auto;
@@ -340,18 +347,47 @@
     height: 100%;
     display: flex;
     background-color: $main-white-color;
-    padding: 6rem;
+    padding: 10rem 6rem 10rem 6rem;
     #left {
         width:50%; 
+        figure {
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
            
     }
 
     #right {
         width: 50%;
-        padding: 8rem;
+
         background-image: url("../images/visuals/home_pattern.webp");
         background-repeat: no-repeat;
-        background-size: 100% 100%;
+        background-size: auto;
+        div {
+            background-color: transparent;
+            z-index: 2;
+            
+            padding: 8rem;
+        }
+
+        figure {
+            
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+ 
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
 
         p:nth-child(1) {
             font-size: 2.8rem;
@@ -457,5 +493,269 @@
     
 }
 
+// ------------------- 
+//   ██████  ██    ██ ███████ ██████  ██ ███████ ███████ 
+//  ██    ██ ██    ██ ██      ██   ██ ██ ██      ██      
+//  ██    ██ ██    ██ █████   ██████  ██ █████   ███████ 
+//  ██ ▄▄ ██ ██    ██ ██      ██   ██ ██ ██           ██ 
+//   ██████   ██████  ███████ ██   ██ ██ ███████ ███████ 
+//      ▀▀                                               
+//------------------- 
+
+// ^ MEDIA QUERIES 
+// & SMALL SCREEN
+@media screen and (min-width:320px) and (max-width:800px) { 
+    #quote #wrapper > div:nth-child(2) {
+        font-size: 1.4rem;
+    }
+    #quote #wrapper {
+        width: 90%;
+        padding: 2rem 0 2rem 0;
+        font-size: 0.8rem;
+        height: 5rem;
+    }
+
+    #quote #pattern {
+        background-size: auto 136%;
+    }
+    #carousel {
+        padding: 3rem 0;
+    }
+    #carousel #top {
+        width: 90%;
+    }
+    #carousel #top h2 {
+        font-size: 2.3rem;
+    }
+    #carousel #quote-text {
+        font-size: 1.7rem;
+    }
+
+    #carousel #content .infos {
+        margin-top: 1rem;
+        letter-spacing: 0.15rem;
+    }
+
+    #carousel #content .infos {
+        margin-top: 0.4rem;
+        padding: 0rem 1.6rem 0 1.6rem;
+    }
+
+    #carousel #content .infos h4 {
+        font-size: 1.4rem;
+    }
+
+    #carousel #content .infos button {
+        font-size: 1.1rem;
+        padding: 0.8rem;
+        margin-bottom: 3rem;
+    }
+
+    #quote-artist #wrapper div .quote {
+        width: 100%;
+        font-size: 1.4rem;
+    }
+
+    #quote-artist #wrapper div {
+        width: 90%;
+        padding: 1rem 0 1rem 0;
+        font-size: 1.8rem;
+    }
+
+    #quote-artist #wrapper div > div:nth-child(1) i {
+        display: none;
+    }
+
+    #quote-artist #pattern {
+        background-size: auto 136%;
+    }
+
+    #calendar {
+        display: flex;
+        padding: 3rem 1rem 3rem 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    #calendar #left {
+        width:100%;
+    }
+    #calendar #right {
+        width: 100%; 
+        background-size: 100% 100%; 
+        background-size: auto;
+    }
+
+    #calendar #right div {
+        padding: 2rem;
+    }
+
+    #calendar #right p:nth-child(1) {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        line-height: 2rem;
+    }
+
+    #calendar #right button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    #slides {
+        width: 100%;
+        height: calc(80vh - 6rem);
+        display: flex;
+        align-items: flex-start;
+        
+    }
+
+    #slides .slide {
+        display: flex;
+        width: 90%;
+        height: 100%;
+    }
+
+    #slides .slide .slide-text .title-text span {
+        font-size: 100px;
+    }
+
+    #slides .slide .slide-picture {
+        height: 76%;
+    }
+
+    #slides .slide .slide-text p {
+        font-size: 18px;
+    }
+
+    #slides .slide .slide-text .title-text {
+        font-size: 3.15rem;
+        line-height: 3.25rem;
+    }
+}
+
+@media screen and (min-width:800px) and (max-width:1200px) { 
+
+    #slides .slide .slide-text .title-text {
+        font-size: 4.25rem;
+        line-height: 4.25rem;
+    }
+
+    #slides .slide {
+        grid-template-columns: 45% 62% 21%;
+    }
+
+    #slides .slide .slide-text .title-text span {
+        font-size: 65px;
+    }
+
+    #quote #pattern {
+        background-size: auto 160%;
+        height: 8rem;
+    }
+
+    #quote #wrapper {
+        width: 80%;
+        padding: 3rem 0 3rem 0;
+        font-size: 2.8rem;
+    }
+
+    #quote #wrapper > div:nth-child(2) {
+        font-size: 2.3rem;
+    }
+
+    #carousel #content .infos h4 {
+        font-size: 1.6rem;
+    }
+
+    #carousel #content .infos button {
+        font-size: 1rem;
+        padding: 0.9rem;
+        margin-bottom: 2.6rem;
+    }
+
+    #carousel #top h2 {
+        font-size: 2.7rem;
+    }
+    #carousel #quote-text {
+        font-size: 2rem;
+    }
+
+    #carousel {
+        padding: 5rem 0;
+    }
+    #quote-artist #pattern {
+        background-size: auto 160%;
+        height: 8rem;
+    }
+
+    #quote-artist #wrapper div {
+        width: 80%;
+        padding: 2rem 0 1rem 0;
+        font-size: 1.8rem;
+    }
+
+    #quote-artist #wrapper div .quote {
+        font-size: 1.7rem;
+    }
+    
+    #calendar {
+        display: flex;
+        padding: 3rem 4rem 3rem 4rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    #calendar #left {
+        width:100%;
+    }
+    #calendar #right {
+        width: 100%; 
+        background-size: 100% 100%; 
+        background-size: auto;
+    }
+
+    #calendar #right div {
+        padding: 2rem;
+    }
+
+    #calendar #right p:nth-child(1) {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        line-height: 2rem;
+    }
+
+    #calendar #right button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+   
+}
+
+@media screen and (min-width:1000px) and (max-width:1200px) { 
+    #carousel #content {
+        padding: 2rem 0rem;
+    }
+}
+
+@media screen and (min-width:1000px) and (max-width:1500px) { 
+    #calendar {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #calendar #right div {
+        padding: 4rem;
+    }
+}
 
 
+
+// & MEDIUM SCREEN
+@media screen and (min-width:480px) and (max-width:768px) { 
+}
+
+// & LARGE SCREEN
+@media screen and (min-width:768px) and (max-width:1200px) { 
+}
+
+@media screen and (min-width:1200px) and (max-width:1560px) { 
+}

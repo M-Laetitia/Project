@@ -77,6 +77,19 @@ class AreaRepository extends ServiceEntityRepository
 
         return $qb->getResult();
     }
+
+
+        // // ^ search event (keyword)
+        // // Prend un paramètre keyword de type string.
+        // public function searchByKeyword(string $keyword) {  
+        //     $qb = $this->createQueryBuilder('a')
+        //     // Le keyword est inséré dans la requête en utilisant le paramètre nommé:keyword
+        //     ->where('a.name LIKE :keyword') 
+        //     // Le paramètre:keyword est défini avec le keyword recherché
+        //     ->setParameter('keyword', '%'.$keyword.'%') 
+        //     ->getQuery();
+        //     return $qb->getResult();
+        // }
   
 
     // ^ search (period)
@@ -145,6 +158,26 @@ class AreaRepository extends ServiceEntityRepository
         });
     
         return $allPastContent;
+    }
+
+
+    //^ Get ongoing event/expo
+    public function getCurrentExpoAreas($type)
+    {
+        $em = $this->getEntityManager();
+
+        $currentDate = new \DateTime();
+
+        $query = $em->createQuery(
+            'SELECT a FROM App\Entity\Area a
+            WHERE a.type = :type
+            AND a.startDate <= :currentDate
+            AND a.endDate >= :currentDate'
+            )
+        ->setParameter('type', $type)
+        ->setParameter('currentDate', $currentDate);
+
+        return $query->getResult();
     }
 
 

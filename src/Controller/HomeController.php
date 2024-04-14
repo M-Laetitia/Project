@@ -58,33 +58,12 @@ class HomeController extends AbstractController
         // }
 
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/home.html.twig', [
             'artists' => $artists,
             // 'markers' => $markers,
         ]);
     }
 
-    #[Route('/homepage', name: 'app_homepage')]
-    public function homePage(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
-    {
-
-        $user = $security->getUser();
-        $user = $security->getUser();
-        $artists = $userRepository->findArtistUsers();
-        return $this->render('home/homePage.html.twig', [
-            'artists' => $artists,
-        ]);
-    }
-
-    #[Route('/landingpage', name: 'app_langindPage')]
-    public function landingPage(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager, Request $request): Response
-    {
-
-        $user = $security->getUser();
-        return $this->render('home/landingPage.html.twig', [
-
-        ]);
-    }
 
     // ^ test stripe
     #[Route('/home/test_stripe', name: 'test_stripe')]

@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Expositions list - MOSAIC{% endblock %}
+{% block meta %}{% endblock %}
+
+{% block body %}
+
+
+<section class="dashboard" id="dashboard-events">
+
+    <div id="menu-left">
+        <div id="logo-name">
+            <figure>
+               <img src="{{ asset('images/logo150.png')}}" alt="logo of the website"> 
+            </figure>      
+            <p class="text-n1">MOSAIC</p>
+        </div>
+
+        <div class="separator-line"></div>
+
+        <div id="list-menu">
+            <a href="{{ path('app_dashboard') }}"><div><i class="ri-dashboard-fill"></i><p>dashboard</p></div></a>
+            <a href="{{ path('list_users') }}"> <div ><i class="ri-team-fill "></i><p>Community</p></div></a>
+            <a href="{{ path('list_events') }}"> <div ><i class="ri-artboard-2-fill"></i><p>events</p> </div></a>
+            <a href="{{ path('list_expos') }}"><div><i class="ri-artboard-fill"></i><p>expositions</p> </div></a>
+            <a href="{{ path('list_workshops') }}"><div><i class="ri-palette-fill"></i><p>workshops</p> </div></a>
+            <a href="{{ path('list_studios') }}"><div  class="is-active"><i class="ri-home-heart-fill"></i><p>studios</p> </div></a>
+            {# <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
+            <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div> #}
+        </div>
+
+        <div id="bottom"></div>
+
+    </div>
+
+    <div id="content">
+
+        <div id="top-title">
+            <p class="text-n1">Studios<span>_</span></p>
+            <div class="separator-line"></div>
+        </div>
+
+        <div id="action-create">
+            {# <p><a class="btn btn6" href="{{ path('new_expo') }}"> NEW EXPOSITION</a></p> #}
+       </div>
+
+
+        <div class="container-all dashboard-studios">
+                
+            <div id="studios">
+                <div class="ongoing">
+                    {% for studio in studios %}
+                    <div class="element">
+                        <div>
+                            <a href="{{ path('show_studio_admin', {slug : studio.slug}) }}"><span class="name text-n2">✦ {{studio.name}}</span></a>
+                        
+                        <button class="btn btn6"><a href="{{ path('edit_studio', {slug : studio.slug}) }}">EDIT</a></button></div>
+                        <p>Capacity: {{studio.nbRooms}} </p>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+    
+            </div>
+
+    
+        </div>
+
+        
+    </div>
+
+    
+</section>
+
+
+
+{% endblock %}

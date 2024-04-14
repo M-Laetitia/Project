@@ -5,21 +5,15 @@
 
 {% block body %}
 
-<div class="banner">
-    <div class="content">
-        <h1 class="banner-title">Dashboard</h1>
-        <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
-            <div class="underscore-blink"> </div>
-        </div>
+
+
+<section id="dashboard-show">
+
+    <div id="link-goBack" >
+        <p><a href="{{ path('list_expos') }}">Go back to all Expositions</a> <p>
     </div>
-</div>
 
-<div class="breadcrumb breadcrumb-dark">
-    <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
-</div>
 
-<section class="content dashboard" id="dashboard-detail">
     <h1 class="text-n1">{{area.name}}<span>_</span></h1>
     <div id="info">
         <p>Status : 
@@ -59,7 +53,7 @@
     </div>
 
     <div id="participants">
-        <h2 class="text-n2" >Artists list<span>_</span></h2>
+        <h2 class="text-n2" >Participants list<span>_</span></h2>
         <ul>
             {% for participant in area.areaParticipations %}
                 <li>
@@ -80,15 +74,15 @@
         </ul>
     </div>
 
-
-
     <div id="participants">
-        <h2 class="text-n2" >Participants list<span>_</span></h2>
+        <h2 class="text-n2" >Artists list<span>_</span></h2>
+    </div>
+    {% if area.expositionProposals is not empty%}
         <ul>
             {% for proposal in area.expositionProposals %}
                 <li>
                     <p>
-                        <a href="{{ path('show_artist', {slug: proposal.user.slug, id: proposal.user.id}) }}"> {{ proposal.user.artistInfos.artistName }} </a>
+                        <a href="{{ path('show_artist', {slug: proposal.user.slug}) }}"> {{ proposal.user.artistInfos.artistName }} </a>
                        - {{ proposal.user.artistInfos.discipline }} - {{ proposal.user.artistInfos.emailPro}}
                         <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ proposal.id}}"></i></a>
                     </p>
@@ -103,7 +97,11 @@
                 </li>
             {% endfor %}
         </ul>
-    </div>
+    {% else %}
+        <p>Pas de participants </p>
+    {% endif %}
+
+    
 
 </section>
 

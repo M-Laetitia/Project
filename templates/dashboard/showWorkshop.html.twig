@@ -5,21 +5,13 @@
 
 {% block body %}
 
-<div class="banner">
-    <div class="content">
-        <h1 class="banner-title">Dashboard</h1>
-        <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
-            <div class="underscore-blink"> </div>
-        </div>
+
+<section id="dashboard-show">
+
+    <div id="link-goBack" >
+        <p><a href="{{ path('list_workshops') }}">Go back to all Workshops</a> <p>
     </div>
-</div>
 
-<div class="breadcrumb breadcrumb-dark">
-    <p><a href="{{ path('app_dashboard') }}">Go back to the Dashboard </a> <p>
-</div>
-
-<section class="content dashboard" id="dashboard-detail">
     <h1 class="text-n1">{{workshop.name}}<span>_</span></h1>
         <div id="info">
             <p>Status : 

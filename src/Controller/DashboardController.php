@@ -23,53 +23,37 @@ class DashboardController extends AbstractController
     // ^ main page
     #[Route('/admin/dashboard', name: 'app_dashboard')]
     #[IsGranted("ROLE_ADMIN")]
-    public function index(WorkshopRepository $workshopRepository, AreaRepository $areaRepository, StudioRepository $studioRepository): Response
+    public function index(WorkshopRepository $workshopRepository, AreaRepository $areaRepository, StudioRepository $studioRepository, UserRepository $userRepository): Response
     {
 
-        $workshops = $workshopRepository->findBy([]);
-        $events = $areaRepository->findBy(['type' => 'EVENT']);
-        $expositions = $areaRepository->findBy(['type' => 'EXPO']);
-        $studios = $studioRepository->findBy([]);
 
-        $ongoingEvents = $areaRepository->findBy([
-            'type' => 'EVENT',
-            'status' => ['OPEN', 'PENDING', 'CLOSED'],
-        ]);
-        $pastEvents = $areaRepository->findBy([
-            'type' => 'EVENT',
-            'status' => ['ARCHIVED'],
-        ]);
+        $currentEvents =  $areaRepository->getCurrentExpoAreas('EVENT');
+        $currentExpos =  $areaRepository->getCurrentExpoAreas('EXPO');
+        $currentWorkshops =  $workshopRepository->getCurrentWorkshops();
 
-        $ongoingExpos = $areaRepository->findBy([
-            'type' => 'EXPO',
-            'status' => ['OPEN', 'PENDING', 'CLOSED'],
-        ]);
-        $pastExpos = $areaRepository->findBy([
-            'type' => 'EXPO',
-            'status' => ['ARCHIVED'],
-        ]);
+        $users = $userRepository->findAll();
+        $usersCount= $userRepository->count([]);
 
-        $ongoingWorkshop = $workshopRepository->findBy([
-            'status' => ['OPEN', 'PENDING', 'CLOSED'],
-        ]);
-        $pastWorkshop = $workshopRepository->findBy([
-            'status' => ['ARCHIVED'],
-        ]);
+        $artists= $userRepository->findUsersbyRole('ROLE_ARTIST');
+        $artistsCount = count($artists);
+        $supervisors= $userRepository->findUsersbyRole('ROLE_SUPERVISOR');
+        $supervisorsCount = count($supervisors);
+        $artistspageCount = $userRepository->count(['isPublished' => 1]);
+       
 
+        $usersLoggedThisWeek = $userRepository->countUsersLoggedInThisWeek();
+        
+        
         return $this->render('dashboard/index.html.twig', [
-            'events' => $events,
-            'expositions' => $expositions,
-            'workshops' => $workshops,
-            'studios' => $studios,
+            'currentEvents' => $currentEvents,
+            'currentExpos' => $currentExpos, 
+            'currentWorkshops' => $currentWorkshops, 
 
-            'ongoingEvents' => $ongoingEvents,
-            'pastEvents' => $pastEvents,
-
-            'ongoingExpos' => $ongoingExpos,
-            'pastExpos' => $pastExpos,
-
-            'ongoingWorkshop' => $ongoingWorkshop,
-            'pastWorkshop' => $pastWorkshop,
+            'usersCount' => $usersCount,
+            'artistsCount' => $artistsCount, 
+            'supervisorsCount' => $supervisorsCount,
+            'artistspageCount' => $artistspageCount,
+            'usersLoggedThisWeek' => $usersLoggedThisWeek, 
         ]);
     }
 
@@ -187,7 +171,7 @@ class DashboardController extends AbstractController
     // ^ list events
     #[Route('/admin/dashboard/events', name: 'list_events')]
     #[IsGranted("ROLE_ADMIN")]
-    public function indexEvents(AreaRepository $areaRepository, StudioRepository $studioRepository): Response
+    public function indexEvents(AreaRepository $areaRepository): Response
     {
  
         $events = $areaRepository->findBy(['type' => 'EVENT']);
@@ -216,7 +200,7 @@ class DashboardController extends AbstractController
     // ^ list expos
     #[Route('/admin/dashboard/expositions', name: 'list_expos')]
     #[IsGranted("ROLE_ADMIN")]
-    public function indexExpos(AreaRepository $areaRepository, StudioRepository $studioRepository): Response
+    public function indexExpos(AreaRepository $areaRepository): Response
     {
     
         $events = $areaRepository->findBy(['type' => 'EXPO']);
@@ -242,7 +226,7 @@ class DashboardController extends AbstractController
     // ^ list expos
     #[Route('/admin/dashboard/workshops', name: 'list_workshops')]
     #[IsGranted("ROLE_ADMIN")]
-    public function indexWorkshops(WorkshopRepository $workshopRepository, StudioRepository $studioRepository): Response
+    public function indexWorkshops(WorkshopRepository $workshopRepository): Response
     {
     
         $events = $workshopRepository->findBy([]);
@@ -260,6 +244,19 @@ class DashboardController extends AbstractController
                 'ongoingEvents' => $ongoingEvents,
                 'pastEvents' => $pastEvents,
 
+            ]);
+    }
+
+    // ^ list studios
+    #[Route('/admin/dashboard/studios', name: 'list_studios')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function indexStudios(StudioRepository $studioRepository): Response
+    {
+    
+        $studios = $studioRepository->findBy([]);
+    
+            return $this->render('dashboard/indexStudios.html.twig', [
+                'studios' => $studios,
             ]);
     }
 

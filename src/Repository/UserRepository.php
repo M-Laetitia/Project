@@ -78,7 +78,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-
         $qb ->select('u')
             ->from('App\Entity\User', 'u')
             ->where('u.roles LIKE :roles')
@@ -92,11 +91,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $query = $qb->getQuery();
         return $query->getResult();
-        // return $qb->getQuery()->getResult();
-        // $users = $userRepository->findUsersByRoleAndId('ROLE_ARTIST');
-        // or
-        // $usersById = $userRepository->findUsersByRoleAndId('ROLE_ARTIST', 1);
-
     }
 
 
@@ -191,6 +185,28 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     
         return $disciplines;
+    }
+
+    public function countUsersLoggedInThisWeek()
+    {
+        $em = $this->getEntityManager();
+
+        // get the start date of the current week
+        $startOfWeek = new \DateTime('monday this week');
+
+        // get the end date of the current week
+        $endOfWeek = new \DateTime('sunday this week');
+        $endOfWeek->setTime(23, 59, 59);
+
+
+        $query = $em->createQuery(
+            'SELECT COUNT(u.id) FROM App\Entity\User u 
+            WHERE u.lastLoginDate >= :startOfWeek AND u.lastLoginDate <= :endOfWeek'
+        )
+        ->setParameter('startOfWeek', $startOfWeek)
+        ->setParameter('endOfWeek', $endOfWeek);
+
+        return $query->getSingleScalarResult();
     }
     
 

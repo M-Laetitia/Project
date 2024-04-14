@@ -29,7 +29,7 @@ class Timeslot
     private ?Studio $studio = null;
 
     #[ORM\ManyToOne(inversedBy: 'timeslots')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'timeslot', targetEntity: WorkshopRegistration::class)]

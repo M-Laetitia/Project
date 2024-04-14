@@ -67,6 +67,23 @@ class WorkshopRepository extends ServiceEntityRepository
     
             return $qb->getQuery()->getResult();
         }
+
+        //^ Get ongoing workshops
+        public function getCurrentWorkshops()
+        {
+            $em = $this->getEntityManager();
+
+            $currentDate = new \DateTime();
+
+            $query = $em->createQuery(
+                'SELECT w FROM App\Entity\Workshop w
+                WHERE w.startDate <= :currentDate
+                AND w.endDate >= :currentDate'
+                )
+            ->setParameter('currentDate', $currentDate);
+
+            return $query->getResult();
+        }
     
 
 //    /**

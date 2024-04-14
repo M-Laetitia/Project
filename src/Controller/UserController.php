@@ -7,6 +7,7 @@ use App\Form\AvatarType;
 use App\Form\UserEditType;
 use App\DTO\ChangePasswordModel;
 use App\Form\ChangePasswordType;
+use App\Repository\UserRepository;
 use App\Form\ChangePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -141,51 +142,49 @@ class UserController extends AbstractController
         ]);
     }
 
-    // ^ DELETE USER
-
-    #[Route('/admin/user/{id}/delete', name: 'delete_user_admin')]
-    #[IsGranted("ROLE_ADMIN")]
+    // ^ DELETE USER (USER)
     #[Route('/profile/user/{id}/delete', name: 'delete_user')]
     #[IsGranted("ROLE_USER")]
     public function delete(User $user, EntityManagerInterface $entityManager, Security $security, SessionInterface $session) : Response {
 
         $user = $security->getUser();
 
+      
         // Anonymisation for subscriptions 
         $subscriptions = $user->getSubscriptions();
         foreach ($subscriptions as $subscription) {
             $subscription->setUser(null); 
             $entityManager->persist($subscription);
         }
-
+        
         // Anonymisation for participations (areaParticipation)
         $participations = $user->getAreaParticipations();
         foreach ($participations as $participation) {
             $participation->setUser(null); 
             $entityManager->persist($participation);
         }
-
+       
         // Anonymisation for registration (workshopRegistration)
         $registrations = $user->getWorkshopRegistrations();
         foreach ($registrations as $registration) {
             $registration->setUser(null); 
             $entityManager->persist($registration);
         }
-
+        
         // Anonymisation for exposition proposals (role artist) (expositionProposals)
         $proposals = $user->getExpositionProposals();
         foreach ($proposals as $proposal) {
             $proposal->setUser(null); 
             $entityManager->persist($proposal);
         }
-
+       
         // Anonymisation for workshops (role supervisor) (workshop)
         $workshops = $user->getWorkshops();
         foreach ($workshops as $workshop) {
             $workshop->setUser(null); 
             $entityManager->persist($workshop);
         }
-
+        
         // Anonymisation for timeslots (role supervisor) (timeslots)
         $timeslots = $user->getTimeslots();
         foreach ($timeslots as $timeslot) {
@@ -193,30 +192,116 @@ class UserController extends AbstractController
             $entityManager->persist($timeslot);
         }
 
+        
         // Deletion of user images (role artist) (picture)
         $images = $user->getPictures();
         foreach ($images as $image) {
             $entityManager->remove($image);
         }
-
+        
         // Deletion of user contacts (role artist) (contact)
         $contacts = $user->getContacts();
         foreach ($contacts as $contact) {
             $entityManager->remove($contact);
         }
-
+       
         $entityManager->remove($user);
         $entityManager->flush();
-
+       
         // logout
-        $security->invalidateSession();
+        // $security->invalidateSession();
 
         // $session = $request->getSession();
         // $session = new Session();
         // $session->invalidate();
 
+        $this->addFlash('success', 'Your account has been deleted.');
         return $this->redirectToRoute('app_home');
     }
+
+    // ^ DELETE USER (ADMIN)
+    #[Route('/admin/user/{id}/delete', name: 'delete_user_admin')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function deleteAdmin(User $user, UserRepository $userRepository, EntityManagerInterface $entityManager, Security $security, SessionInterface $session,) : Response {
+
+        $userId = $user->getId();
+
+        $user = $userRepository->find($userId);
+ 
+        // Check if the user exist
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+
+        // Anonymisation for subscriptions 
+        $subscriptions = $user->getSubscriptions();
+        foreach ($subscriptions as $subscription) {
+            $subscription->setUser(null); 
+            $entityManager->persist($subscription);
+        }
+        
+        // Anonymisation for participations (areaParticipation)
+        $participations = $user->getAreaParticipations();
+        foreach ($participations as $participation) {
+            $participation->setUser(null); 
+            $entityManager->persist($participation);
+        }
+       
+        // Anonymisation for registration (workshopRegistration)
+        $registrations = $user->getWorkshopRegistrations();
+        foreach ($registrations as $registration) {
+            $registration->setUser(null); 
+            $entityManager->persist($registration);
+        }
+        
+        // Anonymisation for exposition proposals (role artist) (expositionProposals)
+        $proposals = $user->getExpositionProposals();
+        foreach ($proposals as $proposal) {
+            $proposal->setUser(null); 
+            $entityManager->persist($proposal);
+        }
+       
+        // Anonymisation for workshops (role supervisor) (workshop)
+        $workshops = $user->getWorkshops();
+        foreach ($workshops as $workshop) {
+            $workshop->setUser(null); 
+            $entityManager->persist($workshop);
+        }
+        
+        // Anonymisation for timeslots (role supervisor) (timeslots)
+        $timeslots = $user->getTimeslots();
+        foreach ($timeslots as $timeslot) {
+            $timeslot->setUser(null); 
+            $entityManager->persist($timeslot);
+        }
+
+        
+        // Deletion of user images (role artist) (picture)
+        $images = $user->getPictures();
+        foreach ($images as $image) {
+            $entityManager->remove($image);
+        }
+        
+        // Deletion of user contacts (role artist) (contact)
+        $contacts = $user->getContacts();
+        foreach ($contacts as $contact) {
+            $entityManager->remove($contact);
+        }
+       
+        $entityManager->remove($user);
+        $entityManager->flush();
+       
+        // logout
+        // $security->invalidateSession();
+
+        // $session = $request->getSession();
+        // $session = new Session();
+        // $session->invalidate();
+        $this->addFlash('success', 'This account has been deleted.');
+        return $this->redirectToRoute('list_users');
+    }
+
 }
 
 

@@ -143,6 +143,23 @@ class HomeController extends AbstractController
         ]);
     }
 
+    // ^ Sitemap
+    #[Route('/sitemap', name: 'app_sitemap')]
+    public function sitemap(): Response
+    {
+
+        // Render the contents of 'home/sitemap.xml.twig' into a string
+        $content = $this->renderView('home/sitemap.xml.twig');
+
+        // Create a new Response object with the rendered content
+        $response = new Response($content);
+        // Set the Content-Type header of the response to 'application/xml'
+        $response->headers->set('Content-Type', 'application/xml');
+
+        // Return the response with the rendered XML content
+        return $response;
+    }
+
 
       
 

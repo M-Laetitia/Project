@@ -146,18 +146,10 @@
 
         <nav class="page-header">
             <div class="name-app">
-                <p class="{% if app.request.attributes.get('_route') == 'app_homepage' %}active{% endif %}">
+                <p class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}">
                     <a href="{{ path('app_home') }}">MOSAIC</a>
                 </p>
             </div>
-
-            {# <div class="home">
-
-                <p class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}">
-                    <a href="{{ path('app_home') }}"><i class="ri-home-heart-fill"></i></a>
-                </p>
-                
-            </div> #}
 
             <div class="nav-links">
 
@@ -170,10 +162,6 @@
                     <p><a href="{{ path('app_calendar') }}">CALENDAR</a></p>
                 </div>
 
-                
-                {# <p class="{% if app.request.attributes.get('_route') == 'app_calendar' %}active{% endif %}">
-                    <a href="{{ path('app_calendar') }}">CALENDAR</a>
-                </p> #}
 
             </div>
 
@@ -250,7 +238,6 @@
 
         <div class="roles" style="display:none;">
         
-            <a href="{{ path('app_langindPage') }}">landing page</a>
      
             {% if is_granted('ROLE_ARTIST') %}
             {# If the user has the "ROLE_ARTIST" role, redirect to artist page management #}
@@ -364,10 +351,8 @@
 
             // switch pattern footer depending on the body color
             var bodyBgColor = $('body').css('background-color');
-            console.log("test bg", bodyBgColor)
     
             if (bodyBgColor.includes("21")) { 
-                console.log("ok");
                 $('#top-footer').css('background-image', "url('/images/visuals/footer_top_dark.webp')");
             } else if (bodyBgColor.includes("249")) { 
                 $('#top-footer').css('background-image', "url('/images/visuals/footer_top_light.webp')");
@@ -419,12 +404,15 @@
         }, 2000);
 
 
-        gsap.from(".breadcrumb", {
-            opacity: 0, 
-            duration: 1.2, 
-            ease: "easeInOut", 
-            delay: 1.2
-        });
+        if(document.querySelector('.breadcrumb')) {
+            gsap.from(".breadcrumb", {
+                opacity: 0, 
+                duration: 1.2, 
+                ease: "easeInOut", 
+                delay: 1.2
+            });
+
+        }
 
         // animation background footer on scroll
         document.addEventListener("DOMContentLoaded", function() {
@@ -504,12 +492,16 @@
         $('.banner-title').addClass('visible');
         $('.banner-text').addClass('visible');
 
-        gsap.from(".banner", {
-            opacity: 0,
-            duration: 2,
-            ease: "easeInOut", 
-            delay: 0.6
-        });
+
+        if(document.querySelector('.banner')) {
+            gsap.from(".banner", {
+                opacity: 0,
+                duration: 2,
+                ease: "easeInOut", 
+                delay: 0.6
+            });
+        }
+        
 
         // underscrore blink
         setTimeout(function() {

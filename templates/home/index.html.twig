@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Home page MOSAIC{% endblock %}
 {% block meta %}Discover, create, and connect with our platform MOSAIC dedicated to artistic events and community. Join a vibrant network of passionate artists and bring your creative visions to life{% endblock %}
-
 {% block body %}
+
     {# ------------------- 
     //  ███████ ██      ██ ██████  ███████ ███████ 
     //  ██      ██      ██ ██   ██ ██      ██      
@@ -15,55 +14,66 @@
     <section id="slides-container">
         
         <div id="slides">
-            <div class="slide" id="slide1" >
+            <div class="slide" id="slide1"  >
                 <picture class="slide-picture">
-                    <img src="{{asset('/images/visuals/statue01.png')}}" alt="">
+                    <img src="{{asset('/images/visuals/statue01.png')}}" alt="Venus de Milo statue with glitch effect">
                 </picture>
     
                 <div class="slide-text" >
-                    <h1 class="title-text" >Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h1>
-                    <p>Engage in a <strong> creative journey</strong> with us and 
-                        spark your <strong> artistic spirit</strong>.
+                    <h1 class="title-text">Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h1>
+                    <p>Engage in a <strong> creative journey</strong> with us <br> and 
+                        spark your <strong> artistic spirit</strong>. <br>
                         <span class="highlight-text">C</span>onnect.  <span class="highlight-text">C</span>reate.  <span class="highlight-text">E</span>xplore.</p>
                     <div style="display: none;" class="button btn6"></div>
                 </div>
-
-
-  
             </div>
     
             <div class="slide" id="slide2" style="display:none" >
                 <picture class="slide-picture">
-                    <img src="" alt="">
+                    <img src="{{asset('/images/visuals/hands02.webp')}}" alt="Hands of God and Adam in black and white, with a glitch effect">
                 </picture>
     
                 <div class="slide-text">
-                    <h2 class="title-text">2Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h2>
-                    <p>2Lorem ipsum dolor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
-                    <div class="button btn6">DISCOVER</div>
+                    <h2 class="title-text">Connect <br> at Events<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Fuel your <strong>passion and curiosity</strong> and forge  new <strong> connections</strong>.</p>
+                    <a href="{{path('app_event') }}"><div class="button btn6">DISCOVER</div></a>
                 </div>
 
             </div>
     
             <div class="slide" id="slide3" style="display:none">
                 <picture class="slide-picture">
-                    <img src="" alt="">
+                    <img src="{{asset('/images/visuals/statue01.png')}}" alt="Venus de Milo statue with glitch effect">
                 </picture>
     
                 <div class="slide-text">
-                    <h2 class="title-text" >3Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h2>
-                    <p>3Lorem ipsum dolor sit amet, consectetur adip iscing elit. In ex mauris, da.</p>
-                    <div class="button btn6">DISCOVER</div>
+                    <h2 class="title-text" >Create <br>at Workshops<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Dive into new <strong>Artistic horizons</strong> and unlock 
+                        your <strong> creative potential</strong>.</p>
+                    <a href="{{path('app_workshop') }}"><div class="button btn6">DISCOVER</div></a>
                 </div>
 
             </div>
             <div class="slides-arrow right"></div>
+
+            <div class="slide" id="slide4" style="display:none">
+                <picture class="slide-picture">
+                    <img src="{{asset('/images/visuals/motif03.webp')}}" alt="abstract black and white with with a glitche effect">
+                </picture>
+    
+                <div class="slide-text">
+                    <h2 class="title-text" >Explore <br> at Expositions<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Step into unique <strong>artists' worlds</strong>, awake
+                        your senses and ignite your <strong>imagination</strong>.</p>
+                    <a href="{{ path('app_exposition')}}"> <div class="button btn6">DISCOVER</div></a>
+                </div>
+
+            </div>
+            <div class="slides-arrow right"></div>
+
+
         </div>
-        
-
-
     </section>
-
 
 {# ------------------- 
 //   ██████  ██    ██  ██████  ████████ ███████ 
@@ -76,12 +86,11 @@
 
 <section style="width:100%;" id="quote">
             <div></div>
-
             <div  id="wrapper">
                 <div><i class="ri-double-quotes-r"></i></div>
                 <div>
-                    <p>There is  <span class="accent-text">  always </span> something new <br>
-                    and  <span class="accent-text"> fascinating </span> to discover<span class="underscore">_</span></p>
+                    <h3>There is  <span class="accent-text">  always </span> something new <br>
+                    and  <span class="accent-text"> fascinating </span> to discover<span class="underscore">_</span></h3>
                 </div>
             </div>
             <div id="pattern"></div>
@@ -95,11 +104,10 @@
 //   ██████ ██   ██ ██   ██  ██████   ██████  ███████ ███████ ███████ 
 ------------------- #}
 
-
     <section id="carousel">
 
         <div id="top">
-            <h2>Our latest <span class="accent-color"> Art Activities</span><span class="">_</span></h2>
+            <h4>Our latest <span class="accent-color"> Art Activities</span><span class="">_</span></h4>
             <p id="quote-text" class="scroll-reveal">Maybe you will <span class="accent-color">join us</span> next time ! </p>
         </div>
 
@@ -146,9 +154,7 @@
                     <button>View more</button>
                 </div>
             </div>
-
         </div>
-        
     </section>
 
 {# ------------------- 
@@ -162,7 +168,6 @@
 
 <section id="quote-artist">
     <div style="display:none;"></div>
-
     <div  id="wrapper" class="quote-content">
 
         <div>
@@ -192,8 +197,6 @@
                 <p id="name-categ">Name artist | Wood artisan</p>
             </div>
         </div>
-
-
     </div>
 
     <div id="dots" class="dot-content">
@@ -218,15 +221,11 @@
 
     <div id="left">
         <figure>
-            <img src="{{asset('/images/visuals/calendar.webp')}}" alt="">
+            <img src="{{asset('/images/visuals/calendar.webp')}}" alt="Hand holding a glass with a rose, with an eye in the center and a golden leaf motif on the right.">
         </figure>
     </div>
 
     <div id="right">
-        {# <figure>
-            <img src="{{asset('/images/visuals/home_pattern.webp')}}" alt="">
-        </figure> #}
-
         <div>
             <p>Let's meet and have a <span>creative</span> time together<span class="underscore">_</span></p>
 
@@ -234,10 +233,9 @@
 
             <p>Take a look at our event calandar !</p>
 
-            <button>SEE MORE</button>
+            <a href="{{ path('app_calendar')}}"><button>SEE MORE</button></a>
+            
         </div>
-        
-
     </div>
 </section>
 
@@ -251,7 +249,6 @@
 
 <div>
     {% for artist in artists %}
-
     <p class="address"
         {% if artist.artistInfos.address is defined %}
             data-street="{{ artist.artistInfos.address.street }}"
@@ -266,30 +263,29 @@
 {% endfor %}
 
 </div>
-
     <div class="separator-space"></div>
-
     <section id="homepage-map">
         <div>
             <div id="map"></div>
         </div>
     </section>
-
     <div class="separator-space"></div>
 
-     {# Jquery #}
-      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-     <script src="{{ asset('js/main.js') }}"></script>
-     <script src="{{ asset('js/gwl.js') }}"></script> 
+
+
+    {# Jquery #}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/gwl.js') }}"></script> 
 
    
     
 
-     {# API LEAFLET #}
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    {# API LEAFLET #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
  
-     <script src="{{asset('js/APIleaflet.js')}}"></script>
+    <script src="{{asset('js/APIleaflet.js')}}"></script>
 
     <script>
 
@@ -297,10 +293,10 @@
             var currentSlide = 0;
             var totalSlides = $('.slide').length;
             var slideTransitionDelay = 800; // Delay before starting slide transitions
-            var slideTransitionInterval = 6000; // Interval between slide transitions
+            var slideTransitionInterval = 7000; // Interval between slide transitions
         
             // Function to animate slide elements
-            /* function animateSlideElements() {
+            function animateSlideElements() {
                 gsap.from('.slide .slide-picture', 1.2, {opacity: 0, delay: 1.1 });
                 gsap.from('.slide .slide-text .title-text', 1.2, {opacity: 0, y: 200, delay: 1.5 });
                 gsap.from('.slide .slide-text p', 1.2, {opacity: 0, y: -60, delay: 2 });
@@ -312,7 +308,7 @@
                 $('.btn6').on('mouseleave', function() {
                     gsap.to(this, { backgroundColor: '#eeaf42', color: '#151515', borderColor : '#f0bd2f', duration: 0.3 });
                 });
-            }*/
+            }
         
             // Function to transition to the next slide
             function nextSlide() {

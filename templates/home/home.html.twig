@@ -1,0 +1,474 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home - MOSAIC{% endblock %}
+{% block meta %}Discover, create, and connect with our platform MOSAIC dedicated to artistic events and community. Join a vibrant network of passionate artists and bring your creative visions to life{% endblock %}
+
+{% block body %}
+
+    {# ------------------- 
+    //  ███████ ██      ██ ██████  ███████ ███████ 
+    //  ██      ██      ██ ██   ██ ██      ██      
+    //  ███████ ██      ██ ██   ██ █████   ███████ 
+    //       ██ ██      ██ ██   ██ ██           ██ 
+    //  ███████ ███████ ██ ██████  ███████ ███████
+    ------------------- #}
+
+    <section id="slides-container">
+        
+        <div id="slides">
+            <div class="slide" id="slide1"  >
+                <picture class="slide-picture">
+                    <img src="{{asset('/images/visuals/statue01.png')}}" alt="Venus de Milo statue with glitch effect">
+                </picture>
+    
+                <div class="slide-text" >
+                    <h1 class="title-text">Unleash <br> the Art<span class="underscore-static" style="visibility:hidden;">_</span></h1>
+                    <p>Engage in a <strong> creative journey</strong> with us <br> and 
+                        spark your <strong> artistic spirit</strong>. <br>
+                        <span class="highlight-text">C</span>reate.  <span class="highlight-text">C</span>onnect.  <span class="highlight-text">E</span>xplore.</p>
+                    <div style="display: none;" class="button btn6"></div>
+                </div>
+            </div>
+            
+            <div class="slide" id="slide3" style="display:none">
+                <picture class="slide-picture">
+                    <img src="{{asset('/images/visuals/abstract02.webp')}}" alt="abstract black and white waves with a glitche effect">
+                </picture>
+    
+                <div class="slide-text">
+                    <h2 class="title-text" >Create <br>at Workshops<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Dive into new <strong>Artistic horizons</strong> and unlock 
+                        your <strong> creative potential</strong>.</p>
+                    <a href="{{path('app_workshop') }}"><div class="button btn6">DISCOVER</div></a>
+                </div>
+
+            </div>
+            <div class="slides-arrow right"></div>
+
+            <div class="slide" id="slide2" style="display:none" >
+                <picture class="slide-picture">
+                    <img src="{{asset('/images/visuals/hands02.webp')}}" alt="Hands of God and Adam in black and white, with a glitch effect">
+                </picture>
+    
+                <div class="slide-text">
+                    <h2 class="title-text">Connect <br> at Events<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Fuel your <strong>passion and curiosity</strong> and forge  new <strong> connections</strong>.</p>
+                    <a href="{{path('app_event') }}"><div class="button btn6">DISCOVER</div></a>
+                </div>
+
+            </div>
+    
+
+            <div class="slide" id="slide4" style="display:none">
+                <picture class="slide-picture">
+                    <img src="{{asset('/images/visuals/motif03.webp')}}" alt="abstract black and white waves with a glitche effect">
+                </picture>
+    
+                <div class="slide-text">
+                    <h2 class="title-text" >Explore <br> at Expositions<span class="underscore-static" style="visibility:hidden;">_</span></h2>
+                    <p>Step into unique <strong>artists' worlds</strong>, awake
+                        your senses and ignite your <strong>imagination</strong>.</p>
+                    <a href="{{ path('app_exposition')}}"> <div class="button btn6">DISCOVER</div></a>
+                </div>
+
+            </div>
+            <div class="slides-arrow right"></div>
+
+
+        </div>
+    </section>
+
+{# ------------------- 
+//   ██████  ██    ██  ██████  ████████ ███████ 
+//  ██    ██ ██    ██ ██    ██    ██    ██      
+//  ██    ██ ██    ██ ██    ██    ██    █████   
+//  ██ ▄▄ ██ ██    ██ ██    ██    ██    ██      
+//   ██████   ██████   ██████     ██    ███████ 
+//      ▀▀                                     
+------------------- #}
+
+<section style="width:100%;" id="quote">
+            <div></div>
+            <div  id="wrapper">
+                <div><i class="ri-double-quotes-r"></i></div>
+                <div>
+                    <h3>There is  <span class="accent-text">  always </span> something new <br>
+                    and  <span class="accent-text"> fascinating </span> to discover<span class="underscore">_</span></h3>
+                </div>
+            </div>
+            <div id="pattern"></div>
+</section>
+
+{# ------------------- 
+//   ██████  █████  ██████   ██████  ██    ██ ███████ ███████ ██      
+//  ██      ██   ██ ██   ██ ██    ██ ██    ██ ██      ██      ██      
+//  ██      ███████ ██████  ██    ██ ██    ██ ███████ █████   ██      
+//  ██      ██   ██ ██   ██ ██    ██ ██    ██      ██ ██      ██      
+//   ██████ ██   ██ ██   ██  ██████   ██████  ███████ ███████ ███████ 
+------------------- #}
+
+    <section id="carousel">
+
+        <div id="top">
+            <h4>Our latest <span class="accent-color"> Art Activities</span><span class="">_</span></h4>
+            <p id="quote-text" class="scroll-reveal">Maybe you will <span class="accent-color">join us</span> next time ! </p>
+        </div>
+
+        <div id="content">
+
+            <div class="image">
+                <figure>
+                    <img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
+                </figure>
+                <div class="infos">
+                    <div>
+                        <p>10.02.2025</p>
+                        <p>Exposition</p>
+                    </div>
+                    <h4>Name of expo<span>_</span></h4>
+                    <button>View more</button>
+                </div>
+            </div>
+
+            <div class="image">
+                <figure>
+                    <img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
+                </figure>
+                <div class="infos">
+                    <div>
+                        <p>10.02.2025</p>
+                        <p>event</p>
+                    </div>
+                    <h4>Name of event<span>_</span></h4>
+                    <button>View more</button>
+                </div>
+            </div>
+
+            <div class="image">
+                <figure>
+                    <img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
+                </figure>
+                <div class="infos">
+                    <div>
+                        <p>10.02.2025</p>
+                        <p>workshop</p>
+                    </div>
+                    <h4>Name of workshop<span>_</span></h4>
+                    <button>View more</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{# ------------------- 
+//   ██████  ██    ██  ██████  ████████ ███████ 
+//  ██    ██ ██    ██ ██    ██    ██    ██      
+//  ██    ██ ██    ██ ██    ██    ██    █████   
+//  ██ ▄▄ ██ ██    ██ ██    ██    ██    ██      
+//   ██████   ██████   ██████     ██    ███████ 
+//      ▀▀                                     
+------------------- #}    
+
+<section id="quote-artist">
+    <div style="display:none;"></div>
+    <div  id="wrapper" class="quote-content">
+
+        <div>
+            <div><i class="ri-double-quotes-r"></i></div>
+
+             <div class="quote">
+                <p>The world always seems <span class="accent-text">brighter</span> when you've just <span class="accent-text">made something</span> that wasn't there before <span class="underscore">_</span></p>
+                <p id="name-categ">Neil Gaiman | Author</p>
+            </div>
+        </div>
+
+        <div style="display:none;">
+            <div><i class="ri-double-quotes-r"></i></div>
+
+            <div class="quote">
+                <blockquote>
+                    <p>The <span class="accent-text">purpose of art </span>is washing the dust of daily life off our <span class="accent-text">souls</span>.<span class="underscore">_</span></p>
+                    <p id="name-categ">Pablo Picasso | Painter </p>
+                </blockquote>
+            </div>
+        </div>
+        
+
+        <div style="display:none;">
+            <div><i class="ri-double-quotes-r"></i></div>
+
+            <div class="quote">
+                <blockquote>
+                    <p>Art should <span class="accent-text">comfort the disturbed </span>and <span class="accent-text">disturb the comfortable.</span><span class="underscore">_</span></p>
+                    <p id="name-categ">Banksy | Street Artist </p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <div id="dots" class="dot-content">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    
+    <div id="pattern"></div>
+</section>
+
+{# ------------------- 
+//   █████  ██████  ████████ ██ ███████ ████████ ███████ 
+//  ██   ██ ██   ██    ██    ██ ██         ██    ██      
+//  ███████ ██████     ██    ██ ███████    ██    ███████ 
+//  ██   ██ ██   ██    ██    ██      ██    ██         ██ 
+//  ██   ██ ██   ██    ██    ██ ███████    ██    ███████
+------------------- #}  
+
+
+<section id="calendar">
+
+    <div id="right">
+        <div>
+            <p>Discover new <span>talents</span> within our community<span class="underscore">_</span></p>
+
+            <p>Explore our vibrant community and discover a world of artistic expression. From captivating exhibitions, exciting events, to engaging workshops, there's something for everyone.</p>
+
+            <p>Feel inspired? Step into our gallery of artists !</p>
+
+            <a href="{{ path('app_artist')}}"><button>SEE MORE</button></a>
+            
+        </div>
+    </div>
+
+    <div id="left">
+        <figure>
+            <img src="{{asset('/images/visuals/artist.webp')}}" alt="Hand holding a glass with a rose, with an eye in the center and a golden leaf motif on the right.">
+        </figure>
+    </div>
+
+</section>
+
+{# ------------------- 
+//   ██████  █████  ██      ███████ ███    ██ ██████   █████  ██████  
+//  ██      ██   ██ ██      ██      ████   ██ ██   ██ ██   ██ ██   ██ 
+//  ██      ███████ ██      █████   ██ ██  ██ ██   ██ ███████ ██████  
+//  ██      ██   ██ ██      ██      ██  ██ ██ ██   ██ ██   ██ ██   ██ 
+//   ██████ ██   ██ ███████ ███████ ██   ████ ██████  ██   ██ ██   ██
+------------------- #}  
+
+
+<section id="calendar">
+
+    <div id="left">
+        <figure>
+            <img src="{{asset('/images/visuals/calendar.webp')}}" alt="Hand holding a glass with a rose, with an eye in the center and a golden leaf motif on the right.">
+        </figure>
+    </div>
+
+    <div id="right">
+        <div>
+            <p>Let's meet and have a <span>creative</span> time together<span class="underscore">_</span></p>
+
+            <p>Explore our vibrant community and discover a world of artistic expression. From captivating exhibitions, exciting events, to engaging workshops, there's something for everyone.</p>
+
+            <p>Ready to dive in? Take a look at our calendar !</p>
+
+            <a href="{{ path('app_calendar')}}"><button>SEE MORE</button></a>
+            
+        </div>
+    </div>
+</section>
+
+
+
+{# ------------------- 
+//  ███    ███  █████  ██████  
+//  ████  ████ ██   ██ ██   ██ 
+//  ██ ████ ██ ███████ ██████  
+//  ██  ██  ██ ██   ██ ██      
+//  ██      ██ ██   ██ ██ 
+------------------- #}  
+
+<div>
+    {% for artist in artists %}
+    <p class="address"
+        {% if artist.artistInfos.address is defined %}
+            data-street="{{ artist.artistInfos.address.street }}"
+            data-city="{{ artist.artistInfos.address.city }}"
+            data-postal-code="{{ artist.artistInfos.address.postalCode }}"
+            data-country="{{ artist.artistInfos.address.country }}"
+        {% endif %}
+       data-name="{{ artist.artistInfos.artistName }}"
+       data-slug="{{ artist.slug}}"
+       data-activity="{{ artist.artistInfos.discipline }}">
+    </p>
+{% endfor %}
+
+</div>
+    <div style="margin-top: 10rem;" class="separator-space"></div>
+    <section id="homepage-map">
+        <div>
+            <div id="map"></div>
+        </div>
+    </section>
+    <div class="separator-space"></div>
+
+
+
+    {# Jquery #}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/gwl.js') }}"></script> 
+
+   
+    
+
+    {# API LEAFLET #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+ 
+    <script src="{{asset('js/APIleaflet.js')}}"></script>
+
+    <script>
+
+        $(document).ready(function(){
+            var currentSlide = 0;
+            var totalSlides = $('.slide').length;
+            var slideTransitionDelay = 800; // Delay before starting slide transitions
+            var slideTransitionInterval = 6500; // Interval between slide transitions
+        
+            // Function to animate slide elements
+            function animateSlideElements() {
+                gsap.from('.slide .slide-picture', 1.2, {opacity: 0, delay: 1.1 });
+                gsap.from('.slide .slide-text .title-text', 1.2, {opacity: 0, y: 200, delay: 1.5 });
+                gsap.from('.slide .slide-text p', 1.2, {opacity: 0, y: -60, delay: 2 });
+                gsap.from('.slide .slide-text .btn6', 1.2, {opacity: 0, x: -80, delay: 2.1 });
+        
+                $('.btn6').on('mouseenter', function() {
+                    gsap.to(this, { backgroundColor: '#151515', color: '#f0bd2f',  borderColor : '#f0bd2f', duration: 0.3 });
+                });
+                $('.btn6').on('mouseleave', function() {
+                    gsap.to(this, { backgroundColor: '#eeaf42', color: '#151515', borderColor : '#f0bd2f', duration: 0.3 });
+                });
+            }
+        
+            // Function to transition to the next slide
+            function nextSlide() {
+                // Hide the current slide
+                $('.slide').eq(currentSlide).hide();
+                // Calculate the index of the next slide (cycling back to 0 if reaching the end)
+                currentSlide = (currentSlide + 1) % totalSlides;
+                // Show the next slide
+                $('.slide').eq(currentSlide).show();
+                // Animate slide elements
+                animateSlideElements();
+                // Reset underscore visibility
+                $('.underscore-static').css('visibility', 'hidden');
+                setTimeout(function() {
+                    $('.underscore-static').css('visibility', 'visible');
+                }, 3500);
+            }
+        
+            // Hide all slides initially
+            $('.slide').hide();
+
+        
+            // After a delay, show the first slide and start changing slides at intervals
+            setTimeout(function() {
+                // Show the first slide
+                $('.slide').eq(0).show();
+         
+                // Animate elements of the first slide
+                animateSlideElements();
+                // Set interval to call the nextSlide function
+                setInterval(nextSlide, slideTransitionInterval);
+                // Show underscore after a delay
+                setTimeout(function() {
+                    $('.underscore-static').css('visibility', 'visible');
+                }, slideTransitionDelay + 2000);
+            }, slideTransitionDelay);
+
+        });
+
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+            }
+
+            function changeColorsOnScroll() {
+                var accentTexts = document.querySelectorAll('.accent-text');
+            
+                // Parcourir tous les éléments avec la classe 'accent-text'
+                accentTexts.forEach(function(accentText, index) {
+                    // Vérifier si l'élément est dans la vue de la fenêtre du navigateur
+                    if (isElementInViewport(accentText)) {
+                        // Changer la couleur du premier élément
+                        if (index === 0) {
+                            gsap.to(accentText, { color: '#eeaf42',  delay: 0.2 }); // Couleur + durée de l'animation
+                        } else {
+                            // Changer la couleur du deuxième élément après un délai
+                            gsap.to(accentText, { color: '#eeaf42', delay: 0.5, ease: "ease", duration: 2 });  // couleur +  durée de l'animation et délai
+                        }
+                    } else {
+                        // L'élément n'est pas dans la vue, rétablir sa couleur par défaut
+                        accentText.style.color = ''; 
+                    }
+                });
+            }
+            window.addEventListener('scroll', changeColorsOnScroll);
+
+            const quoteText = document.getElementById('quote-text');
+            
+
+            function revealText(element) {
+                $('#quote-text').css('visibility', 'visible');
+                quoteText.innerHTML = quoteText.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+                const letters = quoteText.querySelectorAll('.letter');
+                // Animate each letter of the text
+                gsap.from(letters, {
+                        opacity: 0,
+                        y: 20,
+                        duration: 1,
+                        stagger: 0.02, // Interval between each letter animation
+                        delay: 2, // Delay the animation by 0.5 seconds
+                        color :"#207E93",
+                });
+            }
+            
+            function revealOnScroll() {
+               
+                var scrollRevealElements = document.querySelectorAll('.scroll-reveal');
+                scrollRevealElements.forEach(function(element) {
+                    if (isElementInViewport(element)) {
+                        revealText(element);
+                        // Once the text is revealed, remove the class to prevent revealing it again
+                        element.classList.remove('scroll-reveal');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', revealOnScroll);
+
+            // show the differents quotes
+
+            $(document).ready(function() {
+                // Initialisation
+                $(".quote-content > div").first().show();
+                $(".dot-content > div").first().addClass("active");
+            
+                // Gestion du clic sur les dots
+                $(".dot").click(function() {
+                    var index = $(this).index();
+            
+                    // Affichage du contenu correspondant
+                    $(".quote-content > div").hide().eq(index).show();
+            
+                    // Changement du style des dots
+                    $(this).addClass("active").siblings().removeClass("active");
+                });
+            });
+
+          
+
+    
+    </script>
+{% endblock %}

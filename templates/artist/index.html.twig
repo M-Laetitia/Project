@@ -43,16 +43,11 @@
 
             <div class="" id="more-filters-btn"> <span id="cross-filters"></span>filters</div>
             {# <div class="" id="more-filters-btn"> <span><i class="ri-add-fill"></i></span>filters</div> #}
+            <form method="GET" action="{{ path('app_artist') }}">
+                <button id="reset-btn" type="submit" name="formResetType" value="reset">Reset</button>
+            </form >
         </div>
     
-    {% if searchResults %}
-    <h2></h2>
-    {% else %}
-    <h2></h2>
-    {% endif %}
-
-  
-
 
     {# FILTER / SEARCH #}
     <div id="more-filters" style="display:none;" >
@@ -68,8 +63,11 @@
                     'attr': {'minlength': 3} 
                 }) }}
                 <button type="submit">Search</button>
+                
             {{ form_end(formArtistSearch) }}
         </div>
+
+        
         
         {# <div  class="form-select-discipline">
             <form method="GET" action="{{ path('app_artist') }}">
@@ -86,11 +84,11 @@
     
 
     {# DISPLAY ARTIST #}
+
     <section id="artists-container" class="artist-grid">
         {% for artist in artists %}  
             {% if artist.isPublished == 1 %}
                 <div class="artist {{ artist.artistInfos.category }} artist-container">
-
                     <figure>
                         <div class="hover2">
                             {% if artist.pictures is not empty %}
@@ -128,7 +126,7 @@
                 
         {% endfor %}
     </section>
-
+  
     <section id="search-results"></section>
     <div id="no-result-message" style="display: none;">No result found</div>
 
@@ -138,6 +136,9 @@
     <script src= "{{ asset('js/gsap.min.js') }}"></script>
 
     <script>
+
+
+
 
         gsap.from('.categories', 1.2, {opacity: 0, delay: 0.4 });
 
@@ -201,6 +202,7 @@
                 $('#no-result-message').show().text('No result found');
             }
         }
+
 
         // show / hide more filters
         var isClicked = false;

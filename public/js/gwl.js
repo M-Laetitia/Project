@@ -1,6 +1,6 @@
 // Scripts jQuery / JavaScript généraux
 $(document).ready(function() { 
-    console.log('test2')
+    
     // Une fois que le document (base.html.twig) HTML/CSS a bien été complètement chargé...
     // add-collection-widget.js : fonction permettant d'ajouter un nouveau bloc "programme" au sein d'une session (pour agrandir la collection)
     $('.add-another-collection-widget').click(function (e) {
@@ -67,8 +67,7 @@ $(document).ready(function() {
     })
     // Fonction permettant l'affichage de la fenêtre modale de confirmation pour chaque situation
     function showModalConfirm($id, $href, $title) {
-        console.log("id   = "+$id)
-        console.log("href = "+$href)
+        
         $('#modalPopup .modal-title').html($title)
         $('#modalPopup .modal-body').html("<span class='center'><i class='fas fa-spinner fa-spin fa-4x'></i></span>")
         $.get(

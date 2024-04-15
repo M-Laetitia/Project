@@ -8,12 +8,15 @@
 //     });
 // }
 
+
 $(document).ready(function() {
-    var alertBox = $('.alert');
-    alertBox.css('top', '0'); 
-    setTimeout(function() {
-      alertBox.css('top', '-8rem'); 
-    }, 4000); 
+    if(document.querySelector('.alert')) {
+        var alertBox = $('.alert');
+        alertBox.css('top', '0'); 
+        setTimeout(function() {
+          alertBox.css('top', '-8rem'); 
+        }, 4000); 
+    }
   });
 
 
@@ -26,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (track) {
 
         const slides = Array.from(track.children)
-        // console.log(slides)
         const nextBtn = document.querySelector('.button--right')
         const prevBtn = document.querySelector('.button--left')
         
@@ -37,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // const slideWidth = slideSize.width;
         // Retrieve the width of the first slide by obtaining its bounding rectangle dimensions.
         const slideWidth = slides[0].getBoundingClientRect().width;
-        // console.log(slideWidth)
+        
         
         // ~ arrange the slides next to one another
         // slides[0].style.left = slideWidth *0  + 'px';
@@ -145,8 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
 if (document.querySelector('.ri-eye-close-fill')) {
 
     $(document).ready(function() {
-        // console.log("test icon")
-    
         $('.ri-eye-close-fill').hover(
             function() {
                 $(this).toggleClass('ri-eye-fill')
@@ -234,17 +234,11 @@ $(document).ready(function() {
 
 // ^^ 
 $(document).ready(function(){
-    console.log("hi");
     $("#voirDispo").click(function(event){
         event.preventDefault();
-        console.log("hello");
-        
         // Récupérer les valeurs sélectionnées de la date et du studio
         var selectedDate = $("#date").val();
         var selectedStudio = $("#studio option:selected").attr("id"); // Récupérer l'ID du studio sélectionné
-        console.log("dateselectted", selectedDate);
-        console.log("studuiselectted", selectedStudio);
-
         var link = $(this).attr("href");
         // Séparer l'URL en parties
         var parts = link.split('/');
@@ -258,7 +252,6 @@ $(document).ready(function(){
 
         // Reconstruire l'URL
         link = parts.join('/');
-        console.log("link02", link);
 
         // Rediriger vers la page avec le lien mis à jour
         window.location.href = link;
@@ -275,7 +268,7 @@ $(document).ready(function(){
 //? ---------------------------------
 
 
-if(document.querySelectorAll('#form-register')) {
+if(document.getElementById('form-register')) {
 
     // elements animation
     gsap.from(".register-user", {
@@ -345,8 +338,6 @@ if(document.getElementById("register-user-page")) {
     $('#registration_form_plainPassword_first, #registration_form_plainPassword_second').keyup(function() {
         var password1 = $('#registration_form_plainPassword_first').val();
         var password2 = $('#registration_form_plainPassword_second').val();
-        console.log("pass1", password1)
-        console.log("pass2", password2)
         // check if input are not empty
         if (password1 !== '' && password2 !== '') {
             // compare passwords

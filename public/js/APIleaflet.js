@@ -27,7 +27,6 @@ var Icon = L.icon({
 
 //  Retrieve the necessary elements regarding the artist - the address + their name and activity
 const adressElements = document.querySelectorAll(".address");
-console.log('map', adressElements )
 adressElements.forEach(function(addressElement) {
     const street = addressElement.getAttribute('data-street');
     const city = addressElement.getAttribute('data-city');

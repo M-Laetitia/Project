@@ -9,7 +9,7 @@
     <div class="content">
         <h1 class="banner-title">{{workshop.name}}</h1>
         <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
+            <p class="banner-text">Be adventurous</p>
             <div class="underscore-blink"> </div>
         </div>
     </div>
@@ -20,7 +20,7 @@
 </style>
 
 <div class="breadcrumb breadcrumb-light">
-    <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_workshop') }}">All Workshops</a> > <a href="{{ path('show_workshop', { slug : workshop.slug  }) }}">{{workshop.name}}</a> > Reservation</p>
+    <p><a href="{{ path('app_home') }}">Home </a> >  <a href="{{ path('app_workshop') }}">All Workshops</a> > <a href="{{ path('show_workshop', { slug : workshop.slug  }) }}">{{workshop.name}}</a> > Reservation</p>
 </div>
 
 

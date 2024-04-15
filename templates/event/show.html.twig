@@ -10,14 +10,14 @@
     <div class="content">
         <h1 class="banner-title">{{area.name}}</h1>
         <div class="subtitle">
-            <p class="banner-text">Subtitle</p>
+            <p class="banner-text">Be curious</p>
             <div class="underscore-blink"> </div>
         </div>
     </div>
 </div>
 
 <div class="breadcrumb breadcrumb-dark">
-    <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_event') }}">All Events</a> > {{area.name}} </p>
+    <p><a href="{{ path('app_home') }}">Home </a> >  <a href="{{ path('app_event') }}">All Events</a> > {{area.name}} </p>
 </div>
 
 <section class="" id="event-show">
@@ -107,7 +107,8 @@
                     <div id="btn-event">
                         <div class="button btn-off">PARTICIPATE</div>
                     </div>
-                    <p>You must be logged in to participate in this event.</p>
+                    <p>You must be logged in to participate : <span><a href="{{ path('app_login')}}">Login</a>.</span> <br>
+                    Don't have an account yet? <span><a href="{{path('app_register')}}">Create one now!</a></span> </p>
                 </div>
             {% else %}
                 <div id="expo-participate">

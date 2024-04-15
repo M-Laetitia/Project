@@ -50,7 +50,7 @@
 
 <div id="test02">
     <div class="breadcrumb breadcrumb-light">
-        <p><a href="{{ path('app_homepage') }}">Home </a> >  <a href="{{ path('app_subscription') }}">All Subscriptions</a> >{{subscriptionType}}
+        <p><a href="{{ path('app_home') }}">Home </a> >  <a href="{{ path('app_subscription') }}">All Subscriptions</a> >{{subscriptionType}}
     </div>
     
     
@@ -174,9 +174,8 @@
       });
 
       const inputs = document.querySelectorAll('input');
-      console.log("check", inputs)
       const value = inputs.value;
-      console.log("check2", value)
+     
 
     window.onload = () => {
 
@@ -189,7 +188,6 @@
 
         let clientSecretDiv = document.getElementById("client-secret")
         let clientSecret = clientSecretDiv.dataset.clientSecret;
-        console.log("client secret :", clientSecret);
         var subscriptionForm = document.getElementById('subscription-form');
         
 
@@ -210,7 +208,6 @@
             
  
             let cardHolderName = cardHolderFirstNameDiv.value + ' ' + cardHolderLastNameDiv.value; 
-            console.log("client secret" , clientSecret)
             stripe.handleCardPayment(
                 
                 clientSecret, card,  {

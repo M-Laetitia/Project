@@ -16,7 +16,7 @@
 </div>
 
 <div class="breadcrumb breadcrumb-dark">
-    <p><a href="{{ path('app_homepage') }}">Home </a> > All Studios </p>
+    <p><a href="{{ path('app_home') }}">Home </a> > All Studios </p>
 </div>
 
 {# class="content" #}
@@ -130,7 +130,6 @@
             link.addEventListener('click', function(event) {
                 // Get the index of the clicked event
                 const indexClicked = Array.from(eventLinks).indexOf(this);
-                console.log(indexClicked)
                 // Get the color associated with the index
                 //const color = sessionStorage.getItem('eventColor-' + indexClicked);
                 const color = colors[indexClicked];

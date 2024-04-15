@@ -14,37 +14,39 @@
             event.start = new Date(event.start);
             event.end = new Date(event.end);
             event.id = event.slug;
-            console.log(event.end)
-            console.log(event.end.toISOString());
+            event.type = event.type;
+            
             });
     
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             events: formattedEvents,
 
+            // eventTextColor: 'black', 
+            eventClassNames: function(arg) {
+                // Obtenir le type de l'événement de l'objet arg (argument)
+                const eventType = arg.event.extendedProps.type;
+                // Définir la classe CSS en fonction du type d'événement
+                let classNames = [];
+                if (eventType === 'EVENT') {
+                    classNames.push('event-class'); // Ajouter la classe pour les événements
+                } else if (eventType === 'WORKSHOP') {
+                    classNames.push('workshop-class'); // Ajouter la classe pour les ateliers
+                } else if (eventType === 'EXPO') {
+                    classNames.push('expo-class'); // Ajouter la classe pour les expositions
+                }
+                return classNames; // Retourner le tableau de noms de classe
+            },
+
             eventClick: function(info) {
-                console.log('slug', info.event.id)
+                
                 window.location.href = '/event/' + info.event.id;
             },
             timeZone: 'UTC',
-            //displayEventEnd: true, // Affiche l'heure de fin
-
-            // Hide top header bar
             header: {
                 left: '',
                 center: '',
                 right: ''
-            },
-
-            
-
-            ///eventContent: function(arg) {
-                //return {}; 
-                //Retourne un objet vide pour supprimer le contenu de l'événement
-            //},
-            eventClassNames: function(arg) {
-                // Ajouter une classe CSS pour les jours d'événements
-                return ['event-day'];
             }
        
         });

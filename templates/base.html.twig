@@ -369,7 +369,7 @@
             });
             
             
-            // animation for the links in the hamburger menu (mobile)
+            // show menu burger + animation for the links in the hamburger menus
             $('#burger-icon').click(function() {
                 $('#mobile-header').toggleClass('nav-active');
             
@@ -471,18 +471,22 @@
         
         });
 
-        // back to top button
+        // back-to-top button
         var btn = $('#back-top-btn');
+        // When the user scrolls the page
         $(window).scroll(function() {
-        if ($(window).scrollTop() > 300) {
-            btn.addClass('show');
+        // If the scroll position is greater than 300 pixels
+        if ($(window).scrollTop() > 300) { 
+            btn.addClass('show'); // Show the button
         } else {
-            btn.removeClass('show');
+            btn.removeClass('show'); // hide the button
         }
         });
-
+        // When the button is clicked
         btn.on('click', function(e) {
+        // Prevent the default click behavior
         e.preventDefault();
+        // Animation to scroll the page to the top (300ms)
         $('html, body').animate({scrollTop:0}, '300');
         });
                 

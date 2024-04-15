@@ -91,30 +91,30 @@
     </section>
     
     <script>
-
         $(document).ready(function() {
             $('#registration_form_username, #registration_form_information').keyup(function() {
                 var username = $('#registration_form_username').val();
                 var email = $('#registration_form_information').val();
-                // check is the inputs fields are empty
+                // vérifier si les champs des input sont vides
                 if (username === '' && email === '') {
-                    $('#checkUsername').empty(); // delete message
-                    $('#checkEmail').empty(); // delete message
+                    $('#checkUsername').empty(); // supprimer message
+                    $('#checkEmail').empty(); // supprimer message
                     return; 
                 }
+                // requête AJAX pour vérifier les identifiants
                 $.ajax({
-                    url: '/check-credentials',
-                    method: 'POST',
-                    data: {username: username, email: email},
-                    dataType: 'json',
-                    success: function(response) {
+                    url: '/check-credentials', // URL de la route pour vérifier les identifiants
+                    method: 'POST', // Méthode HTTP POST pour envoyer les données
+                    data: {username: username, email: email}, // Données à envoyer au serveur
+                    dataType: 'json', // Type de données attendu dans la réponse
+                    success: function(response) { // Fonction à exécuter lorsque la requête réussit
+                    // Afficher les messages de validation
                     $('#checkUsername').text(response.usernameMessage);
                     $('#checkEmail').text(response.emailMessage);
                     }
                 });
             });
         });
-
     </script>
    
 {% endblock %}

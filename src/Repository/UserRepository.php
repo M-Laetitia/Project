@@ -94,7 +94,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    //  Find artists by username
+    //^  Find artists by username
     public function findArtistByUsername( string $criteria) // Takes a criteria parameter of type string.
     {
         return $this->createQueryBuilder('u')
@@ -108,39 +108,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
 
     //^ get artists filtered by discipline
-    public function findArtistByDiscipline( string $criteria) 
-    {
-        $allUsers = $this->findAll();
-        $artists = [];
-    
-        foreach ($allUsers as $user) {
-            $artistInfos = $user->getArtistInfos();
+    public function findArtistByDiscipline(string $criteria)
+{
+    $allUsers = $this->findAll();
+    $artists = [];
+
+    foreach ($allUsers as $user) {
+        $artistInfos = $user->getArtistInfos();
+
+        // Vérifier si $artistInfos est null
+        if ($artistInfos !== null && isset($artistInfos['discipline'])) {
+            $artistDiscipline = $artistInfos['discipline'];
             
-            // Vérifier si $artistInfos est null
-            if ($artistInfos !== null && isset($artistInfos['discipline'])) {
-                $artistDiscipline = $artistInfos['discipline'];
-
-                // Diviser la discipline en mots individuels
-                $words = explode(' ', $artistDiscipline);
-                
-
-                // Vérifier chaque mot pour une correspondance partielle
-                foreach ($words as $word) {
-
-                    // Convertir le mot de la discipline en minuscules
-                    $word = strtolower($word);
-
-                    // Vérifier si le mot correspond au critère de recherche
-                    if ($word == $criteria) {
-                        $artists[] = $user;
-                        break; 
-                    }
-                }
+            // Recherche par correspondance partielle
+            if (stripos($artistDiscipline, $criteria) !== false) {
+                $artists[] = $user;
             }
         }
-    
-        return $artists;
     }
+
+    return $artists;
+}
 
     public function findArtistByDisciplineFilter($criteria) 
     {

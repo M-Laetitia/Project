@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
         timeslot.end = new Date(timeslot.end);
       
     });
-    console.log("all",formattedTimeslots )    
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek', // Afficher la vue par semaine
         slotDuration: '00:30:00', // Durée des créneaux horaires (30 minutes)

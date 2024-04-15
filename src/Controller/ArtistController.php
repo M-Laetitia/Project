@@ -67,12 +67,14 @@ class ArtistController extends AbstractController
             $form = $this->createForm(ArtistStatusType::class, $user);
             $form->handleRequest($request);
         
+            $userId = $user->getId();
+            $userRoles = $user->getRoles();
             if ($form->isSubmitted() && $form->isValid() ) {
                 // Ajouter le rôle "ROLE_ARTIST" si ce n'est pas déjà présent
                 if (!in_array('ROLE_ARTIST', $userRoles, true)) {
+                    // Ajouter le rôle "ROLE_ARTIST"
                     $userRoles[] = 'ROLE_ARTIST';
                 }
-
                 $userSlug = $user->getSlug();
     
                 // ^Json infos
@@ -145,14 +147,12 @@ class ArtistController extends AbstractController
         $disciplines = $userRepository->findAllDisciplines();
         // Check if discipline is selected in the GET request
         $discipline = $request->query->get('discipline');
-        $redirectToSamePage = false; // Flag to determine if redirection is needed
 
         if ($discipline) {
             // Use discipline to filter artists
             $searchResults = $userRepository->findArtistByDisciplineFilter($discipline);
             // Store search results in session
             $session->set('searchResults', $searchResults);
-            $redirectToSamePage = true;
              
         } else {
             // If no discipline is selected in the GET request,
@@ -160,38 +160,43 @@ class ArtistController extends AbstractController
             if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
                 $username = $formArtistSearch->get('username')->getData();
                 $discipline = $formArtistSearch->get('discipline')->getData();
+                
     
                 if (!empty($username) && !empty($discipline)) {
                     // Combine results from both queries
                     $artistsByUsername = $userRepository->findArtistByUsername($username);
+                    
                     $artistsByDiscipline = $userRepository->findArtistByDiscipline($discipline);
-                    $searchResults = array_merge($artistsByUsername, $artistsByDiscipline);
+                    $artists = array_merge($artistsByUsername, $artistsByDiscipline);
                 } elseif (!empty($username)) {
-                    $searchResults = $userRepository->findArtistByUsername($username);
+                    $artists = $userRepository->findArtistByUsername($username);
+                   
                 } elseif (!empty($discipline)) {
-                    $searchResults = $userRepository->findArtistByDiscipline($discipline);
+                    $artists = $userRepository->findArtistByDiscipline($discipline);
                 }
-                $redirectToSamePage = true;
+
+                return $this->render('artist/index.html.twig', [
+                    'artists' => $artists, // Use all artists if no search result
+                    'formArtistSearch' => $formArtistSearch,
+                   
+                    'disciplines' => $disciplines,
+        
+                ]);
             }
         }
-        
-        if ($redirectToSamePage) {
-            // Store search results in session if needed
-            $session->set('searchResults', $searchResults);
-            // Redirect to the same page to avoid form resubmission
-            return $this->redirectToRoute('app_artist');
+
+        if ($request->query->has('reset')) {
+            return $this->render('artist/index.html.twig', [
+                'artists' => $artists, // Use all artists if no search result
+                'formArtistSearch' => $formArtistSearch,
+                'disciplines' => $disciplines,
+            ]);
         }
-    
-        // Retrieve search results from session
-        if ($session->has('searchResults')) {
-            $searchResults = $session->get('searchResults');
-            $session->remove('searchResults'); // Remove search results from session after use
-        }
-    
+
+
         return $this->render('artist/index.html.twig', [
             'artists' => $artists, // Use all artists if no search result
-            'formArtistSearch' => $formArtistSearch->createView(),
-            'searchResults' => $searchResults ? true : false, // Set to true if there are search results, otherwise false
+            'formArtistSearch' => $formArtistSearch,
             'disciplines' => $disciplines,
 
         ]);
@@ -203,7 +208,6 @@ class ArtistController extends AbstractController
     {
         // Effectuer la recherche par pseudo en fonction des critères
         $artistsSearch = $userRepository->findArtistByUsername($username);
-
         // Rediriger vers une nouvelle page avec les résultats de la recherche
         return $this->render('artist/searchResults.html.twig', [
             'artistsSearch' => $artistsSearch,
@@ -450,6 +454,11 @@ class ArtistController extends AbstractController
             //  vérifier si la valeur de $quote est différente de la valeur de "quote" dans $artistInfos. 
             if (isset($artistInfos['bio']) && $bio !== null && $bio !== $artistInfos['bio']) {
                 $fields['bio'] = $bio;
+            } else {
+                $artistInfos['bio'] = $bio;
+                $artist->setArtistInfos($artistInfos);
+                $entityManager->persist($artist);
+                $entityManager->flush();
             }
             if (isset($artistInfos['quote']) && $quote !== null && $quote !== $artistInfos['quote']) {
                 $fields['quote'] = $quote;
@@ -621,7 +630,7 @@ class ArtistController extends AbstractController
                 }
         
                 // Vérifier la taille du fichier
-                $maxSize = 2 * 1024 * 1024; // 2 Mo
+                $maxSize = 2 * 1500 * 1500; // 2 Mo
                 if ($bannerFile->getSize() > $maxSize) {
                     $this->addFlash('error', 'Image is too heavy. Maximum size allowed: 2MB');
                     return $this->redirectToRoute('manage_profil', ['slug' => $artist->getSlug()]);

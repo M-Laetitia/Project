@@ -1,31 +1,173 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Explore Our Calendar - MOSAIC{% endblock %}
-{% block meta %}Stay stunned with our interactive calendar on MOSAIC. Discover upcoming events, workshops, and exhibitions at a glance. Click on any event for a brief overview and consider registering. Use our search and filter system to find events tailored to your interests. Start planning your artistic journey now{% endblock %}
+{% block meta %}Stay stunned with our interactive calendar on MOSAIC. Click on any event for a brief overview and consider registering. Start planning your artistic journey now{% endblock %}
 
 {% block body %}
 
+
 <div class="banner">
-    <div>
+    <div class="content">
         <h1 class="banner-title">OUR CALENDAR</h1>
-        <p class="banner-text">Text text<span class="underscore-static">_</span></p>
+        <div class="subtitle">
+            <p class="banner-text">Stay stunned</p>
+            <div class="underscore-blink"> </div>
+        </div>
     </div>
 </div>
+
     
 <section class="content" id="calendar-page">
+    
     <div id="calendar-container">
         <div id="calendar-content">
             <div id="calendar" data-formatted-events='{{ formattedEvents|raw }}'></div>
         </div>
         <div id="aside">
-            <div id="top-aside">
+            {# <div id="top-aside">
 
             </div>
             <div id="bottom-aside">
+            </div> #}
 
+            <div id="research">
+                <h3 class="text-n1">Browse through our activities<span>_</span></h3>
+        
+                <div id="wrapper">
+                    <form method="GET" action="{{ path('app_calendar') }}">
+                        <label for="keyword">By keyword:</label>
+                        <input type="text" id="keyword" name="keyword" placeholder="Search..." minlength="4" required>
+                        <button class="btn btn6" type="submit" name="formSearchKeyword" value="keyword" >Search</button>
+                    </form>
+                    
+                    <form method="GET" action="{{ path('app_calendar') }}">
+                        <label for="type">Choose a type:</label>
+                        <select id="type" name="type">
+                                <option value="" >Choose a type</option>
+                                <option value="event" >Event</option>
+                                <option value="expo" >Exposition</option>
+                                <option value="workshop" >Workshop</option>
+                        </select>
+                        <button class="btn btn6" type="submit" name="formSearchType" value="type" >Filter</button>
+                    </form>
+                    
+                    <form method="GET" action="{{ path('app_calendar') }}">
+                        <label for="status">Choose a status:</label>
+                        <select id="status" name="status">
+                                <option value="" >Choose a status</option>
+                                <option value="open" >OPEN</option>
+                                <option value="closed" >CLOSED</option>
+                                <option value="pending" >PENDING</option>
+                        </select>
+                        <button class="btn btn6" type="submit" name="formSearchStatus" value="status" >Filter</button>
+                    </form>
+                    
+                    <form method="GET" action="{{ path('app_calendar') }}">
+                        <label for="period">Choose a period:</label>
+                        <select id="period" name="period">
+                                <option value="" >Choose a period</option>
+                                <option value="week" > 1 week</option>
+                                <option value="days" > 30 days</option>
+                                <option value="months" >3 months</option>
+                        </select>
+                        <button class="btn btn6" type="submit" name="formSearchPeriod" value="period" >Filter</button>
+                    </form>
+        
+                </div>
+        
+                <form method="GET" action="{{ path('app_calendar') }}">
+                    <button class="btn btn6" type="submit" name="formResetType" value="reset">Reset</button>
+                </form >
+        
+                <div class="results-search-calendar">
+                    <h4 class="text-n2">Result of the search :</h4>
+                
+                    {% if results is not empty %}
+                        
+                            {% for result in results %}
+                            <div>
+                                {% if result.type is defined %}
+                                    {% if result.type == 'EXPO' %}
+                                        <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_exposition', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                    {% elseif result.type == 'EVENT' %}
+                                        <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_event', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_workshop', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% endif %}
+                                <p>{{result.startDate|formatDate}} - {{ result.status }}</p>
+                            </div>
+                            {% endfor %}
+                       
+                    {% elseif noResultsFound %}
+                        {# <p>No result found</p> #}
+                    {% endif %}
+                
+                    {% if resultsByKeywords is not empty %}
+                        {% for result in resultsByKeywords %}
+                        <div>
+                            {% if result.type is defined %}
+                                {% if result.type == 'EXPO' %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_exposition', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% elseif result.type == 'EVENT' %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_event', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% endif %}
+                            {% else %}
+                                <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_workshop', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                            {% endif %}
+                            <p>{{result.startDate|formatDate}} - {{ result.status }}</p>
+                        </div>
+                        {% endfor %}
+                    {% elseif noResultsFound %}
+                        {# <p>No result found</p> #}
+                    {% endif %}
+                
+                    {% if resultsByStatus is not empty %}
+                        {% for result in resultsByStatus %}
+                        <div>
+                            {% if result.type is defined %}
+                                {% if result.type == 'EXPO' %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_exposition', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% elseif result.type == 'EVENT' %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_event', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% endif %}
+                            {% else %}
+                                <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_workshop', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                            {% endif %}
+                            <p>{{result.startDate|formatDate}} - {{ result.status }}</p>
+                        </div>
+                        {% endfor %}
+                    {% elseif noResultsFound %}
+                        {# <p>No result found</p> #}
+                    {% endif %}
+                
+                    {% if resultsByPeriod is not empty %}
+                    {% for result in resultsByPeriod %}
+                        <div>
+                            {% if result.type is defined %}
+                                {% if result.type == 'EXPO' %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_exposition', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% elseif result.type == 'EVENT' %}
+                                    <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_event', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                                {% endif %}
+                            {% else %}
+                                <p class="name"> <span><i class="ri-arrow-right-s-fill"></i></span><a href="{{ path('show_workshop', { slug: result.slug }) }}">{{ result.name }}</a></p>
+                            {% endif %}
+                            <p>{{result.startDate|formatDate}} - {{ result.status }}</p>
+                        </div>
+                        {% endfor %}
+                    {% elseif noResultsFound %}
+                        {# <p>No result found</p> #}
+                    {% endif %}
+                
+                </div>
+                
+        
             </div>
         </div>
     </div>
+
+  
 
 </section>
 
@@ -36,98 +178,12 @@
     {{ form_row(formSearchType.type)}}
 {{ form_end(formSearchType)}} #}
 
-<form method="GET" action="{{ path('app_calendar') }}">
-    <label for="keyword">Search by keyword:</label>
-    <input type="text" id="keyword" name="keyword" placeholder="Search..." minlength="4" required>
-    <button type="submit" name="formSearchKeyword" value="keyword" >Search</button>
-</form>
-
-<form method="GET" action="{{ path('app_calendar') }}">
-    <label for="type">Choose a type:</label>
-    <select id="type" name="type">
-            <option value="" >Choose a type</option>
-            <option value="event" >Event</option>
-            <option value="expo" >Exposition</option>
-            <option value="workshop" >Workshop</option>
-    </select>
-    <button type="submit" name="formSearchType" value="type" >Filter</button>
-</form>
-
-<form method="GET" action="{{ path('app_calendar') }}">
-    <label for="status">Choose a status:</label>
-    <select id="status" name="status">
-            <option value="" >Choose a status</option>
-            <option value="open" >OPEN</option>
-            <option value="closed" >CLOSED</option>
-            <option value="pending" >PENDING</option>
-    </select>
-    <button type="submit" name="formSearchStatus" value="status" >Filter</button>
-</form>
-
-<form method="GET" action="{{ path('app_calendar') }}">
-    <label for="period">Choose a period:</label>
-    <select id="period" name="period">
-            <option value="" >Choose a period</option>
-            <option value="week" > 1 week</option>
-            <option value="days" > 30 days</option>
-            <option value="months" >3 months</option>
-    </select>
-    <button type="submit" name="formSearchPeriod" value="period" >Filter</button>
-</form>
 
 
 
-<div class="results-search-calendar">
-    <p>Result of the search :</p>
-
-    {% if results is not empty %}
-        <ul>
-            {% for result in results %}
-                <li>{{ result.name }}</li>
-            {% endfor %}
-        </ul>
-    {% elseif noResultsFound %}
-        <p>No result found</p>
-    {% endif %}
-
-    {% if resultsByKeywords is not empty %}
-        <ul>
-            {% for result in resultsByKeywords %}
-            <li>{{ result.name|e }}</li> {# Utiliser |e pour échapper les données pour prévenir les attaques XSS #}
-            {% endfor %}
-        </ul>
-    {% elseif noResultsFound %}
-        <p>No result found</p>
-    {% endif %}
-
-    {% if resultsByStatus is not empty %}
-        <ul>
-            {% for result in resultsByStatus %}
-            <li>{{ result.name|e }}</li> {# Utiliser |e pour échapper les données pour prévenir les attaques XSS #}
-            {% endfor %}
-        </ul>
-    {% elseif noResultsFound %}
-        <p>No result found</p>
-    {% endif %}
-
-    {% if resultsByPeriod is not empty %}
-        <ul>
-            {% for result in resultsByPeriod %}
-            <li>{{ result.name|e }}</li> {# Utiliser |e pour échapper les données pour prévenir les attaques XSS #}
-            {% endfor %}
-        </ul>
-    {% elseif noResultsFound %}
-        <p>No result found</p>
-    {% endif %}
-
-
-</div>
-
-<form method="GET" action="{{ path('app_calendar') }}">
-    <button type="submit" name="formResetType" value="reset">Reset</button>
-</form >
-
-
+{# <div class="fc-event-title fc-sticky">testimage</div> #}
 
 
 {% endblock %}
+
+

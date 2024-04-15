@@ -340,6 +340,30 @@
 
             p {
                 color: $grey-medium;
+                span {
+                    color: $secondary-color3;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: ease-in-out 0.3s;
+                    position: relative;
+        
+
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        bottom: -3px; 
+                        left: 0;
+                        width: 0; 
+                        height: 1px; 
+                        background-color: $secondary-color3; 
+                        transition: width 0.3s ease; 
+                    }
+        
+                    &:hover:before {
+                        color: $secondary-color;
+                        width: 100%;
+                    }
+                }
             }
         }
     }
@@ -390,10 +414,6 @@
         margin : 3rem 0rem;
     }
 
-    #event-show #details-event #expo-participate {
-        display: flex;
-        align-items: block;
-    }
 
     #event-show #details-event #info #list-infos {
         line-height: 1.9rem;
@@ -443,10 +463,6 @@
         margin : 3rem 0rem;
     }
 
-    #event-show #details-event #expo-participate {
-        display: flex;
-        align-items: block;
-    }
 
     #event-show #details-event #info #list-infos {
         line-height: 1.9rem;
@@ -503,6 +519,17 @@
     #list-info-workshop div {
         display: block;
 
+    }
+
+    
+}
+
+@media screen and (max-width:1400px) { 
+    #event-show #details-event #expo-participate {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 0.6rem;
     }
 }
 

@@ -1040,6 +1040,27 @@ html {
 #event-show #details-event #expo-participate p {
   color: #4c4545;
 }
+#event-show #details-event #expo-participate p span {
+  color: #207E93;
+  font-weight: 500;
+  cursor: pointer;
+  transition: ease-in-out 0.3s;
+  position: relative;
+}
+#event-show #details-event #expo-participate p span:before {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #207E93;
+  transition: width 0.3s ease;
+}
+#event-show #details-event #expo-participate p span:hover:before {
+  color: #eeaf42;
+  width: 100%;
+}
 
 #check-here {
   color: #eeaf42;
@@ -1068,10 +1089,6 @@ html {
   }
   #event-show #details-event #info {
     margin: 3rem 0rem;
-  }
-  #event-show #details-event #expo-participate {
-    display: flex;
-    align-items: block;
   }
   #event-show #details-event #info #list-infos {
     line-height: 1.9rem;
@@ -1107,10 +1124,6 @@ html {
   }
   #event-show #details-event #info {
     margin: 3rem 0rem;
-  }
-  #event-show #details-event #expo-participate {
-    display: flex;
-    align-items: block;
   }
   #event-show #details-event #info #list-infos {
     line-height: 1.9rem;
@@ -1150,6 +1163,14 @@ html {
   }
   #list-info-workshop div {
     display: block;
+  }
+}
+@media screen and (max-width: 1400px) {
+  #event-show #details-event #expo-participate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 0.6rem;
   }
 }
 @media screen and (min-width: 1200px) {

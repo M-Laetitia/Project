@@ -1098,16 +1098,12 @@ html {
   opacity: 0;
 }
 #subscription-page .subscription-card:hover {
-  background-color: #eeaf42;
   border-color: #eeaf42;
 }
-#subscription-page .subscription-card:hover h2, #subscription-page .subscription-card:hover p {
-  color: #151515;
-}
 #subscription-page .subscription-card:hover .btn {
-  background-color: #272727;
-  color: #eeaf42;
-  border-color: #272727;
+  background-color: #eeaf42;
+  color: #151515;
+  border-color: #eeaf42;
 }
 #subscription-page .subscription-card h2 {
   text-transform: uppercase;

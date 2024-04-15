@@ -9,8 +9,6 @@
 //  ██   ██ ███████  ██████  ██ ███████    ██    ███████ ██   ██
 // ---------------------------------
 
-
-
 .register-user {
     background-color: $grey-dark;
 
@@ -413,18 +411,12 @@ $grey-color: #272727;
         opacity: 0;
 
         &:hover {
-            background-color: $secondary-color;
-
             border-color: $secondary-color;
 
-            h2,p {
-                color: $main-black-color;
-            }
-
             .btn {
-                background-color: $grey-color;
-                color: $secondary-color;
-                border-color: $grey-color;
+                background-color: $secondary-color;
+                color: $main-black-color;
+                border-color: $secondary-color;
             }
         }
 

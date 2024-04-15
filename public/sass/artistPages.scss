@@ -222,20 +222,6 @@ img {
     }
 }
 
-// @media screen and (min-width:1200px) and (max-width:1560px) { 
-//     #artists-index {
-//         #artists-container {
-//             grid-template-columns: repeat(3, 1fr);
-//             gap: 2rem;
-  
-//             #hover2{
-//                 width: 25rem;
-//                 height:25rem;
-//             }
-//         }
-//     }
-// }
-
 
 
 //& ---------------------------------
@@ -276,6 +262,7 @@ img {
             display: flex;
             align-items: center;
             color : $main-white-color;
+            // width: 65% !important;
             opacity: 0;
 
             #quote-style {

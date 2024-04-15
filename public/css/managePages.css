@@ -931,19 +931,26 @@ html {
   color: #151515;
 }
 
-#dashboard-main .separator {
-  background-color: #c3b5b5;
-  width: 60%;
-  height: 2px;
-  margin: 1.7rem 0;
+#dashboard-main h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 3rem 0 0rem 3rem;
 }
-#dashboard-main #events h2, #dashboard-main #expos h2, #dashboard-main #workshop h2, #dashboard-main #studios h2 {
-  margin: 3rem 0 0.5rem 0;
+#dashboard-main .container-all {
+  padding-top: 2rem !important;
+  padding-bottom: 0rem !important;
 }
-#dashboard-main #events .ongoing, #dashboard-main #events .past-ones, #dashboard-main #expos .ongoing, #dashboard-main #expos .past-ones, #dashboard-main #workshop .ongoing, #dashboard-main #workshop .past-ones, #dashboard-main #studios .ongoing, #dashboard-main #studios .past-ones {
-  border-left: 4px solid #207E93;
-  padding: 1.5rem 0rem 1.5rem 1rem;
-  display: none;
+#dashboard-main .container-all div h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+#dashboard-main .container-all .table-user {
+  grid-template-columns: 32% 30% 8% 20% 10% !important;
+}
+#dashboard-main .community-stats div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
 }
 
 .dashboard-communauty .roles-user {
@@ -1134,13 +1141,30 @@ html {
   letter-spacing: 0.1rem;
 }
 
-#dashboard-detail h1, #dashboard-detail h2 {
+#dashboard-show {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  color: #151515;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  margin-top: 6rem;
+  padding: 3rem;
+}
+#dashboard-show #link-goBack {
+  margin-bottom: 2rem;
+  transition: ease-in-out 0.3s;
+}
+#dashboard-show #link-goBack:hover {
+  color: #207E93;
+}
+#dashboard-show h1, #dashboard-show h2 {
   margin-bottom: 0.6rem;
 }
-#dashboard-detail h1 span, #dashboard-detail h2 span {
+#dashboard-show h1 span, #dashboard-show h2 span {
   color: #eeaf42;
 }
-#dashboard-detail #info {
+#dashboard-show #info {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1149,23 +1173,33 @@ html {
   row-gap: 0.6rem;
   margin-bottom: 2rem;
 }
-#dashboard-detail .text {
+#dashboard-show .text {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
 }
-#dashboard-detail .text p:nth-child(2) {
+#dashboard-show .text p:nth-child(2) {
   background-color: #e0e0e0;
   padding: 0.6rem;
   text-align: justify;
 }
-#dashboard-detail #actions {
+#dashboard-show #actions {
   display: flex;
   flex-direction: row;
   column-gap: 1.2rem;
 }
-#dashboard-detail #actions i {
+#dashboard-show #actions i {
   margin-right: 0.1rem;
+}
+
+.dashboard-studios .element div {
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+  transition: ease-in-out 0.3s;
+}
+.dashboard-studios .element div a:hover {
+  color: #207E93;
 }
 
 /*# sourceMappingURL=managePages.css.map */

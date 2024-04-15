@@ -1489,7 +1489,7 @@ footer #footer-links {
 }
 footer #footer-links-conditions {
   display: flex;
-  column-gap: 7rem;
+  column-gap: 5rem;
   letter-spacing: 0.3rem;
   font-weight: 300;
   font-size: 0.9rem;

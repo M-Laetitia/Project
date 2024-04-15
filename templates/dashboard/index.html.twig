@@ -34,7 +34,8 @@
             <a href="{{ path('list_events') }}"><div><i class="ri-artboard-2-fill"></i><p>events</p> </div></a>
             <a href="{{ path('list_expos') }}"><div><i class="ri-artboard-fill"></i></i><p>expositions</p> </div></a>
             <a href="{{ path('list_workshops') }}"><div><i class="ri-palette-fill"></i><p>workshops</p> </div></a>
-            <div><i class="ri-home-heart-fill"></i><p>studios</p></div>
+            <a href="{{ path('list_studios') }}"><div><i class="ri-home-heart-fill"></i><p>studios</p> </div></a>
+            
             {# <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
             <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div> #}
         </div>
@@ -51,34 +52,154 @@
             <div class="separator-line"></div>
         </div>
 
+           <h2>Ongoing Activities<span>_</span></h2>
+            
+            <div class="container-all dashboard-events">
+                <div class="container" id="supervisor-users">
+                    <h3>Events</h3>
+                    {% if currentEvents is not empty %}
+                        <div class="table-user head" >
+                            <p>Name</p>
+                            <p>Date</p>
+                            <p>Capacity</p>
+                            <p>Status</p>
+                            <p>Actions</p>
+                        </div>
+        
+                        <div class="table-user body">
+                            {% for event in currentEvents %}                 
+                                <p class="even">{{event.name}}</p>
+                                <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
+                                <p class="even">{{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
+                                {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
+    
+                                <p class="odd">
+                                    <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                        (event.status == 'CLOSED' ? 'closed' : 
+                                                        (event.status == 'PENDING' ? 'pending' : 
+                                                        (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                        {{ event.status }} 
+                                    </span>
+                                    {{ event.access }}
+                                </p>
+    
+                                <div class="actions even">
+                                    <p><a href="{{ path('show_expo_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                    <p><a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                    <p><a href="{{ path('delete_event', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                                </div>
+                                                    
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>nothing</p>
+                    {% endif %}
+                </div>
+        
+                
+                <div class="container" id="supervisor-users">
+                    <h3>Events</h3>
+                    {% if currentExpos is not empty %}
+                        <div class="table-user head" >
+                            <p>Name</p>
+                            <p>Date</p>
+                            <p>Capacity</p>
+                            <p>Status</p>
+                            <p>Actions</p>
+                        </div>
+        
+                        <div class="table-user body">
+                            {% for event in currentExpos %}                 
+                                <p class="even">{{event.name}}</p>
+                                <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}</p>
+                                <p class="even">{{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
+                                {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
+    
+                                <p class="odd">
+                                    <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                        (event.status == 'CLOSED' ? 'closed' : 
+                                                        (event.status == 'PENDING' ? 'pending' : 
+                                                        (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                        {{ event.status }} 
+                                    </span>
+                                    {{ event.access }}
+                                </p>
+    
+                                <div class="actions even">
+                                    <p><a href="{{ path('show_expo_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                    <p><a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                    <p><a href="{{ path('delete_event', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                                </div>
+                                                    
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    <p>There is no expositions at this moment.</p>
+                    {% endif %}
+                </div>
 
-        <div id="container-all">
+                <div class="container" id="supervisor-users">
+                    <h3>Workshops</h3>
+                    {% if currentWorkshops is not empty %}
+                        <div class="table-user head" >
+                            <p>Name</p>
+                            <p>Date</p>
+                            <p>Capacity</p>
+                            <p>Status</p>
+                            <p>Actions</p>
+                        </div>
+        
+                        <div class="table-user body">
+                            {% for event in currentWorkshops %}                 
+                                <p class="even">{{event.name}}</p>
+                                <p class="odd">{{event.startDate|formatDate}} - {{event.startDate|date('H:i')}}
+                                                {{event.endDate|formatDate}} - {{event.endDate|date('H:i')}}
+                                </p>
+                                <p class="even">{{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
+                                {# <p class="odd">{{event.status}} - {{event.access}}</p> #}
     
-           
-       
-             {# STUDIOS #}
-             <div id="studios">
-                <div>
-                    <h2 class="text-n2" id="event">Studios<span>_</span></h2>
-                    {# <p><a class="btn btn6" href="{{ path('new_event') }}"><i class="fa-solid fa-plus"></i> New Event</a></p> #}
-                </div>
-                <p class="text-n3"><i class="fa-solid fa-circle-chevron-down"></i></span></p>
-                                
-                <div class="ongoing">
-                    {% for studio in studios %}
-                    <div class="element">
-                        <p>
-                            <a href="{{ path('show_studio_admin', {slug : studio.slug}) }}"><span class="name">✦{{studio.name}}</span></a>
-                        </p>
-                        <p><a href="{{ path('edit_studio', {slug : studio.slug}) }}">EDIT</a></p>
-                        <p>Capacity: {{studio.nbRooms}} </p>
-                    </div>
-                    <hr>
-                    {% endfor %}
-                </div>
+                                <p class="odd">
+                                    <span class="status {{ event.status == 'OPEN' ? 'open' : 
+                                                        (event.status == 'CLOSED' ? 'closed' : 
+                                                        (event.status == 'PENDING' ? 'pending' : 
+                                                        (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
+                                        {{ event.status }} 
+                                    </span>
+                                    {{ event.access }}
+                                </p>
     
+                                <div class="actions even">
+                                    <p><a href="{{ path('show_expo_admin', {slug : event.slug}) }}"><i class="fa-solid fa-magnifying-glass"></i></a></p>
+                                    <p><a href="{{ path('edit_event', {'id' : event.id}) }}"><i class="fa-solid fa-pen-to-square"></i></a></p>
+                                    <p><a href="{{ path('delete_event', {slug: event.slug }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                                </div>
+                                                    
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    <p>There is no workshops at this moment.</p>
+                    {% endif %}
+                </div>
+
             </div>
-    
+
+            <h2>Community<span>_</span></h2>
+
+            <div class="container-all  community-stats">
+                <div>
+                    <p>Numbers of users : {{ usersCount }}</p>
+                    {# <p>Numbers of users connected : </p> #}
+                    <p>Numbers of users connected during this week : {{usersLoggedThisWeek}}</p>
+                    <br>
+                    <p>Numbers of artists : {{artistsCount}}</p>
+                    <p>Numbers of artist pages : {{ artistspageCount }} </p>
+                    <p>Numbers of supervisors : {{supervisorsCount}}</p>
+                </div>
+
+
+            </div>
+
+
         </div>
     </div>
 

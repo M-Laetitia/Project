@@ -16,12 +16,11 @@
 </div>
 
 <div class="breadcrumb breadcrumb-dark">
-    <p><a href="{{ path('app_homepage') }}">Home </a> > All Events </p>
+    <p><a href="{{ path('app_home') }}">Home </a> > All Events </p>
 </div>
 
 <section class="content" id="events-index">
     {% for event in ongoingEvents %}
-
         <div class="container-event">
             <div id="picture-event">
                 <figure>
@@ -34,22 +33,18 @@
                 <div id="details-event">
                     <p><span>Date : </span> {{event.startDate|formatDate}} <span>|</span> {{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p> 
                     <p><span>Statut : </span>
-                    
                         <span class="status {{ event.status == 'OPEN' ? 'open' : 
                         (event.status == 'CLOSED' ? 'closed' : 
                         (event.status == 'PENDING' ? 'pending' : 
                         (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
                         {{ event.status }}
                         </span>
-
                     </p>
                     <p><span>Access : </span> {{event.access}}</p>
                     <p><span>Capacity : </span> {{event.nbReversationMade}}  /  {{event.nbRooms}}</p>
-
                 </div>
                 <div id="btn-event">
                     <div class="button btn6"><a href="{{ path('show_event', { slug : event.slug  }) }}">LEARN MORE</a></div>
-                    
                 </div>
             </div>
         </div>

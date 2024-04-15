@@ -26,26 +26,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ParticipationController extends AbstractController
 {
-    // #[Route('/participation', name: 'app_participation')]
-    // public function index(): Response
-    // {
-    //     return $this->render('participation/index.html.twig', [
-    //         'controller_name' => 'ParticipationController',
-    //     ]);
-    // }
 
     // ^ Make a participation for an exposition
-    #[Route('/expostion/{id}/new', name: 'new_exposition_participation')]
-    public function newExpo(AreaParticipation $areaParticipation = null, Area $area, AreaRepository $areaRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
+    #[Route('/exposition/{id}/new', name: 'new_exposition_participation')]
+    public function newExpo(AreaParticipation $areaParticipation = null, Area $area, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService) :Response
     {
 
         $user = $security->getUser();
-
         $form = $this->createForm(AreaParticipationType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() ) {
-
             // Check if the maximum number of participants has been reached
             $maxParticipants = $area->getNbRooms();
             $currentParticipants = $area->getNbReversationMade();
@@ -83,26 +74,18 @@ class ParticipationController extends AbstractController
                     $entityManager->flush();
                 }
     
-                // ! redirect sur une nouvelle page pour dire que c'est un succès, qu'un mail a été envoyé, + récup pdf
                 $this->addFlash('success', 'You have been successfully registered for this exposition. A confirmation e-mail has been sent to you.');
-
                 return $this->redirectToRoute('app_exposition');
 
             } else {
-                // Redirect / display a message indicating that the maximum number of participants has been reached
-                // return $this->render('exposition/maxParticipantsReached.html.twig');
-                //! redirection ver detail expo ou liste expo?
                 return $this->redirectToRoute('app_exposition');
             }
-
-        
         }
 
         return $this->render('exposition/newParticipation.html.twig', [
             'formSendParticipation' => $form,
             'user' => $user,
             'area' => $area,
-
         ]);
     }
 

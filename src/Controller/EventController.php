@@ -28,7 +28,6 @@ class EventController extends AbstractController
     {
 
         
-
         $ongoingEvents = $areaRepository->findBy([
             'type' => 'EVENT',
             'status' => ['OPEN', 'PENDING', 'CLOSED'],
@@ -294,38 +293,37 @@ class EventController extends AbstractController
     
 
     
-    // ^ show event (user)
-    // on nomme l'id id pour utiliser le paramConverter - faire le lien avec l'object qu'on souhaite facilement
+    // & show event
+    // Définit une route pour afficher un événement en utilisant son slug
     #[Route('archived/event/{slug}', name: 'show_archived_event')]
     #[Route('/event/{slug}', name: 'show_event')]
     public function show(Area $area = null, User $user = null, AreaRepository $areaRepository,  AreaParticipationRepository $areaParticipationRepository, Security $security): Response 
     {
-
+        // Récupérer l'objet Area (événement) en fonction du slug passé en paramètre
         $area = $areaRepository->findOneBy(['slug' => $area->getslug()]);
-        // check if the area (= event) exists
+        // vérifier si l'area (ici un event) existe 
         if (!$area) {
-            // if not, redirect to the error page
+            // Si non, rediriger vers la page d'erreur
             return $this->render('error/error404.html.twig', [], new Response('', Response::HTTP_NOT_FOUND));
         }
-
         $areaId = $area->getId();
-
+        // Vérifier si un utilisateur est connecté
         if($user = $security->getUser()) {
             $userId = $user->getId();
             $existingParticipation = [];
+            // Vérifier si l'utilisateur a déjà une participation à cet événement
             $hasExistingParticipation = $areaParticipationRepository->findOneBy(['user' => $user->getId(), 'area' => $areaId]);
             $existingParticipation = $hasExistingParticipation !== null;
 
+            // Retourner la vue de l'événement avec l'information sur la participation
             return $this->render('event/show.html.twig', [
                 'area' => $area,
                 'existingParticipation' => $existingParticipation
             ]);
-
         }
-
+        // Si aucun utilisateur n'est connecté, simplement retourner la vue de l'événement
         return $this->render('event/show.html.twig', [
             'area' => $area,
-
         ]);
     }
 

@@ -37,6 +37,7 @@ class CalendarController extends AbstractController
             $formattedEvents[] = [
                 'id' => $event->getId(),
                 'title' => $event->getName(),
+                'type' => $event->getType(),
                 'start' => $event->getStartDate()->format('Y-m-d H:i:s'),
                 'end' => $event->getEndDate()->format('Y-m-d H:i:s'),
                 'slug' => $event->getSlug(),
@@ -57,6 +58,7 @@ class CalendarController extends AbstractController
             $formattedEvents[] = [
                 'id' => $expo->getId(),
                 'title' => $expo->getName(),
+                'type' => $expo->getType(),
                 'start' => $expo->getStartDate()->format('Y-m-d H:i:s'),
                 'end' => $expo->getEndDate()->format('Y-m-d H:i:s'),
                 'slug' => $expo->getSlug(),
@@ -75,6 +77,7 @@ class CalendarController extends AbstractController
             $formattedEvents[] = [
                 'id' => $workshop->getId(),
                 'title' => $workshop->getName(),
+                'type' => 'WORKSHOP',
                 'start' => $workshop->getStartDate()->format('Y-m-d H:i:s'),
                 'end' => $workshop->getEndDate()->format('Y-m-d H:i:s'),
                 'slug' => $workshop->getSlug(),

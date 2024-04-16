@@ -1,167 +1,150 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Explore Past Activities - MOSAIC{% endblock %}
-{% block meta %}Discover a treasure trove of past activities on MOSAIC. Browse through archived events, exhibitions, and workshops to see what our community has experienced. Click on any event to delve into its details and relive the memories. Start exploring now!{% endblock %}
+{% block meta %}Explore MOSAIC's archived events, exhibitions, and workshops for a treasure trove of past activities. Click on any event to delve into its details and relive the memories.{% endblock %}
 
 {% block body %}
 
-<h1>Catégories </h1>
-<div id="categories-past-events">
-    <p id="showAllEvents">Events</p>
-    <p id="showAllExpos" >Expositions</p>
-    <p id="showAllWorkshops" >workshops</p>
-    <p id="showAll" >All</p>
-    <br>
-    <br>
-    <br>
+<div class="banner">
+    <div class="content">
+        <h1 class="banner-title">Past activites</h1>
+        <div class="subtitle">
+            <p class="banner-text">Be a time traveller</p>
+            <div class="underscore-blink"> </div>
+        </div>
+    </div>
 </div>
 
-<h1> 5 lastest events</h1>
-<div id="all-previous">
+<section class="content" id="archives">
 
-    {% for latestEvent in latestEvents %}
-        <p>{{latestEvent.name}}</p>
-    {% endfor %}
-</div>
 
-<h1>all last events</h1>
-<div id="eventContainer"></div>
+    <div class="categories" id="categories-past-events">
+        <p id="showAllEvents">Events</p>
+        <p id="showAllExpos" >Expositions</p>
+        <p id="showAllWorkshops" >workshops</p>
+        <p id="showAll" >All</p>
 
-<h1>all last workshops</h1>
-<div id="workshopContainer"></div>
+        <button id="reset-btn" type="submit" name="formResetType" value="reset">Reset</button>
+    </div>
 
-<h1>all last expositions</h1>
-<div id="expoContainer"></div>
+    {# <h2 class="text-n2">Our latest Art activities<span>_</span></h2> #}
+    <div id="container-last-events">
+        
+        {% for latestEvent in latestEvents %}
+        <div class="event-container event-container-animation">
+            <figure>
+                <img src="{{ asset('images/event_img.jpg') }}" alt="">
+            </figure>
+            <div class="content">
+                {% if latestEvent.type is defined and latestEvent.type == 'EVENT' %}
+                    <p class="type">Event</p>
+                    <h2 class="text-n2">{{latestEvent.name}}<span>_</span></h2>
+                    <p>{{latestEvent.startDate|formatDate}} <span> | </span> {{latestEvent.endDate|formatDate}} </p>
+                {% elseif latestEvent.type is defined and latestEvent.type == 'EXPO' %}
+                    <p class="type">exposition</p>
+                    <h2 class="text-n2">{{latestEvent.name}}<span>_</span></h2>
+                        <p>{{latestEvent.startDate|formatDate}} <span> | </span> {{latestEvent.endDate|formatDate}}</p>
+                {% else %}
+                    <p class="type">workshop</p>
+                    <h2 class="text-n2">{{latestEvent.name}}<span>_</span></h2>
+                    <p>{{latestEvent.startDate|formatDate}} <span> | </span> {{latestEvent.endDate|formatDate}}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
 
-<h1>all</h1>
-<div id="allContainer"></div>
+    </div>
+
+    <div id="container-archives">
+        <div id="results-archives"></div>
+    </div>
+</section>
 
 
 <script>
 
+    $(document).ready(function() {
+        $('#reset-btn').click(function() {
+            window.location.reload(); // Recharge la page actuelle
+        });
+     });
+
     // ARCHIVED EVENTS
     $(document).ready(function() {
-        // Variable to track the state of event display
-        var eventsVisible = false;
-    
-        // Function to load or hide events
-        function toggleEvents() {
-            if (eventsVisible) {
-                // If events are already displayed, hide them
-                $('#eventContainer').empty();
-                eventsVisible = false;
-            } else {
-                // Otherwise, load events and display them
-                $.ajax({
-                    url: '/all-past-events',
-                    method: 'POST',
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#eventContainer').empty();
-                        response.forEach(function(event) {
-                            $('#eventContainer').append('<p>' + event.name + ' ||' + event.date + '</p>');
-                        });
-                        eventsVisible = true;
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error while retrieving past events :', error);
-                    }
-                });
+        function toggleEvents(url) {
+            var container = $('#container-last-events');
+            if (container.css('display') !== 'none') {
+                container.css('display', 'none');
             }
-        }
-        // Attach a click handler to the button to load or hide events
-        $('#showAllEvents').click(toggleEvents);
-    });
-
-
-
-     // ARCHIVED EXPO
-     $(document).ready(function() {
-        var exposVisible = false;
+            $.ajax({
+                url: url,
+                method: 'POST',
+                dataType: 'json',
+                success: function(response) {
+                    $('#results-archives').empty();
+                    response.forEach(function(item) {
+                        var eventType = '';
+                        if (item.type === 'EVENT') {
+                            eventType = 'Event';
+                        } else if (item.type === 'EXPO') {
+                            eventType = 'exposition';
+                        } else {
+                            eventType = 'workshop';
+                        }
     
-        function toggleEvents() {
-            if (exposVisible) {
-                $('#expoContainer').empty();
-                exposVisible = false;
-            } else {
-                $.ajax({
-                    url: '/all-past-expositions',
-                    method: 'POST',
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#expoContainer').empty();
-                        response.forEach(function(expo) {
-                            $('#expoContainer').append('<p>' + expo.name + '</p>');
-                        });
-                        exposVisible = true;
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error while retrieving past expositions :', error);
-                    }
-                });
-            }
+                        var html = '<div class="event-container">' +
+                            '<figure>' +
+                            '<div></div>' +
+                            '</figure>' +
+                            '<div class="content">' +
+                            '<p class="type">' + eventType + '</p>' +
+                            '<h2 class="text-n2">' + item.name + '<span>_</span></h2>' +
+                            '<p>' + item.startDate + ' <span> | </span> ' + item.endDate + '</p>' +
+                            '</div>' +
+                            '</div>';
+    
+                        $('#results-archives').append(html);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error while retrieving past content :', error);
+                }
+            });
         }
-        $('#showAllExpos').click(toggleEvents);
+    
+        $('#showAllWorkshops').click(function() {
+            toggleEvents('/all-past-workshops');
+        });
+
+        $('#showAllExpos').click(function() {
+            toggleEvents('/all-past-expositions');
+        });
+
+
+        $('#showAllEvents').click(function() {
+            toggleEvents('/all-past-events');
+        });
+    
+        $('#showAll').click(function() {
+            toggleEvents('/all-past-content');
+        });
     });
 
     
-    // ARCHIVED WORKSHOPS
+    gsap.from('.categories', 1.2, {opacity: 0, delay: 0.4 });
+
     $(document).ready(function() {
-        var workshopsVisible = false;
-    
-        function toggleEvents() {
-            if (workshopsVisible) {
-                $('#workshopContainer').empty();
-                workshopsVisible = false;
-            } else {
-                $.ajax({
-                    url: '/all-past-workshops',
-                    method: 'POST',
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#workshopContainer').empty();
-                        response.forEach(function(workshop) {
-                            $('#workshopContainer').append('<p>' + workshop.name + '</p>');
-                        });
-                        workshopsVisible = true;
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error while retrieving past workshops :', error);
-                    }
-                });
-            }
-        }
-        $('#showAllWorkshops').click(toggleEvents);
-    });
+        // Select the first four images and add the "visible" class to them
+        $('.event-container-animation:lt(4)').addClass('visible');
+        // Trigger animation for the remaining images based on scroll
+        $(window).scroll(function() {
+            $('.event-container-animation:not(.visible)').each(function() {
+                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                    $(this).addClass('visible');
+                }
+            });
+        });
 
-
-    // ALL
-    $(document).ready(function() {
-        var allContentVisible = false;
-    
-        function toggleEvents() {
-            if (allContentVisible) {
-                $('#allContainer').empty();
-                allContentVisible = false;
-            } else {
-                $.ajax({
-                    url: '/all-past-content',
-                    method: 'POST',
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#allContainer').empty();
-                        response.forEach(function(item) {
-                            $('#allContainer').append('<p>' + item.name + '</p>');
-                        });
-                        allContentVisible = true;
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error while retrieving past content :', error);
-                    }
-                });
-            }
-        }
-        $('#showAll').click(toggleEvents);
     });
 
 

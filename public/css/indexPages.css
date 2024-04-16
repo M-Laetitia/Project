@@ -538,6 +538,7 @@ html {
 .hover2:hover #text2 {
   opacity: 1;
   top: 50%;
+  display: flex;
 }
 
 .hover2 #text2 span {
@@ -989,6 +990,7 @@ html {
 }
 #event-show #details-event #about-event h3 {
   margin-bottom: 2.5rem;
+  text-align: left;
 }
 #event-show #details-event #about-event #subtitle {
   color: #207E93;

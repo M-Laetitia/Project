@@ -538,6 +538,7 @@ html {
 .hover2:hover #text2 {
   opacity: 1;
   top: 50%;
+  display: flex;
 }
 
 .hover2 #text2 span {

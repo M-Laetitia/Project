@@ -539,6 +539,7 @@ html {
 .hover2:hover #text2 {
   opacity: 1;
   top: 50%;
+  display: flex;
 }
 
 .hover2 #text2 span {
@@ -1301,12 +1302,26 @@ nav .nav-menu a:hover div:nth-child(3) {
 }
 @media (min-width: 1200px) and (max-width: 1400px) {
   nav .nav-links {
-    margin-right: 5rem;
+    margin-right: 1rem;
+  }
+  nav {
+    grid-template-columns: 19% 73% 4% 4% !important;
+  }
+}
+@media (min-width: 1300px) {
+  .nav-links {
+    margin-right: 0rem;
+  }
+  nav {
+    grid-template-columns: 25% 67% 4% 4% !important;
   }
 }
 @media (min-width: 1401px) {
+  .nav-links {
+    margin-right: 0rem;
+  }
   nav {
-    grid-template-columns: 39% 55% 3% 3%;
+    grid-template-columns: 32% 60% 4% 4% !important;
   }
 }
 @media screen and (max-width: 1200px) {
@@ -1516,7 +1531,7 @@ footer #name-rights {
   color: #eeaf42;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px) {
+@media screen and (min-width: 320px) and (max-width: 560px) {
   .banner {
     margin-bottom: 6rem;
   }

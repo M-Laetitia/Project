@@ -538,6 +538,7 @@ html {
 .hover2:hover #text2 {
   opacity: 1;
   top: 50%;
+  display: flex;
 }
 
 .hover2 #text2 span {
@@ -849,6 +850,16 @@ html {
 }
 #artists-index #artists-container .hover2 img {
   object-fit: cover;
+}
+#artists-index #reset-btn {
+  text-transform: uppercase;
+  border: 1px solid #eeaf42;
+  font-weight: 500;
+  padding: 0 0.6rem;
+  transition: ease-in-out 0.3s;
+}
+#artists-index #reset-btn:hover {
+  background-color: #eeaf42;
 }
 
 img {
@@ -1378,6 +1389,19 @@ img {
   width: 100%;
 }
 
+#artist_profile #see-page {
+  background-color: #207E93;
+  border: 1px solid #207E93;
+  color: #F9F9F9;
+  padding: 0.6rem;
+  font-weight: 500;
+  transition: ease-in-out 0.3s;
+}
+#artist_profile #see-page:hover {
+  background-color: #F9F9F9;
+  border: 1px solid #207E93;
+  color: #207E93;
+}
 #artist_profile #artist-infos {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
   position: relative;

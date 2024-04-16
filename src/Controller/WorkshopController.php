@@ -331,10 +331,14 @@ class WorkshopController extends AbstractController
         // Convert objects to associative arrays
         $workshopsArray = [];
         foreach ($pastWorkshops as $workshop) {
+            $formattedStartDate = $workshop->getStartDate()->format('d-m-Y');
+            $formattedEndDate = $workshop->getEndDate()->format('d-m-Y');
             $workshopsArray[] = [
                 'id' => $workshop->getId(),
                 'name' => $workshop->getName(),
                 'slug' => $workshop->getSlug(),
+                'startDate' => $formattedStartDate,
+                'endDate' =>  $formattedEndDate,
             ];
         }
 

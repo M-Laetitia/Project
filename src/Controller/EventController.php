@@ -379,12 +379,14 @@ class EventController extends AbstractController
         // Convert objects to associative arrays
         $eventsArray = [];
         foreach ($pastEvents as $event) {
-            $formattedDate = $event->getStartDate()->format('d-m-Y H:i');
+            $formattedStartDate = $event->getStartDate()->format('d-m-Y');
+            $formattedEndDate = $event->getEndDate()->format('d-m-Y');
             $eventsArray[] = [
                 'id' => $event->getId(),
                 'name' => $event->getName(),
                 'slug' => $event->getSlug(),
-                'date' => $formattedDate,
+                'startDate' => $formattedStartDate,
+                'endDate' => $formattedEndDate,
             ];
         }
 
@@ -401,12 +403,14 @@ class EventController extends AbstractController
         // Convert objects to associative arrays
         $pastContentArray = [];
         foreach ($pastContent as $content) {
-            $formattedDate = $content->getStartDate()->format('d-m-Y H:i');
+            $formattedStartDate = $content->getStartDate()->format('d-m-Y');
+            $formattedEndDate = $content->getEndDate()->format('d-m-Y');
             $pastContentArray[] = [
                 'id' => $content->getId(),
                 'name' => $content->getName(),
                 'slug' => $content->getSlug(),
-                'date' => $formattedDate,
+                'startDate' => $formattedStartDate,
+                'endDate' => $formattedEndDate,
             ];
         }
 

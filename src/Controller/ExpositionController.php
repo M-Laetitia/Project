@@ -508,10 +508,15 @@ class ExpositionController extends AbstractController
         // Convert objects to associative arrays
         $exposArray = [];
         foreach ($pastExpos as $expo) {
+            $formattedStartDate = $expo->getStartDate()->format('d-m-Y');
+            $formattedEndDate = $expo->getEndDate()->format('d-m-Y');
             $exposArray[] = [
                 'id' => $expo->getId(),
                 'name' => $expo->getName(),
                 'slug' => $expo->getSlug(),
+                'startDate' => $formattedStartDate,
+                'endDate' =>  $formattedEndDate,
+                'type' => $expo->getType(),
             ];
         }
 

@@ -99,12 +99,24 @@ class ArtistType extends AbstractType
                 'label' => 'Biography : ',
                 'mapped' => false,
                 'required' => false, 
+                'constraints' => [
+                    new Length([
+                        'max' => 1500, 
+                        'maxMessage' => 'The biography cannot be longer than {{ limit }} characters.',
+                    ]),
+                ],
             ])
 
             ->add('quote', TextType::class, [
                 'label' => 'Quote : ',
                 'mapped' => false,
                 'required' => false, 
+                'constraints' => [
+                    new Length([
+                        'max' => 150, 
+                        'maxMessage' => 'The biography cannot be longer than {{ limit }} characters.',
+                    ]),
+                ],
             ])
 
             ->add('website', UrlType::class, [

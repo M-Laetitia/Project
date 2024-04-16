@@ -841,7 +841,6 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 5rem;
-  cursor: pointer;
 }
 #artists-index #artists-container .hover2 {
   width: 23.5rem;

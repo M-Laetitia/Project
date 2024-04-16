@@ -1022,4 +1022,113 @@ html {
   justify-content: flex-end;
 }
 
+#archives {
+  column-gap: 3rem;
+  margin-bottom: 25rem;
+}
+#archives h2 {
+  margin-bottom: 1rem;
+  transition: ease-in-out 0.3s;
+}
+#archives h2:hover {
+  color: #207E93;
+}
+#archives .event-container-animation {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 2s ease, transform 2s ease;
+}
+#archives .event-container-animation.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+#archives .categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5rem;
+  padding-bottom: 2.5rem;
+}
+#archives .categories p {
+  transition: ease-in-out 0.3s;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+#archives .categories p:hover {
+  color: #207E93;
+  transform: translateY(-5px);
+}
+#archives #reset-btn {
+  text-transform: uppercase;
+  border: 1px solid #eeaf42;
+  font-weight: 500;
+  padding: 0 0.6rem;
+  transition: ease-in-out 0.3s;
+}
+#archives #reset-btn:hover {
+  background-color: #eeaf42;
+}
+
+#container-last-events, #results-archives {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+}
+
+.event-container {
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 2px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  width: 18rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.event-container:hover .type {
+  right: 0;
+  transition: right 0.4s ease-in-out;
+}
+.event-container:hover img {
+  transform: translateX(5px);
+}
+.event-container figure {
+  width: 105%;
+  height: 14rem;
+  background-color: red;
+  overflow: hidden;
+}
+.event-container figure img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: ease-in-out 0.6s;
+}
+.event-container .content {
+  width: 18rem;
+  height: 6rem;
+  padding: 0.6rem;
+}
+.event-container .content span {
+  color: #eeaf42;
+  font-weight: 600;
+}
+.event-container .type {
+  background-color: #eeaf42;
+  display: inline-block;
+  width: 8rem;
+  padding-right: 0.6rem;
+  text-align: right;
+  position: absolute;
+  top: 14px;
+  right: -130px;
+  transition: right 0.6s ease-in-out;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 /*# sourceMappingURL=events.css.map */

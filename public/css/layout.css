@@ -1316,12 +1316,20 @@ nav .nav-menu a:hover div:nth-child(3) {
     grid-template-columns: 25% 67% 4% 4% !important;
   }
 }
-@media (min-width: 1401px) {
+@media (min-width: 1401px) and (max-width: 1600px) {
   .nav-links {
     margin-right: 0rem;
   }
   nav {
     grid-template-columns: 32% 60% 4% 4% !important;
+  }
+}
+@media (min-width: 1600px) {
+  .nav-links {
+    margin-right: 0rem;
+  }
+  nav {
+    grid-template-columns: 38% 54% 4% 4% !important;
   }
 }
 @media screen and (max-width: 1200px) {

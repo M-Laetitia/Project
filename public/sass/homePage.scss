@@ -435,7 +435,7 @@
     }
     #quote #wrapper {
         width: 90%;
-        padding: 2rem 0 2rem 0;
+        padding: 2rem 0 0rem 0;
         font-size: 0.8rem;
         height: 5rem;
     }
@@ -445,6 +445,19 @@
         line-height: 2.6rem;
     }
 
+    #quote-artist #wrapper div {
+        min-height: 12rem !important;
+    }
+
+    #quote-artist #dots {
+        padding-left: 4rem;
+        column-gap: 10px;
+        margin: 0;
+    }
+
+    #quote-artist #wrapper div .quote #name-categ {
+        margin-top: 1rem;
+    }
     
     #quote #pattern {
         background-size: auto 136%;
@@ -487,6 +500,10 @@
         padding: 1rem 0 1rem 0;
         font-size: 1.8rem;
     }
+
+    #quote-artist {
+        margin-bottom: 3rem !important;
+    } 
     #quote-artist #wrapper div > div:nth-child(1) i {
         display: none;
     }
@@ -529,6 +546,7 @@
         display: flex;
         width: 90%;
         height: 100%;
+        column-gap: 3rem
     }
     #slides .slide .slide-text .title-text span {
         font-size: 80px;
@@ -580,6 +598,8 @@
     #quote #wrapper > div:nth-child(2) {
         font-size: 2.3rem;
     }
+
+
     #carousel #content .infos h4 {
         font-size: 1.6rem;
     }
@@ -606,6 +626,12 @@
         padding: 2rem 0 1rem 0;
         font-size: 1.8rem;
     }
+
+    #quote-artist {
+        margin-bottom: 3rem !important;
+    }
+
+
     #quote-artist #wrapper div .quote {
         font-size: 1.7rem;
     }

@@ -339,7 +339,7 @@ class CalendarController extends AbstractController
         });
 
         //Extracts the first five elements from the array.
-        $latestEvents = array_slice($allPastEvents, 0, 5);
+        $latestEvents = array_slice($allPastEvents, 0, 4);
 
         return $this->render('calendar/archives.html.twig', [
              'latestEvents' => $latestEvents,

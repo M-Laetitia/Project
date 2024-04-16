@@ -30,6 +30,10 @@
   </url>
 
   <url>
+    <loc>https://127.0.0.1:8000/archives</loc>
+  </url>
+
+  <url>
     <loc>https://127.0.0.1:8000/artist/new</loc>
   </url>
 

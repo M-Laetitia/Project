@@ -19,6 +19,9 @@
 
     <div id="artist-infos">
 
+        
+        <a href="{{ path('show_artist', {slug: artist.slug}) }}"><button id="see-page">SEE PAGE</button></a>
+
         {# GENERAL INFOS ____________________________________________#}
         {# _________________________________________________________ #}
         <h2 class="text-n2">General informations<span>_</span></h2>
@@ -45,7 +48,7 @@
         <div class="sections-artist">
 
             {% if artist.artistInfos.bio is defined %}
-                <p><span>Biography :</span></p>  
+                <p><span>Biography - Tell us a little about you (1500 characters maximum)</span></p>  
                 <div class="text">
                     <p>{{ artist.artistInfos.bio }}</p>
                 </div>
@@ -55,7 +58,7 @@
     
             {# QUOTE #}
             {% if artist.artistInfos.quote is defined %}
-                <p><span>Quote :</span></p>
+                <p><span>Quote - Say something inspirational (150 characters maximum)</span></p>
                 <div class="text">
                     <p>{{ artist.artistInfos.quote }}</p>
                 </div>    
@@ -107,7 +110,7 @@
                 <p><span>Shop or Gallery (name) :</span></p>
             {% endif %}
         
-                
+             <br><p style="font-weight: 500;"> <span style="color: #F14D4C;">▸</span>By sharing those informations, you agree to appear on the interactive map</p>    
             {% if artist.artistInfos.address.country is defined %}
                 <p><span>Country :</span> {{ artist.artistInfos.address.country }}</p>
             {% else %}
@@ -225,7 +228,7 @@
         {# _________________________________________________________ #}
         <h2 class="text-n2">Banner<span>_</span></h2>
         <div class="sections-artist">
-    
+           <p><span style="color: #F14D4C;">▸</span>Format allowed : webp, png, jpeg, jpg - Minimum size recommanded : 1300*640 pixels </p> 
             <div>
                 {% if bannerExists %}
                     <div style="width: 600px; height: 200px; background-color: grey;">
@@ -257,7 +260,11 @@
         <h2 class="text-n2">Gallery<span>_</span></h2>
             
             <div class="sections-artist ">
-                <p>Maximum pictures allowed : {{maxImagesAllowed}}</p>
+                <p><span style="color: #F14D4C;">▸</span> Maximum pictures allowed : {{maxImagesAllowed}}</p>
+
+                <p><span style="color: #F14D4C;">▸</span>Format allowed : webp, png, jpeg, jpg - Minimum size recommanded : 500*500 pixels </p> <br>
+
+
                 <div id="gallery-artist">
                     {% for picture in picturesGallery  %}
                     <div id="gallery-img">

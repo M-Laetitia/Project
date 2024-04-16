@@ -29,34 +29,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class ArtistController extends AbstractController
 {
-    // #[Route('/artist', name: 'app_artist')]
-    // public function index(UserRepository $userRepository, Request $request): Response
-    // {
-    //     $formArtistSearch = $this->createForm(SearchArtistType::class);
-    //     $formArtistSearch->handleRequest($request);
     
-    //     if ($formArtistSearch->isSubmitted() && $formArtistSearch->isValid()) {
-    //         $user = $formArtistSearch->getData(); // Récupérer l'objet User depuis le formulaire
-    //         $username = $user->getUsername(); // Récupérer le nom d'utilisateur depuis l'objet User
-
-    //         $discipline = $formArtistSearch->get('discipline')->getData();
-
-    //         if (!empty($username)) {
-    //             return $this->redirectToRoute('app_artist_search_username', ['username' => $username]);
-    //         } elseif (!empty($discipline)) {
-    //             return $this->redirectToRoute('app_artist_search_discipline', ['discipline' => $discipline]);
-    //         }
-
-    //     }
-    
-    //     $artists = $userRepository->findArtistUsers();
-    
-    //     return $this->render('artist/index.html.twig', [
-    //         'artists' => $artists,
-    //         'formArtistSearch' => $formArtistSearch->createView(),
-    //     ]);
-    // }
-
     //^ get artist role
     #[Route('/artist/new', name: 'get_role_artist')]
     public function newArtist(UserRepository $userRepository, Security $security, EntityManagerInterface $entityManager,  Request $request): Response

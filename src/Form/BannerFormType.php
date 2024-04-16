@@ -29,8 +29,8 @@ class BannerFormType extends AbstractType
                         // 'maxWidth' => 1800, 
                         // 'maxHeight' => 1000, 
 
-                        // 'minWidth' => 1200, 
-                        // 'minHeight' => 600, 
+                        // 'minWidth' => 1300, 
+                        // 'minHeight' => 640, 
 
                         'mimeTypes' => [
                             'image/jpeg',

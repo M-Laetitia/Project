@@ -24,14 +24,12 @@
             <div class="separator-line"></div>
     
             <div id="list-menu">
-                <div><i class="ri-dashboard-fill"></i><p><a href="{{ path('app_dashboard') }}">dashboard</a></p></div>
-                <div class="is-active"><i class="ri-team-fill "></i><p><a href="{{ path('list_users') }}">Community</a></p></div>
-                <div><i class="ri-artboard-2-fill"></i><p>events</p> </div>
-                <div><i class="ri-artboard-fill"></i><p>expositions</p></div>
-                <div><i class="ri-palette-fill"></i><p>workshops</p></div>
-                <div><i class="ri-home-heart-fill"></i><p>studios</p></div>
-                <div><i class="ri-calendar-fill"></i><p>calendar</p></div>
-                <div><i class="ri-calendar-schedule-fill"></i><p>planning</p></div>
+                <a href="{{ path('app_dashboard') }}"><div><i class="ri-dashboard-fill"></i><p>dashboard</p></div></a>
+                <a href="{{ path('list_users') }}"><div class="is-active"><i class="ri-team-fill "></i><p>Community</p></div></a>
+                <a href="{{ path('list_events') }}"><div><i class="ri-artboard-2-fill"></i><p>events</p> </div></a>
+                <a href="{{ path('list_expos') }}"><div><i class="ri-artboard-fill"></i></i><p>expositions</p> </div></a>
+                <a href="{{ path('list_workshops') }}"><div><i class="ri-palette-fill"></i><p>workshops</p> </div></a>
+                <a href="{{ path('list_studios') }}"><div><i class="ri-home-heart-fill"></i><p>studios</p> </div></a>
             </div>
     
             <div id="bottom"></div>

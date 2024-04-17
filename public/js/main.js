@@ -142,32 +142,20 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// ^ Artists page - eyes
+// ^ Index pages - archives link - eyes ---------------------------------- //
 
-if (document.querySelector('.ri-eye-close-fill')) {
-
+if(document.getElementById('previous-link')) {
     $(document).ready(function() {
-        $('.ri-eye-close-fill').hover(
+        $('#previous-link div a').hover(
             function() {
-                $(this).toggleClass('ri-eye-fill')
-            },
-        )
-        
-    })
-
+                $('#previous-link p i').toggleClass('ri-eye-fill ri-eye-close-fill');
+            }
+        );
+    });
+    
 }
 
-// // ^ Artists page - eyes
-// $(document).ready(function() {
-//     $('.ri-eye-close-fill').hover(
-//         function() {
-//             $(this).data('state', 'ri-eye-fill').animate({ opacity: 0 }, 200, function() {
-//                 $(this).toggleClass('ri-eye-fill').animate({ opacity: 1 }, 600);
-//             });
-//         },
 
-//     );
-// });
 
 
 //  Artist edit infos toggle

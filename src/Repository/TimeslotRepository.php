@@ -39,6 +39,24 @@ class TimeslotRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findOngoingTimeslots() {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $startOfWeek = new \DateTime('this week');
+        $startOfWeek->setTime(0, 0, 0);
+        $qb->select('ts')
+        ->from('App\Entity\Timeslot', 'ts')
+        ->where('ts.date > :startOfWeek')
+        ->setParameter('startOfWeek', $startOfWeek);
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+ 
+
+
 
     // ^ find timeslots by studio
 

@@ -24,6 +24,7 @@ class Picture
 
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?User $user = null;
 
     #[ORM\Column(length: 30, nullable: true)]
@@ -36,12 +37,15 @@ class Picture
     private ?bool $isSelected = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?Area $area = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?Studio $studio = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete:"CASCADE")]
     private ?Workshop $workshop = null;
 
     public function getId(): ?int

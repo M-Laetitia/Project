@@ -45,6 +45,7 @@ class TimeSlotType extends AbstractType
             // ])
 
             ->add('TimeSlotAvailability', EntityType::class, [
+                'label' => 'Timeslot availability : ',
                 'required' => true, 
                 'class' => TimeSlotAvailability::class,
                 'choices' => $this->getTimeSlots($options['studioId'], $options['selectedDate']),
@@ -52,7 +53,7 @@ class TimeSlotType extends AbstractType
 
             ])
 
-            ->add('Submit', SubmitType::class)
+            ->add('Create', SubmitType::class)
         ;
     }
 
@@ -61,7 +62,7 @@ class TimeSlotType extends AbstractType
         // Récupérer les créneaux horaires disponibles en fonction des paramètres
         // Utilisez vos DQL pour cela, en fonction de $studioId et $selectedDate
         
-        // Exemple fictif
+     
         $timeSlots = $this->entityManager->getRepository(TimeSlotAvailability::class)
             ->findAvailableTimeSlots($studioId, $selectedDate);
     

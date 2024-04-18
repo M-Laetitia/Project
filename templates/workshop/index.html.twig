@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Art Workshops - MOSAIC{% endblock %}
-{% block meta %}Discover a world of creativity with our art workshops on MOSAIC. Join us for engaging sessions designed to inspire and cultivate your artistic talents. Explore our workshops now!{% endblock %}
+{% block meta %}Discover creativity with art workshops on MOSAIC. Engaging sessions to inspire and cultivate talents.  Explore our workshops now!{% endblock %}
 
 {% block body %}
 
@@ -57,68 +57,14 @@
 
 </section>
 
-
-
-{#     
-        
-        <div>
-            <p>
-                <span class="name">{{workshop.name}}</span> 
-                <span class="status {{ workshop.status == 'OPEN' ? 'open' : 
-                                    (workshop.status == 'CLOSED' ? 'closed' : 
-                                    (workshop.status == 'PENDING' ? 'pending' : 
-                                    (workshop.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                    {{ workshop.status }}
-                </span>
-            
-            </p>
-
-            <p>{{workshop.startDate|formatDate}} - {{workshop.endDate|formatDate}} </p>
-            <p>{{workshop.startDate|date('H:i')}} - {{workshop.endDate|date('H:i')}}</p>
-        
-            <p>{{workshop.description}}</p>
-    
-            <p>Capacity: {{workshop.nbRegistrationMade}}  /  {{workshop.nbRooms}} - Remaining: {{workshop.nbRegistrationRemaining}}</p>
-            
-    
-            <p><a href="{{ path('show_workshop', {slug: workshop.slug }) }}">See details <i class="fa-solid fa-plus"></i></a></p>
-    
-            <hr>
-        </div> #}
- 
-
-    
-
-    <div class="past-event-title">
-        <h2>See past events </h2> 
-        <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
+<div id="previous-link">
+    <p class="past-event-btn"><i class="ri-eye-close-fill"></i></p>
+    <div>
+        <p>To see all our previous workshops </p>
+        <a href="{{ path('app_archives')}}">check here <i class="ri-arrow-right-double-fill"></i> </a> 
     </div>
+</div>
 
-    <div class="past-events" style="display:none">
-        {% for event in pastWorkshop %}
-        <div>
-            <p>
-                <span class="name">{{event.name}}</span> 
-                <span class="status {{ event.status == 'OPEN' ? 'open' : 
-                                    (event.status == 'CLOSED' ? 'closed' : 
-                                    (event.status == 'PENDING' ? 'pending' : 
-                                    (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                    {{ event.status }}
-                </span>
-            
-            </p>
-
-           
-            <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
-            <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
-    
-            <p>{{event.description}}</p>
-
-            <a href="{{ path('show_workshop', {slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
-            <hr>
-        </div>
-        {% endfor %}
-    </div>
 
     <script src= "{{ asset('js/gsap.min.js') }}"></script>
     <script src= "{{ asset('js/pagesShow.js') }}"></script>

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Explore Past Activities - MOSAIC{% endblock %}
-{% block meta %}Explore MOSAIC's archived events, exhibitions, and workshops for a treasure trove of past activities. Click on any event to delve into its details and relive the memories.{% endblock %}
+{% block meta %}Explore the archived events, exhibitions, and workshops of MOSAIC for a glimpse of past activities. Click on any event to get its details and relive the memories.{% endblock %}
 
 {% block body %}
 
@@ -27,7 +27,6 @@
         <button id="reset-btn" type="submit" name="formResetType" value="reset">Reset</button>
     </div>
 
-    {# <h2 class="text-n2">Our latest Art activities<span>_</span></h2> #}
     <div id="container-last-events">
         
         {% for latestEvent in latestEvents %}

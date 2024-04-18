@@ -374,7 +374,7 @@ class EventController extends AbstractController
             ],
             ['startDate' => 'DESC'] 
         );
-        // dd($pastEvents);
+
 
         // Convert objects to associative arrays
         $eventsArray = [];
@@ -387,6 +387,7 @@ class EventController extends AbstractController
                 'slug' => $event->getSlug(),
                 'startDate' => $formattedStartDate,
                 'endDate' => $formattedEndDate,
+                'type' => $event->getType(),
             ];
         }
 
@@ -399,18 +400,23 @@ class EventController extends AbstractController
     public function getPastContent(Request $request, AreaRepository $areaRepository)
     {
         $pastContent = $areaRepository->getAllPastContent();
-        
+
+        // Récupérer l'image de type "banner" associée à l'événement
+
+     
         // Convert objects to associative arrays
         $pastContentArray = [];
         foreach ($pastContent as $content) {
             $formattedStartDate = $content->getStartDate()->format('d-m-Y');
             $formattedEndDate = $content->getEndDate()->format('d-m-Y');
+
             $pastContentArray[] = [
                 'id' => $content->getId(),
                 'name' => $content->getName(),
                 'slug' => $content->getSlug(),
                 'startDate' => $formattedStartDate,
                 'endDate' => $formattedEndDate,
+                'type' => $event->getType(),
             ];
         }
 

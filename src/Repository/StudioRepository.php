@@ -21,6 +21,21 @@ class StudioRepository extends ServiceEntityRepository
         parent::__construct($registry, Studio::class);
     }
 
+    public function findOngoingTimeslotsPerStudio() {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+        $startOfWeek = new \DateTime('this week');
+        $startOfWeek->setTime(0, 0, 0);
+
+        $qb->select('s', 'ts')
+        ->from('App\Entity\Studio', 's')
+        ->leftJoin('s.timeslots', 'ts', 'WITH', 'ts.date > :startOfWeek')
+        ->setParameter('startOfWeek', $startOfWeek);
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Studio[] Returns an array of Studio objects
 //     */

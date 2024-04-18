@@ -1,31 +1,69 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}planning {% endblock %}
-{% block meta %}planning {% endblock %}
+{% block title %}Planning {% endblock %}
+{% block meta %}Planning {% endblock %}
 
 {% block body %}
 
-    <h1>My planning </h1>
+    <section class="dashboard" id="supervisor-planning">
 
-    {{user}}
-
-
-    {# {{dump(timeslots)}} #}
-    {% for timeslot in timeslots %}
-        {# <p>TimeSlot {{timeslot.id}}</p> #}
-        <p>date: {{timeslot.startDate|formatDate}} - {{timeslot.endDate|formatDate}} </p>
-        <p> {{timeslot.studio.name}}</p>
-
-        
-        {# option pour supprimer mais fixer contrainte impossible de supprimer si déjà user inscrit + X jours avant #}
-        
-        <a href="{{ path('delete_timeslot', {'id': timeslot.id }) }}">delete</a>
-
-
-    {% endfor %}
+        <div id="menu-left">
+            <div id="logo-name">
+                <figure>
+                   <img src="{{ asset('images/logo150.png')}}" alt="Mosaic logo"> 
+                </figure>      
+                <p class="text-n1">MOSAIC</p>
+            </div>
     
+            <div class="separator-line"></div>
+    
+            <div id="list-menu">
+                <a href="{{path('studio_dashboard')}}"><div class="is-active"><i class="ri-dashboard-fill "></i><p>dashboard</p></div></a>
+                {# <a href=""><div><i class="ri-team-fill "></i><p>Community</p></div></a> #}
+            </div>
+    
+            <div id="bottom">
+    
+            </div>
+        </div>
+    
+        <div id="content">
+    
+            <div id="top-title">
+                <p class="text-n1">My Planning<span>_</span></p>
+                <div class="separator-line"></div>
+            </div>
+    
+            <div class="container-all dashboard-studios">
+                  
+                  <div class="container-all dashboard-events">
+                    <div class="container" id="supervisor-users">
+                        <p class="text-n2"></p>
+                        <div class="table-user head" >
+                            <p>Studio</p>
+                            <p>Date</p>
+                            <p>Time</p>
+                            <p>Capacity</p>
+                            <p>Actions</p>
+                        </div>
+        
+                        <div class="table-user body">
+                            {% for timeslot in timeslots %}                   
+                                    <p class="even">{{timeslot.studio.name}}</p>
+                                    <p class="odd">{{timeslot.Date|formatDate}}</p>
+                                    <p  class="even"> {{timeslot.timeSlotAvailability.startTime|date('H:i')}} - {{timeslot.timeSlotAvailability.endTime|date('H:i')}}</p>
+                                    <p class="odd">  {{timeslot.workshopRegistrations.count()}}/  {{timeslot.studio.nbRooms}}</p>
+                                    <div class="actions even">
+                                        <p><a href="{{ path('delete_timeslot', {'id': timeslot.id }) }}"><i class="fa-solid fa-circle-xmark"></i></a></p>
+                                    </div>
+                                                       
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
 
-
-
+    
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} {{studio.name}} details - MOSAIC{% endblock %}
-{% block meta %}Discover the details of our dedicated artistic studio on MOSAIC. Explore the space dedicated to a specific artistic domain and check the availability in the calendar. Reserve your time slot and unleash your creativity in our inspiring studio environment. Dive into artistry now! {% endblock %}
+{% block meta %}Discover the details of our artistic studio on MOSAIC. Reserve your time slot and unleash your creativity in our inspiring studio environment. {% endblock %}
 
 {% block body %}
 
@@ -50,94 +50,85 @@
                 
             </div>
 
-            <div id="btn-studio">
-                <div class="button btn6">SEE PLANNING</div>
-                <div class="button btn6">PARTICIPATE</div>
+            {% if app.user %}
+            {% if user.subscriptions is not empty %}
+                {% set hasActiveSubscription = false %}
+                {% for subscription in user.subscriptions %}
+                    {% if subscription.isActive == 1 %}
+                        {% set hasActiveSubscription = true %}
+                    {% endif %}
+                {% endfor %}
+        
+                {% if hasActiveSubscription %}
+                    <div class="expo-participate">
+                        <div class="btn-studio">
+                            <div id="participate-btn" class="button btn6">SEE TIMESLOTS</div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="expo-participate">
+                        <div class="btn-event">
+                            <div  id="participate-btn" class="button btn-off">SEE TIMESLOTS</div>
+                        </div>
+                        <p>You must have a valid subscription to benefit from this service.</p>
+                        <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
+                    </div>
+                {% endif %}
+        
+                {% else %}
+                    <div class="expo-participate">
+                        <div class="btn-event">
+                            <div class="button btn-off">SEE TIMESLOTS</div>
+                        </div>
+                        <p>You must have a subscription to benefit from this service.</p>
+                        <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
+                    </div>
+                {% endif %}
+        
+            {% else %}
+                <div class="expo-participate">
+                    <div class="btn-event">
+                        <div class="button btn-off">SEE TIMESLOTS</div>
+                    </div>
+                    <p>You must have an account and signed up for a subscription to benefit from this service.</p>
+                    <p><a href="{{ path('app_subscription') }}">Check here!</a></p>
+                </div>
+            {% endif %}
+
+        </div>    
+        
+        <div id="timeslots-list" style="display:none;">
+            <div>
+                {% if studio.timeslots|length > 0 %}
+                    {% set sortedTimeslots = studio.timeslots|sort((a, b) => b.date.timestamp - a.date.timestamp) %}
+                        {% for timeslot in sortedTimeslots %}
+                        <p>0{{ loop.index }}. {{timeslot.startDate|formatDate}}  - {{timeslot.startDate|date('H:i')}} - {{timeslot.endDate|date('H:i')}}| {{timeslot.user}} </p>
+                            {% if timeslot.workshopRegistrations is not empty %}
+                                <p>Capacity:  {{ timeslot.workshopRegistrations.count }}  /   {{timeslot.studio.nbRooms}} </p>
+                            {% else %}
+                                <p>Capacity:  0  /   {{timeslot.studio.nbRooms}} </p>
+                            {% endif %}
+                            
+
+                            {% if timeslot.workshopRegistrations.count() ==  timeslot.studio.nbRooms %}
+                                <p>This time slot is fully booked.</p>
+                            {% else %}
+                            
+                            <p><a href="{{ path('new_registration', {'id': timeslot.id}) }}"><button class="btn btn6">BOOK</button></a></p>
+                                    
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                            <p>No timeslot available for this studio.</p>
+                    {% endif %}
             </div>
         </div>
-        
-    </section>
 
-  
+    </section>    
 
 
-    {# <p>test:  {{ studio.nbRegistrationMade}}</p> #}
-
-    {# {{dump(studioTimeslots)}} #}
 
    
-    {# {% if  app.user %}
-        {% for subscription in user.subscriptions %} 
-        {{ dump(subscription)}}
-        {% if subscription.isActive == true %}
-            <p> <a href="{{ path('new_registration', {'id': timeslot.id}) }}">Booking </a></p>
-        {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>you must have signed up for a subscription to benefit from this service</p>
-        <p>Check here !</p>
-        <a href="{{ path('app_payment')}}">test</a>
-{% endif %}
- #}
-
-
-
-
-    <p>Open time slots for this Art Studio:</p>
-
- 
-
-
-
-    {# {{ dump(studio)}} #}
-
-    {% if studio.timeslots|length > 0 %}
-        <ul>
-    
-            {% for timeslot in studio.timeslots %}
-            <li>
-                {{timeslot.startDate|formatDate}}  - {{timeslot.startDate|date('H:i')}} - {{timeslot.endDate|date('H:i')}}| {{timeslot.user}} </p>
-                <p>Registration/s:  {{ timeslotRegistrations[timeslot.id] }}  /   {{timeslot.studio.nbRooms}} </p>
-            </li>
-
-            {% if timeslotRegistrations[timeslot.id] ==  timeslot.studio.nbRooms %}
-                <p>This time slot is fully booked.</p>
-            {% else %}
-                
-                <p>Make a reservation for this time slot:</p>
-
-                {% if app.user %}
-                {% if user.subscriptions is not empty %}
-                    {% set hasActiveSubscription = false %}
-                    {% for subscription in user.subscriptions %}
-                        {% if subscription.isActive %}
-                            {% set hasActiveSubscription = true %}
-                        {% endif %}
-                    {% endfor %}
-            
-                    {% if hasActiveSubscription %}
-                        <p>You have a valid subscription and are allowed to book.</p>
-                        <p><a href="{{ path('new_registration', {'id': timeslot.id}) }}">Booking</a></p>
-                    {% else %}
-                        <p>You must have a valid subscription to benefit from this service.</p>
-                        <p> <a href="{{ path('app_subscription') }}">Check here!</a></p>
-                    {% endif %}
-                {% else %}
-                    <p>You must have signed up for a subscription to benefit from this service.</p>
-                    <p> <a href="{{ path('app_subscription') }}">Check here!</a></p>
-                   
-                {% endif %}
-            {% endif %}
-            
-                
-            {% endif %}
-
-                
-            {% endfor %}
-        </ul>
-    {% else %}
-            <p>Pas de créneau horaire dispo pour ce studio.</p>
-    {% endif %}
 
 
 <script>
@@ -149,7 +140,33 @@
         const backgroundStudio= document.getElementById('background-studio');
         backgroundStudio.style.background = selectedEventColor;
     }
+
+    //  adjust background
+   var backgroundStudio = document.getElementById("background-studio");
+   var styles = window.getComputedStyle(backgroundStudio);
+   var backgroundColor = styles.backgroundColor;
+   var rgb = backgroundColor.match(/\d+/g);
+   if (rgb.includes("23")) {
+       backgroundStudio.style.background = "../images/visuals/studio02.webp";    
+   } else if (rgb.includes("30")) {
+        backgroundStudio.style.background = "../images/visuals/studio01.webp"; 
+   } else {
+        backgroundStudio.style.background = "../images/visuals/studio03.webp"; 
+   }
+
     });
+
+    $(document).ready(function() {
+        if ($('#participate-btn').length > 0) {
+            $('#participate-btn').click(function() {
+                $('#timeslots-list').slideToggle();
+            });
+        }
+    });
+
+
+
+
 </script>
 
 

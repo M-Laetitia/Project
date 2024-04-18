@@ -31,9 +31,30 @@
         
         {% for latestEvent in latestEvents %}
         <div class="event-container event-container-animation">
-            <figure>
-                <img src="{{ asset('images/event_img.jpg') }}" alt="">
-            </figure>
+
+            {% if latestEvent.type is defined and latestEvent.type == 'EVENT' %}
+                {% for picture in latestEvent.pictures %}
+                <figure>
+                    <img src="{{ asset('images/activity/event/' ~ latestEvent.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
+                </figure>
+                {% endfor %}
+            
+            {% elseif latestEvent.type is defined and latestEvent.type == 'EXPO' %}
+                {% for picture in latestEvent.pictures %}
+                <figure>
+                    <img src="{{ asset('images/activity/expo/' ~ latestEvent.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
+                </figure>
+                {% endfor %}
+            {% else %}
+                {% for picture in latestEvent.pictures %}
+                <figure>
+                    <img src="{{ asset('images/activity/workshop/' ~ latestEvent.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
+                </figure>
+                {% endfor %}
+               
+            {% endif %}
+
+           
             <div class="content">
                 {% if latestEvent.type is defined and latestEvent.type == 'EVENT' %}
                     <p class="type">Event</p>
@@ -83,17 +104,22 @@
                     $('#results-archives').empty();
                     response.forEach(function(item) {
                         var eventType = '';
+                        var imagePath = '';
                         if (item.type === 'EVENT') {
                             eventType = 'Event';
+                            var imagePath = 'images/activity/archived/banner/event' +  item.id + '.webp';
                         } else if (item.type === 'EXPO') {
                             eventType = 'exposition';
+                            var imagePath = 'images/activity/archived/banner/exposition' +  item.id + '.webp';
                         } else {
                             eventType = 'workshop';
+                            var imagePath = 'images/activity/archived/banner/workshop' +  item.id + '.webp';
                         }
+                        
     
                         var html = '<div class="event-container">' +
                             '<figure>' +
-                            '<div></div>' +
+                            '<img src="' + imagePath + '" alt="' + item.name + '">' +
                             '</figure>' +
                             '<div class="content">' +
                             '<p class="type">' + eventType + '</p>' +

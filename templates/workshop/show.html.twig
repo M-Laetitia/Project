@@ -22,9 +22,11 @@
 
 <section class="" id="event-show">
     <div id="header">
+            {% for picture in workshop.pictures %}
             <figure>
-                    <img src="{{ asset('images/workshop_img.jpg') }}" alt="">
+                <img src="{{ asset('images/activity/workshop/' ~ workshop.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
             </figure>
+            {% endfor %}
             <div id="quote">
                     <span id="quote-style"><</span>
                     <p id="quote-text"> {{workshop.quote}}</p>

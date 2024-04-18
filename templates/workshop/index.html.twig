@@ -25,9 +25,12 @@
 
         <div class="container-event">
             <div id="picture-event">
+                {% for picture in workshop.pictures %}
                 <figure>
-                    <img src="{{ asset('images/workshop_img.jpg') }}" alt="">
+                    <a href="{{ path('show_workshop', { slug : workshop.slug  }) }}">
+                    <img src="{{ asset('images/activity/workshop/' ~ workshop.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                 </figure>
+                 {% endfor %}
             </div>
             <div id="infos-event">
                 <h2 class="text-n1">{{workshop.name}}<span class="">_</span></h2>

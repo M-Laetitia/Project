@@ -22,10 +22,11 @@
 
 <section class="" id="event-show">
         <div id="header">
-                <figure>
-                        <img src="{{ asset('images/expo_img.jpg') }}" alt="">
-                        
-                </figure>
+                {% for picture in area.pictures %}
+                        <figure>
+                        <img src="{{ asset('images/activity/expo/' ~ area.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
+                        </figure>
+                {% endfor %}
                 <div id="quote">
                         <span id="quote-style"><</span>
                         <p id="quote-text"> {{area.quote}}</p>

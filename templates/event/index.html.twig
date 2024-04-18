@@ -23,9 +23,13 @@
     {% for event in ongoingEvents %}
         <div class="container-event">
             <div id="picture-event">
+                {% for picture in event.pictures %}
                 <figure>
-                    <a href="{{ path('show_event', { slug : event.slug  }) }}"><img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
+                    <a href="{{ path('show_event', { slug : event.slug  }) }}">
+                    <img src="{{ asset('images/activity/event/' ~ event.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                 </figure>
+                 {% endfor %}
+
             </div>
             <div id="infos-event">
                 <h2 class="text-n1">{{event.name}}<span class="">_</span></h2>
@@ -52,39 +56,18 @@
 
 </section>
   
-
-<div class="past-event-title">
-    <h3>See past events </h3> 
-    <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
-</div>
-
-<div class="past-events" style="display:block">
-    {% for event in pastEvents %}
+<div id="previous-link">
+    <p class="past-event-btn"><i class="ri-eye-close-fill"></i></p>
     <div>
-        <p>
-            <span class="name">{{event.name}}</span> 
-            <span class="status {{ event.status == 'OPEN' ? 'open' : 
-                                (event.status == 'CLOSED' ? 'closed' : 
-                                (event.status == 'PENDING' ? 'pending' : 
-                                (event.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                {{ event.status }}
-            </span>
-        
-        </p>
-
-        
-        <p>{{event.startDate|formatDate}} - {{event.endDate|formatDate}} </p>
-        <p>{{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p>
-
-        <p>{{event.description}}</p>
-
-        <a href="{{ path('show_archived_event', {slug : event.slug  }) }}">See details <i class="fa-solid fa-plus"></i></a>
-        <hr>
+        <p>To see all our previous events </p>
+        <a href="{{ path('app_archives')}}">check here <i class="ri-arrow-right-double-fill"></i> </a> 
     </div>
-    {% endfor %}
 </div>
-
 
 <script src= "{{ asset('js/pagesShow.js') }}"></script>
+
+<script>
+
+</script>
 
 {% endblock %}

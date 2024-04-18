@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Art Expositions - MOSAIC{% endblock %}
-{% block meta %}Experience vibrant exhibitions on MOSAIC, where artists mmet to share their creativity with visitors. Reserve your spot now for a journey through art and inspiration!{% endblock %}
+{% block meta %}Experience vibrant exhibitions on MOSAIC, where artists share their creativity with visitors. Reserve your spot now for a journey through art and inspiration!{% endblock %}
 
 {% block body %}
 
@@ -25,10 +25,13 @@
 
         <div class="container-event">
             <div id="picture-event">
+                {% for picture in expo.pictures %}
                 <figure>
-                    <img src="{{ asset('images/expo_img.jpg') }}" alt="">
+                    <a href="{{ path('show_exposition', { slug : expo.slug  }) }}">
+                    <img src="{{ asset('images/activity/expo/' ~ expo.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                 </figure>
-                
+                 {% endfor %}
+
             </div>
             <div id="infos-event">
                 <h2 class="text-n1">{{expo.name}}<span class="">_</span></h2>
@@ -58,94 +61,16 @@
 
 </section>
 
-<div class="ongoing-events">
 
-    {% for expo in ongoingExpos %}
-        <div>
-            <p>
-                <span class="name">{{expo.name}}</span> 
-                <span class="status {{ expo.status == 'OPEN' ? 'open' : 
-                                    (expo.status == 'CLOSED' ? 'closed' : 
-                                    (expo.status == 'PENDING' ? 'pending' : 
-                                    (expo.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                    {{ expo.status }}
-                </span>
-            
-            </p>
-
-            <p>{{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
-            <p>{{expo.startDate|date('H:i')}} - {{expo.endDate|date('H:i')}}</p>
-
-            <p>{{expo.description}}</p>
-
-            <p>Capacity: {{expo.nbReversationMade}}  /  {{expo.nbRooms}} - Remaining: {{expo.nbReversationRemaining}}</p>
-            <p>Number of Proposals: {{ proposalCounts[expo.id] }}</p>
-            {# <p><a href="{{ path('show_exposition', {'id' : expo.id}) }}">See details <i class="fa-solid fa-plus"></i> </a></p> #}
-        
-            {% if expo.status == 'OPEN' %}
-                {# <p>Inscriptions open - click <a href="{{ path('show_exposition', {'id' : expo.id}) }}">here</a></p> #}
-            {% else %}
-                <p>Inscriptions not open</p>
-            {% endif %}
-            
-            <hr>
-            <p>Want to showcase your work in this exposition?</p>
-            
-            {% if is_granted('ROLE_ARTIST') %}
-                
-                {% if existingProposals[expo.id] %}
-                    <p>You have an existing proposal for this exposition.</p>
-                {% else %} 
-                {# <p>Make a request : <a href="{{ path('new_exposition_proposal', {'id': expo.id }) }}">Make a request</a></p> #}
-                {% endif %}
-            
-            {% else %}
-                {# else they need to submit a form to get the artist status/role #}
-                <p>You are not an artist, you can't make a request for an expostion.</p>
-                <p>You can get the role by submitting a form: <a href="#">HERE</a></p>
-            {% endif %}
-            
-            <hr>
-            <hr>
-        </div>
-        {% endfor %}
-</div>
-
-<div class="past-event-title">
-    <h2>See past expostions</h2> 
-    <div class="past-event-btn"><i class="ri-eye-close-fill"></i></div>
-</div>
-
-<div class="past-events" style="display:none">
-
-    {% for expo in pastExpos %}
+<div id="previous-link">
+    <p class="past-event-btn"><i class="ri-eye-close-fill"></i></p>
     <div>
-        <p>
-            <span class="name">{{expo.name}}</span> 
-            <span class="status {{ expo.status == 'OPEN' ? 'open' : 
-                                (expo.status == 'CLOSED' ? 'closed' : 
-                                (expo.status == 'PENDING' ? 'pending' : 
-                                (expo.status == 'ARCHIVED' ? 'archived' : 'status-default'))) }}">
-                {{ expo.status }}
-            </span>
-        
-        </p>
-
-        <p>{{expo.startDate|formatDate}} - {{expo.endDate|formatDate}} </p>
-        <p>{{expo.startDate|date('H:i')}} - {{expo.endDate|date('H:i')}}</p>
-
-        <p>{{expo.description}}</p>
-
-        <p>Capacity: {{expo.nbReversationMade}}  /  {{expo.nbRooms}} - Remaining: {{expo.nbReversationRemaining}}</p>
-        {# <p>Number of Proposals: {{ proposalCounts[expo.id] }}</p> #}
-        {# <p><a href="{{ path('show_exposition', {'id' : expo.id}) }}">See details <i class="fa-solid fa-plus"></i> </a></p> #}
-    
-        <hr>
-        <hr>
+        <p>To see all our previous expositions </p>
+        <a href="{{ path('app_archives')}}">check here <i class="ri-arrow-right-double-fill"></i> </a> 
     </div>
-    {% endfor %}
-
 </div>
+
+
 
 <script src= "{{ asset('js/gsap.min.js') }}"></script>
 <script src= "{{ asset('js/pagesShow.js') }}"></script>

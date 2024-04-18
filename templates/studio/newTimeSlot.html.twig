@@ -1,51 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}new timeslot {% endblock %}
-{% block meta %}new timeslot {% endblock %}
-
+{% block title %}Create a timeslot {% endblock %}
+{% block meta %}Create a new timeslot{% endblock %}
 {% block body %}
 
-{# {{ path('new_timeslot') }} #}
+<section class="dashboard" id="supervisor-planning">
 
-<p>{{ user}}</p>
+    <div id="menu-left">
+        <div id="logo-name">
+            <figure>
+               <img src="{{ asset('images/logo150.png')}}" alt="Mosaic logo"> 
+            </figure>      
+            <p class="text-n1">MOSAIC</p>
+        </div>
+
+        <div class="separator-line"></div>
+
+        <div id="list-menu">
+            <a href="{{path('studio_dashboard')}}"><div class="is-active"><i class="ri-dashboard-fill "></i><p>dashboard</p></div></a>
+            {# <a href=""><div><i class="ri-team-fill "></i><p>Community</p></div></a> #}
+        </div>
+
+        <div id="bottom">
+
+        </div>
+    </div>
+
+    <div id="content">
+
+        <div id="top-title">
+            <p class="text-n1">Create a new timeslot<span>_</span></p>
+            <div class="separator-line"></div>
+        </div>
+
+        <div class="container-all new-timeslot">
+              
+            <div class="container-all dashboard-events">
+                <div id="timeslot-form">
+                    {{ form_start(formAddTimeslot) }}
+                    {{ form_row(formAddTimeslot.TimeSlotAvailability) }}
+                    
+                    <div class="btn btn6">
+                        {{ form_row(formAddTimeslot.Create) }}
+                    </div>
+                    {{ form_end(formAddTimeslot) }}
+                </div>
+            </div>
+        </div>
+</section>
+
+{# <p>{{ user}}</p>
 {% for timeslotAvalaible in timeslotAvalaibles %}
 {{timeslotAvalaible}}
-{% endfor %}
-{# 
-<form method="GET" action=""> #}
-
-    {# <label for="date">Choose a date:</label>
-    <input type="date" id="date" name="date" required>
-
-    <label for="studio">Choose a studio:</label>
-    <select id="studio" name="studio" required>
-        {% for studio in studios %}
-            <option value="{{ studio }}" >{{ studio }}</option>
-        {% endfor %}
-    </select>
-
-    <button id="voirDispo" type="button">VOIR DISPO</button>
-</form>
-
-    <div id="result">
-        
-    </div> #}
+{% endfor %} #}
 
 
-    <h1>new timeslot</h1>
 
-    <div id="timeslot-form">
-        {{ form_start(formAddTimeslot) }}
-        {# {{ form_errors(formAddTimeslot) }} #}
-        {# {{ form_row(formAddTimeslot.day) }}
-        {{ form_row(formAddTimeslot.studio) }} #}
-        {{ form_row(formAddTimeslot.TimeSlotAvailability) }}
-        {{ form_row(formAddTimeslot.Submit) }}
-    {{ form_end(formAddTimeslot) }}
-    </div>
+
+    
     
 
-{# {{dump(timeslotAvalaibles)}} #}
 
 <script>
     $(document).ready(function(){

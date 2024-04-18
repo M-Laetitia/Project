@@ -26,12 +26,38 @@ class StudioController extends AbstractController
 {
     // ^ list art studios (user)
     #[Route('/studio', name: 'app_studio')]
-    public function index(StudioRepository $studioRepository): Response
+    public function index(StudioRepository $studioRepository,TimeslotRepository $timeslotRepository, Security $security): Response
     {
+        $user = $security->getUser();
         $studios = $studioRepository->findBy([]);
+        $timeslots = $timeslotRepository->findBy([]);
+        $formattedTimeslots = [];
+
+        foreach ($timeslots as $timeslot) {
+            $enlistedUsers = [];
+            foreach ($timeslot->getWorkshopRegistrations() as $registration) {
+                $fullName = $registration->getFirstname() . ' ' . $registration->getLastname();
+                $enlistedUsers[] = $fullName;
+            }
+
+            $formattedTimeslots[] = [
+                'idTimeslot' => $timeslot->getId(),
+                'start' => $timeslot->getStartDate()->format('Y-m-d H:i:s'),
+                'end' => $timeslot->getEndDate()->format('Y-m-d H:i:s'),
+                'studio' => $timeslot->getStudio()->getName(),
+                'supervisor' => $timeslot->getUser()->getUsername(),
+                'enlisted' => $timeslot->getNbRegistrations(),
+                'capacity' => $timeslot->getStudio()->getNbRooms(),
+                'enlistedUsers' => $enlistedUsers,
+                
+            ];
+           
+        }
 
         return $this->render('studio/index.html.twig', [
             'studios' => $studios,
+            'formattedTimeslots' => json_encode($formattedTimeslots), 
+            'user' => $user,
 
         ]);
     }
@@ -49,22 +75,15 @@ class StudioController extends AbstractController
         foreach ($studioTimeslots as $timeslot) {
             $timeslotId = $timeslot->getId();
             $nbRegistrationPerTimeslot = $workshopRegistrationRepository->getRegistrationPerTimeslot($timeslotId);
-            
-            // dump($nbRegistrationPerTimeslot);die;
 
             // Stockez le nombre de réservations par timeslot dans un tableau
-            $timeslotRegistrations[$timeslotId] = $nbRegistrationPerTimeslot;
-            // dump($timeslotRegistrations[$timeslotId]);die;
         }
 
-        // dump($timeslotId);die;
         return $this->render('studio/show.html.twig', [
             'studio' => $studio,
             'studioTimeslots' => $studioTimeslots,
             'timeslotRegistrations' => $timeslotRegistrations,
             'user' => $user,
-            // 'nbRegistrationPerTimeslot' => $nbRegistrationPerTimeslot,
-
         ]);
     }
 
@@ -175,7 +194,7 @@ class StudioController extends AbstractController
         ]);
     }
 
-    // ^ list art studios / planning (supervisor + admin)
+    // ^ list art studios / planning (supervisor)
     #[Route('/supervisor/studio/dashboard', name: 'studio_dashboard')]
     #[IsGranted("ROLE_SUPERVISOR")]
     public function index_dashboard(StudioRepository $studioRepository, TimeslotRepository $timeslotRepository, Security $security): Response
@@ -184,6 +203,10 @@ class StudioController extends AbstractController
         $user = $security->getUser();
         $studios = $studioRepository->findBy([]);
         $timeslots = $timeslotRepository->findBy([]);
+        $ongoingTimeslots = $timeslotRepository->findOngoingTimeslots();
+
+        $studiosWithTimeslots = $studioRepository->findOngoingTimeslotsPerStudio();
+
 
         $formattedTimeslots = []; // formater les events pour les rendre compatibles avec FullCalendar
 
@@ -210,6 +233,8 @@ class StudioController extends AbstractController
         return $this->render('studio/supervisorDashboard.html.twig', [
             'studios' => $studios,
             'timeslots' => $timeslots, 
+            'ongoingTimeslots' => $ongoingTimeslots,
+            'studiosWithTimeslots' => $studiosWithTimeslots,
             // 'timeslotsPerStudio' => $timeslotsPerStudio,
             'formattedTimeslots' => json_encode($formattedTimeslots), // Passer les données formatées en JSON à la vue
             'user' => $user,

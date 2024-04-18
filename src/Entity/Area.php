@@ -56,7 +56,7 @@ class Area
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $quote = null;
 
-    #[ORM\OneToMany(mappedBy: 'area', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'area', targetEntity: Picture::class, cascade: ['remove'])]
     private Collection $pictures;
 
     #[ORM\Column(length: 20, nullable: true)]

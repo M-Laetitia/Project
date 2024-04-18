@@ -69,11 +69,8 @@ class PaymentController extends AbstractController
         ]);
 
         $clientSecret = $intent['client_secret'];
-        //  dump($clientSecret);die;
-
 
         if ($request->isMethod('POST') ) {
-            // dd($request);
             $firstName = $request->request->get('firstName');
             $lastName = $request->request->get('lastName');
             $address = $request->request->get('address');
@@ -101,9 +98,8 @@ class PaymentController extends AbstractController
                 'duration' => $duration,
                 ];
     
-               // remplir les autres champs:
+
                $subscription = new Subscription();
-                // $subscription = $form->getData();
                $subscription->setUser($user);
                $subscription->setInfosUser($fields);
                $subscription->setPaymentDate(new \DateTimeImmutable());

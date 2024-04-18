@@ -1,110 +1,141 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}General planning {% endblock %}
-{% block meta %}General planning {% endblock %}
+{% block title %}Supervisor - Dashboard {% endblock %}
 
 {% block body %}
 
-    <h1>General planning: </h1>
-
-    <div class="ongoing-events">
-       
-        {% for studio in studios %}
-            <div>
-                <p>{{studio.name}}</p>
-            
-            <p>Capacity: {{studio.nbRooms}}</p>
-            
-            {% for timeslot in studio.timeslots %}
-                <p>{{timeslot.startDate|formatDate}} - {{timeslot.endDate|formatDate}} - Supervisor: {{timeslot.user}} </p>
-                <ul>
-                    {% for registration in timeslot.workshopRegistrations %}
-                    
-                        <li>{{registration.firstname}} - {{registration.lastname}} - {{registration.registrationDate|formatDate}} 
-                            {# <a href="#"><i class="ri-close-circle-fill delete-btn" data-target="{{ registration.id}}"></i></a>
-                            <div class="delete-container" id="{{registration.id}}" style="display:none">
-                                <p>Are you sure you want to delete this participation? This cannot be undone.</p>
-                                <div>
-                                    <p><a href="{{ path('delete_registration_studio', {'id': registration.id }) }}"><i class="ri-check-line"></i> Confirm</a></p>
-                                    <p class="close-confirmation-btn"><i class="ri-close-fill "></i> Cancel</p>
-                                </div>
-                            </div> #}
-                        </li>
-                    {% endfor %}
-                </ul>
-                
-            {% endfor %}
-            <hr>
-            </div>
-        {% endfor %}
-    </div>
-
-
-
-
-    {% if app.user and is_granted('ROLE_SUPERVISOR') %}
-        <h2>See my planning</h2>
-        <a href="{{ path('show_planning', {'id': app.user.id }) }}">SEE</a>
-
-        <h2>Add a timeSlot</h2>
-        {# <a href="{{ path('new_timeslot', {'id': app.user.id, 'studio': 1, 'startDate': '2024-01-01', 'endDate': '2024-01-01' }) }}">ADD</a> #}
-    {% endif %}
-
-    <hr>
-    <hr>
-
-    <form method="GET" action="">
-        <label for="date">Choose a date:</label>
-        <input type="date" id="date" name="date" required>
-        <label for="studio">Choose a studio:</label>
-        <select id="studio" name="studio" required>
-            {% for studio in studios %}
-                <option id="{{studio.id}}" value="{{ studio }}" >{{ studio }}</option>
-            {% endfor %}
-        </select>
-        {# <button id="voirDispo" type="button" data-user-id="{{ app.user.id }}" data-route-url="{{ path('new_timeslot') }}">VOIR DISPO</button> #}
-        <a id="voirDispo" href="{{ path('new_timeslot', {'studioId': 1, 'selectedDate' : '2024-01-01' }) }}">
-            See available spots
-        </a>
-        
-
-
-    </form>
-
-
-    <form>
-    <label for="supervisor">Choose a supervisor:</label>
-    <select id="supervisor-filter">
-        <option value="" disabled selected>Choose a supervisor</option>
-        <option value="all">All</option>
-        {% for timeslot in timeslots %}
-            <option value="{{ timeslot.user.username }}">{{ timeslot.user.username }}</option>
-        {% endfor %}
-    </select>  
-    </form>
-
-    <form id="personalTimeslotsForm" data-user-id="{{ user.username }}">
-        <label for="personalTimeslots">Show my timeslots only</label>
-        <input type="checkbox" id="personalTimeslots" name="personalTimeslots"/>
-    </form>
     <div id="message-filter"></div>
+    <div id="detail-timeslot"></div>
+    
+    <section class="dashboard" id="dashboard-main">
+        <div id="menu-left">
+            <div id="logo-name">
+                <figure>
+                   <img src="{{ asset('images/logo150.png')}}" alt="Mosaic logo"> 
+                </figure>      
+                <p class="text-n1">MOSAIC</p>
+            </div>
 
+            <div class="separator-line"></div>
+    
+            <div id="list-menu">
+                <div class="is-active"><i class="ri-dashboard-fill "></i><p>dashboard</p></div>
+                {# <a href=""><div><i class="ri-team-fill "></i><p>Community</p></div></a> #}
+            </div>
+    
+            <div id="bottom">
+    
+            </div>
+        </div>
+    
+        <div id="content">
+    
+            <div id="top-title">
+                <p class="text-n1">dashboard<span>_</span></p>
+                <div class="separator-line"></div>
+            </div>
+    
+            <h2>Detail Studios<span>_</span></h2>
+                
+            <div class="container-all dashboard-studios">
+                <div class="container" id="studios">
+                    {% for studio in studiosWithTimeslots %}
+                    <div class="studio-details">
+                        <p class="name-studio">{{studio}} <i class="ri-add-circle-line"></i><p>
+                        <div class="wrapper" style="display: none;">
 
+                            {% if studio.timeslots is not empty %}
+                                {% for ts in studio.timeslots %}
+                                <div class="timeslot" >
+                                    <p>{{ts.date|formatDate}} | {{ts.timeSlotAvailability.StartTime|date('H:i')}} - {{ts.timeSlotAvailability.endTime|date('H:i')}} | supervisor : {{ts.user}}</p> 
+                                    <p><i class="ri-arrow-down-s-line"></i></p>
+                                </div>
 
-    <div id="detail-timeslot">
+                                <div class="participants" style="display: none;">
+                                    {% if ts.workshopRegistrations is not empty  %}
 
-    </div>
+                                        {% if ts.workshopRegistrations.count() == studio.nbRooms  %}
+                                            <p>Full</p>
+                                        {% else %}
+                                            <p>Capacity : {{ts.workshopRegistrations.count() }} / {{studio.nbRooms }}  </p>
+                                        {% endif %}
+                            
+                                        {% for inscription in ts.workshopRegistrations %}
+                                        
+                                        <p> ▸ {{inscription.firstname}} - {{inscription.lastname}}</p>
+                                        {% endfor %}
 
-    <div id="planning" data-formatted-timeslots='{{ formattedTimeslots|raw }}'></div>
+                                    {% else %}
+                                        <p>no participations</p>
+                                    {% endif %}
+                                </div>
+                                
+                                {% endfor %}
+                            {% else %}
+                                <div class="timeslot" >
+                                    <p>No timeslots</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-{{dump(formattedTimeslots)}}
+            <h2>Planning<span>_</span></h2>
+
+            <div id="actions-planning">
+                <div id="action">
+                    <p>See my planning <a href="{{ path('show_planning', {'id': app.user.id }) }}"><i class="fa-solid fa-circle-arrow-right"></i></a></p>
+                    <div>
+                        <p><i class="fa-solid fa-circle-plus"></i> Add a timeslot - select a date and a studio</p>
+                        <div>
+                            <form method="GET" action="">
+                                <label for="date">Choose a date:</label>
+                                <input type="date" id="date" name="date" required>
+                                <label for="studio">Choose a studio:</label>
+                                <select id="studio" name="studio" required>
+                                    {% for studio in studios %}
+                                        <option id="{{studio.id}}" value="{{ studio }}" >{{ studio }}</option>
+                                    {% endfor %}
+                                </select>
+                                <a id="voirDispo" href="{{ path('new_timeslot', {'studioId': 1, 'selectedDate' : '2024-01-01' }) }}">See available spots</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="filters">
+                <select id="supervisor-filter">
+                    <option value="" disabled selected>Choose a supervisor</option>
+                    <option value="all">All</option>
+                    {% set uniqueUsernames = [] %}
+                    {% for timeslot in timeslots %}
+                        {% if timeslot.user.username not in uniqueUsernames %}
+                            {% set uniqueUsernames = uniqueUsernames|merge([timeslot.user.username]) %}
+                            <option value="{{ timeslot.user.username }}">{{ timeslot.user.username }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            
+                <form id="personalTimeslotsForm" data-user-id="{{ user.username }}">
+                    <label for="personalTimeslots">Show my timeslots only</label>
+                    <input type="checkbox" id="personalTimeslots" name="personalTimeslots"/>
+                </form>
+            </div>
+
+            <div id="interactive-planning">
+                <div id="planning" data-formatted-timeslots='{{ formattedTimeslots|raw }}'></div>
+            </div>
+        </div>
+
+    </section>
+    
+    <script>
+
+    </script>
     
     <script src="{{ asset('js/planning.js') }}"></script>
-
-    <script>
-    
-    </script>
-
-
 
 {% endblock %}

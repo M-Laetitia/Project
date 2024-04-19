@@ -31,7 +31,7 @@
                  {% endfor %}
 
             </div>
-            <div id="infos-event">
+            <article id="infos-event">
                 <h2 class="text-n1">{{event.name}}<span class="">_</span></h2>
                 <p id="resume-event">{{event.description}}</p>
                 <div id="details-event">
@@ -50,7 +50,7 @@
                 <div id="btn-event">
                     <div class="button btn6"><a href="{{ path('show_event', { slug : event.slug  }) }}">LEARN MORE</a></div>
                 </div>
-            </div>
+            </article>
         </div>
     {% endfor %}
 
@@ -59,7 +59,7 @@
 <div id="previous-link">
     <p class="past-event-btn"><i class="ri-eye-close-fill"></i></p>
     <div>
-        <p>To see all our previous events </p>
+        <h3>To see all our previous events </h3>
         <a href="{{ path('app_archives')}}">check here <i class="ri-arrow-right-double-fill"></i> </a> 
     </div>
 </div>

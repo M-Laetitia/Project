@@ -32,27 +32,25 @@ CREATE TABLE IF NOT EXISTS `area` (
   `nb_rooms` int NOT NULL,
   `type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `access` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `access` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_D7943D685E237E06` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area : ~15 rows (environ)
+-- Listage des données de la table project.area : ~3 rows (environ)
 REPLACE INTO `area` (`id`, `name`, `slug`, `description`, `detail`, `quote`, `start_date`, `end_date`, `nb_rooms`, `type`, `status`, `access`) VALUES
-	(1, 'Expo 01', 'expo01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-03-15 15:54:00', '2024-03-15 18:54:00', 4, 'EXPO', 'CLOSED', 'public'),
-	(2, 'Expo 02', 'expo02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', NULL, NULL, '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'PENDING', 'public'),
-	(3, 'Quattrocento art retrospective', 'quattrocento-art-retrospective', 'Discover masterpieces from the 15th century and explore the cultural significance of this influential period. Join us as we journey through history and celebrate the creativity that defined an unforgettable era of artistic brilliance.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-02-22 20:00:00', '2024-02-22 20:09:00', 5, 'EVENT', 'OPEN', 'public'),
-	(4, 'Event 02', 'event-02', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', NULL, NULL, '2024-02-06 16:10:05', '2024-02-07 16:10:06', 12, 'EVENT', 'ARCHIVED', 'public'),
-	(8, 'Event 03', 'event-03', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum turpis sed efficitur blandit. Phasellus aliquet sem at euismod dignissim.', NULL, NULL, '2024-03-20 10:49:00', '2024-03-20 10:25:00', 10, 'EVENT', 'OPEN', 'public'),
-	(10, 'Event 05', 'event-05', 'Quisque dapibus arcu facilisis, vulputate ex non, faucibus purus. Vestibulum efficitur nunc nec ipsum volutpat interdum. Donec ultricies, nisl quis ornare sollicitudin,', NULL, NULL, '2024-12-16 17:26:09', '2024-12-16 17:26:10', 15, 'EVENT', 'PENDING', 'public'),
-	(11, 'Quattrocento art retrospective', 'quattrocento-art-retrospective', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, NULL, '2023-12-16 19:00:00', '2023-12-23 19:10:00', 10, 'EVENT', 'OPEN', 'public'),
-	(12, 'Event10', 'event10', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', NULL, NULL, '2023-12-13 19:15:00', '2023-12-21 19:15:00', 12, 'EVENT', 'ARCHIVED', 'public'),
-	(13, 'expo 10', 'expo03', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, '2023-12-18 00:06:00', '2023-12-30 00:06:00', 15, 'EXPO', 'ARCHIVED', 'public'),
-	(15, 'teSstslug 02', 'tesstslug-02', 'errrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrrerrrrrrrrrrrrr', NULL, NULL, '2023-12-24 12:15:00', '2023-12-28 12:15:00', 3, 'EVENT', 'ARCHIVED', 'public'),
-	(16, 'event 30', 'event30', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', NULL, NULL, '2025-12-23 23:15:17', '2025-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'public'),
-	(17, 'testimage', 'testimage', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-03-09 19:21:00', '2024-03-31 19:21:00', 23, 'EVENT', 'OPEN', 'public'),
-	(18, 'testimage', 'testimage', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-03-09 19:21:00', '2024-03-31 19:21:00', 23, 'EVENT', 'OPEN', 'public'),
-	(19, 'test1121212', 'test1121212', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz', NULL, NULL, '2024-04-05 19:28:00', '2024-04-12 19:29:00', 15, 'EVENT', 'OPEN', 'public'),
-	(20, 'test220', 'test220', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzz', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzzzzzzzzz', 'azzzzzzzzzzzzzzzzzzzzzzzzzzzzz', '2024-03-24 08:01:00', '2024-04-02 08:02:00', 6, 'EVENT', 'OPEN', 'public');
+	(1, 'Expo 01', 'expo01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet.auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-03-15 15:54:00', '2024-03-15 18:54:00', 4, 'EXPO', 'OPEN', 'public'),
+	(2, 'Expo 02', 'expo02', ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2023-12-06 16:08:00', '2023-12-07 16:08:00', 10, 'EXPO', 'PENDING', 'public'),
+	(3, 'Quattrocento art retrospective', 'quattrocento-art-retrospective', 'Discover masterpieces from the 15th century and explore the cultural significance of this influential period. Join us as we journey through history and celebrate the creativity that defined an unforgettable era of artistic brilliance.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-04-17 20:00:00', '2024-04-22 20:00:00', 5, 'EVENT', 'OPEN', 'public'),
+	(4, 'Event 02', 'event-02', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-02-06 16:10:05', '2024-02-07 16:10:06', 12, 'EVENT', 'OPEN', 'public'),
+	(8, 'Event 03', 'event-03', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam bibendum turpis sed efficitur blandit. Phasellus aliquet sem at euismod dignissim.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-03-20 10:49:00', '2024-03-20 10:25:00', 10, 'EVENT', 'CLOSED', 'private'),
+	(10, 'Event 05', 'event-05', 'Quisque dapibus arcu facilisis, vulputate ex non, faucibus purus. Vestibulum efficitur nunc nec ipsum volutpat interdum. Donec ultricies, nisl quis ornare sollicitudin,', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-05-16 17:26:09', '2024-05-16 17:26:10', 15, 'EVENT', 'PENDING', 'public'),
+	(11, 'event 06', 'event-06', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2023-12-16 19:00:00', '2023-12-23 19:10:00', 1, 'EVENT', 'CLOSED', 'public'),
+	(12, 'Event10', 'event10', 'uis ut urna quis turpis luctus vestibulum quis quis quam. Nullam vulputate feugiat fringilla. Etiam porttitor lectus porta erat vulputate consectetur', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2023-12-13 19:15:00', '2023-12-21 19:15:00', 12, 'EVENT', 'ARCHIVED', 'public'),
+	(13, 'expo 10', 'expo10', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2023-12-18 00:06:00', '2023-12-30 00:06:00', 15, 'EXPO', 'ARCHIVED', 'public'),
+	(15, 'Event12', 'event-12', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2023-12-24 12:15:00', '2023-12-28 12:15:00', 3, 'EVENT', 'ARCHIVED', 'public'),
+	(16, 'event 30', 'event30', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2025-12-23 23:15:17', '2025-12-27 23:15:20', 20, 'EVENT', 'ARCHIVED', 'public'),
+	(19, 'Expo12', 'expo12', 'Vivamus in nibh condimentum, egestas purus id, pretium neque. In laoreet lectus ex, mattis fermentum leo accumsan et. Sed mi lacus, interdum sed suscipit sit amet,', 'Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-04-05 19:28:00', '2024-04-12 19:29:00', 15, 'EXPO', 'OPEN', 'public');
 
 -- Listage de la structure de table project. area_area_category
 CREATE TABLE IF NOT EXISTS `area_area_category` (
@@ -65,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `area_area_category` (
   CONSTRAINT `FK_DC7F5F32BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area_area_category : ~13 rows (environ)
+-- Listage des données de la table project.area_area_category : ~10 rows (environ)
 REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(3, 1),
 	(4, 2),
@@ -76,10 +74,7 @@ REPLACE INTO `area_area_category` (`area_id`, `area_category_id`) VALUES
 	(13, 1),
 	(13, 2),
 	(15, 2),
-	(17, 2),
-	(18, 2),
-	(19, 2),
-	(20, 2);
+	(19, 2);
 
 -- Listage de la structure de table project. area_category
 CREATE TABLE IF NOT EXISTS `area_category` (
@@ -103,17 +98,17 @@ CREATE TABLE IF NOT EXISTS `area_participation` (
   `inscription_date` datetime NOT NULL,
   `area_id` int NOT NULL,
   `user_id` int DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `csrf_token` longtext COLLATE utf8mb4_unicode_ci,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `csrf_token` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `csrf_expires_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_B269FA74BD0F409C` (`area_id`),
   KEY `IDX_B269FA74A76ED395` (`user_id`),
   CONSTRAINT `FK_B269FA74A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_B269FA74BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.area_participation : ~18 rows (environ)
+-- Listage des données de la table project.area_participation : ~19 rows (environ)
 REPLACE INTO `area_participation` (`id`, `firstname`, `lastname`, `inscription_date`, `area_id`, `user_id`, `email`, `csrf_token`, `csrf_expires_at`) VALUES
 	(1, 'test', 'test', '2023-12-08 08:25:31', 11, 22, 'test@exemple.com', NULL, NULL),
 	(4, '0202', '3023', '2023-12-09 16:13:37', 4, 19, NULL, NULL, NULL),
@@ -132,7 +127,8 @@ REPLACE INTO `area_participation` (`id`, `firstname`, `lastname`, `inscription_d
 	(33, 'aaa', 'aaaa', '2024-04-07 19:26:05', 8, NULL, 'aaa@erer.com', '4394619b3e7a3c25ccb7b203774c735c826ac97dd1b1172bc6362b7a0b234c79', '2024-04-07 20:26:05'),
 	(41, 'aaa', 'aaa', '2024-04-07 19:58:06', 8, NULL, 'aaaa@fdfd.com', '5062ae4238a5837f0596828ecc719f9cc26126696b1b0a697ff63207e047e5c5', '2024-04-07 23:58:06'),
 	(42, 'aaaa', 'aaaaa', '2024-04-08 18:55:30', 8, NULL, 'aaaa@exemple.com', '9c14437b5489e2e38a70deb694304a3d9f6bc0e264ebec0a9160e05bb891a6aa', '2024-04-08 20:55:29'),
-	(43, 'aaaa', 'aaaaa', '2024-04-08 18:55:39', 8, NULL, 'aaaa@exemple.com', '361e1438a78fed45df0649a030623282ca223e271f4e97cddb27b3c225d439ef', '2024-04-08 20:55:39');
+	(43, 'aaaa', 'aaaaa', '2024-04-08 18:55:39', 8, NULL, 'aaaa@exemple.com', '361e1438a78fed45df0649a030623282ca223e271f4e97cddb27b3c225d439ef', '2024-04-08 20:55:39'),
+	(47, 'aaaaa', 'aaaaa', '2024-04-18 23:46:16', 3, NULL, 'aaaa@gfgfg.fr', 'b8bf388b60f5deadeeb8500c667eab581d8ee3f850ebcc213783d27aadbafbfa', '2024-04-19 01:46:16');
 
 -- Listage de la structure de table project. contact
 CREATE TABLE IF NOT EXISTS `contact` (
@@ -144,16 +140,40 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id`),
   KEY `IDX_4C62E638A76ED395` (`user_id`),
   CONSTRAINT `FK_4C62E638A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.contact : ~6 rows (environ)
+-- Listage des données de la table project.contact : ~30 rows (environ)
 REPLACE INTO `contact` (`id`, `name`, `icon`, `url`, `user_id`) VALUES
 	(1, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'https://www.instagram.com/audraauclair', 8),
 	(2, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'https://www.behance.com/audraauclair', 8),
 	(3, 'Twitter', '<i class="fa-brands fa-facebook"></i>', 'test@twitter.com', 21),
 	(4, 'Twitter', '<i class="fa-brands fa-facebook"></i>', 'test@instagram.com', 21),
 	(5, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'https://www.dribble.com/audraauclair', 22),
-	(6, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'https://www.twitter.com/audraauclair', 8);
+	(6, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'https://www.twitter.com/audraauclair', 8),
+	(7, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'https://milzbe@exempletwitter.com', 9),
+	(8, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'https://milzbe@exempleDribble.com', 9),
+	(9, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'https://milzbe@exempleBehance.com', 9),
+	(10, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'https://milzbe@exempleinstagram.com', 9),
+	(11, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'http://add your Twitter', 10),
+	(12, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'http://add your Dribbble', 10),
+	(13, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'http://add your Behance', 10),
+	(14, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'http://add your Instagram', 10),
+	(15, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'http://add your Twitter', 11),
+	(16, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'http://add your Dribbble', 11),
+	(17, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'http://add your Behance', 11),
+	(18, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'http://add your Instagram', 11),
+	(19, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'http://add your Twitter', 12),
+	(20, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'http://add your Dribbble', 12),
+	(21, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'http://add your Behance', 12),
+	(22, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'http://add your Instagram', 12),
+	(23, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'http://add your Twitter', 22),
+	(24, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'http://add your Behance', 22),
+	(25, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'http://add your Instagram', 22),
+	(26, 'Twitter', '<i class="fa-brands fa-twitter"></i>', 'http://add your Twitter', 20),
+	(27, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'http://add your Dribbble', 20),
+	(28, 'Behance', '<i class="fa-brands fa-square-behance"></i>', 'http://add your Behance', 20),
+	(29, 'Instagram', '<i class="fa-brands fa-instagram"></i>', 'http://add your Instagram', 20),
+	(30, 'Dribbble', '<i class="fa-brands fa-dribbble"></i>', 'http://add your Dribbble', 8);
 
 -- Listage de la structure de table project. doctrine_migration_versions
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
@@ -196,9 +216,9 @@ CREATE TABLE IF NOT EXISTS `exposition_proposal` (
 
 -- Listage des données de la table project.exposition_proposal : ~4 rows (environ)
 REPLACE INTO `exposition_proposal` (`id`, `proposal_date`, `status`, `user_id`, `area_id`) VALUES
-	(7, '2023-12-06 15:32:25', 'pending', 7, 2),
-	(14, '2023-12-17 00:56:01', NULL, 10, 1),
-	(15, '2023-12-17 00:56:15', NULL, 7, 1),
+	(7, '2023-12-06 15:32:25', 'pending', 19, 2),
+	(14, '2023-12-17 00:56:01', NULL, 8, 2),
+	(15, '2023-12-17 00:56:15', NULL, 10, 1),
 	(25, '2023-12-17 01:45:18', 'pending', 8, 1);
 
 -- Listage de la structure de table project. lesson
@@ -280,20 +300,19 @@ CREATE TABLE IF NOT EXISTS `picture` (
   KEY `IDX_16DB4F89BD0F409C` (`area_id`),
   KEY `IDX_16DB4F89446F285F` (`studio_id`),
   KEY `IDX_16DB4F891FDCE57C` (`workshop_id`),
-  CONSTRAINT `FK_16DB4F891FDCE57C` FOREIGN KEY (`workshop_id`) REFERENCES `workshop` (`id`),
-  CONSTRAINT `FK_16DB4F89446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`),
-  CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FK_16DB4F89BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `FK_16DB4F891FDCE57C` FOREIGN KEY (`workshop_id`) REFERENCES `workshop` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_16DB4F89446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_16DB4F89A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_16DB4F89BD0F409C` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.picture : ~19 rows (environ)
+-- Listage des données de la table project.picture : ~62 rows (environ)
 REPLACE INTO `picture` (`id`, `title`, `alt_description`, `path`, `user_id`, `area_id`, `type`, `is_selected`, `studio_id`, `workshop_id`) VALUES
-	(33, 'zeezezez', 'eezzeezezzze', '9dddfbc1ade9a1a9d74739fa7ce54d4b.jpg', 19, NULL, 'banner', NULL, NULL, NULL),
-	(38, 'aaaaaaaa', 'eezzeezezzze', '84589384a2766ed0ead4af48a4c99c16.jpg', 19, NULL, 'work', NULL, NULL, NULL),
-	(44, 'aaaaaaaa', 'eezzeezezzze', '5165187b7a3f2020a03f560f966e0a98.jpg', 19, NULL, 'work', NULL, NULL, NULL),
+	(33, 'zeezezez', 'eezzeezezzze', '9dddfbc1ade9a1a9d74739fa7ce54d4b.webp', 19, NULL, 'banner', NULL, NULL, NULL),
+	(38, 'flower', 'illustration of a flower with an eye in the center', '84589384a2766ed0ead4af48a4c99c16.webp', 19, NULL, 'work', NULL, NULL, NULL),
 	(45, 'bbbb6666', 'aaaaaannnnnnn', '080923a66169dbd79bb882bb4f90d65a.webp', 8, NULL, 'banner', 0, NULL, NULL),
-	(47, 'Vertige', 'Painting of a woman with green skin and three red demon birds around her.', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 8, NULL, 'work', 0, NULL, NULL),
-	(48, 'In Disguise', 'Painting of a portrait of a female demon with two pink pigtails.', '45c6cb6f5f11307813f82c4f1be6b611.webp', 8, NULL, 'work', 1, NULL, NULL),
+	(47, 'Vertige', 'Painting of a woman with green skin and three red demon birds around her.', '3762aa46e1f2e47c7c6c2e5572793a69.webp', 8, NULL, 'work', 1, NULL, NULL),
+	(48, 'In Disguise', 'Painting of a portrait of a female demon with two pink pigtails.', '45c6cb6f5f11307813f82c4f1be6b611.webp', 8, NULL, 'work', 0, NULL, NULL),
 	(49, 'Blossom', 'Painting of a woman with a red cape and flowers.', '9ae8bd3821888e44e06897584044a2d3.webp', 8, NULL, 'work', 0, NULL, NULL),
 	(50, 'Little witch', 'description', 'a36bd41b21eba83732e7b632745b24ba.webp', 8, NULL, 'work', 0, NULL, NULL),
 	(51, 'Past Memories', 'descrption', 'cdc02e2367126fb1bdf0579dde839a3c.webp', 8, NULL, 'work', 0, NULL, NULL),
@@ -304,9 +323,53 @@ REPLACE INTO `picture` (`id`, `title`, `alt_description`, `path`, `user_id`, `ar
 	(56, 'Ghost', 'description', '25ca203c9a9224b0d406a8c790eba075.webp', 8, NULL, 'work', 0, NULL, NULL),
 	(57, 'Earth', 'description', 'fd34f797b7c139e935f5456499f4896f.webp', 8, NULL, 'work', 0, NULL, NULL),
 	(58, 'Renaissance', 'description', 'ee89ace162fc06434e19e00f623f1942.webp', 8, NULL, 'work', 0, NULL, NULL),
-	(64, 'bbbbbbbb', 'bbbbbbbbb', '04d017ba0495119ebb5eb1d0e6c2f319.webp', NULL, 20, 'banner', NULL, NULL, NULL),
-	(65, 'aaaaa', 'aaaaaaaaaaaa', '5aa381cdb872deee3a3c507c0f225329.webp', NULL, 20, 'preview', NULL, NULL, NULL),
-	(67, 'aaaaa', 'aaaaaaa', '2b16053a0734a46fc98bd18a4f9689b7.webp', NULL, 20, 'picture', NULL, NULL, NULL);
+	(68, 'Cats', 'Black and white cats illustrations', '15b781b5d3e85234ae799e7fd93f5384.webp', 9, NULL, 'work', 0, NULL, NULL),
+	(69, 'Moon Card', 'a tarot card with a black cat and a moon', '1ea2c647938440d6ac615f76ab1c17de.webp', 9, NULL, 'work', 0, NULL, NULL),
+	(70, 'Butterfly', 'A linocut of a butterfly with plants around', 'bf2669471c60dc872d2595ceee04612d.webp', 9, NULL, 'work', 0, NULL, NULL),
+	(71, 'Autumn', 'Various linocut , autumn theme', '5e5a1f1f52784e2b17e56ee4771430f2.webp', 9, NULL, 'work', 0, NULL, NULL),
+	(72, 'Halloween', 'Various linocuts works on the Halloween theme', 'c9176add9c98c3e0981ac5359b447a67.webp', 9, NULL, 'work', 0, NULL, NULL),
+	(73, 'Nature', 'various linocut works with insects,  butterflies, mushrooms', '2b570ab403cf139aed4daa8e4cc4838f.webp', 9, NULL, 'work', 1, NULL, NULL),
+	(74, 'works', 'various linocuts works, nature, mushrooms, frogs', 'b97738b4e91db0a9fb0fdd04f0fd9ebf.webp', 9, NULL, 'banner', NULL, NULL, NULL),
+	(75, 'Landscapes', 'Embroidered Pendants with landscapes and sies', 'f26cf51b78e032d3f7a7503b5aa8c02c.webp', 10, NULL, 'work', 1, NULL, NULL),
+	(76, 'Little Red House', 'illustration of a little red house with big flowers', 'a15736d632f969464a5d6d42f84d5c6c.webp', 11, NULL, 'work', 0, NULL, NULL),
+	(77, 'Dragon', 'illustration of a blueish dragon with a little girl', '321e25c8fa768cc721b37b3e4e980fdd.webp', 11, NULL, 'work', 1, NULL, NULL),
+	(78, 'Journey', 'illustration of a landscape in orange tones with a horse', '0b30b3d17956f9fa6e0a38065c573e68.webp', 11, NULL, 'banner', NULL, NULL, NULL),
+	(80, 'Blossom', 'an illustration of a cracked stature of a woman with pink flowers', '43d09de3d958abf6ddbdf58bdba4d3c2.webp', 12, NULL, 'work', 1, NULL, NULL),
+	(81, 'Lantern', 'An illustration of a woman in blue tones with a lantern in her hairman', 'd2eee6f1736ac9e5637e3849f28627d3.webp', 12, NULL, 'work', 0, NULL, NULL),
+	(82, 'Spring', 'floral embroidery on removable claudine collar', '4677ee094c0602c05865340327eefc21.webp', 21, NULL, 'work', 1, NULL, NULL),
+	(83, 'Butterlies and rabbit', 'potteries with butterflies and a rabit with flowers on a blue background', '0489ee67567a2646b5391fe7d7e190bf.webp', 22, NULL, 'work', 1, NULL, NULL),
+	(85, 'Ephémère', 'Cyanotype of a photogrpahy of plants and leaves', 'c5190ccf802a2d80ac224cbd2d262660.webp', 20, NULL, 'work', 1, NULL, NULL),
+	(86, 'Statue', 'Museum with a big Renaissance statue in the middle', 'a15736d632l969464a5d6d12f84d5c6c.webp', NULL, 3, 'banner', NULL, NULL, NULL),
+	(87, 'Abstract', 'Abstract painting in orange tones', 'c5320ccf802a2d80pl224cbd2d262660.webp', NULL, 4, 'banner', NULL, NULL, NULL),
+	(88, 'Chairs', 'Modern art installations with suspended chairs', 'c5320ccf987a2d80pl224klp2d262660.webp', NULL, 8, 'banner', NULL, NULL, NULL),
+	(89, 'Neons', 'Abstract modern sculpture with blue neons', '8ml353d4dfb494d3f0c5aar2e0745b08.webp', NULL, 10, 'banner', NULL, NULL, NULL),
+	(90, 'Architecture', 'black and white minimalist space', '7b65b3f47956f9fa6e0a38065c573e68.webp', NULL, 11, 'banner', NULL, NULL, NULL),
+	(91, 'Neons', 'Abstract image with red lines on a blue background', '1458pl094c0602c05865340327eefc21.webp', NULL, 12, 'banner', NULL, NULL, NULL),
+	(92, 'Street art', 'A wall with street art and flyers', 'f75cf51b78e032d3f7a7487b5aa8c02c.webp', NULL, 15, 'banner', NULL, NULL, NULL),
+	(93, 'Shadow', 'shadow and light effect with a silhouette', '0489rt67567a2646b5391fe7d7e190bf.webp', NULL, 16, 'banner', NULL, NULL, NULL),
+	(94, 'Photography', 'A gallery with a photography exposition', '84589384a4875ed0ead4af48a4c99c16.webp', NULL, 1, 'banner', NULL, NULL, NULL),
+	(95, 'Photography', 'A gallery with a photography exposition', '745923a66169dbd79bb882bb4f90d65a.webp', NULL, 2, 'banner', NULL, NULL, NULL),
+	(96, 'Abstract Painting', 'A colorful abstract painting', '7e5a1f1f54759e2b17e56ee4771430f2.webp', NULL, 13, 'banner', NULL, NULL, NULL),
+	(97, 'Photography', 'A gallery with a photography exposition', '080923a66169dbd79bb882bb4f90d65a.webp', NULL, 19, 'banner', NULL, NULL, NULL),
+	(98, 'Painting', 'A art studio with paintings', '7cd758d4dfb494d3f0c4dcc2e0745b08.webp', NULL, NULL, 'banner', NULL, NULL, 1),
+	(99, 'Painting', 'Various paint materials', 'cdc02e2377826fb1bdf0579dde839a3c.webp', NULL, NULL, 'banner', NULL, NULL, 2),
+	(100, 'Ceramic', 'A person\'s hands doing ceramic', '88b25aa06df98c8ca9z70a61d656a060.webp', NULL, NULL, 'banner', NULL, NULL, 3),
+	(101, 'Painting', 'A person\'s hands painting tree on round ceramic plate', 'c5190azf802a2d80ac224cbd2d262660.webp', NULL, NULL, 'banner', NULL, NULL, 4),
+	(102, 'Painting', 'Multiple painting in wood frame with paint', '080923a66169dbd79bb992bb4f90d65a.webp', NULL, NULL, 'banner', NULL, NULL, 5),
+	(103, 'studio01', 'Drawing of an antique vase', '0489pm74236a2646b5391fe7d7e190bf.webp', NULL, NULL, 'preview', NULL, 1, NULL),
+	(104, 'studio02', 'Drawing of a woman buste', '88b25gh78df98c8ca9c00a61d656a060.webp', NULL, NULL, 'preview', NULL, 2, NULL),
+	(105, 'studio03', 'Drawing of portrait of man', 'c5320azf802a2d80pl789cbd2d262660.webp', NULL, NULL, 'preview', NULL, 3, NULL),
+	(106, 'studio04', 'drawing of the hands of the painting "God hand and Adam hand"', 'f26ef78b78e032d3f7a7503b5ng8c02c.webp', NULL, NULL, 'preview', NULL, 4, NULL),
+	(107, 'studio01-pic', 'wood plank with wood tools', '4677az758c0602c05865340327eefc21.webp', NULL, NULL, 'banner', NULL, 1, NULL),
+	(108, 'studio02-pic', 'Potery tools', 'c7585pmf802a2d80ac224cbd2d262660.webp', NULL, NULL, 'banner', NULL, 2, NULL),
+	(109, 'studio03-pic', 'painting tools', '7541pl094c0602c05865340327eefc21.webp', NULL, NULL, 'banner', NULL, 3, NULL),
+	(110, 'studio04-pic', 'art studio with painting materials ', '7485pl094c0602c05865340327eefc21.webp', NULL, NULL, 'banner', NULL, 4, NULL),
+	(114, 'expo10', 'art exposition with people', '27f3fccfa141336f7419774724d7e447.webp', NULL, 13, 'picture', NULL, NULL, NULL),
+	(116, 'expo10', 'art exhibition with people', '74d4d74df4a7102bf83b29c9a52bcbce.webp', NULL, 13, 'picture', NULL, NULL, NULL),
+	(117, 'expo10', 'art exhibition with people', '0a0f8579aec78a33c1fe92dc896387a5.webp', NULL, 13, 'picture', NULL, NULL, NULL),
+	(118, 'expo10', 'art exhibition with people', '294a39a1a5e0278a6a205bc49ddcf48f.webp', NULL, 13, 'picture', NULL, NULL, NULL),
+	(119, 'expo10', 'art exhibition with people', 'ff9c5e1d9a7e993d0c6af7d3974b6b59.webp', NULL, 13, 'picture', NULL, NULL, NULL),
+	(120, 'expo10', 'art exhibition with people', '042bde99a32188acf50d810befa3d309.webp', NULL, 13, 'picture', NULL, NULL, NULL);
 
 -- Listage de la structure de table project. programme
 CREATE TABLE IF NOT EXISTS `programme` (
@@ -340,10 +403,10 @@ CREATE TABLE IF NOT EXISTS `reset_password_request` (
   `expires_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_7CE748AA76ED395` (`user_id`),
-  CONSTRAINT `FK_7CE748AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_7CE748AA76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.reset_password_request : ~1 rows (environ)
+-- Listage des données de la table project.reset_password_request : ~0 rows (environ)
 REPLACE INTO `reset_password_request` (`id`, `user_id`, `selector`, `hashed_token`, `requested_at`, `expires_at`) VALUES
 	(7, 8, 'PJKIPDSiGdlcolQAgRIN', '+zHao2AFBpPjpWvSOwRna5UUyumUuPF2EOdzqvLBPvA=', '2023-12-06 12:58:36', '2023-12-06 13:58:36');
 
@@ -355,8 +418,8 @@ CREATE TABLE IF NOT EXISTS `studio` (
   `detail` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `picture` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nb_rooms` int NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `equipment` json DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -364,7 +427,7 @@ CREATE TABLE IF NOT EXISTS `studio` (
 -- Listage des données de la table project.studio : ~4 rows (environ)
 REPLACE INTO `studio` (`id`, `name`, `description`, `detail`, `picture`, `nb_rooms`, `slug`, `title`, `equipment`) VALUES
 	(1, 'Studio Calliope', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', NULL, 5, 'studio-calliope', 'incididunt ut labore et dolore magna', '["1", "2", "3"]'),
-	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 8, 'studio02', 'incididunt ut labore et dolore magna', NULL),
+	(2, 'Studio 02 ', 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', NULL, NULL, 2, 'studio02', 'incididunt ut labore et dolore magna', NULL),
 	(3, 'Studio 03', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ', NULL, NULL, 10, 'studio03', 'incididunt ut labore et dolore magna', NULL),
 	(4, 'Studio Thalie', 'lalalalalala', NULL, NULL, 5, 'studio-thalie', 'incididunt ut labore et dolore magna', NULL);
 
@@ -387,21 +450,21 @@ CREATE TABLE IF NOT EXISTS `subscription` (
 
 -- Listage des données de la table project.subscription : ~6 rows (environ)
 REPLACE INTO `subscription` (`id`, `user_id`, `subscription_type_id`, `payment_date`, `infos_user`, `infos_subscription`, `total`, `is_active`) VALUES
-	(1, 21, 1, '2024-03-01 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
-	(3, 19, 1, '2021-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
+	(1, 8, 1, '2024-04-19 18:17:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 1),
+	(3, 8, 1, '2021-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
 	(4, 19, 1, '2023-12-22 02:56:46', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 02", "price": "60.00", "duration": 60}', 60.00, 0),
-	(83, 8, 1, '2024-03-21 12:13:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
-	(84, 8, 2, '2024-03-21 13:48:43', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 02", "price": "75.00", "duration": 90}', 75.00, 0),
-	(88, 8, 3, '2024-04-07 17:45:32', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 03", "price": "280.00", "duration": 365}', 280.00, 1);
+	(83, 21, 1, '2024-03-21 12:13:06', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 01", "price": "30.00", "duration": 30}', 30.00, 0),
+	(84, 22, 2, '2024-03-21 13:48:43', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 02", "price": "75.00", "duration": 90}', 75.00, 0),
+	(88, 20, 3, '2024-04-07 17:45:32', '{"address": "20 rue des Peupliers 67200 Strasbourg", "lastname": "Kit", "firstname": "Cath"}', '{"name": "Type 03", "price": "280.00", "duration": 365}', 280.00, 0);
 
 -- Listage de la structure de table project. subscription_type
 CREATE TABLE IF NOT EXISTS `subscription_type` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` decimal(5,2) NOT NULL,
   `duration` int NOT NULL,
-  `due_date` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `due_date` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -418,7 +481,7 @@ CREATE TABLE IF NOT EXISTS `timeslot` (
   `start_date` datetime DEFAULT NULL,
   `end_date` datetime DEFAULT NULL,
   `studio_id` int DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   `time_slot_availability_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_3BE452F7446F285F` (`studio_id`),
@@ -427,19 +490,25 @@ CREATE TABLE IF NOT EXISTS `timeslot` (
   CONSTRAINT `FK_3BE452F7446F285F` FOREIGN KEY (`studio_id`) REFERENCES `studio` (`id`),
   CONSTRAINT `FK_3BE452F7A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   CONSTRAINT `FK_3BE452F7B18451A5` FOREIGN KEY (`time_slot_availability_id`) REFERENCES `time_slot_availability` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.timeslot : ~9 rows (environ)
+-- Listage des données de la table project.timeslot : ~15 rows (environ)
 REPLACE INTO `timeslot` (`id`, `date`, `start_date`, `end_date`, `studio_id`, `user_id`, `time_slot_availability_id`) VALUES
-	(1, '2024-05-15', '2024-02-12 10:00:00', '2024-02-12 11:00:00', 2, 11, 1),
-	(3, '2023-12-12', '2023-12-12 09:00:35', '2023-12-12 10:00:36', 1, 11, 2),
-	(5, '2024-02-14', '2024-02-14 14:39:32', '2024-02-14 15:39:40', 3, 12, 1),
-	(6, '2024-02-15', '2024-02-15 10:00:00', '2024-02-15 11:00:00', 2, 11, 3),
-	(7, '2024-02-15', '2024-02-15 16:00:00', '2024-02-15 17:00:00', 2, 10, 3),
-	(8, '2024-03-13', '2024-03-13 09:00:00', '2024-03-13 10:00:00', 3, 8, 2),
+	(1, '2024-04-18', '2024-04-18 16:00:00', '2024-04-18 17:00:00', 2, 8, 10),
+	(3, '2024-04-16', '2024-04-16 14:00:00', '2024-04-16 15:00:00', 1, 8, 7),
+	(5, '2024-04-16', '2024-04-16 14:00:00', '2024-04-16 15:00:00', 1, 12, 1),
+	(6, '2024-04-16', '2024-04-16 16:00:00', '2024-04-16 17:00:00', 4, 11, 3),
+	(7, '2024-04-15', '2024-04-15 09:00:00', '2024-04-15 10:00:00', 1, 10, 2),
+	(8, '2024-04-15', '2024-04-15 10:00:00', '2024-04-15 11:00:00', 3, 19, 2),
 	(9, '2024-01-30', '2024-01-30 09:00:00', '2024-01-30 10:00:00', 2, 8, 2),
 	(10, '2024-04-04', '2024-04-04 09:00:00', '2024-04-04 10:00:00', 1, 8, 2),
-	(11, '2024-05-28', '2024-05-28 10:00:00', '2024-05-28 11:00:00', 1, 8, 3);
+	(11, '2024-04-15', '2024-04-15 10:00:00', '2024-04-15 11:00:00', 1, 8, 1),
+	(13, '2024-04-19', '2024-04-19 15:00:00', '2024-04-19 16:00:00', 2, 11, 8),
+	(14, '2024-04-19', '2024-04-19 14:00:00', '2024-04-19 15:00:00', 2, 11, 7),
+	(15, '2024-04-17', '2024-04-17 10:00:00', '2024-04-17 11:00:00', 3, 9, 3),
+	(16, '2024-04-15', '2024-04-15 16:00:00', '2024-04-15 17:00:00', 2, 8, 9),
+	(17, '2024-04-19', '2024-04-19 08:00:00', '2024-04-19 09:00:00', 4, 8, 1),
+	(18, '2024-04-20', '2024-04-20 09:00:00', '2024-04-20 10:00:00', 2, 8, 2);
 
 -- Listage de la structure de table project. time_slot_availability
 CREATE TABLE IF NOT EXISTS `time_slot_availability` (
@@ -447,20 +516,25 @@ CREATE TABLE IF NOT EXISTS `time_slot_availability` (
   `start_time` time NOT NULL,
   `end_time` time NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.time_slot_availability : ~5 rows (environ)
+-- Listage des données de la table project.time_slot_availability : ~0 rows (environ)
 REPLACE INTO `time_slot_availability` (`id`, `start_time`, `end_time`) VALUES
 	(1, '08:00:00', '09:00:00'),
 	(2, '09:00:00', '10:00:00'),
 	(3, '10:00:00', '11:00:00'),
 	(4, '11:00:00', '12:00:00'),
-	(5, '12:00:00', '13:00:00');
+	(5, '12:00:00', '13:00:00'),
+	(6, '13:00:00', '14:00:08'),
+	(7, '14:00:00', '15:00:00'),
+	(8, '15:00:00', '16:00:00'),
+	(9, '16:00:00', '17:00:00'),
+	(10, '17:00:00', '18:00:00');
 
 -- Listage de la structure de table project. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
@@ -474,23 +548,23 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_profil_edit_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Listage des données de la table project.user : ~13 rows (environ)
 REPLACE INTO `user` (`id`, `email`, `username`, `password`, `roles`, `is_verified`, `slug`, `avatar`, `registration_date`, `last_login_date`, `artist_infos`, `is_published`, `last_profil_edit_date`) VALUES
-	(7, 'celeste@exemple.com', 'celeste', '$2y$13$JLmhaHe/j7US1RkvTZUi0uK9UUHnvl81GhrIBUsftIp7fwzPc3IE.', '["ROLE_USER", "ROLE_ARTIST"]', 0, 'celeste', NULL, '2023-11-29 00:28:28', '2023-12-06 17:52:56', '{"address": {"city": "Strasbourg", "street": "13 rue des cèdres", "country": "France", "postalCode": "67200"}, "category": "Illustration", "emailPro": "CathCreator@example.com", "artistName": "John Creation", "discipline": "Handcrafted Wood Artisan"}', -1, NULL),
-	(8, 'cath@exemple.com', 'audra_auclair', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, 'audra', '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-04-08 18:56:09', '{"bio": "Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.", "city": "Strasbourg", "shop": null, "quote": "Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh", "street": "12 rue des machin", "address": {"city": "Strasbourg", "street": "13 rue des Cèdres", "country": "France", "postalCode": "67200"}, "website": "http://www.audraauclair.com", "category": "Illustration", "emailPro": "AudraAuclair@exemple.com", "artistName": "Audra Auclair", "discipline": "Illustrator"}', 1, NULL),
-	(9, 'hannah@exemple.com', 'Hannah', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER"]', 0, 'hannah', NULL, '2023-12-18 09:29:52', '2023-12-16 16:11:33', NULL, 0, NULL),
-	(10, '04@exemple.com', 'Mark', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER", "ROLE_ARTIST"]', 0, 'mark', NULL, '2023-11-28 23:35:55', '2023-12-15 13:04:12', '{"address": {"city": "Strasbourg", "street": "14 rue Paul Janet", "country": "France", "postalCode": "67000"}, "category": "Design", "emailPro": "CathCreator@exemple.com", "artistName": "Cath Creation", "discipline": "Handcrafted Wood Artisan"}', 1, NULL),
-	(11, '01@exemple.com', 'test', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER"]', 0, 'test', NULL, '2023-11-29 09:26:35', NULL, NULL, NULL, NULL),
-	(12, '10@exemple.com', 'test10', '$2y$13$om0bc3.EBPL04LSaeH8CYOkeEpeGvjp/HeK8vIs3rJhRfi/nY8iyC', '["ROLE_USER"]', 0, 'test10', NULL, '2023-11-29 10:45:48', NULL, NULL, NULL, NULL),
+	(8, 'cath@exemple.com', 'audra_auclair', '$2y$13$Ug3Z3HtKEEnoNZycntkXve85NQ.tuqMvZERCdU3DnAp5jkhCynXEK', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, 'audra', '65663409444ba.jpg', '2023-10-29 09:37:39', '2024-04-18 23:50:01', '{"bio": "Hello, I’m Audra. I’m a Canadian artist whose work has spanned across many mediums. My work has been exhibited internationally in a variety of formats. My creative endeavours consist of exploring a multitude of subjects as well as attempting to express the complexities of human emotion. I enjoy blending fantastical elements and bright colours usually via painting. In my personal life, I love swimming, playing cosy games, sushi, travelling and taking photos of mushrooms in the local rainforests.", "shop": null, "quote": "I enjoy blending fantastical elements and bright colours usually via painting.", "address": {"city": "Strasbourg", "street": "42 Avenue des Vosges", "country": "France", "postalCode": "67000"}, "website": "http://www.audraauclair.com", "category": "illustration", "emailPro": "AudraAuclair@exemple.com", "artistName": "Audra_Auclair", "discipline": "Illustrator"}', 1, NULL),
+	(9, 'milzbe@exemple.com', 'milzbe', '$2y$13$.OQKZwD7aDzGhq6LGwYi/eQo6jrfQ8pHHYpRRw4V9Dwm2/zWHOGQq', '["ROLE_USER", "ROLE_ARTIST"]', 1, 'milzbe', NULL, '2023-12-18 09:29:52', '2024-04-15 14:30:16', '{"bio": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", "shop": "Milzbe Gallery", "quote": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor", "address": {"city": "Strasbourg", "street": "8 Rue du Faubourg de Pierre", "country": "France", "postalCode": "67000"}, "website": "https://milzbe.com", "category": "Illustration", "emailPro": "milzbe_artiste@exemple.com", "artistName": "milzbe", "discipline": "Illustration"}', 1, NULL),
+	(10, 'erin@exemple.com', 'saltwaterstitches', '$2y$13$s10jodTWxJhEIdIsMTFSXuSs/KV90NTRc0t8XCciuQXe4JnHU0fwK', '["ROLE_USER", "ROLE_ARTIST"]', 1, 'saltwaterstitches', NULL, '2023-11-28 23:35:55', '2024-04-15 22:26:09', '{"bio": "add your biography", "shop": "add your shop or gallery name", "quote": "add an inspirationale quote", "website": "http://add your website link", "category": "Craft", "emailPro": "saltwaterstitches@exemple.com", "artistName": "saltwaterstitches", "discipline": "Embroidery"}', 1, NULL),
+	(11, 'anastasia@exemple.com', 'anastasia_suvorova', '$2y$13$wwZEBBpLdoitVV9DkGQ2UeA0a3sSqkNh/Oi.opinjdKgqqTypyZqK', '["ROLE_USER", "ROLE_ARTIST"]', 1, 'anastasia-suvorova', NULL, '2023-11-29 09:26:35', '2024-04-15 22:39:44', '{"bio": "Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.", "shop": null, "quote": "Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh", "address": {"city": "Strasbourg", "street": "27 Quai des Bateliers", "country": "France", "postalCode": "67000"}, "website": "chaosego.com/about", "category": "Illustration", "emailPro": "anastasia@exemple.com", "artistName": "anastasia_suvorova", "discipline": "Illustration"}', 1, NULL),
+	(12, 'noxa@exemple.com', 'noxa', '$2y$13$om0bc3.EBPL04LSaeH8CYOkeEpeGvjp/HeK8vIs3rJhRfi/nY8iyC', '["ROLE_USER", "ROLE_SUPERVISOR", "ROLE_ARTIST"]', 1, 'noxa', NULL, '2023-11-29 10:45:48', '2024-04-15 22:59:22', '{"bio": "add your biography", "shop": "add your shop or gallery name", "quote": "add an inspirationale quote", "address": {"city": "Strasbourg", "street": "13 Rue des Cèdres", "country": "France", "postalCode": "67200"}, "website": "noax@artist.com", "category": "Illustration", "emailPro": "noxa@exemple.com", "artistName": "noxa", "discipline": "Illustration"}', 1, NULL),
 	(13, 'luna@exemple.com', 'Luna', '$2y$13$YPpkZAQQhMN5TcoJOqTWyeztWa1Np1CsHdx60Mq/71g5d61FFw6Sm', '["ROLE_USER", "ROLE_ADMIN"]', 1, 'luna', NULL, '2023-11-29 10:58:30', '2023-11-29 13:12:46', NULL, NULL, NULL),
-	(14, 'test@gmal.com', 'test', '$2y$13$Wx42D/YpHmrLgu1xJpEmh.WUyo44805AnSmsutKxEZo0v8Uq0Sf4m', '["ROLE_USER"]', 0, 'test', NULL, '2023-12-20 21:38:46', NULL, NULL, NULL, NULL),
-	(18, 'test@exemple.com', 'Céleste', '$2y$13$uafPhat5ZOa0ymd7YaFrbOuIy4QzFWWn/YwGi0CE2gSp295jSIp1q', '["ROLE_USER"]', 0, 'celeste', NULL, '2024-02-13 00:13:00', NULL, NULL, 0, NULL),
-	(19, 'audra@gmail.com', 'audra', '$2y$13$Ug3sz4ttKQy7hnouNHxnJ.SveE4prtH2qK98H0qu0O3fmNZ3iP5De', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, 'audra', '65cd0d0f1910b.jpg', '2024-02-13 00:14:24', '2024-03-10 22:45:53', '{"bio": "Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.", "city": "Strasbourg", "shop": null, "quote": "Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh", "street": "12 rue des machin", "address": {"city": "Strasbourg", "street": "13 rue des Cèdres", "country": "France", "postalCode": "67200"}, "website": "http://www.audraauclair.com", "category": "photography", "emailPro": "AudraAuclair@exemple.com", "artistName": "Audra Auclair", "discipline": "Illustrator"}', 1, NULL),
-	(20, 'cerrleste@exemple.com', 'test', '$2y$13$wp7F/ThHJbt9AQd3WSjhauMJ0aKBZFCIomsJwMfPq.mYffMOWOqbK', '["ROLE_USER"]', 0, 'test', NULL, '2024-03-16 09:06:19', NULL, NULL, 0, NULL),
-	(21, '0001@exemple.com', 'John', '$2y$13$OhkMxAaGNX3k6yEykI0iqOIPs7omuo4UGqetlUKTIe0EpyHTki3zy', '["ROLE_USER"]', 0, 'john', NULL, '2024-03-16 09:06:59', NULL, NULL, 0, NULL),
-	(22, '000001@exemple.com', 'john', '$2y$13$ml/2Feje/sJazdD9HiU0eOKMiDGjpEbVpb6eGazaSTvIq2NgSDd2W', '["ROLE_USER", "ROLE_SUPERVISOR"]', 0, 'john', NULL, '2024-03-16 09:07:34', NULL, NULL, 0, NULL);
+	(14, 'test02@exemple.com', 'kasey', '$2y$13$Wx42D/YpHmrLgu1xJpEmh.WUyo44805AnSmsutKxEZo0v8Uq0Sf4m', '["ROLE_USER"]', 1, 'kasey', NULL, '2023-12-20 21:38:46', '2023-11-29 13:12:46', NULL, NULL, NULL),
+	(18, 'test@exemple.com', 'Céleste', '$2y$13$uafPhat5ZOa0ymd7YaFrbOuIy4QzFWWn/YwGi0CE2gSp295jSIp1q', '["ROLE_USER"]', 1, 'celeste', NULL, '2024-02-13 00:13:00', '2023-11-29 13:12:46', NULL, 0, NULL),
+	(19, 'audra@gmail.com', 'casualPolarBear', '$2y$13$Ug3sz4ttKQy7hnouNHxnJ.SveE4prtH2qK98H0qu0O3fmNZ3iP5De', '["ROLE_USER", "ROLE_ADMIN", "ROLE_ARTIST", "ROLE_SUPERVISOR"]', 1, 'casualPolarBear', '65cd0d0f1910b.jpg', '2024-02-13 00:14:24', '2024-04-11 02:45:53', '{"bio": "Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel melit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Lorem Ipsn gravida nibh vel velit auct or aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate. Duis sed nibh vel a sit amet nibh vulputate. Lorem Ipsn vel velit auctor aliquet. Lorem Ipsn gravida nibh vel velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit.", "shop": null, "quote": "Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh", "address": {"city": "Strasbourg", "street": "15 Rue des Francs-Bourgeois", "country": "France", "postalCode": "67000"}, "website": "http://www.exemple.com", "category": "Illustration", "emailPro": "casualPolarBear@exemple.com", "artistName": "casualPolarBear", "discipline": "Illustrator"}', 1, NULL),
+	(20, 'aurore@exemple.com', 'aurore', '$2y$13$wp7F/ThHJbt9AQd3WSjhauMJ0aKBZFCIomsJwMfPq.mYffMOWOqbK', '["ROLE_USER", "ROLE_ARTIST"]', 1, 'aurore', NULL, '2024-03-16 09:06:19', '2024-04-16 11:47:42', '{"category": "photography", "emailPro": "aurore@artist.com", "artistName": "aurore", "discipline": "photography"}', 1, NULL),
+	(21, 'nnazliseyler@exemple.com', 'nnazliseyler', '$2y$13$OhkMxAaGNX3k6yEykI0iqOIPs7omuo4UGqetlUKTIe0EpyHTki3zy', '["ROLE_USER", "ROLE_ARTIST"]', 1, 'nnazliseyler', NULL, '2024-03-16 09:06:59', '2024-04-16 08:31:06', '{"category": "Textile", "emailPro": "nnazliseyler@artist.com", "artistName": "nnazliseyler", "discipline": "sewing and embroidery"}', 1, NULL),
+	(22, 'pitchpinepottery@exemple.com', 'pitchpinepottery', '$2y$13$ml/2Feje/sJazdD9HiU0eOKMiDGjpEbVpb6eGazaSTvIq2NgSDd2W', '["ROLE_USER", "ROLE_SUPERVISOR", "ROLE_ARTIST"]', 1, 'pitchpinepottery', NULL, '2024-03-16 09:07:34', '2024-04-16 09:25:18', '{"category": "Craft", "emailPro": "pitchpinepottery@artist.com", "artistName": "pitchpinepottery", "discipline": "pottery and ceramics"}', 1, NULL),
+	(24, 'exemple300@exemple.com', 'kasey', '$2y$13$v9u6JqD0AgcMr4s1xUcWH.RhuhuIOjXvhA4xuAjE8rUcHBd0ZZni6', '["ROLE_USER"]', 1, 'kasey', NULL, '2024-04-18 23:02:32', '2024-04-18 23:48:23', NULL, 0, NULL);
 
 -- Listage de la structure de table project. workshop
 CREATE TABLE IF NOT EXISTS `workshop` (
@@ -505,13 +579,14 @@ CREATE TABLE IF NOT EXISTS `workshop` (
   `picture` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_9B6F02C45E237E06` (`name`),
   KEY `IDX_9B6F02C4A76ED395` (`user_id`),
   CONSTRAINT `FK_9B6F02C4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Listage des données de la table project.workshop : ~5 rows (environ)
+-- Listage des données de la table project.workshop : ~0 rows (environ)
 REPLACE INTO `workshop` (`id`, `name`, `description`, `detail`, `quote`, `start_date`, `end_date`, `nb_rooms`, `picture`, `status`, `user_id`, `slug`) VALUES
 	(1, 'Workshop01', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', ' Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. ', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2024-02-25 10:06:39', '2024-02-28 10:06:42', 10, NULL, 'OPEN', 8, 'workshop01'),
 	(2, 'Workshop02', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat in fermentum posuere urna nec tincidunt. Sit amet mauris commodo quis imperdiet massa tincidunt. Penatibus et magnis dis parturient montes.', 'Hendrerit dolor magna eget est lorem ipsum dolor. Penatibus et magnis dis parturient montes nascetur ridiculus mus. Elit duis tristique sollicitudin nibh sit amet. Amet justo donec enim diam. Velit ut tortor pretium viverra suspendisse potenti nullam ac tortor. Nulla pellentesque dignissim enim sit amet. Sit amet mauris commodo quis imperdiet. Fermentum posuere urna nec tincidunt praesent semper feugiat. Nisi vitae suscipit tellus mauris a. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor. Massa ultricies mi quis hendrerit dolor magna eget. Magna fringilla urna porttitor rhoncus dolor purus non enim praesent. Ac tortor vitae purus faucibus ornare suspendisse sed. Eget mi proin sed libero enim sed faucibus turpis in. Sem et tortor consequat id porta nibh venenatis. Dolor sit amet consectetur adipiscing elit pellentesque habitant. Eget duis at tellus at urna. Bibendum neque egestas congue quisque egestas. Suspendisse ultrices gravida dictum fusce ut.', 'Velit auctor aliquet. Aene sollic consequat ipsutis sem nibh id elit. Duis sed nibh vel a sit amet nibh', '2023-12-20 10:07:44', '2023-12-25 10:07:45', 8, NULL, 'OPEN', 8, 'workshop02'),

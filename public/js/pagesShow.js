@@ -1,6 +1,17 @@
 
 // ^ ANIMATION FOR DETAIL (SHOW) PAGE
 if (document.getElementById('event-show')) {
+
+    $(document).ready(function() {
+        //  trigger the display of images while scrolling through the page
+        $(window).scroll(function() {
+            $('#text-gallery:not(.visible), .artist-container:not(.visible) ').each(function() {
+                if ($(this).offset().top < $(window).scrollTop() + $(window).height() - 100) {
+                    $(this).addClass('visible');
+                }
+            });
+        });
+    });
     
     gsap.from('#header', { opacity: 0, duration: 1.2, delay: 1 });  
     
@@ -167,3 +178,4 @@ if (document.getElementById('artist-show')) {
         setTimeout(animateDetailsEvent, 1000);
     });
 }
+

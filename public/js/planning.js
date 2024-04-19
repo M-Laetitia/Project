@@ -16,17 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek', // Afficher la vue par semaine
+        allDaySlot: false,
         slotDuration: '00:30:00', // Durée des créneaux horaires (30 minutes)
         slotLabelInterval: '01:00', // Interval entre chaque libellé de créneau horaire (1 heure)
         businessHours: { // Définir les heures de travail (8h à 23h)
             daysOfWeek: [1, 2, 3, 4, 5, 6], // Lundi à vendredi
             startTime: '08:00', // Commence à 8h
-            endTime: '23:00' // Se termine à 23h
+            endTime: '19:00' // Se termine à 23h
           },
           slotMinTime: '08:00', // La première heure affichée est 8h
-          slotMaxTime: '23:00', // La dernière heure affichée est 23h
+          slotMaxTime: '19:00', // La dernière heure affichée est 18h
 
         events: formattedTimeslots,
+        height: 850,
+
 
         eventClick: function(info) {
             const studio = info.event.extendedProps.studio;
@@ -96,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         eventClassNames: function(arg) {
             // Ajouter une classe CSS pour les jours d'events
-            return ['event-day'];
+            return ['timeslots-case'];
         }  
         
     });
@@ -156,4 +159,120 @@ document.addEventListener('DOMContentLoaded', function() {
     
     calendar.render();
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const calendarEl = document.getElementById('planning2'); 
+    
+    // Récupérer la chaîne JSON de l'attribut data-formatted-events
+    const formattedTimeslotsString = document.getElementById('planning2').getAttribute('data-formatted-timeslots');
+
+    // récupérer sous forme de tableau:
+    const formattedTimeslots = JSON.parse(formattedTimeslotsString);
+
+    // formatter les dates 
+    formattedTimeslots.forEach(timeslot => {
+        timeslot.start = new Date(timeslot.start);
+        timeslot.end = new Date(timeslot.end);
+      
+    });
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek', // Afficher la vue par semaine
+        allDaySlot: false,
+        slotDuration: '00:30:00', // Durée des créneaux horaires (30 minutes)
+        slotLabelInterval: '01:00', // Interval entre chaque libellé de créneau horaire (1 heure)
+        businessHours: { // Définir les heures de travail (8h à 23h)
+            daysOfWeek: [1, 2, 3, 4, 5, 6], // Lundi à vendredi
+            startTime: '08:00', // Commence à 8h
+            endTime: '19:00' // Se termine à 23h
+          },
+          slotMinTime: '08:00', // La première heure affichée est 8h
+          slotMaxTime: '19:00', // La dernière heure affichée est 18h
+
+        events: formattedTimeslots,
+        height: 650,
+
+
+        eventClick: function(info) {
+            const studio = info.event.extendedProps.studio;
+            const supervisor = info.event.extendedProps.supervisor;
+            const enlisted = info.event.extendedProps.enlisted;
+            const capacity = info.event.extendedProps.capacity;
+            const start = info.event.extendedProps.start;
+            const end = info.event.extendedProps.end;
+            const enlistedUsers = info.event.extendedProps.enlistedUsers;
+            const idTimeslot = info.event.extendedProps.id;
+            
+
+            let enlistedUsersString = '';
+            for (let i = 0; i < enlistedUsers.length; i++) {
+                // Ajoutez chaque utilisateur à la chaîne avec un saut de ligne
+                enlistedUsersString += enlistedUsers[i] + '<br>';
+            }
+
+            const detailTimeslot = document.getElementById('detail-timeslot');
+
+            detailTimeslot.innerHTML = 
+                'studio: '+ studio + '<br>' +
+                'Time:' + start + ' - ' + end + '<br>'+
+                'Supervisor:' + supervisor + '<br>'+
+                'Capacity:' + enlisted / capacity + '<br>'+
+                'idTimeslot:' + idTimeslot + '<br>'+
+                'Enlisted: <br>' + enlistedUsersString ;
+        },
+
+        timeZone: 'UTC', 
+        
+
+        eventContent: function(arg) {
+            const studio = arg.event.extendedProps.studio;
+            const supervisor = arg.event.extendedProps.supervisor;
+            const enlisted = arg.event.extendedProps.enlisted;
+            const capacity = arg.event.extendedProps.capacity;
+            const idTimeslot = arg.event.extendedProps.idTimeslot;
+        
+            // Générer une classe CSS dynamiquement à partir du nom du studio
+            const studioName = `studio-${studio.replace(/\s+/g, '-').toLowerCase()}`;
+        
+            // Créer un élément div pour contenir le contenu de l'événement
+            const content = document.createElement('div');
+            content.innerHTML = `<div>${studio} </div>`;
+        
+            // Utiliser une condition ternaire  pour choisir le contenu en fonction de la condition
+            const htmlContent = (enlisted == capacity) ? 
+            `<div class="">${studio} <i class="fa-solid fa-lock"></i></div>`:
+            `<div class=""><a href="studio/${idTimeslot}/new">${studio}</a></div>` ; 
+           
+
+        content.innerHTML = htmlContent;
+
+            // Retourner le contenu de l'événement avec les informations de studio et de professeur
+            return {
+                html: content.innerHTML,
+                // Ajouter la classe CSS dynamique du studio à l'événement
+                classList: [studioName]
+            };
+        },
+
+        eventDidMount: function(arg) {
+            // Ajouter une classe à la div de l'événement
+            const studio = arg.event.extendedProps.studio;
+            const studioName = `${studio.replace(/\s+/g, '-').toLowerCase()}`;
+
+            // Ajouter la classe CSS dynamique à la div de l'événement
+            const eventDiv = arg.el;
+            eventDiv.classList.add(studioName);
+        },
+    
+        eventClassNames: function(arg) {
+            // Ajouter une classe CSS pour les jours d'events
+            return ['timeslots-case'];
+        }  
+        
+    });
+
+    
+    calendar.render();
+});
+
+
 

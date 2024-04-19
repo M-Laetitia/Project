@@ -26,7 +26,7 @@
                     <p>Engage in a <strong> creative journey</strong> with us <br> and 
                         spark your <strong> artistic spirit</strong>. <br>
                         <span class="highlight-text">C</span>reate.  <span class="highlight-text">C</span>onnect.  <span class="highlight-text">E</span>xplore.</p>
-                        <a href="{{path('app_workshop') }}"><div class="button btn6">DISCOVER</div></a>
+                        {# <a href="{{path('app_workshop') }}"><div class="button btn6"></div></a> #}
                 </div>
             </div>
             
@@ -118,43 +118,45 @@
 
             <div class="image">
                 <figure>
-                    <img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
+                    <img src="{{asset('/images/activity/archived/banner/event3.webp')}}" alt="Museum gallery with a Renaissance statue in the middle"></a>
                 </figure>
                 <div class="infos">
                     <div>
-                        <p>10.02.2025</p>
+                        <p>13.05.2024</p>
+                        <p>Event</p>
+                    </div>
+                    <h4>QUATTROCENTO ART RETROSPECTIVE<span>_</span></h4>
+                    <a href="{{ path('show_event', { slug : 'quattrocento-art-retrospective'  }) }}"><button>View more</button></a>
+                </div>
+            </div>
+
+            <div class="image">
+                <figure>
+                    <img src="{{asset('/images/activity/archived/banner/workshop1.webp')}}" alt="Art studio with paintings"></a>
+                </figure>
+                <div class="infos">
+                    <div>
+                        <p>25.02.2024</p>
+                        <p>Workshop</p>
+                    </div>
+                    <h4>WORKSHOP01<span>_</span>
+                    <span style="color:transparent;">aaaaaaaaaaaaa</span></h4>
+                    <a href="{{ path('show_workshop', { slug : 'workshop01'  }) }}"><button>View more</button></a>
+                </div>
+            </div>
+
+            <div class="image">
+                <figure>
+                    <img src="{{asset('/images/activity/archived/banner/exposition1.webp')}}" alt="Black and white photography of gallery with photos on the walls"></a>
+                </figure>
+                <div class="infos">
+                    <div>
+                        <p>15.03.2024</p>
                         <p>Exposition</p>
                     </div>
-                    <h4>Name of expo<span>_</span></h4>
-                    <button>View more</button>
-                </div>
-            </div>
-
-            <div class="image">
-                <figure>
-                    <img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
-                </figure>
-                <div class="infos">
-                    <div>
-                        <p>10.02.2025</p>
-                        <p>event</p>
-                    </div>
-                    <h4>Name of event<span>_</span></h4>
-                    <button>View more</button>
-                </div>
-            </div>
-
-            <div class="image">
-                <figure>
-                    <img src="{{ asset('images/event_img.jpg') }}" alt=""></a>
-                </figure>
-                <div class="infos">
-                    <div>
-                        <p>10.02.2025</p>
-                        <p>workshop</p>
-                    </div>
-                    <h4>Name of workshop<span>_</span></h4>
-                    <button>View more</button>
+                    <h4>EXPO 01<span>_</span>
+                    <span style="color:transparent;">aaaaaaaaaaaaa</span></h4>
+                    <a href="{{ path('show_exposition', { slug : 'expo01'  }) }}"><button>View more</button></a>
                 </div>
             </div>
         </div>

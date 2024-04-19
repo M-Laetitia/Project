@@ -23,9 +23,16 @@
     
     <section class="" id="studio-show">
         <header id="background-studio">
-            <figure>
-                <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt=""
+
+            {% for picture in studio.pictures %}
+            {% if picture.type == 'banner' %}
+                <figure>
+                <img src="{{ asset('images/activity/studio/' ~ studio.id ~ '/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
             </figure>
+            {% endif %}
+            
+             {% endfor %}
+
         </header>
 
         <div id="details-studio">

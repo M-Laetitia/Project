@@ -20,6 +20,19 @@ $(document).ready(function() {
   });
 
 
+// ^ supervisor dashboard - toggle timeslots / participants 
+if(document.querySelector('.timeslot')) {
+    $(document).ready(function() {
+        $('.ri-add-circle-line').click(function() {
+            $(this).closest('.studio-details').find('.wrapper').slideToggle(200);
+        });
+    
+        $('.ri-arrow-down-s-line').click(function() {
+            $(this).closest('.timeslot').next('.participants').slideToggle(200);
+        });
+    });
+}
+
 // ^ Artist page Carousel 
 
 document.addEventListener('DOMContentLoaded', function() {

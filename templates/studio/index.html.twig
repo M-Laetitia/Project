@@ -61,10 +61,14 @@
                 <div id="{{studio.slug}}" class="studio-container">
                     <div class="studio-content">
     
-                        <figure>
-                            <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
-                        </figure>
-    
+                        {% for picture in studio.pictures %}
+                            {% if picture.type == 'preview' %}
+                                <figure>
+                                <img src="{{ asset('images/activity/studio/' ~ studio.id ~ '/preview/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
+                                </figure>
+                            {% endif %}
+                         {% endfor %}
+                         
                         <div></div>
             
                         <div class="info-studio">
@@ -96,12 +100,15 @@
                             <div class="button btn6"><a class="event-link" href="{{ path('show_studio', {slug : studio.slug }) }}">SEE MORE</a></div>
                             
                         </div>
-    
                         <div></div>
-            
-                        <figure>
-                            <img src="{{ asset('images/studios/woodStudio.jpg') }}" alt="">
-                        </figure>
+                        {% for picture in studio.pictures %}
+                            {% if picture.type == 'preview' %}
+                                <figure>
+                                <img src="{{ asset('images/activity/studio/' ~ studio.id ~ '/preview/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
+                                </figure>
+                            {% endif %}
+                         {% endfor %}
+                        
                     </div>
                 </div>
             {% endif %}

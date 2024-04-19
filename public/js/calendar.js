@@ -21,6 +21,13 @@
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             events: formattedEvents,
+            dayMaxEventRows: 1,
+
+            eventContent: function(arg) {
+                return {
+                    html: arg.event.title
+                };
+            },
 
             // eventTextColor: 'black', 
             eventClassNames: function(arg) {

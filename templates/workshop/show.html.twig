@@ -183,7 +183,11 @@
         
     {% endif %}
         {% else %}
-            <p>You must register to be able to participate</p>
+        <div id="btn-event">
+            <div class="button btn-off">PARTICIPATE</div>
+            <p>You must <a href="{{ path('app_subscription') }}">register to be able to participate</p></a>
+        </div>
+            
         {% endif %}
 
 

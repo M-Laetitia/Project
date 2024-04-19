@@ -23,10 +23,14 @@
 <section class="" id="event-show">
         <div id="header">
                 {% for picture in area.pictures %}
+                {% if picture.type != 'picture' %}
                         <figure>
                         <img src="{{ asset('images/activity/expo/' ~ area.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                         </figure>
+                {% endif %}
                 {% endfor %}
+                        
+                
                 <div id="quote">
                         <span id="quote-style"><</span>
                         <p id="quote-text"> {{area.quote}}</p>
@@ -123,10 +127,29 @@
                 {% endif %}
                 {% endif %}
 
-               
-                        
                 
         </div>       
+    </section>
+
+    <section style="margin-top: 6rem;" id="gallery">
+        <h3  id="text-gallery"class="text-n2">Memories from this expositions<span>_</span></h3>
+        <div id="images">
+
+            {% for image in area.pictures %}
+                {% if image.type == "picture" %}
+            <div class="artist-container ">
+                <figure>
+                    <div id="hover2">
+                        <img src="{{asset('images/artists/' ~ area.slug ~'/works/mini/500x500-') ~ image.path }}" alt="{{image.altDescription}}">
+
+                        <p id="text2"> {{image.title}}<span>_</span> </p>
+                    </div>
+                </figure>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
     </section>
 
 

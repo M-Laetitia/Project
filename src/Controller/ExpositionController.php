@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Area;
 use App\Entity\User;
+use App\Entity\Picture;
 use App\Form\ExpositionType;
 use App\Form\PictureFormType;
 use App\Service\MailerService;
+use App\Service\PictureService;
 use App\Entity\ExpositionProposal;
 use App\Repository\AreaRepository;
 use App\Form\AreaParticipationType;
@@ -167,7 +169,9 @@ class ExpositionController extends AbstractController
         ]);
     }
 
+
     // ^ Show detail expo (user)
+    #[Route('archived/expostion/{slug}', name: 'show_archived_expostion')]
     #[Route('/exposition/{slug}', name: 'show_exposition' )]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService ): Response 
     {
@@ -266,9 +270,9 @@ class ExpositionController extends AbstractController
 
     // ^create new expo (admin)
     #[Route('/dashboard/expo/new', name:'new_expo' , priority:1)]
-    #[Route('/dashboard/expo/{slug}/edit', name:'edit_expo')]
+    #[Route('/dashboard/expo/{id}/edit', name:'edit_expo')]
     #[IsGranted("ROLE_ADMIN")]
-    public function new_edit_Expo(Area $area = null, Request $request, PictureRepository $pictureRepo, EntityManagerInterface $entityManager ) : Response
+    public function new_edit_Expo(Area $area = null, Request $request, PictureRepository $pictureRepo, PictureService $pictureService, EntityManagerInterface $entityManager ) : Response
     {
         $isNewEvent = !$area;
 
@@ -443,7 +447,7 @@ class ExpositionController extends AbstractController
                  $entityManager->flush();   
                  
                  $this->addFlash('success', 'Your picture has been successfully added');
-                 return $this->redirectToRoute('edit_event', ['slug' => $area->getSlug()]);
+                 return $this->redirectToRoute('edit_expo', ['id' => $area->getId()]);
              }           
          
 
@@ -463,6 +467,7 @@ class ExpositionController extends AbstractController
             'picturesGallery' => $picturesGallery,
             'previewExists' => $previewExists,
             'formAddPictureGallery' => $formPicture,
+            'area' => $area,
 
 
         ]);

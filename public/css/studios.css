@@ -807,6 +807,10 @@ html {
 #studios-index {
   margin-bottom: 10rem;
 }
+#studios-index #planning-container {
+  width: 50%;
+  margin: 0rem auto 3rem auto;
+}
 #studios-index #studio-links {
   display: flex;
   align-items: center;
@@ -900,7 +904,9 @@ html {
   position: relative;
 }
 #studios-index #studios-container .color01:after {
-  background-image: url("../images/test02.png");
+  background-image: url("../images/visuals/studio02.webp");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 }
 #studios-index #studios-container .color01 .info-studio {
   color: #151515 !important;
@@ -925,14 +931,36 @@ html {
   position: relative;
 }
 #studios-index #studios-container .color02:after {
-  background-image: url("../images/test01.png");
+  background-image: url("../images/visuals/studio01.webp");
   transform: scaleX(-1);
+  background-repeat: no-repeat;
+  background-size: auto 100%;
 }
 #studios-index #studios-container .color03 {
   position: relative;
 }
 #studios-index #studios-container .color03:after {
-  background-image: url("../images/test03.png");
+  background-image: url("../images/visuals/studio03.webp");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+}
+
+#background-studio {
+  position: relative;
+}
+#background-studio:after {
+  background-image: url("../images/visuals/studio01.webp");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  position: relative;
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  opacity: 0.4;
 }
 
 @media screen and (min-width: 320px) and (max-width: 900px) {
@@ -996,6 +1024,21 @@ html {
     position: relative;
   }
 }
+#studio-show .expo-participate {
+  margin-top: 3rem !important;
+}
+#studio-show .expo-participate .btn-event {
+  margin-bottom: 1rem;
+}
+#studio-show #timeslots-list {
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+  border-left: 4px solid #207E93;
+}
+#studio-show #timeslots-list div {
+  margin-left: 1rem;
+}
 #studio-show header {
   background-color: #151515;
   height: 40rem;
@@ -1010,6 +1053,8 @@ html {
   width: 65%;
   height: 100%;
   background-color: grey;
+  z-index: 1;
+  position: relative;
 }
 #studio-show #details-studio {
   display: grid;

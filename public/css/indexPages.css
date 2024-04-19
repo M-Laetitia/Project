@@ -862,6 +862,42 @@ html {
   position: absolute;
 }
 
+#previous-link {
+  width: 70%;
+  margin: auto;
+  padding-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  column-gap: 0.4rem;
+}
+#previous-link a {
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  color: #207E93;
+  transition: ease-in-out 0.3s;
+}
+#previous-link a i {
+  transition: ease-in-out 0.3s;
+  display: inline-block;
+}
+#previous-link a:hover {
+  color: #eeaf42;
+}
+#previous-link a:hover i {
+  transform: translateX(5px);
+}
+#previous-link .past-event-btn {
+  margin-right: 0.6rem;
+  background-color: #eeaf42;
+  display: inline-block;
+  padding: 0.6rem;
+  border-radius: 0.3rem;
+  color: #151515;
+  transition: ease-in-out 0.3s;
+}
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   #events-index .container-event {
     display: flex;
@@ -901,6 +937,9 @@ html {
     position: inherit;
     margin-top: 2rem;
   }
+  #previous-link {
+    width: 85%;
+  }
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
   #events-index .container-event {
@@ -939,6 +978,9 @@ html {
     bottom: 0;
     position: inherit;
     margin-top: 2rem;
+  }
+  #previous-link {
+    width: 85%;
   }
 }
 #event-show #header {

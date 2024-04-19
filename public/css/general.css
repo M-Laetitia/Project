@@ -35,14 +35,6 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
-.ri-eye-close-fill {
-  transition: ease-in-out 0.2s;
-}
-
-.ri-eye-close-fill:hover {
-  color: rgb(105, 180, 230);
-}
-
 .btn {
   margin: 0.8rem 0 0.8rem 0;
   background-color: rgb(240, 189, 47);
@@ -271,23 +263,6 @@
   transition: color 0.3s ease-in-out;
 }
 
-.past-event-btn {
-  margin: 0.8rem 0 0.8rem 0;
-  background-color: rgb(240, 189, 47);
-  display: inline-block;
-  padding: 0.4rem;
-  color: white;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  transition: ease-in-out 0.3s;
-}
-.past-event-btn:hover {
-  background-color: rgb(25, 24, 27);
-}
-.past-event-btn .ri-eye-fill {
-  color: white;
-}
-
 .ongoing-events, .past-events {
   line-height: 1.4;
 }
@@ -364,7 +339,6 @@
   filter: none;
 }
 
-/**/
 #artists-container2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

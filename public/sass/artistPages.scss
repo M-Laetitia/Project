@@ -365,39 +365,41 @@ img {
             }
         }
     }
-    #gallery {
-        width: $content-width;
-        margin: auto;
-        h3 {
-            margin-bottom: 3rem;
-            span {
-                color: $secondary-color3;
-            }
-        }
-        #images {
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5rem;
+   
 
-            picture {
-                width: 23.5rem;
-                height: 23.5rem;
-                background-color: grey;
-                overflow: hidden; 
-                cursor: pointer;
-                
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transition: transform 1s ease;
-                }
+    
+}
+
+#gallery {
+    width: $content-width;
+    margin: auto;
+    h3 {
+        margin-bottom: 3rem;
+        span {
+            color: $secondary-color3;
+        }
+    }
+    #images {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5rem;
+
+        picture {
+            width: 23.5rem;
+            height: 23.5rem;
+            background-color: grey;
+            overflow: hidden; 
+            cursor: pointer;
+            
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 1s ease;
             }
         }
     }
-
-    
 }
 
 .artist-container {

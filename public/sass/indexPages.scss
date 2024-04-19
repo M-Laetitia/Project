@@ -98,6 +98,48 @@
     }
 }
 
+#previous-link {
+    width: $content-width;
+    margin: auto; 
+    padding-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    column-gap: 0.4rem;
+ 
+    a {
+     text-transform: uppercase;
+     font-size: 1.2rem;
+     color: $secondary-color3;
+     transition: $transition-basic;
+        i {
+            transition: $transition-basic;
+            display: inline-block;
+        }
+
+        &:hover {
+            color: $secondary-color;
+        }
+
+        &:hover i {
+            transform: translateX(5px);
+        }
+    }
+
+
+    .past-event-btn {
+        margin-right: 0.6rem;
+        background-color: $secondary-color;
+        display: inline-block;
+        padding: 0.6rem;
+        border-radius: 0.3rem;
+        color: $main-black-color;
+        transition: ease-in-out 0.3s;
+    }
+   
+}
+
 //&  ---------------------------------
 //&   ██████  ██    ██ ███████ ██████  ██ ███████ ███████ 
 //~  ██    ██ ██    ██ ██      ██   ██ ██ ██      ██      
@@ -156,6 +198,10 @@
         position:inherit; 
         margin-top: 2rem;
     }  
+
+    #previous-link {
+        width: 85%;
+    }
 }
 
 // & MEDIUM SCREEN
@@ -204,7 +250,11 @@
         bottom: 0;
         position:inherit; 
         margin-top: 2rem;
-    }  
+    }
+    
+    #previous-link {
+        width: 85%;
+    }
 }
 
 

@@ -34,22 +34,29 @@
 
             {% if latestEvent.type is defined and latestEvent.type == 'EVENT' %}
                 {% for picture in latestEvent.pictures %}
+
+                {% if picture.type != 'picture' %}
                 <figure>
                     <img src="{{ asset('images/activity/event/' ~ latestEvent.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                 </figure>
+                {% endif %}
                 {% endfor %}
             
             {% elseif latestEvent.type is defined and latestEvent.type == 'EXPO' %}
                 {% for picture in latestEvent.pictures %}
+                {% if picture.type != 'picture' %}
                 <figure>
                     <img src="{{ asset('images/activity/expo/' ~ latestEvent.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                 </figure>
+                {% endif %}
                 {% endfor %}
             {% else %}
                 {% for picture in latestEvent.pictures %}
+                {% if picture.type != 'picture' %}
                 <figure>
                     <img src="{{ asset('images/activity/workshop/' ~ latestEvent.id ~ '/banner/' ~ picture.path) }}" alt="{{ picture.altDescription }}"></a>
                 </figure>
+                {% endif %}
                 {% endfor %}
                
             {% endif %}
@@ -123,7 +130,7 @@
                             '</figure>' +
                             '<div class="content">' +
                             '<p class="type">' + eventType + '</p>' +
-                            '<h2 class="text-n2">' + item.name + '<span>_</span></h2>' +
+                            '<h2 class="text-n2"><a href="/archived/expostion/' + item.slug + '">' + item.name + '</a><span>_</span></h2>' +
                             '<p>' + item.startDate + ' <span> | </span> ' + item.endDate + '</p>' +
                             '</div>' +
                             '</div>';
@@ -136,6 +143,8 @@
                 }
             });
         }
+
+        
     
         $('#showAllWorkshops').click(function() {
             toggleEvents('/all-past-workshops');

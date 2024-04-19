@@ -35,7 +35,7 @@
                 <h2 class="text-n1">{{event.name}}<span class="">_</span></h2>
                 <p id="resume-event">{{event.description}}</p>
                 <div id="details-event">
-                    <p><span>Date : </span> {{event.startDate|formatDate}} <span>|</span> {{event.startDate|date('H:i')}} - {{event.endDate|date('H:i')}}</p> 
+                    <p><span>Date : </span> {{event.startDate|formatDate}} <span>|</span> {{event.startDate|date('H:i')}}</p> 
                     <p><span>Statut : </span>
                         <span class="status {{ event.status == 'OPEN' ? 'open' : 
                         (event.status == 'CLOSED' ? 'closed' : 

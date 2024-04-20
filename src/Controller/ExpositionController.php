@@ -171,7 +171,7 @@ class ExpositionController extends AbstractController
 
 
     // ^ Show detail expo (user)
-    #[Route('archived/expostion/{slug}', name: 'show_archived_expostion')]
+    #[Route('archived/expostion/{slug}', name: 'show_archived_exposition')]
     #[Route('/exposition/{slug}', name: 'show_exposition' )]
     public function show(Area $area = null, AreaParticipationRepository $areaParticipationRepository, Security $security, Request $request, EntityManagerInterface $entityManager, MailerService $mailerService ): Response 
     {

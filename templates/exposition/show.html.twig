@@ -131,26 +131,33 @@
         </div>       
     </section>
 
-    <section style="margin-top: 6rem;" id="gallery">
-        <h3  id="text-gallery"class="text-n2">Memories from this expositions<span>_</span></h3>
-        <div id="images">
+        {% if app.request.attributes.get('_route') == 'show_archived_exposition' %}
 
-            {% for image in area.pictures %}
-                {% if image.type == "picture" %}
-            <div class="artist-container ">
-                <figure>
-                    <div id="hover2">
-                        <img src="{{asset('images/artists/' ~ area.slug ~'/works/mini/500x500-') ~ image.path }}" alt="{{image.altDescription}}">
+        <section style="margin-top: 6rem;" id="gallery">
+                <h3  id="text-gallery"class="text-n2">Memories from this expositions<span>_</span></h3>
+                <div id="images">
 
-                        <p id="text2"> {{image.title}}<span>_</span> </p>
-                    </div>
-                </figure>
-            </div>
-            {% endif %}
-            {% endfor %}
+                {% for image in area.pictures %}
+                        {% if image.type == "picture" %}
+                <div class="artist-container ">
+                        <figure>
+                        <div id="hover2">
+                                <img src="{{asset('images/artists/' ~ area.slug ~'/works/mini/500x500-') ~ image.path }}" alt="{{image.altDescription}}">
 
-        </div>
-    </section>
+                                <p id="text2"> {{image.title}}<span>_</span> </p>
+                        </div>
+                        </figure>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                </div>
+        </section>
+        {% endif %}
+
+
+    
+
 
 
     <script src= "{{ asset('js/pagesShow.js') }}"></script>
